@@ -9,8 +9,8 @@ export default {
     entry: './client/index.tsx',
     output: {
         path: BUILD_PATH,
-        filename: '[name].[contenthash].bundle.js',
-        chunkFilename: '[name].[contenthash].bundle.js',
+        filename: 'static/js/[name].[contenthash:8].bundle.js',
+        chunkFilename: 'static/js/[name].[contenthash:8].bundle.js'
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
@@ -27,7 +27,6 @@ export default {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '../',
                             hmr: config.get('environment') === 'development',
                         },
                     },
@@ -38,7 +37,7 @@ export default {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
                 loader: 'url-loader',
                 options: {
-                    name: 'static/media/[name].[contenthash].[ext]',
+                    name: 'static/media/[name].[contenthash:8].[ext]',
                     limit: 8192
                 }
             },
@@ -51,8 +50,8 @@ export default {
             template: "./public/index.html"
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[id].[contenthash].css',
+            filename: 'static/css/[name].[contenthash:8].css',
+            chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
             ignoreOrder: false
         }),
     ]

@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -19,7 +19,5 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": [
-    "client"
-  ]
+  "exclude": ["node_modules"]
 }
