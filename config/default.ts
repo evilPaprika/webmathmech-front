@@ -1,3 +1,4 @@
 export default {
-    environment: 'development'
+    environment: 'development',
+    port: process.env.PORT || 3000
 };
