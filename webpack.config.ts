@@ -3,18 +3,22 @@ import config from 'config';
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
-const BUILD_PATH = path.resolve(__dirname, 'build');
+const BUILD_PATH = path.resolve('build', 'static');
+const idDevMode = config.environment === 'development';
+const hashTemplate = idDevMode ? '' : '.[contenthash:8]'; // hmr doesn't work with hashes
 
 export default {
-    entry: './client/index.tsx',
+    entry: ['./client/index.tsx'],
     output: {
         path: BUILD_PATH,
-        filename: 'static/js/[name].[contenthash:8].bundle.js',
-        chunkFilename: 'static/js/[name].[contenthash:8].bundle.js'
+        publicPath: '/',
+        filename: `js/[name]${hashTemplate}.bundle.js`,
+        chunkFilename: `js/[id]${hashTemplate}.bundle.js`
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
+    mode: config.environment,
     module: {
         rules: [
             {
@@ -27,7 +31,7 @@ export default {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            hmr: config.get('environment') === 'development',
+                            hmr: idDevMode,
                         },
                     },
                     'css-loader'
@@ -37,7 +41,7 @@ export default {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
                 loader: 'url-loader',
                 options: {
-                    name: 'static/media/[name].[contenthash:8].[ext]',
+                    name: `media/[name]${hashTemplate}.[ext]`,
                     limit: 8192
                 }
             },
@@ -46,13 +50,14 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,
-            filename: path.join(BUILD_PATH, 'index.html'),
+            filename: 'index.html',
             template: "./public/index.html"
         }),
         new MiniCssExtractPlugin({
-            filename: 'static/css/[name].[contenthash:8].css',
-            chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-            ignoreOrder: false
-        }),
+            filename: `css/[name]${hashTemplate}.css`,
+            chunkFilename: `css/[id]${hashTemplate}.chunk.css`,
+            ignoreOrder: false,
+
+        })
     ]
 };

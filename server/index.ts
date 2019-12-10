@@ -1,24 +1,38 @@
 import path from 'path';
 import config from 'config';
-import express, { Request, Response } from 'express';
-import morgan from 'morgan';
+import Koa from 'koa';
+import Router from "koa-router";
+import logger from "koa-logger";
+import koaWebpack from "koa-webpack";
+import koaStatic from "koa-static";
+import webpack from "webpack";
 
-const app = express();
+import webpackConfig from "../webpack.config";
 
-app.use(express.static(__dirname));
+const compiler = webpack(webpackConfig);
+const app = new Koa();
+const router = new Router();
 
-if (config.get('environment') === 'development') {
-    app.use(morgan('dev'));
+app.use(logger());
+app.use(koaStatic(path.join(__dirname, '..', 'static')));
+
+if (config.environment === 'development') {
+    koaWebpack({compiler}).then((hmrMiddleware) => {
+        app.use(hmrMiddleware);
+
+        router.get('/', async (ctx) => {
+            const filename = path.resolve(compiler.options.output?.path!, 'index.html');
+            ctx.response.type = 'html';
+            ctx.response.body = hmrMiddleware.devMiddleware.fileSystem.createReadStream(filename);
+        });
+    });
 }
 
-const port = config.get('port');
+app
+    .use(router.routes())
+    .use(router.allowedMethods());
 
-app.use(express.static(path.join(__dirname, '..')));
-
-app.get('/', function (req: Request, res: Response) {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
-
+const port = config.port;
 app.listen(port, () => {
     console.info(`Server started on ${port}`);
     console.info(`Open http://localhost:${port}/`);
