@@ -1,36 +1,38 @@
-import path from 'path';
-import config from 'config';
-import Koa from 'koa';
-import Router from "koa-router";
-import logger from "koa-logger";
+import path from "path";
 import koaWebpack from "koa-webpack";
-import koaStatic from "koa-static";
+import config from 'config';
 import webpack from "webpack";
+import Router from "koa-router";
+import Koa from "koa"
 
 import webpackConfig from "../webpack.config";
 
 const compiler = webpack(webpackConfig);
-const app = new Koa();
 const router = new Router();
-
-app.use(logger());
-app.use(koaStatic(path.join(__dirname, '..', 'static')));
+const app = new Koa();
 
 if (config.environment === 'development') {
     koaWebpack({compiler}).then((hmrMiddleware) => {
         app.use(hmrMiddleware);
-
         router.get('/', async (ctx) => {
             const filename = path.resolve(compiler.options.output?.path!, 'index.html');
             ctx.response.type = 'html';
             ctx.response.body = hmrMiddleware.devMiddleware.fileSystem.createReadStream(filename);
         });
     });
+
+    const chokidar = require('chokidar');
+    chokidar.watch('./build/server').on('all', () => {
+        console.log("Clearing module cache from server");
+        Object.keys(require.cache).forEach((id) => {
+            if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id]
+        })
+    });
 }
 
-app
-    .use(router.routes())
-    .use(router.allowedMethods());
+app.use(async (ctx, next) => {
+    await (await import('./composedMiddleware')).default(ctx, next);
+});
 
 const port = config.port;
 app.listen(port, () => {

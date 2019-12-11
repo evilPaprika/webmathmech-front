@@ -1,9 +1,9 @@
 declare module 'config' {
-  interface MyConfig {
+  export interface Config {
     port: number,
     environment: 'production' | 'development'
   }
-  export type Config = MyConfig;
+
   const config: Config;
   export default config;
 }
