@@ -7,7 +7,8 @@
     "build": "webpack",
     "lint": "eslint --ext=.ts,.tsx ./",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "@types/config": "0.0.36",
