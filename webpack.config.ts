@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import * as path from 'path';
 import config from 'config';
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const BUILD_PATH = path.resolve('build', 'static');
 const idDevMode = config.environment === 'development';
@@ -16,7 +18,7 @@ export default {
         chunkFilename: `js/[id]${hashTemplate}.bundle.js`
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"]
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     mode: config.environment,
     module: {
@@ -51,7 +53,7 @@ export default {
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'index.html',
-            template: "./public/index.html"
+            template: './public/index.html'
         }),
         new MiniCssExtractPlugin({
             filename: `css/[name]${hashTemplate}.css`,
