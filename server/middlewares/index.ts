@@ -6,6 +6,6 @@ import koaCompose from 'koa-compose';
 export default koaCompose(
     [
         logger(),
-        koaStatic(path.join(__dirname, '..', 'static'))
+        koaStatic(path.join(__dirname, '..', '..', 'static'))
     ]
 );

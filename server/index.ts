@@ -22,20 +22,22 @@ if (config.environment === 'development') {
     });
 
     const chokidar = require('chokidar');
-    chokidar.watch('./build/server').on('all', () => {
-        console.log("Clearing module cache from server");
-        Object.keys(require.cache).forEach((id) => {
-            if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id]
-        })
+    const folderToClearCacheOf = /[\/\\]server[\/\\]/;
+    chokidar.watch('./build/server', { ignoreInitial: true }).on('all', () => {
+        console.info("Clearing module cache from server"); // eslint-disable-next-line no-console
+        Object
+            .keys(require.cache)
+            .filter(folderToClearCacheOf.test.bind(folderToClearCacheOf))
+            .forEach(filePath => { delete require.cache[filePath] })
     });
 }
 
 app.use(async (ctx, next) => {
-    await (await import('./composedMiddleware')).default(ctx, next);
+    await (await import('./middlewares')).default(ctx, next);
 });
 
-const port = config.port;
+const { port } = config;
 app.listen(port, () => {
-    console.info(`Server started on ${port}`);
-    console.info(`Open http://localhost:${port}/`);
+    console.info(`Server started on ${port}`); // eslint-disable-line no-console
+    console.info(`Open http://localhost:${port}/`); // eslint-disable-line no-console
 });
