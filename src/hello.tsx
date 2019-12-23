@@ -10,4 +10,7 @@ const someF = () => {
      return <div>Hello</div>;
 }
 
+const hello = {'asd': 'qwe'}
+
+
 export default someF;
