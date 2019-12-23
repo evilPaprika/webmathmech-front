@@ -1,8 +1,8 @@
-import { Config } from "config";
+import { Config } from 'config';
 
 const config: Config = {
     environment: 'production',
-    port: parseInt(process.env.PORT || '') || 8080
+    port: parseInt(process.env.PORT || '', 10) || 8080
 };
 
 export = config;

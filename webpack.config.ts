@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-
 import * as path from 'path';
 import config from 'config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -59,7 +58,6 @@ export default {
             filename: `css/[name]${hashTemplate}.css`,
             chunkFilename: `css/[id]${hashTemplate}.chunk.css`,
             ignoreOrder: false,
-
         })
     ]
 };
