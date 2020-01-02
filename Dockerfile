@@ -24,4 +24,4 @@ CMD [ "npm", "start" ]
 # docker build -t image_name .
 
 # to start image and listen on port 80:
-# docker run -p 127.0.0.1:80:3001 image_name
+# docker run -p 80:3001 image_name
