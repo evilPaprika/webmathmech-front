@@ -12,5 +12,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
 
 function func() {
-    console.log('gello');
+    console.log('gello'); 
 }
