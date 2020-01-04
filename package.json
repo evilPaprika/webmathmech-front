@@ -92,7 +92,7 @@
     }
   },
   "lint-staged": {
-    "**/*.ts?(x)": [
+    "**/*.tsx?": [
       "npm run lint"
     ]
   }
