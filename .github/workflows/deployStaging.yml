@@ -15,3 +15,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Run the Docker image
+      run: docker -H ssh://dev@webmathmech.site run -it --rm my-image-name:$(date +%s)
