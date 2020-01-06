@@ -9,10 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup ssh-agent
-      uses: webfactory/ssh-agent@v0.1.1
-      with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    # - name: Setup ssh-agent
+    #   uses: webfactory/ssh-agent@v0.1.1
+    #   with:
+    #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Find current PR number
       uses: jwalton/gh-find-current-pr@v1
       id: findPr
@@ -34,7 +34,14 @@ jobs:
       run: docker build . --file Dockerfile --tag webmathmech/front:${{ env.BRANCH }} # my-image-name:$(date +%s)
     - name: Push the Docker image
       run: docker push webmathmech/front:${{ env.BRANCH }} #docker push --tag my-image-name:$(date +%s)
-    - name: Deploy the Docker image
-      run: docker -H ssh://dev@webmathmech.site run --rm webmathmech/front:${{ env.BRANCH }}
-      env:
-        PR: ${{ steps.findPr.outputs.pr }}
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: "webmathmech.site"
+        username: "dev"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: docker run --rm webmathmech/front:${{ env.BRANCH }}
+    # - name: Deploy the Docker image
+    #   run: docker -H ssh://dev@webmathmech.site run --rm webmathmech/front:${{ env.BRANCH }}
+    #   env:
+    #     PR: ${{ steps.findPr.outputs.pr }}
