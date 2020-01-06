@@ -40,9 +40,7 @@ jobs:
         host: "webmathmech.site"
         username: "dev"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: docker run -p $((40000 + PR)):3001 -d --rm webmathmech/front:${{ env.BRANCH }}
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
+        script: docker run -p $((40000 + ${{ steps.findPr.outputs.pr }})):3001 -d --rm webmathmech/front:${{ env.BRANCH }}
     # - name: Deploy the Docker image
     #   run: docker -H ssh://dev@webmathmech.site run --rm webmathmech/front:${{ env.BRANCH }}
     #   env:
