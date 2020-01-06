@@ -1,0 +1,58 @@
+name: Deploy branch
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    # - name: Setup ssh-agent
+    #   uses: webfactory/ssh-agent@v0.1.1
+    #   with:
+    #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Find current PR number
+      uses: jwalton/gh-find-current-pr@v1
+      id: findPr
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Publish to Registry
+    #   uses: elgohr/Publish-Docker-Github-Action@master
+    #   with:
+    #     name: webmathmech/front
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     tag_names: true
+    - name: Set env
+      run: |
+        echo "##[set-env name=BRANCH;]$(echo ${GITHUB_REF#refs/heads/})"        
+        echo "##[set-env name=DEPLOY_PORT;]$(echo $((40000 + ${{ steps.findPr.outputs.pr }})))"        
+    - name: Docker login
+      run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag webmathmech/front:${{ env.BRANCH }} # my-image-name:$(date +%s)
+    - name: Push the Docker image
+      run: docker push webmathmech/front:${{ env.BRANCH }} #docker push --tag my-image-name:$(date +%s)
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: "webmathmech.site"
+        username: "dev"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker pull webmathmech/front:${{ env.BRANCH }}
+          docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.BRANCH }} --format="{{.ID}}"))
+          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
+    - name: post sticky comment
+      uses: marocchino/sticky-pull-request-comment@v1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        message: |
+          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
+          
+    # - name: Deploy the Docker image
+    #   run: docker -H ssh://dev@webmathmech.site run --rm webmathmech/front:${{ env.BRANCH }}
+    #   env:
+    #     PR: ${{ steps.findPr.outputs.pr }}
