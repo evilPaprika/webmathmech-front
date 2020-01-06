@@ -16,9 +16,11 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: evilpaprika/webmathmech-front:latest
+        name: evilpaprika/webmathmech-front
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        tag_names: true
+
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag evilpaprika/webmathmech-front:latest # my-image-name:$(date +%s)
     # - name: Push the Docker image
