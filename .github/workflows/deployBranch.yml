@@ -40,7 +40,7 @@ jobs:
 
     - name: Set env
       run: |
-        echo "##[set-env name=BRANCH;]$(echo ${GITHUB_REF#refs/heads/})"        
+        echo "##[set-env name=BRANCH;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"        
         echo "##[set-env name=IMAGE_TAG;]$(echo ${{ steps.publish.outputs.tag }})"  
         echo ::set-env name=DEPLOY_PORT::$((40000 + `echo "$GITHUB_REF" | awk -F / '{print $3}'`)) 
 
