@@ -20,12 +20,13 @@ jobs:
     #     username: ${{ secrets.DOCKER_USERNAME }}
     #     password: ${{ secrets.DOCKER_PASSWORD }}
     #     tag_names: true
-
+    - name: Set env
+      run: echo "##[set-env name=BRANCH;]$(echo ${GITHUB_REF#refs/heads/})"
     - name: Docker login
       run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag webmathmech/front:${{ github.ref }} # my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag webmathmech/front:${{ env.BRANCH }} # my-image-name:$(date +%s)
     - name: Push the Docker image
-      run: docker push webmathmech/front:${{ github.ref }} #docker push --tag my-image-name:$(date +%s)
+      run: docker push webmathmech/front:${{ env.BRANCH }} #docker push --tag my-image-name:$(date +%s)
     # - name: Run the Docker image
     #   run: docker -H ssh://dev@webmathmech.site run --rm my-image-name:$(date +%s)
