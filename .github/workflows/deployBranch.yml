@@ -43,9 +43,10 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       id: publish
       with:
-        name: myDocker/repository
+        name: webmathmech/front
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        cache: true
 
     - name: Set env
       run: |
