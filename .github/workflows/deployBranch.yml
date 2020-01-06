@@ -1,6 +1,6 @@
 name: Deploy branch
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -25,19 +25,32 @@ jobs:
     #     username: ${{ secrets.DOCKER_USERNAME }}
     #     password: ${{ secrets.DOCKER_PASSWORD }}
     #     tag_names: true
+
+    # echo "##[set-env name=BRANCH;]$(echo ${GITHUB_REF#refs/heads/})"        
+
+
+
+    # - name: Docker login
+    #   run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag webmathmech/front:${{ env.BRANCH }}
+
+    # - name: Push the Docker image
+    #   run: docker push webmathmech/front:${{ env.BRANCH }}
+
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      id: publish
+      with:
+        name: myDocker/repository
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Set env
       run: |
-        echo "##[set-env name=BRANCH;]$(echo ${GITHUB_REF#refs/heads/})"        
         echo "##[set-env name=DEPLOY_PORT;]$(echo $((40000 + ${{ steps.findPr.outputs.pr }})))"  
-
-    - name: Docker login
-      run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag webmathmech/front:${{ env.BRANCH }} # my-image-name:$(date +%s)
-
-    - name: Push the Docker image
-      run: docker push webmathmech/front:${{ env.BRANCH }} #docker push --tag my-image-name:$(date +%s)
+        echo "##[set-env name=IMAGE_TAG;]$(echo $((40000 + ${{ steps.publish.outputs.tag }})))"  
 
     - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master
@@ -46,14 +59,14 @@ jobs:
         username: "dev"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.BRANCH }} --format="{{.ID}}"))
-          docker pull webmathmech/front:${{ env.BRANCH }}
-          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
+          docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.IMAGE_TAG }} --format="{{.ID}}"))
+          docker pull webmathmech/front:${{ env.IMAGE_TAG }}
+          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.IMAGE_TAG }}
 
     - name: post sticky comment
       uses: marocchino/sticky-pull-request-comment@v1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         message: |
-          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
+          Deployed webmathmech/front:${{ env.IMAGE_TAG }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
           
