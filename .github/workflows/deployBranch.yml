@@ -46,7 +46,6 @@ jobs:
         name: webmathmech/front
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tag_names: true
 
     - name: Set env
       run: |
