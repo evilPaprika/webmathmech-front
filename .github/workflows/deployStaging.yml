@@ -41,6 +41,7 @@ jobs:
         username: "dev"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
+          docker pull webmathmech/front:${{ env.BRANCH }}
           docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.BRANCH }} --format="{{.ID}}"))
           docker run -p $((40000 + ${{ steps.findPr.outputs.pr }})):3001 -d --rm webmathmech/front:${{ env.BRANCH }}
     # - name: Deploy the Docker image
