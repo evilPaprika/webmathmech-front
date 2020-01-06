@@ -41,7 +41,6 @@ jobs:
     - name: Set env
       run: |
         echo "##[set-env name=BRANCH;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"        
-        echo "##[set-env name=IMAGE_TAG;]$(echo ${{ steps.publish.outputs.tag }})"  
         echo ::set-env name=DEPLOY_PORT::$((40000 + `echo "$GITHUB_REF" | awk -F / '{print $3}'`)) 
 
     - name: Publish to Docker Hub registry
@@ -59,14 +58,14 @@ jobs:
         username: "dev"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.IMAGE_TAG }} --format="{{.ID}}")) || true
-          docker pull webmathmech/front:${{ env.IMAGE_TAG }}
-          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.IMAGE_TAG }}
+          docker rm $(docker stop $(docker ps -a -q --filter ancestor=webmathmech/front:${{ env.BRANCH }} --format="{{.ID}}")) || true
+          docker pull webmathmech/front:${{ env.BRANCH }}
+          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
 
     - name: post sticky comment
       uses: marocchino/sticky-pull-request-comment@v1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         message: |
-          Deployed webmathmech/front:${{ env.IMAGE_TAG }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
+          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
           
