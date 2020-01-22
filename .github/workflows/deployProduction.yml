@@ -27,4 +27,4 @@ jobs:
         script: |
           docker pull webmathmech/front:${{ outputs.publish.tag }}
           docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:80)")) || true
-          docker run -p 80:3001 -d --rm webmathmech/front:${{ outputs.publish.tag }}
+          docker run -p 80:3001 -d --rm webmathmech/front:${{ publish.outputs.tag }}
