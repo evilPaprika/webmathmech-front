@@ -1,0 +1,30 @@
+name: Deploy to production
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Publish to Docker Hub registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      id: publish
+      with:
+        name: webmathmech/front:latest
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: "webmathmech.site"
+        username: "dev"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker pull webmathmech/front:${{ outputs.publish.tag }}
+          docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:80)")) || true
+          docker run -p 80:3001 -d --rm webmathmech/front:${{ outputs.publish.tag }}
