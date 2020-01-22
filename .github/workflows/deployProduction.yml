@@ -22,8 +22,8 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: "webmathmech.site"
-        username: "dev"
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
+        password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
         script: |
           docker pull webmathmech/front:${{ outputs.publish.tag }}
           docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:80)")) || true
