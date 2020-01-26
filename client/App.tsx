@@ -6,7 +6,7 @@ const App: React.FC = () => (
         <header className="App-header">
             <img src="https://www.meme-arsenal.com/memes/b402fcdafad2034c1cdd9038d6f49a16.jpg" alt="yaml development" />
             <p>
-                THIS SHALL BE REMOVED? AGAIN, AND AGAIN!
+                WEBMATHMECH!
             </p>
         </header>
     </div>
