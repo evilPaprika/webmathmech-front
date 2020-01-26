@@ -39,5 +39,5 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         message: |
-          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }} ~(˘▾˘~)
+          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }} 😺
           
