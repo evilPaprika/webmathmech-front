@@ -11,11 +11,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-
+ 
     - name: Set env
-      env:
-        DEPLOY_PORT: ${{ github.event.pull_request.number }}
-        BRANCH: ${{ github.event.pull_request.base.ref }}
+      run: |
+        echo ::set-env name=DEPLOY_PORT::${{ github.event.pull_request.number }}
 
     - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master

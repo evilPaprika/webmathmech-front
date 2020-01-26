@@ -11,9 +11,9 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Set env
-      env:
-        DEPLOY_PORT: ${{ github.event.pull_request.number }}
-        BRANCH: ${{ github.event.pull_request.base.ref }}
+      run: |
+        echo ::set-env name=BRANCH::${{ github.event.pull_request.base.ref }}
+        echo ::set-env name=DEPLOY_PORT::${{ github.event.pull_request.number }}
 
     - name: Publish to Docker Hub registry
       uses: elgohr/Publish-Docker-Github-Action@master
