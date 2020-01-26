@@ -13,7 +13,7 @@ jobs:
     - name: Set env
       run: |
         echo ::set-env name=BRANCH::${{ github.event.pull_request.base.ref }}
-        echo ::set-env name=DEPLOY_PORT::${{ github.event.pull_request.number }}
+        echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
 
     - name: Publish to Docker Hub registry
       uses: elgohr/Publish-Docker-Github-Action@master
