@@ -1,26 +1,13 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 
 const App: React.FC = () => (
     <div className="App">
         <header className="App-header">
-            {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            <img src="https://www.meme-arsenal.com/memes/b402fcdafad2034c1cdd9038d6f49a16.jpg" alt="yaml development" />
             <p>
-                Edit
-                {' '}
-                <code>src/App.tsx</code>
-                {' '}
-                and save to reload.
+                WEBMATHMECH!
             </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Learn React
-            </a>
         </header>
     </div>
 );
