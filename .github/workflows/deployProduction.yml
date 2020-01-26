@@ -1,6 +1,9 @@
 name: Deploy to production
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -14,7 +17,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       id: publish
       with:
-        name: webmathmech/front:latest
+        name: webmathmech/front
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
