@@ -12,8 +12,8 @@ jobs:
 
     - name: Set env
       run: |
-        echo "##[set-env name=BRANCH;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"        
-        echo ::set-env name=DEPLOY_PORT::$((40000 + `echo "$GITHUB_REF" | awk -F / '{print $3}'`)) 
+        echo ::set-env name=BRANCH::${{ github.event.pull_request.head.ref }}
+        echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
 
     - name: Publish to Docker Hub registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -39,5 +39,5 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         message: |
-          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }}
+          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }} 😺
           
