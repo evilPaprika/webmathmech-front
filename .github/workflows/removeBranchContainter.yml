@@ -1,26 +1,25 @@
 name: Remove branch container
 
-on: 
+on:
   pull_request:
     types: [closed]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
- 
-    - name: Set env
-      run: |
-        echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
+      - uses: actions/checkout@v1
 
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: "webmathmech.site"
-        username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
-        password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
-        script: |
-          docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:${{ env.DEPLOY_PORT }})")) || true
+      - name: Set env
+        run: |
+          echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_REMOTE_ADDRESS }}
+          username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
+          password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
+          script: |
+            docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:${{ env.DEPLOY_PORT }})")) || true

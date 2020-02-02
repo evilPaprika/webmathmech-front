@@ -7,27 +7,26 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Publish to Docker Hub registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      id: publish
-      with:
-        name: webmathmech/front
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Publish to Docker Hub registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        id: publish
+        with:
+          name: webmathmech/front
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: "webmathmech.site"
-        username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
-        password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
-        script: |
-          docker pull webmathmech/front:${{ steps.publish.outputs.tag }}
-          docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:80)")) || true
-          docker run -p 80:3001 -d --rm webmathmech/front:${{ steps.publish.outputs.tag }}
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_REMOTE_ADDRESS }}
+          username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
+          password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
+          script: |
+            docker pull webmathmech/front:${{ steps.publish.outputs.tag }}
+            docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:80)")) || true
+            docker run -p 80:3001 -d --rm webmathmech/front:${{ steps.publish.outputs.tag }}

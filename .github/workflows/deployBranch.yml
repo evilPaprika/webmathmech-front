@@ -4,40 +4,38 @@ on: [pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set env
-      run: |
-        echo ::set-env name=BRANCH::${{ github.event.pull_request.head.ref }}
-        echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
+      - name: Set env
+        run: |
+          echo ::set-env name=BRANCH::${{ github.event.pull_request.head.ref }}
+          echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
 
-    - name: Publish to Docker Hub registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      id: publish
-      with:
-        name: webmathmech/front:${{ env.BRANCH }}
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Publish to Docker Hub registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        id: publish
+        with:
+          name: webmathmech/front:${{ env.BRANCH }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: "webmathmech.site"
-        username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
-        password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
-        script: |
-          docker pull webmathmech/front:${{ env.BRANCH }}
-          docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:${{ env.DEPLOY_PORT }})")) || true
-          docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_REMOTE_ADDRESS }}
+          username: ${{ secrets.DEPLOYMENT_SERVER_SSH_USERNAME }}
+          password: ${{ secrets.DEPLOYMENT_SERVER_SSH_PASSWORD }}
+          script: |
+            docker pull webmathmech/front:${{ env.BRANCH }}
+            docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:${{ env.DEPLOY_PORT }})")) || true
+            docker run -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
 
-    - name: post sticky comment
-      uses: marocchino/sticky-pull-request-comment@v1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        message: |
-          Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }} 😺
-          
+      - name: post sticky comment
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            Deployed webmathmech/front:${{ env.BRANCH }} to http://webmathmech.site:${{ env.DEPLOY_PORT }} 😺
