@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import * as path from 'path';
-import config from 'config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import config from 'config';
 
 const BUILD_PATH = path.resolve('build', 'static');
 const idDevMode = config.environment === 'development';
