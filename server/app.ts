@@ -1,45 +1,38 @@
 /* eslint-disable no-console */
-import Koa from 'koa';
+import Koa, { Context } from 'koa';
 import koaWebpack from 'koa-webpack';
 import path from 'path';
-
+import mount from 'koa-mount';
 import config from 'config';
+import koaStatic from 'koa-static';
+import webpack from 'webpack';
+import send from 'koa-send';
 
 import router from './router';
+import webpackConfig from '../webpack.config';
+import middlewares from './middlewares';
 
 const app = new Koa();
 
-app.use(router.routes());
-
-if (config.environment === 'development') {
-    /* eslint-disable global-require,import/no-extraneous-dependencies */
-    const webpack = require('webpack');
-    const webpackConfig = require('../webpack.config').default;
-    const chokidar = require('chokidar');
-    /* eslint-enable global-require,import/no-extraneous-dependencies */
-
-    const compiler = webpack(webpackConfig);
-    koaWebpack({ compiler }).then((hmrMiddleware) => {
+export default async function createApp() {
+    if (config.environment === 'development') {
+        const compiler = webpack(webpackConfig);
+        const hmrMiddleware = await koaWebpack({ compiler });
         app.use(hmrMiddleware);
-        router.get('/', async (ctx) => {
+        router.get('*', async (ctx) => {
             const filename = path.resolve(compiler.options.output?.path!, 'index.html');
             ctx.response.type = 'html';
             ctx.response.body = hmrMiddleware.devMiddleware.fileSystem.createReadStream(filename);
         });
-    });
+    } else {
+        router.get('*', async (ctx: Context) => {
+            await send(ctx, 'build/static/index.html');
+        });
+    }
 
-    const folderToClearCacheOf = /[/\\]server[/\\]/;
-    chokidar.watch('./build/server', { ignoreInitial: true }).on('all', () => {
-        console.info('Clearing module cache from server');
-        Object
-            .keys(require.cache)
-            .filter(folderToClearCacheOf.test.bind(folderToClearCacheOf))
-            .forEach((filePath) => { delete require.cache[filePath]; });
-    });
+    app.use(middlewares);
+    app.use(mount('/static', koaStatic(path.join(__dirname, '..', 'static'))));
+    app.use(router.routes());
+
+    return app;
 }
-
-app.use(async (ctx, next) => {
-    await (await import('./middlewares')).default(ctx, next);
-});
-
-export default app;

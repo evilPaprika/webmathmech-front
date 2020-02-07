@@ -12,7 +12,7 @@ export default {
     entry: ['./client/index.tsx'],
     output: {
         path: BUILD_PATH,
-        publicPath: '/',
+        publicPath: '/static/',
         filename: `js/[name]${hashTemplate}.bundle.js`,
         chunkFilename: `js/[id]${hashTemplate}.bundle.js`
     },
@@ -35,7 +35,12 @@ export default {
                             hmr: idDevMode,
                         },
                     },
-                    'css-loader'
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        }
+                    }
                 ],
             },
             {
@@ -52,7 +57,7 @@ export default {
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'index.html',
-            template: './public/index.html'
+            template: './static/index.html'
         }),
         new MiniCssExtractPlugin({
             filename: `css/[name]${hashTemplate}.css`,
