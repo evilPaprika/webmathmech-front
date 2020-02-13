@@ -1,0 +1,10 @@
+.modal {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+}
+
+.modalForm {
+    padding: '20px';
+    width: '500px';
+}

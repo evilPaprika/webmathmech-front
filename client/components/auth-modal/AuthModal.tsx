@@ -5,16 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import LabeledInput from '../common/labeled-input';
 import LayoutGroup from '../common/layout-group';
 
+import cssStyles from './AuthModal.css';
+
 const useStyles = makeStyles((theme) => ({
     modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...cssStyles.modal
     },
     modalForm: {
-        padding: '20px',
-        width: '500px',
-
+        ...cssStyles.modalForm,
         backgroundColor: theme.palette.background.paper,
     },
 }));
