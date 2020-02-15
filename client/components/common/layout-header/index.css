@@ -2,17 +2,17 @@
     height: 60px;
 
     display: flex;
+    justify-content: space-between;
 
     padding: 10px;
 
     border-bottom: 1px solid grey;
 }
 
-.layoutHeader__authBlock {
+.layoutHeader__content {
     display: flex;
     justify-content: space-between;
-}
+    align-items: center;
 
-.layoutHeader__buttons {
-    height: 40px;
+    width: 100%;
 }

@@ -24,16 +24,16 @@ const LayoutHeader = () => {
     };
 
     return (
-        <Container className={cssStyles.layoutHeader}>
+        <Container className={cssStyles.layoutHeader} maxWidth={false}>
             <AuthModal open={openAuthModal} loginMethod={loginMethod} close={closeModal} />
-            <Container className={cssStyles.layoutHeader__authBlock}>
+            <Box className={cssStyles.layoutHeader__content}>
                 <Box>site logo</Box>
                 <Box>site tabs</Box>
                 <ButtonGroup className={cssStyles.layoutHeader__buttons} variant="contained" color="primary">
                     <Button color="primary" onClick={openSignInModal}>Войти</Button>
                     <Button color="primary" onClick={openSignUpModal}>Зарегистрироваться</Button>
                 </ButtonGroup>
-            </Container>
+            </Box>
         </Container>
     );
 };
