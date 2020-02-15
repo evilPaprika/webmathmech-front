@@ -1,41 +1,22 @@
 import React, { memo, useState } from 'react';
 import { Box, Button, ButtonGroup, Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { AuthMethods } from '../../../types';
 import AuthModal from '../../auth-modal';
-
-const useStyles = makeStyles({
-    layoutHeader: {
-        height: '60px',
-
-        display: 'flex',
-
-        padding: '10px',
-
-        borderBottom: '1px solid grey'
-    },
-    authBlock: {
-        display: 'flex',
-        justifyContent: 'space-between'
-    },
-    buttons: {
-        height: '40px'
-    }
-});
+import cssStyles from './index.css';
 
 const LayoutHeader = () => {
-    const styles = useStyles();
     const [openAuthModal, setOpen] = useState(false);
-    const [isNewUser, setIsNewUser] = useState(false);
+    const [loginMethod, setLoginMethod] = useState(AuthMethods.SignIn);
 
     const openSignUpModal = () => {
         setOpen(true);
-        setIsNewUser(true);
+        setLoginMethod(AuthMethods.SignUp);
     };
 
     const openSignInModal = () => {
         setOpen(true);
-        setIsNewUser(false);
+        setLoginMethod(AuthMethods.SignIn);
     };
 
     const closeModal = () => {
@@ -43,12 +24,12 @@ const LayoutHeader = () => {
     };
 
     return (
-        <Container className={styles.layoutHeader}>
-            <AuthModal open={openAuthModal} isNewUser={isNewUser} close={closeModal} />
-            <Container className={styles.authBlock}>
+        <Container className={cssStyles.layoutHeader}>
+            <AuthModal open={openAuthModal} loginMethod={loginMethod} close={closeModal} />
+            <Container className={cssStyles.layoutHeader__authBlock}>
                 <Box>site logo</Box>
                 <Box>site tabs</Box>
-                <ButtonGroup className={styles.buttons} variant="contained" color="primary">
+                <ButtonGroup className={cssStyles.layoutHeader__buttons} variant="contained" color="primary">
                     <Button color="primary" onClick={openSignInModal}>Войти</Button>
                     <Button color="primary" onClick={openSignUpModal}>Зарегистрироваться</Button>
                 </ButtonGroup>

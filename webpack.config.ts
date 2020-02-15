@@ -38,7 +38,9 @@ export default {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            modules: {
+                                localIdentName: '[name]__[local]_[hash:base64:5]'
+                            }
                         }
                     }
                 ],

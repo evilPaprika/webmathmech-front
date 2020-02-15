@@ -1,22 +1,15 @@
 import React, { memo, ReactNode } from 'react';
 import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import cssStyles from './index.css';
 
 interface Props {
     children?: ReactNode;
 }
 
-const useStyles = makeStyles({
-    layoutGroup: {
-        margin: '0 0 40px'
-    },
-});
-
 const LayoutGroup = ({ children }: Props) => {
-    const styles = useStyles();
-
     return (
-        <Container className={styles.layoutGroup}>
+        <Container className={cssStyles.layoutGroup}>
             {children}
         </Container>
     );

@@ -6,7 +6,7 @@ import LayoutContent from '../common/layout-content';
 import LayoutFooter from '../common/layout-footer';
 
 const Page = () => (
-    <Container>
+    <Container disableGutters>
         <LayoutHeader />
         <LayoutContent />
         <LayoutFooter />

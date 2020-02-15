@@ -1,0 +1,18 @@
+.layoutHeader {
+    height: 60px;
+
+    display: flex;
+
+    padding: 10px;
+
+    border-bottom: 1px solid grey;
+}
+
+.layoutHeader__authBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.layoutHeader__buttons {
+    height: 40px;
+}

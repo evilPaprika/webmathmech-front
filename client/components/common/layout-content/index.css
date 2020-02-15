@@ -2,11 +2,11 @@
     text-align: center;
 }
 
-.ContentLogo {
+.LayoutContent__logo {
     height: 40vmin;
 }
 
-.ContentMain {
+.LayoutContent__main {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -17,7 +17,7 @@
     color: white;
 }
 
-.ContentLink {
+.LayoutContent__link {
     color: #09d3ac;
 }
   
