@@ -1,0 +1,11 @@
+.layoutFooter {
+    height: 60px;
+
+    display: flex;
+
+    text-align: center;
+}
+
+.layoutFooter__text {
+    margin: auto;
+}

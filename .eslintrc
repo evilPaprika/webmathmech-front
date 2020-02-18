@@ -11,6 +11,16 @@
         "comma-dangle": "off",
         "max-len": ["error", 120],
         "no-console": "error",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "object-curly-newline": [
+            "error",
+            {
+                "multiline": true,
+                "consistent": true
+            }
+        ],
+        "arrow-body-style": "off",
+        "import/prefer-default-export": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

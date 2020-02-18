@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
 import config from 'config';
 
-import app from './app';
+import createApp from './app';
 
 const { port } = config;
 
-app.listen(port, () => {
-    console.info(`Server started on ${port}`);
-    console.info(`Open http://localhost:${port}/`);
-});
+(async () => {
+    const app = await createApp();
+    app.listen(port, () => {
+        console.info(`Server started on ${port}`);
+        console.info(`Open http://localhost:${port}/`);
+    });
+})();
