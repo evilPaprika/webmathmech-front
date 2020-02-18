@@ -19,7 +19,7 @@ EXPOSE 3001
 
 RUN npm run build:production
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:production" ]
 
 # to build into image
 # docker build -t image_name .
