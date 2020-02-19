@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Koa, { Context } from 'koa';
 import koaWebpack from 'koa-webpack';
 import path from 'path';
@@ -11,6 +10,8 @@ import send from 'koa-send';
 import router from './router';
 import webpackConfig from '../webpack.config';
 import middlewares from './middlewares';
+import createApolloServer from './graphql';
+import connectDB from './database';
 
 const app = new Koa();
 
@@ -30,9 +31,12 @@ export default async function createApp() {
         });
     }
 
+    connectDB();
+    await createApolloServer().then((apolloServer) => apolloServer.applyMiddleware({ app }));
     app.use(middlewares);
     app.use(mount('/static', koaStatic(path.join(__dirname, '..', 'static'))));
     app.use(router.routes());
+    app.use(router.allowedMethods());
 
     return app;
 }

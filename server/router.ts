@@ -4,6 +4,7 @@ import send from 'koa-send';
 
 import pingController from './controllers/ping';
 
+
 const router = new KoaRouter();
 
 router.get('/ping', pingController);

@@ -1,12 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import * as path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import config from 'config';
 
 const BUILD_PATH = path.resolve('build', 'static');
-const idDevMode = config.environment === 'development';
-const hashTemplate = idDevMode ? '' : '.[contenthash:8]'; // hmr doesn't work with hashes
+const isDevMode = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+const mode: 'development' | 'production' = isDevMode ? 'development' : 'production';
+const hashTemplate = isDevMode ? '' : '.[contenthash:8]'; // hmr doesn't work with hashes
 
 export default {
     entry: ['./client/index.tsx'],
@@ -19,7 +18,7 @@ export default {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
-    mode: config.environment,
+    mode,
     module: {
         rules: [
             {
@@ -32,7 +31,8 @@ export default {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            hmr: idDevMode,
+                            hmr: isDevMode,
+
                         },
                     },
                     {

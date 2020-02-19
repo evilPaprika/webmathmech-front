@@ -20,7 +20,11 @@
             }
         ],
         "arrow-body-style": "off",
-        "import/prefer-default-export": "off",
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "semi": "error",
+        "import/no-named-as-default": "off",
+        "newline-before-return": "error",
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off"
     }
 }
