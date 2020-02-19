@@ -1,22 +1,11 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Button, Modal } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
 import LayoutGroup from '../common/layout-group';
+import { useStyles } from './styles';
 
-import cssStyles from './index.css';
-
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        ...cssStyles.modal,
-    },
-    modalForm: {
-        ...cssStyles.modalForm,
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
 
 interface Props {
     open: boolean;
@@ -26,6 +15,7 @@ interface Props {
 
 const AuthModal = ({ open, loginMethod, close }: Props) => {
     const styles = useStyles();
+
     const [login, setLogin] = useState();
     const [password, setPassword] = useState();
 

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Container } from '@material-ui/core';
 
+
 const Error404 = () => {
     return (
         <Container>

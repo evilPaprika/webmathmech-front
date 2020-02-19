@@ -3,9 +3,12 @@ import { Box, Button, ButtonGroup, Container } from '@material-ui/core';
 
 import { AuthMethods } from '../../../types';
 import AuthModal from '../../auth-modal';
-import cssStyles from './index.css';
+import { useStyles } from './styles';
+
 
 const LayoutHeader = () => {
+    const styles = useStyles();
+
     const [openAuthModal, setOpen] = useState(false);
     const [loginMethod, setLoginMethod] = useState(AuthMethods.SignIn);
 
@@ -24,12 +27,12 @@ const LayoutHeader = () => {
     };
 
     return (
-        <Container className={cssStyles.layoutHeader} maxWidth={false}>
+        <Container className={styles.layoutHeader} maxWidth={false}>
             <AuthModal open={openAuthModal} loginMethod={loginMethod} close={closeModal} />
-            <Box className={cssStyles.layoutHeader__content}>
+            <Box className={styles.layoutHeader__content}>
                 <Box>site logo</Box>
                 <Box>site tabs</Box>
-                <ButtonGroup className={cssStyles.layoutHeader__buttons} variant="contained" color="primary">
+                <ButtonGroup variant="contained" color="primary">
                     <Button color="primary" onClick={openSignInModal}>Войти</Button>
                     <Button color="primary" onClick={openSignUpModal}>Зарегистрироваться</Button>
                 </ButtonGroup>

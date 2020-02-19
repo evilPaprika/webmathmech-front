@@ -5,12 +5,14 @@ import LayoutHeader from '../common/layout-header';
 import LayoutContent from '../common/layout-content';
 import LayoutFooter from '../common/layout-footer';
 
-const Page = () => (
-    <Container disableGutters maxWidth={false}>
-        <LayoutHeader />
-        <LayoutContent />
-        <LayoutFooter />
-    </Container>
-);
+const Page = () => {
+    return (
+        <Container disableGutters maxWidth={false}>
+            <LayoutHeader />
+            <LayoutContent />
+            <LayoutFooter />
+        </Container>
+    );
+};
 
 export default memo(Page);

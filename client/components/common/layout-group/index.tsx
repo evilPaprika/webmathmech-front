@@ -1,15 +1,18 @@
 import React, { memo, ReactNode } from 'react';
 import { Container } from '@material-ui/core';
 
-import cssStyles from './index.css';
+import { useStyles } from './styles';
+
 
 interface Props {
     children?: ReactNode;
 }
 
 const LayoutGroup = ({ children }: Props) => {
+    const styles = useStyles();
+
     return (
-        <Container className={cssStyles.layoutGroup}>
+        <Container className={styles.layoutGroup}>
             {children}
         </Container>
     );
