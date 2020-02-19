@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../consts';
 
+
 const AdminPanel = () => {
     return (
         <>

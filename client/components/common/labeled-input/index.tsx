@@ -1,20 +1,10 @@
 import React, { memo } from 'react';
 import { Box, Input, InputBaseComponentProps, InputLabel, InputProps } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import { useStyles } from './styles';
+
 
 type Props = InputBaseComponentProps & InputProps & { label: string; };
-
-const useStyles = makeStyles({
-    inputField: {
-        display: 'flex',
-        alignItems: 'baseline',
-
-        marginBottom: '20px',
-    },
-    inputLabel: {
-        width: '100px'
-    },
-});
 
 const LabeledInput = ({ label, ...inputProps }: Props) => {
     const styles = useStyles();

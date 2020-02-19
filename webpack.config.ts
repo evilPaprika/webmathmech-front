@@ -35,14 +35,7 @@ export default {
 
                         },
                     },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                localIdentName: '[name]__[local]_[hash:base64:5]'
-                            }
-                        }
-                    }
+                    'css-loader'
                 ],
             },
             {

@@ -6,6 +6,7 @@ import Error404 from './components/not-found-error';
 import Page from './components/page';
 import { ROUTES } from './consts';
 
+
 export default (
     <BrowserRouter>
         <Switch>
