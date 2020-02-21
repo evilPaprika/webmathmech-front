@@ -32,8 +32,8 @@ export default async function createApp() {
     }
 
     connectDB();
-    await createApolloServer().then((apolloServer) => apolloServer.applyMiddleware({ app }));
     app.use(middlewares);
+    await createApolloServer().then((apolloServer) => apolloServer.applyMiddleware({ app }));
     app.use(mount('/static', koaStatic(path.join(__dirname, '..', 'static'))));
     app.use(router.routes());
     app.use(router.allowedMethods());

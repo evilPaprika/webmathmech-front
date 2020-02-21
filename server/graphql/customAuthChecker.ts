@@ -13,11 +13,7 @@ const customAuthChecker: AuthChecker<ApolloServerContext> = ({ context }, roles,
         return false;
     }
 
-    if (roles.length === 0 || roles.includes(jwt.role)) {
-        return true;
-    }
-
-    return false;
+    return roles.length === 0 || roles.includes(jwt.role);
 };
 
 export default customAuthChecker;
