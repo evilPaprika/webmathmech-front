@@ -1,8 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Button, Modal } from '@material-ui/core';
-
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { ApolloClient } from 'apollo-boost';
+
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
 import LayoutGroup from '../common/layout-group';
@@ -24,8 +23,9 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
 
     const isSignUpMethod = loginMethod === AuthMethods.SignUp;
 
-    const client: ApolloClient<any> = useApolloClient();
-    const [userAuth, { loading, error }] = useMutation<any>(
+    const client = useApolloClient();
+
+    const [userAuth, { loading, error }] = useMutation(
         isSignUpMethod ? USER_SIGNUP : USER_SIGNIN,
         {
             onCompleted(response) {
@@ -38,7 +38,7 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
 
     const submit = useCallback(() => {
         userAuth({ variables: { login, password } });
-    }, [isSignUpMethod, login, password]);
+    }, [userAuth, login, password]);
 
     const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value);
@@ -80,8 +80,8 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
                         {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
                     </Button>
                 </LayoutGroup>
-                {loading && <div> Обработка </div>}
-                {error && <div className={styles.error}>Произошла ошибка, проверте введеные данные</div>}
+                {loading && <div>Обработка</div>}
+                {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
             </form>
         </Modal>
     );

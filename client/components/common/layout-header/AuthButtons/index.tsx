@@ -37,7 +37,7 @@ export const AuthButtons = () => {
             <AuthModal open={openAuthModal} loginMethod={loginMethod} close={closeModal} />
             <ButtonGroup variant="contained" color="primary">
                 {isLoggedIn
-                    ? <Button color="primary" onClick={SignOut}>Выйти {data && data.getCurrentUser.login}</Button>
+                    ? <Button color="primary" onClick={SignOut}>Выйти {data?.getCurrentUser.login}</Button>
                     : [
                         <Button color="primary" onClick={openSignInModal} key="signin">Войти</Button>,
                         <Button color="primary" onClick={openSignUpModal} key="signup">Зарегистрироваться</Button>
