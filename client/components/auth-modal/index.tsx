@@ -1,10 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Button, Modal } from '@material-ui/core';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
 import LayoutGroup from '../common/layout-group';
 import { useStyles } from './styles';
+import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 
 
 interface Props {
@@ -16,18 +18,27 @@ interface Props {
 const AuthModal = ({ open, loginMethod, close }: Props) => {
     const styles = useStyles();
 
-    const [login, setLogin] = useState();
-    const [password, setPassword] = useState();
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
 
     const isSignUpMethod = loginMethod === AuthMethods.SignUp;
 
-    const submit = useCallback(() => {
-        if (isSignUpMethod) {
-            // TODO sign up
-        } else {
-            // TODO sign in
+    const client = useApolloClient();
+
+    const [userAuth, { loading, error }] = useMutation(
+        isSignUpMethod ? USER_SIGNUP : USER_SIGNIN,
+        {
+            onCompleted(response) {
+                const { token } = isSignUpMethod ? response.userSignUp : response.userSignIn;
+                localStorage.setItem('token', token as string);
+                client.writeData({ data: { isLoggedIn: true } });
+            }
         }
-    }, [loginMethod]);
+    );
+
+    const submit = useCallback(() => {
+        userAuth({ variables: { login, password } });
+    }, [userAuth, login, password]);
 
     const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value);
@@ -69,6 +80,8 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
                         {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
                     </Button>
                 </LayoutGroup>
+                {loading && <div>Обработка</div>}
+                {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
             </form>
         </Modal>
     );

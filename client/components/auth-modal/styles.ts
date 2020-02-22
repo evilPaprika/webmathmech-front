@@ -12,4 +12,7 @@ export const useStyles = makeStyles((theme) => ({
         width: '500px',
         backgroundColor: theme.palette.background.paper,
     },
+    error: {
+        color: theme.palette.error.main
+    }
 }));

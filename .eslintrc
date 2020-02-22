@@ -25,6 +25,8 @@
         "import/no-named-as-default": "off",
         "newline-before-return": "error",
         "class-methods-use-this": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "react/jsx-wrap-multilines": "off"
     }
 }

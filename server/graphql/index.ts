@@ -8,7 +8,7 @@ import customAuthChecker from './customAuthChecker';
 const createApolloServer = async () => {
     const schema = await buildSchema({
         authChecker: customAuthChecker,
-        emitSchemaFile: true,
+        emitSchemaFile: { path: './schema.graphql' },
         // .js instead of .ts because ts will transpile into js
         resolvers: [`${__dirname}/../controllers/*.resolver.js`],
     });
