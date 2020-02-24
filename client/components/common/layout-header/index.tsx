@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, CardMedia, Container, Tab, Tabs } from '@material-ui/core';
+import { Box, CardMedia, Container, Tab, Tabs, Typography } from '@material-ui/core';
 
 import { HEADER_TABS } from '../../../consts';
 import { HeaderTabs } from '../../../types';
@@ -23,7 +23,10 @@ const LayoutHeader = ({ selectedTab }: Props) => {
     return (
         <Container className={styles.layoutHeader} maxWidth={false}>
             <Box className={styles.layoutHeader__content}>
-                <CardMedia image="/static/logo.png" className={styles.layoutHeader__logo} />
+                <Box className={styles.layoutHeader__titleWrapper}>
+                    <CardMedia image="/static/logo.png" className={styles.layoutHeader__logo} />
+                    <Typography variant="h3" className={styles.layoutHeader__title}>WebMathMech</Typography>
+                </Box>
                 <Tabs value={tab} onChange={onChangeTab}>
                     {HEADER_TABS.map(({ name, path }) => (
                         <Tab label={name} value={name} to={path} component={Link} />
