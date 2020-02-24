@@ -4,12 +4,18 @@ import { Container } from '@material-ui/core';
 import LayoutHeader from '../common/layout-header';
 import LayoutContent from '../common/layout-content';
 import LayoutFooter from '../common/layout-footer';
+import { HeaderTabs } from '../../types';
 
-const Page = () => {
+
+interface Props {
+    selectedTab?: HeaderTabs;
+}
+
+const Page = ({ selectedTab }: Props) => {
     return (
         <Container disableGutters maxWidth={false}>
-            <LayoutHeader />
-            <LayoutContent />
+            <LayoutHeader selectedTab={selectedTab} />
+            <LayoutContent selectedTab={selectedTab} />
             <LayoutFooter />
         </Container>
     );

@@ -1,8 +1,26 @@
-// eslint-disable-next-line import/prefer-default-export
+import { HeaderTabs } from './types';
+
+
 export enum ROUTES {
     MAIN = '/',
     SIGN_IN = '/sign-in',
     SIGN_UP = '/sign-up',
-    ADMIN_PANEL = '/admin-panel',
-    VOTES_PANEL = '/votes',
+    NEWS = '/news',
+    PERFORMANCES = '/performances',
+    ADMIN = '/admin',
 }
+
+export const HEADER_TABS = [
+    {
+        name: HeaderTabs.News,
+        path: ROUTES.NEWS,
+    },
+    {
+        name: HeaderTabs.Performances,
+        path: ROUTES.PERFORMANCES,
+    },
+    {
+        name: HeaderTabs.Admin,
+        path: ROUTES.ADMIN,
+    }
+];

@@ -17,5 +17,10 @@ export const useStyles = makeStyles((styles) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-    }
+    },
+
+    layoutHeader__logo: {
+        width: '40px',
+        height: '40px',
+    },
 }));
