@@ -1,24 +1,21 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, CardMedia, Container, Tab, Tabs, Typography } from '@material-ui/core';
 
-import { HEADER_TABS } from '../../../consts';
-import { HeaderTabs } from '../../../types';
+import { HEADER_TABS, ROUTES } from '../../../consts';
 import { AuthButtons } from './auth-buttons';
 import { useStyles } from './styles';
 
 
-interface Props {
-    selectedTab?: HeaderTabs;
-}
-
-const LayoutHeader = ({ selectedTab }: Props) => {
+const LayoutHeader = () => {
     const styles = useStyles();
-    const [tab, changeTab] = useState(selectedTab);
+    const { pathname } = useLocation();
+    const defaultTab = HEADER_TABS.find(({ path }) => pathname.startsWith(path))?.path || ROUTES.NEWS;
+    const [tab, changeTab] = useState(defaultTab);
 
-    const onChangeTab = useCallback((_: React.ChangeEvent<{}>, newTab: HeaderTabs) => {
+    const onChangeTab = useCallback((_: React.ChangeEvent<{}>, newTab: string) => {
         changeTab(newTab);
-    }, [tab]);
+    }, []);
 
     return (
         <Container className={styles.layoutHeader} maxWidth={false}>
@@ -29,7 +26,7 @@ const LayoutHeader = ({ selectedTab }: Props) => {
                 </Box>
                 <Tabs value={tab} onChange={onChangeTab}>
                     {HEADER_TABS.map(({ name, path }) => (
-                        <Tab label={name} value={name} to={path} component={Link} />
+                        <Tab label={name} value={path} to={path} component={Link} />
                     ))}
                 </Tabs>
                 <AuthButtons />
