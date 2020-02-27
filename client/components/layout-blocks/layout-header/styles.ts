@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((styles) => ({
     layoutHeader: {
         position: 'fixed',
-        height: '60px',
+        height: '80px',
         display: 'flex',
         justifyContent: 'space-between',
         padding: '10px',
@@ -17,5 +17,18 @@ export const useStyles = makeStyles((styles) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-    }
+    },
+
+    layoutHeader__logo: {
+        width: '60px',
+        height: '60px',
+    },
+
+    layoutHeader__titleWrapper: {
+        display: 'flex',
+    },
+
+    layoutHeader__title: {
+        margin: '5px 0 0 10px',
+    },
 }));

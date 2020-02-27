@@ -1,18 +1,22 @@
 import React, { memo } from 'react';
 import { Container } from '@material-ui/core';
 
-import LayoutHeader from '../common/layout-header';
-import LayoutContent from '../common/layout-content';
-import LayoutFooter from '../common/layout-footer';
+import LayoutHeader from '../layout-header';
+import LayoutFooter from '../layout-footer';
 
-const Page = () => {
+
+interface Props {
+    children?: React.ReactNode;
+}
+
+const Layout = ({ children }: Props) => {
     return (
         <Container disableGutters maxWidth={false}>
             <LayoutHeader />
-            <LayoutContent />
+            {children}
             <LayoutFooter />
         </Container>
     );
 };
 
-export default memo(Page);
+export default memo(Layout);

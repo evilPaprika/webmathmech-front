@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles(() => ({
-    LayoutContent: {
+    newsPage: {
         textAlign: 'center',
     },
-    LayoutContent__logo: {
+    newsPage__logo: {
         height: '40vmin',
     },
-    LayoutContent__main: {
+    newsPage__main: {
         backgroundColor: '#282c34',
         minHeight: '100vh',
         display: 'flex',
@@ -17,8 +17,5 @@ export const useStyles = makeStyles(() => ({
         justifyContent: 'center',
         fontSize: 'calc(10px + 2vmin)',
         color: 'white',
-    },
-    LayoutContent__link: {
-        color: '#09d3ac',
     },
 }));

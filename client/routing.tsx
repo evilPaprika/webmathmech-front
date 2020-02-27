@@ -1,24 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import AdminPanel from './components/admin-panel';
-import Error404 from './components/not-found-error';
-import Page from './components/page';
-import { ROUTES } from './consts';
 import apolloClient from './apollo';
+import Layout from './components/layout-blocks/layout';
+import Error404 from './components/not-found-error';
+import AdminPage from './components/pages/admin-page';
+import NewsPage from './components/pages/news-page';
+import PerformancesPage from './components/pages/performances-page';
+import { ROUTES } from './consts';
 
 
 export default (
     <ApolloProvider client={apolloClient}>
         <BrowserRouter>
-            <Switch>
-                <Route exact path={ROUTES.MAIN} component={Page} />
-                <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
-                <Route path={ROUTES.SIGN_UP} component={Page} />
-                <Route path={ROUTES.SIGN_IN} component={Page} />
-                <Route component={Error404} />
-            </Switch>
+            <Layout>
+                <Switch>
+                    <Redirect exact from={ROUTES.MAIN} to={ROUTES.NEWS} />
+                    <Route path={ROUTES.NEWS} component={NewsPage} />
+                    <Route path={ROUTES.PERFORMANCES} component={PerformancesPage} />
+                    <Route path={ROUTES.ADMIN} component={AdminPage} />
+                    <Route component={Error404} />
+                </Switch>
+            </Layout>
         </BrowserRouter>
     </ApolloProvider>
 
