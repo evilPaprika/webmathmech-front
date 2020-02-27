@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import apolloClient from './apollo';
-import Layout from './components/common/layout';
+import Layout from './components/layout-blocks/layout';
 import Error404 from './components/not-found-error';
 import AdminPage from './components/pages/admin-page';
 import NewsPage from './components/pages/news-page';

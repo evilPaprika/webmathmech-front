@@ -2,10 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles(() => ({
-    parformancesPage: {
+    performancesPage: {
         textAlign: 'center',
     },
-    parformancesPage__main: {
+    performancesPage__main: {
         backgroundColor: '#282c34',
         minHeight: '100vh',
         display: 'flex',

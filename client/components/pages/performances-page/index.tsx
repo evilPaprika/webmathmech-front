@@ -3,16 +3,16 @@ import React, { memo } from 'react';
 import { useStyles } from './styles';
 
 
-const NewsPage = () => {
+const PerformancesPage = () => {
     const styles = useStyles();
 
     return (
-        <main className={styles.parformancesPage}>
-            <div className={styles.parformancesPage__main}>
+        <main className={styles.performancesPage}>
+            <div className={styles.performancesPage__main}>
                 <div>Страница с выступлениями!!!</div>
             </div>
         </main>
     );
 };
 
-export default memo(NewsPage);
+export default memo(PerformancesPage);

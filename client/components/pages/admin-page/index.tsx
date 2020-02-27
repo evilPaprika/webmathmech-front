@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { useStyles } from './styles';
 
 
-const NewsPage = () => {
+const AdminPage = () => {
     const styles = useStyles();
 
     return (
@@ -15,4 +15,4 @@ const NewsPage = () => {
     );
 };
 
-export default memo(NewsPage);
+export default memo(AdminPage);

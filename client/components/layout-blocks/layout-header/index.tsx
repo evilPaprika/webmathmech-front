@@ -11,10 +11,10 @@ const LayoutHeader = () => {
     const styles = useStyles();
     const { pathname } = useLocation();
     const defaultTab = HEADER_TABS.find(({ path }) => pathname.startsWith(path))?.path || ROUTES.NEWS;
-    const [tab, changeTab] = useState(defaultTab);
+    const [tab, setTab] = useState(defaultTab);
 
     const onChangeTab = useCallback((_: React.ChangeEvent<{}>, newTab: string) => {
-        changeTab(newTab);
+        setTab(newTab);
     }, []);
 
     return (
