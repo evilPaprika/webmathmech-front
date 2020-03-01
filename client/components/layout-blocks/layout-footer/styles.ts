@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
     layoutFooter: {
         padding: theme.spacing(1),
+        borderTop: '1px solid #eee',
+
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        background: 'linear-gradient(0deg, #fff 50%, #808080 100%)'
+
+        backgroundColor: '#fafafa',
     },
 
     layoutFooter__socialGroup: {
