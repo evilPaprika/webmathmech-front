@@ -4,8 +4,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import apolloClient from './apollo';
 import Layout from './components/layout-blocks/layout';
-import Error404 from './components/not-found-error';
 import AdminPage from './components/pages/admin-page';
+import Error404 from './components/pages/error-page';
 import NewsPage from './components/pages/news-page';
 import PerformancesPage from './components/pages/performances-page';
 import { ROUTES } from './consts';
