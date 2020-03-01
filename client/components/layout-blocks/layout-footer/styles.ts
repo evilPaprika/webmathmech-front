@@ -3,29 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     layoutFooter: {
-        height: '160px',
+        padding: theme.spacing(1),
         display: 'flex',
-        flexDirection: 'column',
-        textAlign: 'center',
-
-        background: 'linear-gradient(0deg, #fff 30%, #808080 90%)',
-    },
-
-    layoutFooter__content: {
-        margin: 'auto',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: 'linear-gradient(0deg, #fff 50%, #808080 100%)'
     },
 
     layoutFooter__socialGroup: {
         display: 'flex',
-        justifyContent: 'center',
     },
 
     layoutFooter__socialIcon: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(0.5)
     },
 
     layoutFooter__socialIconImage: {
-        width: '40px',
-        height: '40px',
+        width: '20px',
+        height: '20px',
     }
 }));
