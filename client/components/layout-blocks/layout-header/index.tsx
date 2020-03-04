@@ -28,7 +28,6 @@ const LayoutHeader = () => {
                             value={path}
                             to={path}
                             component={Link}
-                            className={styles.layoutHeader__tab}
                         />
                     ))}
                 </Tabs>

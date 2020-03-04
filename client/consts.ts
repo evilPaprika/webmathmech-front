@@ -32,7 +32,7 @@ export const FOOTER_LOGOTYPES: Array<{
     },
     {
         src: '/static/mail_logo.svg',
-        href: 'https://mail.ru/', // TODO link. It is example
+        href: 'mailto:webmathmech@yandex.ru'
     },
     {
         src: '/static/github_logo.svg',
