@@ -1,34 +1,34 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export const useStyles = makeStyles((styles) => ({
+export const useStyles = makeStyles((theme) => ({
     layoutHeader: {
         position: 'fixed',
-        height: '80px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: '10px',
-        borderBottom: '1px solid grey',
-        backgroundColor: styles.palette.background.paper,
-    },
 
-    layoutHeader__content: {
+        padding: theme.spacing(1),
+        borderBottom: '1px solid #eee',
+
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
+
+        backgroundColor: '#fafafa',
+    },
+
+    layoutHeader__left: {
+        display: 'flex'
     },
 
     layoutHeader__logo: {
-        width: '60px',
-        height: '60px',
+        width: '50px',
+        height: '50px',
+
+        marginRight: '20px',
+
+        flexShrink: 0,
     },
 
-    layoutHeader__titleWrapper: {
-        display: 'flex',
-    },
-
-    layoutHeader__title: {
-        margin: '5px 0 0 10px',
-    },
+    layoutHeader__tab: {
+        fontSize: '12px',
+    }
 }));
