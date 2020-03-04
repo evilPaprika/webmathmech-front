@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Button, Modal } from '@material-ui/core';
+import { Button, Modal, Typography } from '@material-ui/core';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { AuthMethods } from '../../types';
@@ -11,13 +11,13 @@ import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 
 interface Props {
     open: boolean;
-    loginMethod: AuthMethods;
     close(): void;
 }
 
-const AuthModal = ({ open, loginMethod, close }: Props) => {
+const AuthModal = ({ open, close }: Props) => {
     const styles = useStyles();
 
+    const [loginMethod, setLoginMethod] = useState(AuthMethods.SignIn);
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
@@ -40,13 +40,21 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
         userAuth({ variables: { login, password } });
     }, [userAuth, login, password]);
 
-    const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value);
-    };
+    }, [setLogin]);
 
-    const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-    };
+    }, [setPassword]);
+
+    const changeLoginMethod = useCallback(() => {
+        if (isSignUpMethod) {
+            setLoginMethod(AuthMethods.SignIn);
+        } else {
+            setLoginMethod(AuthMethods.SignUp);
+        }
+    }, [isSignUpMethod]);
 
     return (
         <Modal
@@ -80,6 +88,9 @@ const AuthModal = ({ open, loginMethod, close }: Props) => {
                         {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
                     </Button>
                 </LayoutGroup>
+                <Typography component="div" onClick={changeLoginMethod} color="secondary">
+                    {isSignUpMethod ? 'Войти' : 'Зарегистрироваться'}
+                </Typography>
                 {loading && <div>Обработка</div>}
                 {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
             </form>

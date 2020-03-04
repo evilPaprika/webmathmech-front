@@ -13,7 +13,7 @@ const LayoutFooter = () => {
     return (
         <Box className={styles.layoutFooter}>
             <Typography variant="body2" color="textPrimary">
-                {'Copyright © '}
+                {'Copyright by '}
                 <Link color="inherit" href="https://webmathmech.site/" target="_blank">
                     WebMathMech
                 </Link>

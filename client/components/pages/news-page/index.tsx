@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import ReactPlayer from 'react-player';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 
-import { Card } from '@material-ui/core';
 import { useStyles } from './styles';
 
 
@@ -13,18 +13,7 @@ interface CardProps {
 const CARDS: Array<CardProps> = [
     {
         header: 'Header',
-        content: `abracadabra asofasklfsdl;fksdl;fkls;dfgkl;dsfgksdfksdfslfsdfsdfsdfsd,fsdlvs,vsdlvsdvsv,sdlv;mdfbv
-        вамваыи
-        ваыив
-        аи
-        ваыивва
-        ив
-        аива
-        ива
-        ивваи
-        аиваив
-        fsb
-        dfbfdb`
+        content: 'Some content'
     }
 ];
 
@@ -42,24 +31,16 @@ const NewsPage = () => {
                 <p>
                     Site is in progress!
                 </p>
-                {CARDS.map(() => (
+                {CARDS.map(({ header, content }) => (
                     <Card>
-                        {/* <CardHeader>
+                        <CardHeader>
                             {header}
                         </CardHeader>
                         <CardContent>
                             {content}
-                        </CardContent> */}
-                        <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" playing controls />
-                        {/* <iframe
-                            width="560"
-                            height="315"
-                            title="hello"
-                            src="https://www.youtube.com/watch?v=_Ht9woqhWmY"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        /> */}
+                        </CardContent>
+                        {/* проверка работы видео */}
+                        <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
                     </Card>
                 ))}
             </div>
