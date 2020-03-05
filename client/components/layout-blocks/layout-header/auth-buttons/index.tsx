@@ -57,6 +57,7 @@ export const AuthButtons = () => {
                     </Button>
                     <Menu
                         id="user-menu"
+                        className={styles.authButtons__menu}
                         anchorEl={anchorEl}
                         open={!!anchorEl}
                         onClose={closeMenu}
