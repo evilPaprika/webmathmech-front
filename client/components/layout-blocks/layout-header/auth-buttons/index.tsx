@@ -1,25 +1,27 @@
-import { Button, ButtonGroup } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { AuthMethods } from '../../../../types';
+import { Avatar, Button, Container, Menu, MenuItem, Typography } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
+
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '../../../../apollo/queries';
+import { ROUTES } from '../../../../consts';
 import AuthModal from '../../../auth-modal';
+import { useStyles } from './styles';
 
 
 export const AuthButtons = () => {
-    const [openAuthModal, setOpen] = useState(false);
-    const [loginMethod, setLoginMethod] = useState(AuthMethods.SignIn);
+    const styles = useStyles();
+
+    const [openAuthModal, setOpen] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
     const { data, refetch } = useQuery(GET_CURRENT_USER, { fetchPolicy: 'no-cache' });
+    const { login, avatar } = data?.getCurrentUser || {};
     refetch(); // TODO вызывать только при логине/регистрации
 
-    const openSignUpModal = () => {
-        setLoginMethod(AuthMethods.SignUp);
-        setOpen(true);
-    };
-
-    const openSignInModal = () => {
-        setLoginMethod(AuthMethods.SignIn);
+    const openModal = () => {
         setOpen(true);
     };
 
@@ -27,22 +29,47 @@ export const AuthButtons = () => {
         setOpen(false);
     };
 
-    const SignOut = () => {
-        localStorage.removeItem('token');
-        client.writeData({ data: { isLoggedIn: false } });
+    const openMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setAnchorEl(event.currentTarget);
     };
 
+    const closeMenu = () => {
+        setAnchorEl(null);
+    };
+
+    const signOut = useCallback(() => {
+        localStorage.removeItem('token');
+        client.writeData({ data: { isLoggedIn: false } });
+    }, [client]);
+
     return (
-        <>
-            <AuthModal open={openAuthModal} loginMethod={loginMethod} close={closeModal} />
-            <ButtonGroup variant="contained" color="primary">
-                {isLoggedIn
-                    ? <Button color="primary" onClick={SignOut}>Выйти {data?.getCurrentUser.login}</Button>
-                    : [
-                        <Button color="primary" onClick={openSignInModal} key="signin">Войти</Button>,
-                        <Button color="primary" onClick={openSignUpModal} key="signup">Зарегистрироваться</Button>
-                    ]}
-            </ButtonGroup>
-        </>
+        <Container className={styles.authButtons__wrapper} maxWidth={false}>
+            <AuthModal open={openAuthModal} close={closeModal} />
+            {isLoggedIn ? (
+                <>
+                    <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
+                        <Typography className={styles.authButtons__login}>
+                            {login}
+                        </Typography>
+                        {avatar
+                            ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />
+                            : <AccountCircle />}
+                    </Button>
+                    <Menu
+                        id="user-menu"
+                        className={styles.authButtons__menu}
+                        anchorEl={anchorEl}
+                        open={!!anchorEl}
+                        onClose={closeMenu}
+                        onClick={closeMenu}
+                    >
+                        <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
+                                Мой профиль
+                        </MenuItem>
+                        <MenuItem onClick={signOut}>Выйти</MenuItem>
+                    </Menu>
+                </>
+            ) : <Button color="inherit" onClick={openModal}>Войти</Button>}
+        </Container>
     );
 };

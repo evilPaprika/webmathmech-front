@@ -5,6 +5,7 @@ export const ROUTES = {
     NEWS: '/news',
     PERFORMANCES: '/performances',
     ADMIN: '/admin',
+    PERSONAL_PAGE: '/personal-page',
 };
 
 export const HEADER_TABS = [
@@ -31,12 +32,8 @@ export const FOOTER_LOGOTYPES: Array<{
         href: 'https://vk.com/webmathmech'
     },
     {
-        src: '/static/instagram_logo.svg',
-        href: 'https://instagram.com/' // TODO link. It is example
-    },
-    {
         src: '/static/mail_logo.svg',
-        href: 'https://mail.ru/', // TODO link. It is example
+        href: 'mailto:webmathmech@yandex.ru'
     },
     {
         src: '/static/github_logo.svg',

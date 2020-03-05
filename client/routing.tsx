@@ -8,6 +8,7 @@ import AdminPage from './components/pages/admin-page';
 import Error404 from './components/pages/error-page';
 import NewsPage from './components/pages/news-page';
 import PerformancesPage from './components/pages/performances-page';
+import PersonalPage from './components/pages/personal-page';
 import { ROUTES } from './consts';
 
 
@@ -20,6 +21,7 @@ export default (
                     <Route path={ROUTES.NEWS} component={NewsPage} />
                     <Route path={ROUTES.PERFORMANCES} component={PerformancesPage} />
                     <Route path={ROUTES.ADMIN} component={AdminPage} />
+                    <Route path={ROUTES.PERSONAL_PAGE} component={PersonalPage} />
                     <Route component={Error404} />
                 </Switch>
             </Layout>

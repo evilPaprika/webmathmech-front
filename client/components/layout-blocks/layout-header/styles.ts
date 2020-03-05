@@ -12,7 +12,8 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
 
-        backgroundColor: '#fafafa',
+        backgroundColor: '#16242f',
+        color: '#fff',
     },
 
     layoutHeader__left: {
@@ -27,8 +28,4 @@ export const useStyles = makeStyles((theme) => ({
 
         flexShrink: 0,
     },
-
-    layoutHeader__tab: {
-        fontSize: '12px',
-    }
 }));
