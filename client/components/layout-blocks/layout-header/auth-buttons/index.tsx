@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { Avatar, Button, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Avatar, Button, Container, Menu, MenuItem, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '../../../../apollo/queries';
@@ -43,13 +43,13 @@ export const AuthButtons = () => {
     }, [client]);
 
     return (
-        <>
+        <Container className={styles.authButtons__wrapper}>
             <AuthModal open={openAuthModal} close={closeModal} />
             {isLoggedIn
                 ? (
                     <>
                         <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
-                            <Typography className={styles.login}>
+                            <Typography className={styles.authButtons__login}>
                                 {login}
                             </Typography>
                             {avatar
@@ -71,6 +71,6 @@ export const AuthButtons = () => {
                     </>
                 )
                 : <Button color="inherit" onClick={openModal}>Войти</Button>}
-        </>
+        </Container>
     );
 };
