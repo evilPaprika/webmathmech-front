@@ -21,7 +21,7 @@ const LayoutFooter = () => {
             </Typography>
             <Box className={styles.layoutFooter__socialGroup}>
                 {FOOTER_LOGOTYPES.map(({ src, href }) => (
-                    <Link href={href} target="_blank" className={styles.layoutFooter__socialIcon}>
+                    <Link key={src} href={href} target="_blank" className={styles.layoutFooter__socialIcon}>
                         <CardMedia image={src} className={styles.layoutFooter__socialIconImage} />
                     </Link>
                 ))}

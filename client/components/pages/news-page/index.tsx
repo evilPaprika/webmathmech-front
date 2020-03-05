@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import ReactPlayer from 'react-player';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardContent, Typography } from '@material-ui/core';
 
 import { useStyles } from './styles';
 
@@ -23,25 +23,18 @@ const NewsPage = () => {
     return (
         <main className={styles.newsPage}>
             <div className={styles.newsPage__main}>
-                <img
-                    className={styles.newsPage__logo}
-                    src="https://www.meme-arsenal.com/memes/b402fcdafad2034c1cdd9038d6f49a16.jpg"
-                    alt="yaml development"
-                />
-                <p>
-                    Site is in progress!
-                </p>
                 {CARDS.map(({ header, content }) => (
-                    <Card>
-                        <CardHeader>
-                            {header}
-                        </CardHeader>
-                        <CardContent>
-                            {content}
-                        </CardContent>
-                        {/* проверка работы видео */}
-                        <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
-                    </Card>
+                    <>
+                        {/* TODO: перенеести в отдельный компонент и заюзать во вкладке Выступления */}
+                        <Card raised>
+                            <Typography variant="h5" style={{ marginTop: '10px' }}>{header}</Typography>
+                            <CardContent>
+                                {/* проверка работы видео */}
+                                <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
+                                <Typography style={{ margin: '10px 0' }}>{content}</Typography>
+                            </CardContent>
+                        </Card>
+                    </>
                 ))}
             </div>
         </main>

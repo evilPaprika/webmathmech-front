@@ -1,24 +1,41 @@
 import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { Button } from '@material-ui/core';
+import { Avatar, Button, Menu, MenuItem, Typography } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '../../../../apollo/queries';
+import { ROUTES } from '../../../../consts';
 import AuthModal from '../../../auth-modal';
+import { useStyles } from './styles';
 
 
 export const AuthButtons = () => {
-    const [openAuthModal, setOpen] = useState(false);
+    const styles = useStyles();
+
+    const [openAuthModal, setOpen] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
     const { data, refetch } = useQuery(GET_CURRENT_USER, { fetchPolicy: 'no-cache' });
+    const { login, avatar } = data?.getCurrentUser || {};
     refetch(); // TODO вызывать только при логине/регистрации
 
-    const openModal = useCallback(() => {
+    const openModal = () => {
         setOpen(true);
-    }, [setOpen]);
+    };
 
-    const closeModal = useCallback(() => {
+    const closeModal = () => {
         setOpen(false);
-    }, [setOpen]);
+    };
+
+    const openMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+        setAnchorEl(null);
+    };
 
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
@@ -29,8 +46,31 @@ export const AuthButtons = () => {
         <>
             <AuthModal open={openAuthModal} close={closeModal} />
             {isLoggedIn
-                ? <Button color="primary" onClick={signOut}>Выйти {data?.getCurrentUser.login}</Button>
-                : <Button onClick={openModal} color="inherit">Войти</Button>}
+                ? (
+                    <>
+                        <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
+                            <Typography className={styles.login}>
+                                {login}
+                            </Typography>
+                            {avatar
+                                ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />
+                                : <AccountCircle />}
+                        </Button>
+                        <Menu
+                            id="user-menu"
+                            anchorEl={anchorEl}
+                            open={!!anchorEl}
+                            onClose={closeMenu}
+                            onClick={closeMenu}
+                        >
+                            <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
+                                Мой профиль
+                            </MenuItem>
+                            <MenuItem onClick={signOut}>Выйти</MenuItem>
+                        </Menu>
+                    </>
+                )
+                : <Button color="inherit" onClick={openModal}>Войти</Button>}
         </>
     );
 };

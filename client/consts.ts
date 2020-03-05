@@ -5,6 +5,7 @@ export const ROUTES = {
     NEWS: '/news',
     PERFORMANCES: '/performances',
     ADMIN: '/admin',
+    PERSONAL_PAGE: '/personal-page',
 };
 
 export const HEADER_TABS = [
