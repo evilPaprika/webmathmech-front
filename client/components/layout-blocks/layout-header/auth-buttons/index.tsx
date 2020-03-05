@@ -43,34 +43,32 @@ export const AuthButtons = () => {
     }, [client]);
 
     return (
-        <Container className={styles.authButtons__wrapper}>
+        <Container className={styles.authButtons__wrapper} maxWidth={false}>
             <AuthModal open={openAuthModal} close={closeModal} />
-            {isLoggedIn
-                ? (
-                    <>
-                        <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
-                            <Typography className={styles.authButtons__login}>
-                                {login}
-                            </Typography>
-                            {avatar
-                                ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />
-                                : <AccountCircle />}
-                        </Button>
-                        <Menu
-                            id="user-menu"
-                            anchorEl={anchorEl}
-                            open={!!anchorEl}
-                            onClose={closeMenu}
-                            onClick={closeMenu}
-                        >
-                            <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
+            {isLoggedIn ? (
+                <>
+                    <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
+                        <Typography className={styles.authButtons__login}>
+                            {login}
+                        </Typography>
+                        {avatar
+                            ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />
+                            : <AccountCircle />}
+                    </Button>
+                    <Menu
+                        id="user-menu"
+                        anchorEl={anchorEl}
+                        open={!!anchorEl}
+                        onClose={closeMenu}
+                        onClick={closeMenu}
+                    >
+                        <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
                                 Мой профиль
-                            </MenuItem>
-                            <MenuItem onClick={signOut}>Выйти</MenuItem>
-                        </Menu>
-                    </>
-                )
-                : <Button color="inherit" onClick={openModal}>Войти</Button>}
+                        </MenuItem>
+                        <MenuItem onClick={signOut}>Выйти</MenuItem>
+                    </Menu>
+                </>
+            ) : <Button color="inherit" onClick={openModal}>Войти</Button>}
         </Container>
     );
 };
