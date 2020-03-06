@@ -11,7 +11,7 @@ const LayoutFooter = () => {
     const styles = useStyles();
 
     return (
-        <Container className={styles.layoutFooter}>
+        <Container className={styles.layoutFooter} maxWidth={false}>
             <Container className={styles.layoutFooter__copyright}>
                 <Typography variant="body2" color="textPrimary">
                     {'Copyright by '}

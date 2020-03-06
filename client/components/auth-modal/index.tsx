@@ -58,10 +58,11 @@ const AuthModal = ({ open, close }: Props) => {
 
     return (
         <Modal
+            className={styles.modal}
             closeAfterTransition
             open={open}
+            disableScrollLock
             onClose={close}
-            className={styles.modal}
         >
             <form className={styles.modalForm}>
                 <LayoutGroup>

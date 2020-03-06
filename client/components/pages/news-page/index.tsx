@@ -23,18 +23,16 @@ const NewsPage = () => {
     return (
         <main className={styles.newsPage}>
             <div className={styles.newsPage__main}>
-                {CARDS.map(({ header, content }) => (
-                    <>
-                        {/* TODO: перенеести в отдельный компонент и заюзать во вкладке Выступления */}
-                        <Card raised>
-                            <Typography variant="h5" style={{ marginTop: '10px' }}>{header}</Typography>
-                            <CardContent>
-                                {/* проверка работы видео */}
-                                <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
-                                <Typography style={{ margin: '10px 0' }}>{content}</Typography>
-                            </CardContent>
-                        </Card>
-                    </>
+                {/* TODO: перенеести в отдельный компонент и заюзать во вкладке Выступления */}
+                {CARDS.map(({ header, content }, index) => (
+                    <Card key={index} raised>
+                        <Typography variant="h5" style={{ marginTop: '10px' }}>{header}</Typography>
+                        <CardContent>
+                            {/* проверка работы видео */}
+                            <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
+                            <Typography style={{ margin: '10px 0' }}>{content}</Typography>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
         </main>
