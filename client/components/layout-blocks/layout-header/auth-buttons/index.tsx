@@ -60,6 +60,7 @@ export const AuthButtons = () => {
                         className={styles.authButtons__menu}
                         anchorEl={anchorEl}
                         open={!!anchorEl}
+                        disableScrollLock
                         onClose={closeMenu}
                         onClick={closeMenu}
                     >

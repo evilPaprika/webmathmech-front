@@ -13,8 +13,13 @@ export const useStyles = makeStyles((theme) => ({
         backgroundColor: '#fafafa',
     },
 
+    layoutFooter__copyright: {
+        flexBasis: '100%'
+    },
+
     layoutFooter__socialGroup: {
         display: 'flex',
+        justifyContent: 'flex-end',
     },
 
     layoutFooter__socialIcon: {
