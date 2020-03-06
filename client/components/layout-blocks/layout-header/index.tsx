@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Box, CardMedia, Container, Tab, Tabs } from '@material-ui/core';
+import { CardMedia, Container, Tab, Tabs } from '@material-ui/core';
 
 import { HEADER_TABS, ROUTES } from '../../../consts';
 import { AuthButtons } from './auth-buttons';
@@ -22,7 +22,7 @@ const LayoutHeader = () => {
 
     return (
         <Container className={styles.layoutHeader} maxWidth={false}>
-            <Box className={styles.layoutHeader__left}>
+            <Container className={styles.layoutHeader__left}>
                 <Link to={ROUTES.NEWS} onClick={() => setTab(DEFAULT_TAB)}>
                     <CardMedia image="/static/logo.png" className={styles.layoutHeader__logo} />
                 </Link>
@@ -37,7 +37,7 @@ const LayoutHeader = () => {
                         />
                     ))}
                 </Tabs>
-            </Box>
+            </Container>
             <AuthButtons />
         </Container>
     );
