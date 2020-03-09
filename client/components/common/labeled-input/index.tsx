@@ -1,19 +1,70 @@
-import React, { memo } from 'react';
-import { Box, Input, InputBaseComponentProps, InputLabel, InputProps } from '@material-ui/core';
+import React, { memo, useState } from 'react';
+import { FormControl, InputAdornment, IconButton, OutlinedTextFieldProps, TextField } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { useStyles } from './styles';
 
 
-type Props = InputBaseComponentProps & InputProps & { label: string; };
+enum InputTypes {
+    Text = 'text',
+    Password = 'password',
+}
 
-const LabeledInput = ({ label, ...inputProps }: Props) => {
+type Props = Partial<OutlinedTextFieldProps> & { label: string; };
+
+const LabeledInput = (props: Props) => {
+    const { type = InputTypes.Text, color = 'secondary', variant = 'outlined', ...otherProps } = props;
     const styles = useStyles();
 
+    if (type === InputTypes.Password) {
+        return <LabeledPasswordInput {...props} />;
+    }
+
     return (
-        <Box className={styles.inputField}>
-            <InputLabel className={styles.inputLabel}>{label}</InputLabel>
-            <Input type="text" {...inputProps} />
-        </Box>
+        <FormControl className={styles.inputField}>
+            <TextField
+                type={type}
+                color={color}
+                variant={variant}
+                {...otherProps}
+            />
+        </FormControl>
+    );
+};
+
+
+const LabeledPasswordInput = (props: Props) => {
+    const styles = useStyles();
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
+    const onClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const EndAdornment = (
+        <InputAdornment position="end">
+            <IconButton
+                onClick={onClickShowPassword}
+                edge="end"
+            >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+        </InputAdornment>
+    );
+
+    return (
+        <FormControl className={styles.inputField}>
+            <TextField
+                color="secondary"
+                variant="outlined"
+                InputProps={{
+                    endAdornment: EndAdornment
+                }}
+                {...props}
+                type={showPassword ? InputTypes.Text : InputTypes.Password}
+            />
+        </FormControl>
     );
 };
 
