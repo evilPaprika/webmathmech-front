@@ -11,9 +11,20 @@ scalar DateTime
 type Mutation {
   userSignIn(login: String!, password: String!): Token!
   userSignUp(login: String!, password: String!): Token!
+  createNewsPost(text: String!): NewsPost!
+}
+
+type NewsPost {
+  id: String!
+
+  """News post content"""
+  text: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
+  findNewsPost(id: String!): NewsPost!
   getCurrentUser: User!
   findUser(login: String!): User!
 }
@@ -23,6 +34,8 @@ type Token {
 }
 
 type User {
+  id: String!
+
   """Login of the user."""
   login: String!
   createdAt: DateTime!

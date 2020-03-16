@@ -8,7 +8,7 @@ const connectDB = async () => {
         dialectOptions: {
             ssl: true,
         },
-        modelPaths: [`${__dirname}/../models/*.sequelize.js`]
+        models: [`${__dirname}/../models/*.sequelize.js`]
     });
 
     // Uncomment force: true to reset DB

@@ -2,27 +2,39 @@ import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken';
 import {
     Args,
+    ArgsType,
+    Field,
     Mutation,
     Resolver,
 } from 'type-graphql';
 import config from 'config';
+import { Length } from 'class-validator';
 import User from '../models/User.sequelize';
-import AuthInputArgs from '../models/AuthInputArgs';
 import Token from '../models/Token';
 import { IUserPayLoad } from '../types/jwt';
 import { Role } from '../types';
 import { SALT } from '../consts';
 
+
 const expiresIn = '1y';
+
+
+@ArgsType()
+class AuthInput {
+    @Field()
+    @Length(4, 16, { message: 'Login should be between 4 and 16 characters' })
+    public login!: string;
+
+    @Field()
+    @Length(8, 64, { message: 'Password is too short' })
+    public password!: string;
+}
+
 
 @Resolver()
 export default class AuthResolver {
     @Mutation(() => Token)
-    public async userSignIn(@Args()
-        {
-            login,
-            password,
-        }: AuthInputArgs) {
+    public async userSignIn(@Args() { login, password, }: AuthInput) {
         // Check if the user is in database
         const user = await User.findOne({ where: { login } });
 
@@ -48,10 +60,7 @@ export default class AuthResolver {
     }
 
     @Mutation(() => Token)
-    public async userSignUp(
-    @Args()
-        { login, password }: AuthInputArgs
-    ) {
+    public async userSignUp(@Args() { login, password }: AuthInput) {
         // Find if there is an existing account
         const user = await User.findOne({ where: { login } });
 
