@@ -10,7 +10,7 @@ export default koaCompose(
         logger(),
         koaJwt({
             passthrough: true,
-            secret: config.secret,
+            secret: config.JWTSecret,
         }),
     ]
 );

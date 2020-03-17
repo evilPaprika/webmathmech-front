@@ -2,31 +2,25 @@ import {
     Column,
     CreatedAt,
     DataType,
-    Default,
-    Model,
+    Default, Model,
     PrimaryKey,
     Table,
-    Unique,
     UpdatedAt,
 } from 'sequelize-typescript';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
 @Table
-export default class User extends Model<User> {
+export default class NewsPost extends Model<NewsPost> {
     @Field()
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'Login of the user.' })
-    @Unique
-    @Column
-    public login!: string;
-
-    @Column
-    public password!: string;
+    @Field({ description: 'News post content' })
+    @Column(DataType.TEXT)
+    public text!: string;
 
     @Field()
     @CreatedAt
