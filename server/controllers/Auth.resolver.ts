@@ -16,7 +16,7 @@ import { Role } from '../types';
 import { SALT } from '../consts';
 
 
-const expiresIn = '1y';
+const JWT_TOKEN_EXPIRATION_TIME = '1y';
 
 
 @ArgsType()
@@ -52,9 +52,7 @@ export default class AuthResolver {
             role: Role.USER,
         };
         // Generate a new token a save it
-        const token = jsonwebtoken.sign(payload, config.secret, {
-            expiresIn,
-        });
+        const token = jsonwebtoken.sign(payload, config.JWTSecret, { expiresIn: JWT_TOKEN_EXPIRATION_TIME });
 
         return { token };
     }
@@ -78,9 +76,7 @@ export default class AuthResolver {
             id: newUser.id,
             role: Role.USER,
         };
-        const token = jsonwebtoken.sign(payload, config.secret, {
-            expiresIn,
-        });
+        const token = jsonwebtoken.sign(payload, config.JWTSecret, { expiresIn: JWT_TOKEN_EXPIRATION_TIME });
 
         return { token };
     }

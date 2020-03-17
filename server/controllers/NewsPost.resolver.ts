@@ -23,11 +23,9 @@ class CreateNewsPostInput {
 export default class NewsPostResolver {
     @Mutation(() => NewsPost)
     public async createNewsPost(@Args() { text }: CreateNewsPostInput) {
-        const newNewsPost = await NewsPost.create({
+        return NewsPost.create({
             text
         });
-
-        return newNewsPost;
     }
 
     @Query(() => NewsPost)

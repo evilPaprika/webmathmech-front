@@ -3,7 +3,7 @@ declare module 'config' {
         port: number;
         environment: 'production' | 'development';
         databaseURL: string;
-        secret: string;
+        JWTSecret: string;
     }
 
     const config: Config;
