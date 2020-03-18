@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Box, Button, Container, Modal, Typography, IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { Box, Button, Container, IconButton, Modal, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
+import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
 import { useStyles } from './styles';
-import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 
 
 interface Props {
@@ -14,18 +14,32 @@ interface Props {
     close(): void;
 }
 
+interface AuthState {
+    name?: string;
+    surname?: string;
+    login: string;
+    password: string;
+    loginMethod: AuthMethods;
+}
+
+const DEFAULT_STATE: AuthState = {
+    name: '',
+    surname: '',
+    login: '',
+    password: '',
+    loginMethod: AuthMethods.SignIn,
+};
+
 const AuthModal = ({ open, close }: Props) => {
     const styles = useStyles();
 
-    const [loginMethod, setLoginMethod] = useState(AuthMethods.SignIn);
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+    const [authState, setAuthState] = useState<AuthState>(DEFAULT_STATE);
+    const { name, surname, login, password, loginMethod } = authState;
 
     const isSignUpMethod = loginMethod === AuthMethods.SignUp;
 
     const onClose = () => {
-        setLogin('');
-        setPassword('');
+        setAuthState(DEFAULT_STATE);
 
         close();
     };
@@ -46,19 +60,46 @@ const AuthModal = ({ open, close }: Props) => {
     );
 
     const submit = useCallback(() => {
-        userAuth({ variables: { login, password } });
-    }, [userAuth, login, password]);
+        const variables = isSignUpMethod
+            ? { login, password, name, surname }
+            : { login, password };
+
+        userAuth({ variables });
+    }, [userAuth, login, password, name, surname]);
+
+    const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthState({
+            ...authState,
+            name: event.target.value
+        });
+    };
+
+    const changeSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthState({
+            ...authState,
+            surname: event.target.value
+        });
+    };
 
     const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLogin(event.target.value);
+        setAuthState({
+            ...authState,
+            login: event.target.value
+        });
     };
 
     const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
+        setAuthState({
+            ...authState,
+            password: event.target.value
+        });
     };
 
     const changeLoginMethod = useCallback(() => {
-        setLoginMethod(isSignUpMethod ? AuthMethods.SignIn : AuthMethods.SignUp);
+        setAuthState({
+            ...authState,
+            loginMethod: isSignUpMethod ? AuthMethods.SignIn : AuthMethods.SignUp
+        });
     }, [isSignUpMethod]);
 
     return (
@@ -79,6 +120,26 @@ const AuthModal = ({ open, close }: Props) => {
                         </IconButton>
                     </Box>
                 </Box>
+                {isSignUpMethod && (
+                    <Box px="24px" display="flex">
+                        <Box mr="5px">
+                            <LabeledInput
+                                size="small"
+                                label="Имя"
+                                value={name}
+                                onChange={changeName}
+                            />
+                        </Box>
+                        <Box ml="5px">
+                            <LabeledInput
+                                size="small"
+                                label="Фамилия"
+                                value={surname}
+                                onChange={changeSurname}
+                            />
+                        </Box>
+                    </Box>
+                )}
                 <Box px="24px" mb="20px">
                     <LabeledInput
                         size="small"
