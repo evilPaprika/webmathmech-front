@@ -19,6 +19,8 @@ export const useStyles = makeStyles((theme) => {
 
             backgroundColor: theme.palette.background.paper,
             borderRadius: '5px',
+
+            overflow: 'hidden'
         },
 
         formHeader: {
