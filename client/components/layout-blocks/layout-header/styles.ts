@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
 
         backgroundColor: '#16242f',
-        color: '#fff',
+        color: theme.palette.common.white,
     },
 
     layoutHeader__left: {

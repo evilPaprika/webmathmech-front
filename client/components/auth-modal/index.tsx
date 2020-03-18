@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Button, Modal, Typography } from '@material-ui/core';
+import { Box, Button, Container, Modal, Typography, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
-import LayoutGroup from '../common/layout-group';
 import { useStyles } from './styles';
 import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 
@@ -23,15 +23,24 @@ const AuthModal = ({ open, close }: Props) => {
 
     const isSignUpMethod = loginMethod === AuthMethods.SignUp;
 
+    const onClose = () => {
+        setLogin('');
+        setPassword('');
+
+        close();
+    };
+
     const client = useApolloClient();
 
     const [userAuth, { loading, error }] = useMutation(
         isSignUpMethod ? USER_SIGNUP : USER_SIGNIN,
         {
             onCompleted(response) {
-                const { token } = isSignUpMethod ? response.userSignUp : response.userSignIn;
-                localStorage.setItem('token', token as string);
+                const { token }: { token: string; } = isSignUpMethod ? response.userSignUp : response.userSignIn;
+                localStorage.setItem('token', token);
                 client.writeData({ data: { isLoggedIn: true } });
+
+                onClose();
             }
         }
     );
@@ -40,61 +49,72 @@ const AuthModal = ({ open, close }: Props) => {
         userAuth({ variables: { login, password } });
     }, [userAuth, login, password]);
 
-    const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value);
-    }, [setLogin]);
+    };
 
-    const changePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-    }, [setPassword]);
+    };
 
     const changeLoginMethod = useCallback(() => {
-        if (isSignUpMethod) {
-            setLoginMethod(AuthMethods.SignIn);
-        } else {
-            setLoginMethod(AuthMethods.SignUp);
-        }
+        setLoginMethod(isSignUpMethod ? AuthMethods.SignIn : AuthMethods.SignUp);
     }, [isSignUpMethod]);
 
     return (
         <Modal
             className={styles.modal}
-            closeAfterTransition
             open={open}
             disableScrollLock
-            onClose={close}
+            onClose={onClose}
         >
-            <form className={styles.modalForm}>
-                <LayoutGroup>
-                    <h2>{isSignUpMethod ? 'Регистрация' : 'Вход'}</h2>
-                </LayoutGroup>
-                <LayoutGroup>
+            <Container className={styles.modalForm} disableGutters>
+                <Box className={styles.formHeader} mb="40px">
+                    <Container component="h2">
+                        {isSignUpMethod ? 'Регистрация' : 'Вход'}
+                    </Container>
+                    <Box>
+                        <IconButton className={styles.close} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+                </Box>
+                <Box px="24px" mb="20px">
                     <LabeledInput
+                        size="small"
                         label="Логин"
-                        type="text"
                         value={login}
-                        placeholder="Введите логин"
                         onChange={changeLogin}
+                        helperText="Логин должен быть длиной от 4 до 16 символов"
                     />
                     <LabeledInput
-                        label="Пароль"
+                        size="small"
                         type="password"
+                        label="Пароль"
                         value={password}
-                        placeholder="Введите пароль"
                         onChange={changePassword}
+                        helperText="Пароль должен быть длиной от 8 до 64 символов"
                     />
-                </LayoutGroup>
-                <LayoutGroup>
-                    <Button variant="contained" color="primary" onClick={submit}>
+                </Box>
+                <Box px="24px" mb="40px">
+                    <Button size="large" fullWidth variant="outlined" color="secondary" onClick={submit}>
                         {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
                     </Button>
-                </LayoutGroup>
-                <Typography component="div" onClick={changeLoginMethod} color="secondary">
-                    {isSignUpMethod ? 'Войти' : 'Зарегистрироваться'}
-                </Typography>
-                {loading && <div>Обработка</div>}
-                {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
-            </form>
+                    {loading && <div>Обработка</div>}
+                    {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
+                </Box>
+                <Box px="24px" mb="40px">
+                    {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
+                    <Typography
+                        className={styles.textPointer}
+                        component="span"
+                        onClick={changeLoginMethod}
+                        color="secondary"
+                    >
+                        {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
+                    </Typography>
+                </Box>
+            </Container>
         </Modal>
     );
 };
