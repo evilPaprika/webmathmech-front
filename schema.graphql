@@ -11,7 +11,7 @@ scalar DateTime
 type Mutation {
   userSignIn(login: String!, password: String!): Token!
   userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
-  createNewsPost(text: String!): NewsPost!
+  createNewsPost(text: String!, pictureURL: String): NewsPost!
 }
 
 type NewsPost {
@@ -19,6 +19,7 @@ type NewsPost {
 
   """News post content"""
   text: String!
+  pictureURL: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }

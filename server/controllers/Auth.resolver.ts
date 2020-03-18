@@ -33,15 +33,15 @@ class SignInInput {
 @ArgsType()
 class SignUpInput {
     @Field()
-    @Length(2, 16)
+    @Length(2, 40)
     public name!: string;
 
     @Field()
-    @Length(2, 16)
+    @Length(2, 40)
     public surname!: string;
 
     @Field()
-    @Length(4, 16)
+    @Length(4, 32)
     public login!: string;
 
     @Field()

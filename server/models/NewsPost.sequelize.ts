@@ -22,6 +22,10 @@ export default class NewsPost extends Model<NewsPost> {
     @Column(DataType.TEXT)
     public text!: string;
 
+    @Field({ nullable: true })
+    @Column(DataType.TEXT)
+    public pictureURL?: string;
+
     @Field()
     @CreatedAt
     public createdAt!: Date;

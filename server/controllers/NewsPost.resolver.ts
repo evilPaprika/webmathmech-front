@@ -17,6 +17,10 @@ class CreateNewsPostInput {
     @Field()
     @Length(10, 5000)
     public text!: string;
+
+    @Field({ nullable: true })
+    @Length(5, 5000)
+    public pictureURL?: string;
 }
 
 @ArgsType()
@@ -32,9 +36,10 @@ class GetNewsPostsInput {
 @Resolver(NewsPost)
 export default class NewsPostResolver {
     @Mutation(() => NewsPost)
-    public async createNewsPost(@Args() { text }: CreateNewsPostInput) {
+    public async createNewsPost(@Args() { text, pictureURL }: CreateNewsPostInput) {
         return NewsPost.create({
-            text
+            text,
+            pictureURL
         });
     }
 

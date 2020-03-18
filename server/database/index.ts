@@ -13,6 +13,7 @@ const connectDB = async () => {
 
     // Uncomment force: true to reset DB
     sequelize.sync({
+        // alter: true,
         // force: true,
     });
 };
