@@ -41,6 +41,7 @@ const NewsPage = () => {
                             <Box component="fieldset" mb={3} borderColor="transparent">
                                 <Typography component="legend">Рейтинг</Typography>
                                 <Rating
+                                    name="rating"
                                     value={rating}
                                     onChange={changeRating}
                                 />

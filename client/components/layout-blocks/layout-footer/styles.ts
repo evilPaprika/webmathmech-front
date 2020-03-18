@@ -6,20 +6,12 @@ export const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         borderTop: '1px solid #eee',
 
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-
         backgroundColor: '#fafafa',
-    },
-
-    layoutFooter__copyright: {
-        flexBasis: '100%'
     },
 
     layoutFooter__socialGroup: {
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
 
     layoutFooter__socialIcon: {

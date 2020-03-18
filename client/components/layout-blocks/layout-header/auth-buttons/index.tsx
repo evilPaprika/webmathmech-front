@@ -44,7 +44,7 @@ export const AuthButtons = () => {
     }, [client]);
 
     return (
-        <Container className={styles.authButtons__wrapper} maxWidth={false}>
+        <Container className={styles.authButtons__wrapper} maxWidth={false} disableGutters>
             <AuthModal open={openAuthModal} close={closeModal} refetch={refetch} />
             {isLoggedIn ? (
                 <>

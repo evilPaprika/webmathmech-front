@@ -1,21 +1,33 @@
 import React, { memo } from 'react';
-import { Container } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import LayoutHeader from '../layout-header';
-import LayoutFooter from '../layout-footer';
+import { useStyles } from './styles';
 
 
 interface Props {
     children?: React.ReactNode;
 }
 
+// здесь можно переопределять темы
+const theme = createMuiTheme({
+    palette: {
+        background: {
+            default: '#16242f'
+        }
+    }
+});
+
 const Layout = ({ children }: Props) => {
+    const classes = useStyles();
+
     return (
-        <Container disableGutters maxWidth={false}>
-            <LayoutHeader />
-            {children}
-            <LayoutFooter />
-        </Container>
+        <ThemeProvider theme={theme}>
+            <div className={classes.root}>
+                <LayoutHeader />
+                {children}
+            </div>
+        </ThemeProvider>
     );
 };
 

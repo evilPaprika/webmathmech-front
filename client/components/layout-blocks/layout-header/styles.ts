@@ -1,31 +1,52 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 
-export const useStyles = makeStyles((theme) => ({
-    layoutHeader: {
-        position: 'fixed',
+const DRAWER_WIDTH = 280;
 
-        padding: theme.spacing(1),
-        borderBottom: '1px solid #eee',
-
+export const useStyles = makeStyles((theme) => createStyles({
+    root: {
+        display: 'flex',
+    },
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: DRAWER_WIDTH,
+            flexShrink: 0,
+        },
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        backgroundColor: theme.palette.background.default,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
+    toolbar: {
+        ...theme.mixins.toolbar,
+        display: 'flex',
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.common.white
+    },
+    drawerPaper: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        backgroundColor: theme.palette.background.paper,
 
-        backgroundColor: '#16242f',
-        color: theme.palette.common.white,
+        width: DRAWER_WIDTH,
     },
-
-    layoutHeader__left: {
-        display: 'flex'
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
     },
-
-    layoutHeader__logo: {
+    logo: {
         width: '50px',
         height: '50px',
 
-        marginRight: '20px',
-
         flexShrink: 0,
     },
+    icons: {
+        display: 'flex'
+    }
 }));
