@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Box, Button, Container, IconButton, Modal, Typography } from '@material-ui/core';
+import { Box, Button, Container, Modal, Typography, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { AuthMethods } from '../../types';
 import LabeledInput from '../common/labeled-input';
-import LayoutGroup from '../common/layout-group';
 import { useStyles } from './styles';
 import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
 
@@ -68,55 +68,53 @@ const AuthModal = ({ open, close }: Props) => {
             disableScrollLock
             onClose={onClose}
         >
-            <Box className={styles.modalWrapper}>
-                <Box className={styles.close}>
-                    <IconButton onClick={onClose}>×</IconButton>
-                </Box>
-                <Box className={styles.formWrapper}>
-                    <Container className={styles.modalForm} disableGutters>
-                        <LayoutGroup>
-                            <Container component="h2" className={styles.formHeader} disableGutters>
-                                {isSignUpMethod ? 'Регистрация' : 'Вход'}
-                            </Container>
-                        </LayoutGroup>
-                        <LayoutGroup margin="medium">
-                            <LabeledInput
-                                size="small"
-                                label="Логин"
-                                value={login}
-                                onChange={changeLogin}
-                                helperText="Логин должен быть длиной от 4 до 16 символов"
-                            />
-                            <LabeledInput
-                                size="small"
-                                type="password"
-                                label="Пароль"
-                                value={password}
-                                onChange={changePassword}
-                                helperText="Пароль должен быть длиной от 8 до 64 символов"
-                            />
-                        </LayoutGroup>
-                        <LayoutGroup>
-                            <Button size="large" fullWidth variant="outlined" color="secondary" onClick={submit}>
-                                {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
-                            </Button>
-                            {loading && <div>Обработка</div>}
-                            {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
-                        </LayoutGroup>
-                        <LayoutGroup>
-                            {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
-                            <Typography
-                                className={styles.textPointer}
-                                component="span"
-                                onClick={changeLoginMethod}
-                                color="secondary"
-                            >
-                                {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
-                            </Typography>
-                        </LayoutGroup>
+            <Container className={styles.modalForm} disableGutters>
+                <Box className={styles.formHeader} mb="40px">
+                    <Container component="h2">
+                        {isSignUpMethod ? 'Регистрация' : 'Вход'}
                     </Container>
+                    <Box>
+                        <IconButton className={styles.close} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
-            </Box>
+                <Box px="24px" mb="20px">
+                    <LabeledInput
+                        size="small"
+                        label="Логин"
+                        value={login}
+                        onChange={changeLogin}
+                        helperText="Логин должен быть длиной от 4 до 16 символов"
+                    />
+                    <LabeledInput
+                        size="small"
+                        type="password"
+                        label="Пароль"
+                        value={password}
+                        onChange={changePassword}
+                        helperText="Пароль должен быть длиной от 8 до 64 символов"
+                    />
+                </Box>
+                <Box px="24px" mb="40px">
+                    <Button size="large" fullWidth variant="outlined" color="secondary" onClick={submit}>
+                        {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
+                    </Button>
+                    {loading && <div>Обработка</div>}
+                    {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
+                </Box>
+                <Box px="24px" mb="40px">
+                    {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
+                    <Typography
+                        className={styles.textPointer}
+                        component="span"
+                        onClick={changeLoginMethod}
+                        color="secondary"
+                    >
+                        {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
+                    </Typography>
+                </Box>
+            </Container>
         </Modal>
     );
 };

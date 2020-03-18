@@ -1,42 +1,43 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+export const useStyles = makeStyles((theme) => {
+    const colors = {
+        color: theme.palette.common.white,
+        backgroundColor: '#16242f'
+    };
 
-    modalWrapper: {
-        backgroundColor: theme.palette.background.paper,
-        borderRadius: '5px',
-    },
+    return {
+        modal: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
 
-    formWrapper: {
-        padding: `0 ${theme.spacing(2)} ${theme.spacing(2)}`,
-    },
+        modalForm: {
+            width: '400px',
 
-    formHeader: {
-        marginTop: 0
-    },
+            backgroundColor: theme.palette.background.paper,
+            borderRadius: '5px',
+        },
 
-    close: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-    },
+        formHeader: {
+            display: 'flex',
 
-    modalForm: {
-        padding: `0 ${theme.spacing(2)} ${theme.spacing(2)}`,
-        width: '400px',
-    },
+            ...colors
+        },
 
-    textPointer: {
-        cursor: 'pointer'
-    },
+        close: {
+            color: colors.color
+        },
 
-    error: {
-        marginTop: '5px',
-        color: theme.palette.error.main
-    }
-}));
+        textPointer: {
+            cursor: 'pointer'
+        },
+
+        error: {
+            marginTop: '5px',
+            color: theme.palette.error.main
+        }
+    };
+});
