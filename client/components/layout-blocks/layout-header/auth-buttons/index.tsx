@@ -19,7 +19,6 @@ export const AuthButtons = () => {
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
     const { data, refetch } = useQuery(GET_CURRENT_USER, { fetchPolicy: 'no-cache' });
     const { login, avatar } = data?.getCurrentUser || {};
-    refetch(); // TODO вызывать только при логине/регистрации
 
     const openModal = () => {
         setOpen(true);
@@ -40,11 +39,13 @@ export const AuthButtons = () => {
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
         client.writeData({ data: { isLoggedIn: false } });
+
+        refetch();
     }, [client]);
 
     return (
         <Container className={styles.authButtons__wrapper} maxWidth={false}>
-            <AuthModal open={openAuthModal} close={closeModal} />
+            <AuthModal open={openAuthModal} close={closeModal} refetch={refetch} />
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>

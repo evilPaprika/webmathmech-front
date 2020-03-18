@@ -12,6 +12,7 @@ import { useStyles } from './styles';
 interface Props {
     open: boolean;
     close(): void;
+    refetch(): void;
 }
 
 interface AuthState {
@@ -30,7 +31,7 @@ const DEFAULT_STATE: AuthState = {
     loginMethod: AuthMethods.SignIn,
 };
 
-const AuthModal = ({ open, close }: Props) => {
+const AuthModal = ({ open, close, refetch }: Props) => {
     const styles = useStyles();
 
     const [authState, setAuthState] = useState<AuthState>(DEFAULT_STATE);
@@ -54,6 +55,7 @@ const AuthModal = ({ open, close }: Props) => {
                 localStorage.setItem('token', token);
                 client.writeData({ data: { isLoggedIn: true } });
 
+                refetch();
                 onClose();
             }
         }
