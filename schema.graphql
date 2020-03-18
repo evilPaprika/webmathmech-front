@@ -15,7 +15,7 @@ type Mutation {
 }
 
 type NewsPost {
-  id: String!
+  id: ID!
 
   """News post content"""
   text: String!
@@ -25,6 +25,7 @@ type NewsPost {
 
 type Query {
   findNewsPost(id: String!): NewsPost!
+  getNewsPosts(limit: Int = 10, offset: Int!): [NewsPost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
 }
@@ -34,7 +35,7 @@ type Token {
 }
 
 type User {
-  id: String!
+  id: ID!
 
   """Login of the user."""
   login: String!

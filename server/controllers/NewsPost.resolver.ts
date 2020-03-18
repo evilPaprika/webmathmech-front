@@ -6,6 +6,7 @@ import {
     Resolver,
     ArgsType,
     Field,
+    Int,
 } from 'type-graphql';
 import { Length } from 'class-validator';
 import NewsPost from '../models/NewsPost.sequelize';
@@ -16,6 +17,15 @@ class CreateNewsPostInput {
     @Field()
     @Length(10, 5000)
     public text!: string;
+}
+
+@ArgsType()
+class GetNewsPostsInput {
+    @Field(() => Int)
+    public limit: number = 10;
+
+    @Field(() => Int)
+    public offset!: number;
 }
 
 
@@ -39,5 +49,10 @@ export default class NewsPostResolver {
         }
 
         return newsPost;
+    }
+
+    @Query(() => [NewsPost])
+    public async getNewsPosts(@Args() { limit, offset }: GetNewsPostsInput) {
+        return NewsPost.findAll({ offset, limit });
     }
 }
