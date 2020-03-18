@@ -9,12 +9,12 @@ import {
     Unique,
     UpdatedAt,
 } from 'sequelize-typescript';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 
 @ObjectType()
 @Table
 export default class User extends Model<User> {
-    @Field()
+    @Field(() => ID)
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUID)
