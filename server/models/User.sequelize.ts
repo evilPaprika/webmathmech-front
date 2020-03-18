@@ -20,7 +20,15 @@ export default class User extends Model<User> {
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'Login of the user.' })
+    @Field({ description: 'Name of the user' })
+    @Column
+    public name!: string;
+
+    @Field({ description: 'Surname of the user' })
+    @Column
+    public surname!: string;
+
+    @Field({ description: 'Login of the user' })
     @Unique
     @Column
     public login!: string;

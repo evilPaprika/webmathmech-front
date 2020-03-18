@@ -10,7 +10,7 @@ scalar DateTime
 
 type Mutation {
   userSignIn(login: String!, password: String!): Token!
-  userSignUp(login: String!, password: String!): Token!
+  userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
   createNewsPost(text: String!): NewsPost!
 }
 
@@ -37,7 +37,13 @@ type Token {
 type User {
   id: ID!
 
-  """Login of the user."""
+  """Name of the user"""
+  name: String!
+
+  """Surname of the user"""
+  surname: String!
+
+  """Login of the user"""
   login: String!
   createdAt: DateTime!
   updatedAt: DateTime!

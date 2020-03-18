@@ -20,13 +20,32 @@ const JWT_TOKEN_EXPIRATION_TIME = '1y';
 
 
 @ArgsType()
-class AuthInput {
+class SignInInput {
     @Field()
-    @Length(4, 16, { message: 'Login should be between 4 and 16 characters' })
+    @Length(4, 16)
     public login!: string;
 
     @Field()
-    @Length(8, 64, { message: 'Password is too short' })
+    @Length(8, 64)
+    public password!: string;
+}
+
+@ArgsType()
+class SignUpInput {
+    @Field()
+    @Length(2, 16)
+    public name!: string;
+
+    @Field()
+    @Length(2, 16)
+    public surname!: string;
+
+    @Field()
+    @Length(4, 16)
+    public login!: string;
+
+    @Field()
+    @Length(8, 64)
     public password!: string;
 }
 
@@ -34,7 +53,7 @@ class AuthInput {
 @Resolver()
 export default class AuthResolver {
     @Mutation(() => Token)
-    public async userSignIn(@Args() { login, password, }: AuthInput) {
+    public async userSignIn(@Args() { login, password, }: SignInInput) {
         // Check if the user is in database
         const user = await User.findOne({ where: { login } });
 
@@ -58,7 +77,7 @@ export default class AuthResolver {
     }
 
     @Mutation(() => Token)
-    public async userSignUp(@Args() { login, password }: AuthInput) {
+    public async userSignUp(@Args() { name, surname, login, password }: SignUpInput) {
         // Find if there is an existing account
         const user = await User.findOne({ where: { login } });
 
@@ -69,6 +88,8 @@ export default class AuthResolver {
         const hashedPassword = await bcrypt.hash(password, SALT);
 
         const newUser = await User.create({
+            name,
+            surname,
             login,
             password: hashedPassword,
         });
