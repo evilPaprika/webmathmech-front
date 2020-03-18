@@ -25,7 +25,7 @@ type NewsPost {
 
 type Query {
   findNewsPost(id: String!): NewsPost!
-  getNewsPosts(limit: Int!, offset: Int!): [NewsPost!]!
+  getNewsPosts(limit: Int = 10, offset: Int!): [NewsPost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
 }

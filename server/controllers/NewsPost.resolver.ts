@@ -22,7 +22,7 @@ class CreateNewsPostInput {
 @ArgsType()
 class GetNewsPostsInput {
     @Field(() => Int)
-    public limit!: number;
+    public limit: number = 10;
 
     @Field(() => Int)
     public offset!: number;
