@@ -18,15 +18,8 @@ export const useStyles = makeStyles((theme) => ({
         outline: 'none',
     },
 
-    formHeader: {
-        display: 'flex',
-
-        color: theme.palette.common.white,
-        backgroundColor: theme.palette.background.default
-    },
-
     close: {
-        color: theme.palette.common.white
+        color: theme.palette.primary.contrastText,
     },
 
     textPointer: {

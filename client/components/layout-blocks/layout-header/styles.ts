@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: theme.palette.background.default,
+
     },
     menuButton: {
         [theme.breakpoints.up('sm')]: {
@@ -25,8 +25,8 @@ export const useStyles = makeStyles((theme) => createStyles({
     toolbar: {
         ...theme.mixins.toolbar,
         display: 'flex',
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.common.white
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText
     },
     drawerPaper: {
         display: 'flex',
