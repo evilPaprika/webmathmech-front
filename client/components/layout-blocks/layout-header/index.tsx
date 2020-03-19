@@ -8,6 +8,7 @@ import {
     Drawer,
     Hidden,
     IconButton,
+    SwipeableDrawer,
     Tab,
     Tabs,
     Toolbar,
@@ -98,15 +99,16 @@ const LayoutHeader = () => {
             </AppBar>
             <nav className={styles.drawer}>
                 <Hidden smUp implementation="css">
-                    <Drawer
+                    <SwipeableDrawer
+                        classes={{ paper: styles.drawerPaper }}
                         variant="temporary"
                         open={mobileOpen}
+                        onOpen={handleDrawerToggle}
                         onClose={handleDrawerToggle}
-                        classes={{ paper: styles.drawerPaper }}
                         ModalProps={{ keepMounted: true }}
                     >
                         {drawer}
-                    </Drawer>
+                    </SwipeableDrawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
                     <Drawer
