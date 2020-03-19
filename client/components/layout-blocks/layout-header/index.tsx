@@ -17,8 +17,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { HEADER_TABS, ROUTES } from '../../../consts';
-import { AuthButtons } from './auth-buttons';
 import LayoutFooter from '../layout-footer';
+import { AuthButtons } from './auth-buttons';
 import { useStyles } from './styles';
 
 

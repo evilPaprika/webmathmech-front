@@ -18,7 +18,6 @@ export const useStyles = makeStyles((theme) => createStyles({
         backgroundColor: theme.palette.background.default,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
         [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
@@ -36,15 +35,9 @@ export const useStyles = makeStyles((theme) => createStyles({
 
         width: DRAWER_WIDTH,
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
     logo: {
         width: '50px',
         height: '50px',
-
-        flexShrink: 0,
     },
     icons: {
         display: 'flex'
