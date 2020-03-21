@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { Box, Container } from '@material-ui/core';
 
 import { useStyles } from './styles';
 
@@ -7,11 +8,9 @@ const PerformancesPage = () => {
     const styles = useStyles();
 
     return (
-        <main className={styles.performancesPage}>
-            <div className={styles.performancesPage__main}>
-                <div>Страница с выступлениями!!!</div>
-            </div>
-        </main>
+        <Container className={styles.performancesPage}>
+            <Box>Страница с выступлениями!!!</Box>
+        </Container>
     );
 };
 

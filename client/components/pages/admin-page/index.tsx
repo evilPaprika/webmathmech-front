@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { Box, Container } from '@material-ui/core';
 
 import { useStyles } from './styles';
 
@@ -7,11 +8,9 @@ const AdminPage = () => {
     const styles = useStyles();
 
     return (
-        <main className={styles.adminPage}>
-            <div className={styles.adminPage__main}>
-                <div>Админка!!!</div>
-            </div>
-        </main>
+        <Container className={styles.adminPage}>
+            <Box>Админка!!!</Box>
+        </Container>
     );
 };
 

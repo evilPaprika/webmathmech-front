@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { } from '@material-ui/core/colors';
 
@@ -30,7 +31,9 @@ const Layout = ({ children }: Props) => {
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
                 <LayoutHeader />
-                {children}
+                <Box textAlign="center" m="80px auto 0">
+                    {children}
+                </Box>
             </div>
         </ThemeProvider>
     );
