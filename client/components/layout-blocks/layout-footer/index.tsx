@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { CardMedia, Container, Link, Typography } from '@material-ui/core';
+import { Box, CardMedia, Container, Link, Typography } from '@material-ui/core';
 
 import { FOOTER_LOGOTYPES } from '../../../consts';
 import { useStyles } from './styles';
@@ -12,7 +12,14 @@ const LayoutFooter = () => {
 
     return (
         <Container className={styles.layoutFooter} maxWidth={false}>
-            <Container className={styles.layoutFooter__copyright}>
+            <Box className={styles.layoutFooter__socialGroup} mb="10px">
+                {FOOTER_LOGOTYPES.map(({ src, href }) => (
+                    <Link key={src} href={href} target="_blank" className={styles.layoutFooter__socialIcon}>
+                        <CardMedia image={src} className={styles.layoutFooter__socialIconImage} />
+                    </Link>
+                ))}
+            </Box>
+            <Box textAlign="center">
                 <Typography variant="body2" color="textPrimary">
                     {'Copyright by '}
                     <Link color="inherit" href="https://webmathmech.site/" target="_blank">
@@ -20,14 +27,7 @@ const LayoutFooter = () => {
                     </Link>
                     {' '}{currentYear}.
                 </Typography>
-            </Container>
-            <Container className={styles.layoutFooter__socialGroup}>
-                {FOOTER_LOGOTYPES.map(({ src, href }) => (
-                    <Link key={src} href={href} target="_blank" className={styles.layoutFooter__socialIcon}>
-                        <CardMedia image={src} className={styles.layoutFooter__socialIconImage} />
-                    </Link>
-                ))}
-            </Container>
+            </Box>
         </Container>
     );
 };

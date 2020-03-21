@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(() => ({
     newsPage: {
+        margin: '80px auto 0',
         textAlign: 'center',
     },
     newsPage__logo: {
@@ -14,6 +15,5 @@ export const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vmin',
     },
 }));

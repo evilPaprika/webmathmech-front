@@ -112,11 +112,13 @@ const AuthModal = ({ open, close, refetch }: Props) => {
             onClose={onClose}
         >
             <Container className={styles.modalForm} disableGutters>
-                <Box className={styles.formHeader} mb="40px">
-                    <Container component="h2">
-                        {isSignUpMethod ? 'Регистрация' : 'Вход'}
-                    </Container>
-                    <Box>
+                <Box position="relative" color="primary.contrastText" bgcolor="primary.main" mb="40px">
+                    <Box p={3}>
+                        <Typography variant="h5">
+                            {isSignUpMethod ? 'Регистрация' : 'Вход'}
+                        </Typography>
+                    </Box>
+                    <Box position="absolute" top="0" right="0">
                         <IconButton className={styles.close} onClick={onClose}>
                             <CloseIcon />
                         </IconButton>
@@ -167,7 +169,9 @@ const AuthModal = ({ open, close, refetch }: Props) => {
                     {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
                 </Box>
                 <Box px="24px" mb="40px">
-                    {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
+                    <Typography component="span">
+                        {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
+                    </Typography>
                     <Typography
                         className={styles.textPointer}
                         component="span"

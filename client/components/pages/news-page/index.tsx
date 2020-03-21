@@ -7,13 +7,11 @@ import { useStyles } from './styles';
 
 
 interface CardProps {
-    header: React.ReactNode;
     content: React.ReactNode;
 }
 
 const CARDS: Array<CardProps> = [
     {
-        header: 'Header',
         content: 'Some content'
     }
 ];
@@ -31,16 +29,21 @@ const NewsPage = () => {
         <main className={styles.newsPage}>
             <div className={styles.newsPage__main}>
                 {/* TODO: перенести в отдельный компонент и заюзать во вкладке Выступления */}
-                {CARDS.map(({ header, content }, index) => (
+                {CARDS.map(({ content }, index) => (
                     <Card key={index} raised>
-                        <Typography variant="h5" style={{ marginTop: '10px' }}>{header}</Typography>
                         <CardContent>
                             {/* проверка работы видео */}
-                            <ReactPlayer url="https://www.youtube.com/watch?v=_Ht9woqhWmY" controls />
+                            <ReactPlayer
+                                url="https://www.youtube.com/watch?v=_Ht9woqhWmY"
+                                controls
+                                width={300}
+                                height={150}
+                            />
                             <Typography style={{ margin: '10px 0' }}>{content}</Typography>
                             <Box component="fieldset" mb={3} borderColor="transparent">
                                 <Typography component="legend">Рейтинг</Typography>
                                 <Rating
+                                    name="rating"
                                     value={rating}
                                     onChange={changeRating}
                                 />
