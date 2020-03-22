@@ -1,3 +1,5 @@
+export const NEWS_POSTS_LIMIT = 10;
+
 export const ROUTES = {
     MAIN: '/',
     SIGN_IN: '/sign-in',

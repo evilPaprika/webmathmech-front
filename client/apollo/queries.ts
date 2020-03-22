@@ -23,3 +23,13 @@ export const GET_IS_LOGGED_IN = gql`
         isLoggedIn @client
     }
 `;
+
+export const GET_NEWS_POSTS = gql`
+    query getNewsPosts($limit: Int!, $offset: Int!) {
+        getNewsPosts(limit: $limit, offset: $offset) {
+            id
+            text
+            pictureURL
+        }
+    }
+`;
