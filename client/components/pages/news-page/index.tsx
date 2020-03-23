@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
 import { useQuery } from '@apollo/react-hooks';
 import { Container } from '@material-ui/core';
 
@@ -7,6 +6,7 @@ import { GET_NEWS_POSTS } from '../../../apollo/queries';
 import { NEWS_POSTS_LIMIT } from '../../../consts';
 import { NewsPost } from '../../../types';
 import ScrollTopIcon from '../../common/scroll-top-icon';
+import InfiniteScroll from '../../common/infinite-scroll';
 import NewsCard from '../../news-card';
 import { useStyles } from './styles';
 
@@ -50,12 +50,12 @@ const NewsPage = () => {
 
     return (
         <Container className={styles.newsPage}>
-            <InfiniteScroll loadMore={fetchMoreData} hasMore={hasMore} initialLoad={false}>
+            <InfiniteScroll loadMore={fetchMoreData} hasMore={hasMore}>
                 {newsPosts?.map((newsPost) => <NewsCard newsPost={newsPost} key={newsPost.id} />)}
             </InfiniteScroll>
 
             {error && <div>Произошла ошибка. Пожалуйста, перезагрузите страницу!</div>}
-            {!loading && !newsPosts.length && <div>Новостей не найдено!</div>}
+            {!loading && !newsPosts.length && !error && <div>Новостей не найдено!</div>}
 
             <ScrollTopIcon />
         </Container>
