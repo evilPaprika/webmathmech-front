@@ -12,7 +12,7 @@ interface Props {
 const Loader = <CircularProgress />;
 
 const InfiniteScroll = (props: Props) => (
-    <InfiniteScroller initialLoad={false} loader={Loader} threshold={10} {...props} />
+    <InfiniteScroller initialLoad={false} loader={Loader} {...props} />
 );
 
 export default memo(InfiniteScroll);
