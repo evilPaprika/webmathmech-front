@@ -8,9 +8,12 @@ export const useStyles = makeStyles((theme) => createStyles({
         display: 'flex',
     },
     drawer: {
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             width: DRAWER_WIDTH,
             flexShrink: 0,
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
         },
     },
     appBar: {
@@ -18,7 +21,7 @@ export const useStyles = makeStyles((theme) => createStyles({
 
     },
     menuButton: {
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             display: 'none',
         },
     },
@@ -40,6 +43,7 @@ export const useStyles = makeStyles((theme) => createStyles({
         height: '50px',
     },
     icons: {
-        display: 'flex'
+        display: 'flex',
+        alignItems: 'center'
     }
 }));

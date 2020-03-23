@@ -1,24 +1,11 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-    AppBar,
-    Box,
-    CardMedia,
-    Container,
-    Drawer,
-    Hidden,
-    IconButton,
-    SwipeableDrawer,
-    Tab,
-    Tabs,
-    Toolbar,
-    Typography
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Container, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
 
 import { HEADER_TABS, ROUTES } from '../../../consts';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
+import { HeaderIcons } from './header-icons';
 import { useStyles } from './styles';
 
 
@@ -46,22 +33,13 @@ const LayoutHeader = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    const Logo = (
-        <Link to={ROUTES.NEWS} onClick={onClickByLogo}>
-            <CardMedia image="/static/logo.png" className={styles.logo} />
-        </Link>
-    );
+    const Icons = <HeaderIcons onClickByMenu={handleDrawerToggle} onClickByLogo={onClickByLogo} />;
 
     const drawer = (
         <>
             <div>
                 <Container className={styles.toolbar}>
-                    {Logo}
-                    <Box ml="10px" pt="12px">
-                        <Typography variant="h6">
-                            WEBMATHMEX
-                        </Typography>
-                    </Box>
+                    {Icons}
                 </Container>
                 <Tabs value={tab} onChange={onChangeTab} orientation="vertical">
                     {HEADER_TABS.map(({ name, path }) => (
@@ -83,17 +61,7 @@ const LayoutHeader = () => {
         <>
             <AppBar position="fixed" className={styles.appBar}>
                 <Toolbar>
-                    <Box className={styles.icons}>
-                        <IconButton
-                            color="inherit"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            className={styles.menuButton}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        {Logo}
-                    </Box>
+                    {Icons}
                     <AuthButtons />
                 </Toolbar>
             </AppBar>
