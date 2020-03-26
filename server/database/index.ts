@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import config from 'config';
 
+
 const connectDB = async () => {
     const sequelize = new Sequelize(config.databaseURL, {
         database: 'test',

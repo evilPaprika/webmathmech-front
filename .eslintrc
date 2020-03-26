@@ -29,6 +29,7 @@
         "react/jsx-one-expression-per-line": "off",
         "react/jsx-wrap-multilines": "off",
         "react/no-array-index-key": "off",
-        "max-classes-per-file": "off"
+        "max-classes-per-file": "off",
+        "import/newline-after-import" : ["error", { "count": 2 }]
     }
 }

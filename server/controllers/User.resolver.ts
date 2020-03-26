@@ -1,13 +1,16 @@
 import {
     Arg,
+    Args,
     Authorized,
     Ctx,
     Query,
     Resolver,
 } from 'type-graphql';
-import User from '../models/User.sequelize';
-import { ApolloServerContext, Role } from '../types';
 
+import User from '../models/User.sequelize';
+import { ApolloServerContext } from '../types';
+import { Role } from '../models/Role';
+import { PaginationInputs } from './inputs/PaginationInputs';
 
 @Resolver(User)
 export default class UserResolver {
@@ -38,5 +41,10 @@ export default class UserResolver {
         }
 
         return user;
+    }
+
+    @Query(() => [User])
+    public async getUsers(@Args() { limit, offset }: PaginationInputs) {
+        return User.findAll({ offset, limit, order: [['createdAt', 'DESC']] });
     }
 }
