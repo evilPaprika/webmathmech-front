@@ -12,6 +12,8 @@ type Mutation {
   userSignIn(login: String!, password: String!): Token!
   userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
   createNewsPost(text: String!, pictureURL: String): NewsPost!
+  patchCurrentUser(name: String, surname: String, password: String): User!
+  patchUser(id: String!, name: String, surname: String, role: Role): User!
 }
 
 type NewsPost {
@@ -24,11 +26,25 @@ type NewsPost {
   updatedAt: DateTime!
 }
 
+input PaginationInputs {
+  limit: Int = 10
+  offset: Int!
+  order: [String!] = ["createdAt", "DESC"]
+}
+
 type Query {
   findNewsPost(id: String!): NewsPost!
-  getNewsPosts(limit: Int = 10, offset: Int!): [NewsPost!]!
+  getNewsPosts(params: PaginationInputs!): [NewsPost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
+  getUsers(params: PaginationInputs!): [User!]!
+}
+
+"""User role"""
+enum Role {
+  USER
+  STUDENT
+  ADMIN
 }
 
 type Token {
@@ -37,14 +53,9 @@ type Token {
 
 type User {
   id: ID!
-
-  """Name of the user"""
   name: String!
-
-  """Surname of the user"""
   surname: String!
-
-  """Login of the user"""
+  role: Role!
   login: String!
   createdAt: DateTime!
   updatedAt: DateTime!

@@ -2,18 +2,30 @@ import 'reflect-metadata';
 import { AuthChecker } from 'type-graphql';
 
 import { ApolloServerContext } from '../types';
+import User from '../models/User.sequelize';
 
 // here you can read jwt from context
 // and check his permission in db against `roles` argument
 // that comes from `@Authorized`, eg. ["ADMIN", "MODERATOR"]
-const customAuthChecker: AuthChecker<ApolloServerContext> = ({ context }, roles,) => {
+const customAuthChecker: AuthChecker<ApolloServerContext> = async ({ context }, roles,) => {
     const jwt = context?.koaCtx?.state?.user;
 
     if (!jwt) {
         return false;
     }
 
-    return roles.length === 0 || roles.includes(jwt.role);
+    const user = await User.findOne({
+        where: { id: jwt.id },
+    });
+
+    if (!user) {
+        return false;
+    }
+
+    const { role } = user;
+
+
+    return roles.length === 0 || roles.includes(role);
 };
 
 export default customAuthChecker;

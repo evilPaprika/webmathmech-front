@@ -10,6 +10,8 @@ import {
     UpdatedAt,
 } from 'sequelize-typescript';
 import { Field, ID, ObjectType } from 'type-graphql';
+import { Role } from './Role';
+
 
 @ObjectType()
 @Table
@@ -20,15 +22,19 @@ export default class User extends Model<User> {
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'Name of the user' })
+    @Field()
     @Column
     public name!: string;
 
-    @Field({ description: 'Surname of the user' })
+    @Field()
     @Column
     public surname!: string;
 
-    @Field({ description: 'Login of the user' })
+    @Field(() => Role)
+    @Column
+    public role!: Role;
+
+    @Field()
     @Unique
     @Column
     public login!: string;

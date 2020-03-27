@@ -1,5 +1,6 @@
 import { Config } from 'config';
 
+
 function throwError(message: string): never {
     throw new Error(message);
 }

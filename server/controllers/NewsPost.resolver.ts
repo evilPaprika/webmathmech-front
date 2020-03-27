@@ -4,33 +4,11 @@ import {
     Mutation,
     Query,
     Resolver,
-    ArgsType,
-    Field,
-    Int,
 } from 'type-graphql';
-import { Length } from 'class-validator';
+
 import NewsPost from '../models/NewsPost.sequelize';
-
-
-@ArgsType()
-class CreateNewsPostInput {
-    @Field()
-    @Length(10, 5000)
-    public text!: string;
-
-    @Field({ nullable: true })
-    @Length(5, 5000)
-    public pictureURL?: string;
-}
-
-@ArgsType()
-class GetNewsPostsInput {
-    @Field(() => Int)
-    public limit: number = 10;
-
-    @Field(() => Int)
-    public offset!: number;
-}
+import { PaginationInputs } from './inputs/PaginationInputs';
+import { CreateNewsPostInput } from './inputs/NewsPostInputs';
 
 
 @Resolver(NewsPost)
@@ -57,7 +35,7 @@ export default class NewsPostResolver {
     }
 
     @Query(() => [NewsPost])
-    public async getNewsPosts(@Args() { limit, offset }: GetNewsPostsInput) {
-        return NewsPost.findAll({ offset, limit });
+    public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
+        return NewsPost.findAll({ offset, limit, order: [order] });
     }
 }

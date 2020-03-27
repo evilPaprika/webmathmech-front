@@ -2,6 +2,7 @@ import * as path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+
 const BUILD_PATH = path.resolve('build', 'static');
 const isDevMode = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 const mode: 'development' | 'production' = isDevMode ? 'development' : 'production';
