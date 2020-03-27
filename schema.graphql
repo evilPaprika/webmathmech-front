@@ -37,6 +37,7 @@ type Query {
   getNewsPosts(params: PaginationInputs!): [NewsPost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
+  getUsers(params: PaginationInputs!): [User!]!
 }
 
 """User role"""

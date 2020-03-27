@@ -34,7 +34,7 @@ export default class PatchUserResolver {
             newValues.password = await bcrypt.hash(newValues.password, SALT);
         }
 
-        user.update({ ...newValues });
+        await user.update({ ...newValues });
 
         return user;
     }
@@ -50,7 +50,7 @@ export default class PatchUserResolver {
             throw new Error('User not found');
         }
 
-        user.update({ ...newValues });
+        await user.update({ ...newValues });
 
         return user;
     }
