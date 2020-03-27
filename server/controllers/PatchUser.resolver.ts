@@ -18,7 +18,7 @@ import { PatchCurrentUserInput, PatchUserInput } from './inputs/PatchUserInputs'
 export default class PatchUserResolver {
     @Authorized([Role.USER])
     @Mutation(() => User)
-    public async patchCurrentUser(@Args() { ...newValues }: PatchCurrentUserInput,
+    public async patchCurrentUser(@Args() newValues: PatchCurrentUserInput,
         @Ctx() context: ApolloServerContext) {
         const jwt = context?.koaCtx?.state?.user;
 

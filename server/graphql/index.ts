@@ -6,21 +6,26 @@ import customAuthChecker from './customAuthChecker';
 
 
 const createApolloServer = async () => {
-    const schema = await buildSchema({
-        authChecker: customAuthChecker,
-        emitSchemaFile: { path: './schema.graphql' },
-        // .js instead of .ts because ts will transpile into js
-        resolvers: [`${__dirname}/../controllers/*.resolver.js`],
-    });
+    // https://github.com/MichalLytek/type-graphql/issues/94#issuecomment-550020949
+    try {
+        const schema = await buildSchema({
+            authChecker: customAuthChecker,
+            emitSchemaFile: { path: './schema.graphql' },
+            // .js instead of .ts because ts will transpile into js
+            resolvers: [`${__dirname}/../controllers/*.resolver.js`],
+        });
 
-    const server = new ApolloServer({
-        context: ({ ctx }) => ({ koaCtx: ctx }),
-        introspection: true,
-        playground: true,
-        schema
-    });
-
-    return server;
+        return new ApolloServer({
+            context: ({ ctx }) => ({ koaCtx: ctx }),
+            introspection: true,
+            playground: true,
+            schema
+        });
+    } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+        throw e;
+    }
 };
 
 export default createApolloServer;

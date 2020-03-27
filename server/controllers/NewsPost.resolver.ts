@@ -35,7 +35,7 @@ export default class NewsPostResolver {
     }
 
     @Query(() => [NewsPost])
-    public async getNewsPosts(@Args() { limit, offset }: PaginationInputs) {
-        return NewsPost.findAll({ offset, limit, order: [['createdAt', 'DESC']] });
+    public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
+        return NewsPost.findAll({ offset, limit, order: [order] });
     }
 }

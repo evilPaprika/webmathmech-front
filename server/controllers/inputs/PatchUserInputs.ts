@@ -1,10 +1,11 @@
 import { ArgsType, Field } from 'type-graphql';
 import { IsAlphanumeric, Length } from 'class-validator';
 import { Role } from '../../models/Role';
+import User from '../../models/User.sequelize';
 
 
 @ArgsType()
-export class PatchCurrentUserInput {
+export class PatchCurrentUserInput implements Partial<User> {
     @Field({ nullable: true })
     @Length(2, 40)
     public name?: string;
@@ -20,7 +21,7 @@ export class PatchCurrentUserInput {
 }
 
 @ArgsType()
-export class PatchUserInput {
+export class PatchUserInput implements Partial<User> {
     @Field()
     public id!: string;
 

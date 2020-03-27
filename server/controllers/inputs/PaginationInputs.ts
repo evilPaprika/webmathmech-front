@@ -1,10 +1,14 @@
-import { ArgsType, Field, Int } from 'type-graphql';
+import { Field, InputType, Int } from 'type-graphql';
+import { OrderItem } from 'sequelize';
 
-@ArgsType()
+@InputType()
 export class PaginationInputs {
     @Field(() => Int)
     public limit: number = 10;
 
     @Field(() => Int)
     public offset!: number;
+
+    @Field(() => [String])
+    public order: OrderItem = ['createdAt', 'DESC'];
 }

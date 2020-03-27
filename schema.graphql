@@ -26,12 +26,17 @@ type NewsPost {
   updatedAt: DateTime!
 }
 
+input PaginationInputs {
+  limit: Int = 10
+  offset: Int!
+  order: [String!] = ["createdAt", "DESC"]
+}
+
 type Query {
   findNewsPost(id: String!): NewsPost!
-  getNewsPosts(limit: Int = 10, offset: Int!): [NewsPost!]!
+  getNewsPosts(params: PaginationInputs!): [NewsPost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
-  getUsers(limit: Int = 10, offset: Int!): [User!]!
 }
 
 """User role"""

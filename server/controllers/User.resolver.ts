@@ -1,6 +1,5 @@
 import {
     Arg,
-    Args,
     Authorized,
     Ctx,
     Query,
@@ -44,7 +43,7 @@ export default class UserResolver {
     }
 
     @Query(() => [User])
-    public async getUsers(@Args() { limit, offset }: PaginationInputs) {
-        return User.findAll({ offset, limit, order: [['createdAt', 'DESC']] });
+    public async getUsers(@Arg('params') { limit, offset, order }: PaginationInputs) {
+        return User.findAll({ offset, limit, order: [order] });
     }
 }

@@ -5,10 +5,10 @@ import { Length } from 'class-validator';
 @ArgsType()
 export class CreateNewsPostInput {
     @Field()
-    @Length(10, 5000)
+    @Length(10, 2500)
     public text!: string;
 
     @Field({ nullable: true })
-    @Length(5, 5000)
+    @Length(5, 2048)
     public pictureURL?: string;
 }
