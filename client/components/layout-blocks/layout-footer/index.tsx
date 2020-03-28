@@ -1,21 +1,38 @@
 import React, { memo } from 'react';
-import { Box, CardMedia, Container, Link, Typography } from '@material-ui/core';
+import { Box, Container, Link, Typography } from '@material-ui/core';
 
-import { FOOTER_LOGOTYPES } from '../../../consts';
+import { CURRENT_YEAR } from 'client/consts';
+import LogoVK from './logos/vk_logo.svg';
+import LogoMail from './logos/mail_logo.svg';
+import LogoGithub from './logos/github_logo.svg';
 import { useStyles } from './styles';
 
 
-const currentYear = new Date().getFullYear();
+const FOOTER_LOGOS = [
+    {
+        SvgSocialIcon: LogoVK,
+        href: 'https://vk.com/webmathmech'
+    },
+    {
+        SvgSocialIcon: LogoMail,
+        href: 'mailto:webmathmech@yandex.ru'
+    },
+    {
+        SvgSocialIcon: LogoGithub,
+        href: 'https://github.com/evilPaprika/webmathmech-front'
+    }
+];
+
 
 const LayoutFooter = () => {
     const styles = useStyles();
 
     return (
-        <Container className={styles.layoutFooter} maxWidth={false}>
-            <Box className={styles.layoutFooter__socialGroup} mb="10px">
-                {FOOTER_LOGOTYPES.map(({ src, href }) => (
-                    <Link key={src} href={href} target="_blank" className={styles.layoutFooter__socialIcon}>
-                        <CardMedia image={src} className={styles.layoutFooter__socialIconImage} />
+        <Container className={styles.container} maxWidth={false}>
+            <Box className={styles.socialGroup} mb="10px">
+                {FOOTER_LOGOS.map(({ SvgSocialIcon, href }) => (
+                    <Link key={href} href={href} target="_blank" className={styles.socialIcon}>
+                        <SvgSocialIcon className={styles.socialIconImage} />
                     </Link>
                 ))}
             </Box>
@@ -23,9 +40,9 @@ const LayoutFooter = () => {
                 <Typography variant="body2" color="textPrimary">
                     {'Copyright by '}
                     <Link color="inherit" href="https://webmathmech.site/" target="_blank">
-                    WebMathMech
+                        WebMathMech
                     </Link>
-                    {' '}{currentYear}.
+                    {' '}{CURRENT_YEAR}.
                 </Typography>
             </Box>
         </Container>

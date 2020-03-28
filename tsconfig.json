@@ -18,7 +18,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "typeRoots" : ["./node_modules/@types", "./typings"]
+    "typeRoots" : ["./node_modules/@types", "./typings"],
+    "baseUrl": "./",
+    "paths": {
+      "client/*": ["client/*"],
+      "apollo/*": ["client/apollo/*"],
+      "components/*": ["client/components/*"],
+      "contexts/*": ["client/contexts/*"]
+    }
   },
   "exclude": ["node_modules"]
 }

@@ -4,6 +4,14 @@
         "airbnb-typescript",
         "plugin:json/recommended"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {},
+            "webpack": {
+                "config": "build/webpack.config.js"
+            }
+        }
+    },
     "rules": {
         "@typescript-eslint/indent": ["error", 4],
         "react/jsx-indent": ["error", 4],

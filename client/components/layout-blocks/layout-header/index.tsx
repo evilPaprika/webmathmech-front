@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Container, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
 
-import { HEADER_TABS, ROUTES } from '../../../consts';
+import { HEADER_TABS, ROUTES } from 'client/consts';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
 import { HeaderIcons } from './header-icons';

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Box, IconButton, CardMedia } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { ROUTES } from '../../../../consts';
+import { ROUTES } from 'client/consts';
+import logo from './logo.png';
 import { useStyles } from './styles';
 
 
@@ -26,7 +27,7 @@ export const HeaderIcons = memo(({ onClickByMenu, onClickByLogo }: Props) => {
                 <MenuIcon />
             </IconButton>
             <Link to={ROUTES.NEWS} onClick={onClickByLogo}>
-                <CardMedia image="/static/logo.png" className={styles.logo} />
+                <CardMedia image={logo} className={styles.logo} />
             </Link>
         </Box>
     );

@@ -4,9 +4,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { Avatar, Button, Container, Menu, MenuItem, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 
-import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '../../../../apollo/queries';
-import { ROUTES } from '../../../../consts';
-import AuthModal from '../../../auth-modal';
+import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
+import { ROUTES } from 'client/consts';
+import AuthModal from 'components/auth-modal';
 import { useStyles } from './styles';
 
 
@@ -66,7 +66,7 @@ export const AuthButtons = () => {
                         onClick={closeMenu}
                     >
                         <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
-                                Мой профиль
+                            Мой профиль
                         </MenuItem>
                         <MenuItem onClick={signOut}>Выйти</MenuItem>
                     </Menu>

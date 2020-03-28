@@ -25,20 +25,4 @@ export const HEADER_TABS = [
     }
 ];
 
-export const FOOTER_LOGOTYPES: Array<{
-    src: string;
-    href: string;
-}> = [
-    {
-        src: '/static/vk_logo.svg',
-        href: 'https://vk.com/webmathmech'
-    },
-    {
-        src: '/static/mail_logo.svg',
-        href: 'mailto:webmathmech@yandex.ru'
-    },
-    {
-        src: '/static/github_logo.svg',
-        href: 'https://github.com/evilPaprika/webmathmech-front'
-    }
-];
+export const CURRENT_YEAR = new Date().getFullYear();

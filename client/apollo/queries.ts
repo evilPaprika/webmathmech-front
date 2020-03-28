@@ -26,8 +26,8 @@ export const GET_IS_LOGGED_IN = gql`
 `;
 
 export const GET_NEWS_POSTS = gql`
-    query getNewsPosts($limit: Int!, $offset: Int!) {
-        getNewsPosts(limit: $limit, offset: $offset) {
+    query getNewsPosts($limit: Int!, $offset: Int!, $order: [String!]) {
+        getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) {
             id
             text
             pictureURL
