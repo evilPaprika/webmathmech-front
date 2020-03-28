@@ -7,7 +7,7 @@ import { NEWS_POSTS_LIMIT } from '../../../consts';
 import { NewsPost } from '../../../types';
 import ScrollTopIcon from '../../common/scroll-top-icon';
 import InfiniteScroll from '../../common/infinite-scroll';
-import NewsCard from '../../news-card';
+import NewsCard from './news-card';
 import { useStyles } from './styles';
 
 

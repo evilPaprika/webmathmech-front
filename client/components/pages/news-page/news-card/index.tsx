@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { CardMedia, Typography } from '@material-ui/core';
 
-import { NewsPost } from '../../types';
-import CardItem from '../common/card-item';
+import { NewsPost } from '../../../../types';
+import CardItem from '../../../common/card-item';
 import { useStyles } from './styles';
 
 
