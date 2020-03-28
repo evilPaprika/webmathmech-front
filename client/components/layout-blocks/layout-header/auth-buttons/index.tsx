@@ -66,7 +66,7 @@ export const AuthButtons = () => {
                         onClick={closeMenu}
                     >
                         <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
-                                Мой профиль
+                            Мой профиль
                         </MenuItem>
                         <MenuItem onClick={signOut}>Выйти</MenuItem>
                     </Menu>
