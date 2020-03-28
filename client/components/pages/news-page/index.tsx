@@ -2,11 +2,11 @@ import React, { memo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Container } from '@material-ui/core';
 
-import { GET_NEWS_POSTS } from '../../../apollo/queries';
-import { NEWS_POSTS_LIMIT } from '../../../consts';
-import { NewsPost } from '../../../types';
-import ScrollTopIcon from '../../common/scroll-top-icon';
-import InfiniteScroll from '../../common/infinite-scroll';
+import { GET_NEWS_POSTS } from 'apollo/queries';
+import { NEWS_POSTS_LIMIT } from 'client/consts';
+import { NewsPost } from 'client/types';
+import ScrollTopIcon from 'components/common/scroll-top-icon';
+import InfiniteScroll from 'components/common/infinite-scroll';
 import NewsCard from './news-card';
 import { useStyles } from './styles';
 

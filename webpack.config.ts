@@ -16,7 +16,13 @@ export default {
         chunkFilename: `js/[id]${hashTemplate}.bundle.js`
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx']
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        alias: {
+            client: path.resolve(path.join(__dirname, '..'), 'client/'),
+            apollo: path.resolve(path.join(__dirname, '..'), 'client/apollo/'),
+            components: path.resolve(path.join(__dirname, '..'), 'client/components/'),
+            contexts: path.resolve(path.join(__dirname, '..'), 'client/contexts/'),
+        }
     },
     mode,
     module: {

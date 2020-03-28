@@ -9,7 +9,7 @@ interface Props {
     hasMore: boolean;
 }
 
-const Loader = <CircularProgress />;
+const Loader = <CircularProgress key={0} />;
 
 const InfiniteScroll = (props: Props) => (
     <InfiniteScroller initialLoad={false} loader={Loader} {...props} />

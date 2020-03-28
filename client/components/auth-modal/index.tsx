@@ -3,9 +3,9 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Box, Button, Container, IconButton, Modal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { USER_SIGNIN, USER_SIGNUP } from '../../apollo/mutations';
-import { AuthMethods } from '../../types';
-import LabeledInput from '../common/labeled-input';
+import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
+import { AuthMethods } from 'client/types';
+import LabeledInput from 'components/common/labeled-input';
 import { useStyles } from './styles';
 
 

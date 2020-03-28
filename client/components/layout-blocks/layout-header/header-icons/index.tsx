@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Box, IconButton, CardMedia } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { ROUTES } from 'client/consts';
 import logo from './logo.png';
-import { ROUTES } from '../../../../consts';
 import { useStyles } from './styles';
 
 
