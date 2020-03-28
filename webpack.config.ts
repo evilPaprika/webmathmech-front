@@ -1,6 +1,5 @@
 import * as path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 
 const BUILD_PATH = path.resolve('build', 'static');
@@ -27,19 +26,6 @@ export default {
                 loader: 'babel-loader'
             },
             {
-                test: /\.css$/i,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: isDevMode,
-
-                        },
-                    },
-                    'css-loader'
-                ],
-            },
-            {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
                 loader: 'url-loader',
                 options: {
@@ -54,11 +40,6 @@ export default {
             hash: true,
             filename: 'index.html',
             template: './static/index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: `css/[name]${hashTemplate}.css`,
-            chunkFilename: `css/[id]${hashTemplate}.chunk.css`,
-            ignoreOrder: false,
         })
     ]
 };
