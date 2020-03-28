@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
 import { Box, Container, Link, Typography } from '@material-ui/core';
 
+import { CURRENT_YEAR } from 'client/consts';
 import LogoVK from './logos/vk_logo.svg';
 import LogoMail from './logos/mail_logo.svg';
 import LogoGinhub from './logos/github_logo.svg';
 import { useStyles } from './styles';
 
 
-const currentYear = new Date().getFullYear();
-const FOOTER_LOGOTYPES = [
+const FOOTER_LOGOS = [
     {
         SvgSocialIcon: LogoVK,
         href: 'https://vk.com/webmathmech'
@@ -30,7 +30,7 @@ const LayoutFooter = () => {
     return (
         <Container className={styles.container} maxWidth={false}>
             <Box className={styles.socialGroup} mb="10px">
-                {FOOTER_LOGOTYPES.map(({ SvgSocialIcon, href }) => (
+                {FOOTER_LOGOS.map(({ SvgSocialIcon, href }) => (
                     <Link key={href} href={href} target="_blank" className={styles.socialIcon}>
                         <SvgSocialIcon className={styles.socialIconImage} />
                     </Link>
@@ -42,7 +42,7 @@ const LayoutFooter = () => {
                     <Link color="inherit" href="https://webmathmech.site/" target="_blank">
                         WebMathMech
                     </Link>
-                    {' '}{currentYear}.
+                    {' '}{CURRENT_YEAR}.
                 </Typography>
             </Box>
         </Container>

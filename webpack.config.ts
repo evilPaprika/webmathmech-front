@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 
 const BUILD_PATH = path.resolve('build', 'static');
+const PROJECT_ROOT = path.join(__dirname, '..');
 const isDevMode = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 const mode: 'development' | 'production' = isDevMode ? 'development' : 'production';
 const hashTemplate = isDevMode ? '' : '.[contenthash:8]'; // hmr doesn't work with hashes
@@ -18,10 +19,10 @@ export default {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         alias: {
-            client: path.resolve(path.join(__dirname, '..'), 'client/'),
-            apollo: path.resolve(path.join(__dirname, '..'), 'client/apollo/'),
-            components: path.resolve(path.join(__dirname, '..'), 'client/components/'),
-            contexts: path.resolve(path.join(__dirname, '..'), 'client/contexts/'),
+            client: path.resolve(PROJECT_ROOT, 'client/'),
+            apollo: path.resolve(PROJECT_ROOT, 'client/apollo/'),
+            components: path.resolve(PROJECT_ROOT, 'client/components/'),
+            contexts: path.resolve(PROJECT_ROOT, 'client/contexts/'),
         }
     },
     mode,

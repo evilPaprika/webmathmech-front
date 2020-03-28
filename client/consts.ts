@@ -24,3 +24,5 @@ export const HEADER_TABS = [
         path: ROUTES.ADMIN
     }
 ];
+
+export const CURRENT_YEAR = new Date().getFullYear();
