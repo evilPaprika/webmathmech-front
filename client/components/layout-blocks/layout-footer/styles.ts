@@ -2,23 +2,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles((theme) => ({
-    layoutFooter: {
+    container: {
         padding: theme.spacing(1),
         borderTop: '1px solid #eee',
 
         backgroundColor: '#fafafa',
     },
 
-    layoutFooter__socialGroup: {
+    socialGroup: {
         display: 'flex',
         justifyContent: 'center',
     },
 
-    layoutFooter__socialIcon: {
+    socialIcon: {
         margin: theme.spacing(0.5)
     },
 
-    layoutFooter__socialIconImage: {
+    socialIconImage: {
         width: '20px',
         height: '20px',
     }

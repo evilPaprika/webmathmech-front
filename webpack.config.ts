@@ -26,13 +26,17 @@ export default {
                 loader: 'babel-loader'
             },
             {
-                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+                test: [/\.jpe?g$/, /\.png$/, /\.webp$/],
                 loader: 'url-loader',
                 options: {
                     name: `media/[name]${hashTemplate}.[ext]`,
                     limit: 8192
                 }
             },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+            }
         ]
     },
     plugins: [
