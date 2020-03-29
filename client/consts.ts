@@ -26,3 +26,5 @@ export const HEADER_TABS = [
 ];
 
 export const CURRENT_YEAR = new Date().getFullYear();
+
+export const SIDEBAR_WIDTH = 280;

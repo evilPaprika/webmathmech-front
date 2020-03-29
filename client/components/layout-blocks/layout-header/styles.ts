@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
+import { SIDEBAR_WIDTH } from 'client/consts';
 
-const DRAWER_WIDTH = 280;
 
 export const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     },
     drawer: {
         [theme.breakpoints.up('md')]: {
-            width: DRAWER_WIDTH,
+            width: SIDEBAR_WIDTH,
             flexShrink: 0,
         },
         [theme.breakpoints.down('sm')]: {
@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => createStyles({
         justifyContent: 'space-between',
         backgroundColor: theme.palette.background.paper,
 
-        width: DRAWER_WIDTH,
+        width: SIDEBAR_WIDTH,
     },
     logo: {
         width: '50px',

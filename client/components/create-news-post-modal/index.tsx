@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Box, TextareaAutosize } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import { CREATE_NEWS_POST } from 'apollo/mutations';
@@ -76,18 +76,19 @@ const CreateNewsPostModal = ({ open, close }: Props) => {
             >
                 <>
                     <Box px="24px" mb="20px">
-                        <TextareaAutosize
-                            className={styles.textArea}
+                        <LabeledInput
                             value={text}
-                            required
+                            label="Текст новости"
+                            rowsMax={10}
+                            multiline
                             onChange={changeText}
                         />
                     </Box>
                     <Box px="24px" mb="20px">
                         <LabeledInput
+                            value={pictureURL}
                             size="small"
                             label="Ссылка на фото"
-                            value={pictureURL}
                             onChange={changePictureURL}
                         />
                     </Box>

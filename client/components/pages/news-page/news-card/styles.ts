@@ -5,7 +5,8 @@ export const useStyles = makeStyles((theme) => ({
     text: {
         margin: theme.spacing(2),
         whiteSpace: 'pre-line',
-        textAlign: 'start'
+        textAlign: 'start',
+        wordBreak: 'break-word',
     },
 
     media: {
