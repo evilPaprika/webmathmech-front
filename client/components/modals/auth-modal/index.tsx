@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 
 
 interface Props {
-    open: boolean;
+    isOpened: boolean;
     close(): void;
     refetch(): void;
 }
@@ -32,7 +32,7 @@ const DEFAULT_STATE: ModalState = {
     loginMethod: AuthMethods.SignIn,
 };
 
-const AuthModal = ({ open, close, refetch }: Props) => {
+const AuthModal = ({ isOpened, close, refetch }: Props) => {
     const styles = useStyles();
 
     const [authState, setAuthState] = useState<ModalState>(DEFAULT_STATE);
@@ -108,7 +108,7 @@ const AuthModal = ({ open, close, refetch }: Props) => {
     return (
         <Modal
             title={isSignUpMethod ? 'Регистрация' : 'Вход'}
-            opened={open}
+            isOpened={isOpened}
             close={onClose}
         >
             <>

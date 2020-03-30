@@ -8,17 +8,17 @@ import { useStyles } from './styles';
 interface Props {
     title: string;
     children: React.ReactNode;
-    opened: boolean;
+    isOpened: boolean;
     close(): void;
 }
 
-const Modal = ({ opened, close, title, children }: Props) => {
+const Modal = ({ isOpened, close, title, children }: Props) => {
     const styles = useStyles();
 
     return (
         <MaterialUIModal
             className={styles.modal}
-            open={opened}
+            open={isOpened}
             disableScrollLock
             onClose={close}
         >

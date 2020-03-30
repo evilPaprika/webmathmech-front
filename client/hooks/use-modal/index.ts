@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
 
-export const useModal = (defaultOpened: boolean = false): [boolean, () => void, () => void] => {
-    const [opened, setOpened] = useState<boolean>(defaultOpened);
+export const useModal = (defaultIsOpened: boolean = false): [boolean, () => void, () => void] => {
+    const [isOpened, setIsOpened] = useState<boolean>(defaultIsOpened);
 
     const open = () => {
-        setOpened(true);
+        setIsOpened(true);
     };
 
     const close = () => {
-        setOpened(false);
+        setIsOpened(false);
     };
 
-    return [opened, open, close];
+    return [isOpened, open, close];
 };
