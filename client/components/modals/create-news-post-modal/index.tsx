@@ -12,7 +12,7 @@ import { useStyles } from './styles';
 
 
 interface Props {
-    isOpened: boolean;
+    isOpen: boolean;
     close(): void;
 }
 
@@ -25,7 +25,7 @@ const DEFAULT_STATE: ModalState = {
     text: ''
 };
 
-const CreateNewsPostModal = ({ isOpened, close }: Props) => {
+const CreateNewsPostModal = ({ isOpen, close }: Props) => {
     const styles = useStyles();
 
     const [showAlert, openAlert, closeAlert] = useModal();
@@ -48,14 +48,14 @@ const CreateNewsPostModal = ({ isOpened, close }: Props) => {
         }
     );
 
-    const onChangeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setModalState({
             ...modalState,
             text: event.target.value
         });
     };
 
-    const onChangePictureURL = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changePictureURL = (event: React.ChangeEvent<HTMLInputElement>) => {
         setModalState({
             ...modalState,
             pictureURL: event.target.value
@@ -71,7 +71,7 @@ const CreateNewsPostModal = ({ isOpened, close }: Props) => {
         <>
             <Modal
                 title="Создание новости"
-                isOpened={isOpened}
+                isOpen={isOpen}
                 close={onCloseModal}
             >
                 <>
@@ -81,7 +81,7 @@ const CreateNewsPostModal = ({ isOpened, close }: Props) => {
                             label="Текст новости"
                             rowsMax={10}
                             multiline
-                            onChange={onChangeText}
+                            onChange={changeText}
                         />
                     </Box>
                     <Box px="24px" mb="20px">
@@ -89,7 +89,7 @@ const CreateNewsPostModal = ({ isOpened, close }: Props) => {
                             value={pictureURL}
                             size="small"
                             label="Ссылка на фото"
-                            onChange={onChangePictureURL}
+                            onChange={changePictureURL}
                         />
                     </Box>
                     <Box px="24px" mb="40px">

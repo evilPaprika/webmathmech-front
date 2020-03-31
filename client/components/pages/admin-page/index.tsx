@@ -8,7 +8,7 @@ import { useStyles } from './styles';
 
 const AdminPage = () => {
     const styles = useStyles();
-    const [isOpenedNewsPostModal, openCreateNewsPostModal, closeCreateNewsPostModal] = useModal();
+    const [isOpenNewsPostModal, openCreateNewsPostModal, closeCreateNewsPostModal] = useModal();
 
     return (
         <Container className={styles.adminPage}>
@@ -16,7 +16,7 @@ const AdminPage = () => {
             <Button color="secondary" size="large" variant="outlined" onClick={openCreateNewsPostModal}>
                 Создать новость
             </Button>
-            <CreateNewsPostModal isOpened={isOpenedNewsPostModal} close={closeCreateNewsPostModal} />
+            <CreateNewsPostModal isOpen={isOpenNewsPostModal} close={closeCreateNewsPostModal} />
         </Container>
     );
 };

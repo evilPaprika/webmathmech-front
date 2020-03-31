@@ -14,7 +14,7 @@ import { useStyles } from './styles';
 export const AuthButtons = () => {
     const styles = useStyles();
 
-    const [isOpenedAuthModal, openAuthModal, closeAuthModal] = useModal();
+    const [isOpenAuthModal, openAuthModal, closeAuthModal] = useModal();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
@@ -38,7 +38,7 @@ export const AuthButtons = () => {
 
     return (
         <Container className={styles.authButtons__wrapper} maxWidth={false} disableGutters>
-            <AuthModal isOpened={isOpenedAuthModal} close={closeAuthModal} refetch={refetch} />
+            <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={refetch} />
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
