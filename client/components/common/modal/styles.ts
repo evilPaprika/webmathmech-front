@@ -21,13 +21,4 @@ export const useStyles = makeStyles((theme) => ({
     close: {
         color: theme.palette.primary.contrastText,
     },
-
-    textPointer: {
-        cursor: 'pointer'
-    },
-
-    error: {
-        marginTop: '5px',
-        color: theme.palette.error.main
-    }
 }));

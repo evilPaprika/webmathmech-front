@@ -1,21 +1,22 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { Box, Button, Container, IconButton, Modal, Typography } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
 import { AuthMethods } from 'client/types';
+import AsyncButton from 'components/common/async-button';
 import LabeledInput from 'components/common/labeled-input';
+import Modal from 'components/common/modal';
 import { useStyles } from './styles';
 
 
 interface Props {
-    open: boolean;
+    isOpen: boolean;
     close(): void;
     refetch(): void;
 }
 
-interface AuthState {
+interface ModalState {
     name?: string;
     surname?: string;
     login: string;
@@ -23,7 +24,7 @@ interface AuthState {
     loginMethod: AuthMethods;
 }
 
-const DEFAULT_STATE: AuthState = {
+const DEFAULT_STATE: ModalState = {
     name: '',
     surname: '',
     login: '',
@@ -31,10 +32,10 @@ const DEFAULT_STATE: AuthState = {
     loginMethod: AuthMethods.SignIn,
 };
 
-const AuthModal = ({ open, close, refetch }: Props) => {
+const AuthModal = ({ isOpen, close, refetch }: Props) => {
     const styles = useStyles();
 
-    const [authState, setAuthState] = useState<AuthState>(DEFAULT_STATE);
+    const [authState, setAuthState] = useState<ModalState>(DEFAULT_STATE);
     const { name, surname, login, password, loginMethod } = authState;
 
     const isSignUpMethod = loginMethod === AuthMethods.SignUp;
@@ -106,24 +107,11 @@ const AuthModal = ({ open, close, refetch }: Props) => {
 
     return (
         <Modal
-            className={styles.modal}
-            open={open}
-            disableScrollLock
-            onClose={onClose}
+            title={isSignUpMethod ? 'Регистрация' : 'Вход'}
+            isOpen={isOpen}
+            close={onClose}
         >
-            <Container className={styles.modalForm} disableGutters>
-                <Box position="relative" color="primary.contrastText" bgcolor="primary.main" mb="40px">
-                    <Box p={3}>
-                        <Typography variant="h5">
-                            {isSignUpMethod ? 'Регистрация' : 'Вход'}
-                        </Typography>
-                    </Box>
-                    <Box position="absolute" top="0" right="0">
-                        <IconButton className={styles.close} onClick={onClose}>
-                            <CloseIcon />
-                        </IconButton>
-                    </Box>
-                </Box>
+            <>
                 {isSignUpMethod && (
                     <Box px="24px" display="flex">
                         <Box mr="5px">
@@ -162,10 +150,16 @@ const AuthModal = ({ open, close, refetch }: Props) => {
                     />
                 </Box>
                 <Box px="24px" mb="40px">
-                    <Button size="large" fullWidth variant="outlined" color="secondary" onClick={submit}>
+                    <AsyncButton
+                        isLoading={loading}
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                        onClick={submit}
+                    >
                         {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
-                    </Button>
-                    {loading && <div>Обработка</div>}
+                    </AsyncButton>
                     {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
                 </Box>
                 <Box px="24px" mb="40px">
@@ -181,7 +175,7 @@ const AuthModal = ({ open, close, refetch }: Props) => {
                         {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
                     </Typography>
                 </Box>
-            </Container>
+            </>
         </Modal>
     );
 };

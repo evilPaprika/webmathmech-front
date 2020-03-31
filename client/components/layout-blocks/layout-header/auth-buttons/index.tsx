@@ -6,27 +6,20 @@ import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
 import { ROUTES } from 'client/consts';
-import AuthModal from 'components/auth-modal';
+import { useModal } from 'client/hooks';
+import AuthModal from 'client/components/modals/auth-modal';
 import { useStyles } from './styles';
 
 
 export const AuthButtons = () => {
     const styles = useStyles();
 
-    const [openAuthModal, setOpen] = useState<boolean>(false);
+    const [isOpenAuthModal, openAuthModal, closeAuthModal] = useModal();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
     const { data, refetch } = useQuery(GET_CURRENT_USER, { fetchPolicy: 'no-cache' });
     const { login, avatar } = data?.getCurrentUser || {};
-
-    const openModal = () => {
-        setOpen(true);
-    };
-
-    const closeModal = () => {
-        setOpen(false);
-    };
 
     const openMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
@@ -45,7 +38,7 @@ export const AuthButtons = () => {
 
     return (
         <Container className={styles.authButtons__wrapper} maxWidth={false} disableGutters>
-            <AuthModal open={openAuthModal} close={closeModal} refetch={refetch} />
+            <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={refetch} />
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
@@ -71,7 +64,7 @@ export const AuthButtons = () => {
                         <MenuItem onClick={signOut}>Выйти</MenuItem>
                     </Menu>
                 </>
-            ) : <Button color="inherit" onClick={openModal}>Войти</Button>}
+            ) : <Button color="inherit" onClick={openAuthModal}>Войти</Button>}
         </Container>
     );
 };

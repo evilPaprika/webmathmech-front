@@ -16,3 +16,11 @@ export const USER_SIGNIN = gql`
         }
     }
 `;
+
+export const CREATE_NEWS_POST = gql`
+    mutation createNewsPost($text: String!, $pictureURL: String) {
+        createNewsPost(text: $text, pictureURL: $pictureURL) {
+            id
+        }
+    }
+`;
