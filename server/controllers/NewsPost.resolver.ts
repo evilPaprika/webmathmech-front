@@ -11,10 +11,6 @@ import { PaginationInputs } from './inputs/PaginationInputs';
 import { CreateNewsPostInput } from './inputs/NewsPostInputs';
 
 
-function timeout(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 @Resolver(NewsPost)
 export default class NewsPostResolver {
     @Mutation(() => NewsPost)
@@ -40,8 +36,6 @@ export default class NewsPostResolver {
 
     @Query(() => [NewsPost])
     public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
-        await timeout(2000);
-
         return NewsPost.findAll({ offset, limit, order: [order] });
     }
 }

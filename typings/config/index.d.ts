@@ -8,7 +8,7 @@ interface IConfig {
         clientId: number;
         clientSecret: string;
         version: string;
-    }
+    };
 }
 
 declare module 'config' {

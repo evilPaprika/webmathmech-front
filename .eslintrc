@@ -42,6 +42,7 @@
         "react/no-array-index-key": "off",
         "max-classes-per-file": "off",
         "import/newline-after-import" : ["error", { "count": 2 }],
-        "jsx-a11y/accessible-emoji" : "off"
+        "jsx-a11y/accessible-emoji" : "off",
+        "@typescript-eslint/member-delimiter-style": ["error"]
     }
 }

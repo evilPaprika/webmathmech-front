@@ -11,7 +11,7 @@ import AuthModal from 'client/components/modals/auth-modal';
 import { useStyles } from './styles';
 
 
-const maxNameHeaderLength = 25;
+const MAX_HEADER_NAME_LENGTH = 25;
 
 export const AuthButtons = () => {
     const styles = useStyles();
@@ -45,7 +45,7 @@ export const AuthButtons = () => {
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
                         <Typography className={styles.authButtons__login}>
-                            {name} {(name + surname).length < maxNameHeaderLength && surname}
+                            {name} {(`${name} ${surname}`).length < MAX_HEADER_NAME_LENGTH && surname}
                         </Typography>
                         {avatar
                             ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />

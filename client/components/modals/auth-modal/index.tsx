@@ -53,7 +53,7 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
         isSignUpMethod ? USER_SIGNUP : USER_SIGNIN,
         {
             onCompleted(response) {
-                const { token }: { token: string; } = isSignUpMethod ? response.userSignUp : response.userSignIn;
+                const { token }: { token: string } = isSignUpMethod ? response.userSignUp : response.userSignIn;
                 localStorage.setItem('token', token);
                 client.writeData({ data: { isLoggedIn: true } });
 

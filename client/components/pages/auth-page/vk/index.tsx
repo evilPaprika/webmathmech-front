@@ -16,7 +16,7 @@ export const AuthVk = memo(() => {
         AUTH_VK,
         {
             async onCompleted(response) {
-                const { token }: { token: string; } = response.authVk;
+                const { token }: { token: string } = response.authVk;
                 localStorage.setItem('token', token);
                 client.writeData({ data: { isLoggedIn: true } });
                 await refetch();
@@ -31,7 +31,7 @@ export const AuthVk = memo(() => {
 
     return (
         <Container>
-            <Typography>Сейчас мы вас аутентифицируем с помошью вконтакте, подождите пожалуйста</Typography>
+            <Typography>Мы аутентифицируем вас с помощью сервиса вконтакте. Подождите, пожалуйста</Typography>
             {loading && <CircularProgress />}
             {error && <Typography color="error">Произошла ошибка 😢</Typography>}
         </Container>

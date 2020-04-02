@@ -10,7 +10,7 @@ enum InputTypes {
     Password = 'password',
 }
 
-type Props = Partial<OutlinedTextFieldProps> & { label: string; };
+type Props = Partial<OutlinedTextFieldProps> & { label: string };
 
 const LabeledInput = (props: Props) => {
     const { type = InputTypes.Text, color = 'secondary', variant = 'outlined', ...otherProps } = props;
