@@ -11,6 +11,8 @@ import AuthModal from 'client/components/modals/auth-modal';
 import { useStyles } from './styles';
 
 
+const MAX_HEADER_NAME_LENGTH = 25;
+
 export const AuthButtons = () => {
     const styles = useStyles();
 
@@ -18,8 +20,8 @@ export const AuthButtons = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
-    const { data, refetch } = useQuery(GET_CURRENT_USER, { fetchPolicy: 'no-cache' });
-    const { login, avatar } = data?.getCurrentUser || {};
+    const { data, refetch } = useQuery(GET_CURRENT_USER);
+    const { avatar, name, surname } = data?.getCurrentUser || {};
 
     const openMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setAnchorEl(event.currentTarget);
@@ -43,7 +45,7 @@ export const AuthButtons = () => {
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
                         <Typography className={styles.authButtons__login}>
-                            {login}
+                            {name} {(`${name} ${surname}`).length < MAX_HEADER_NAME_LENGTH && surname}
                         </Typography>
                         {avatar
                             ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />

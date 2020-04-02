@@ -12,6 +12,9 @@
             }
         }
     },
+    "globals": {
+        "CONFIG": false
+    },
     "rules": {
         "@typescript-eslint/indent": ["error", 4],
         "react/jsx-indent": ["error", 4],
@@ -38,6 +41,8 @@
         "react/jsx-wrap-multilines": "off",
         "react/no-array-index-key": "off",
         "max-classes-per-file": "off",
-        "import/newline-after-import" : ["error", { "count": 2 }]
+        "import/newline-after-import" : ["error", { "count": 2 }],
+        "jsx-a11y/accessible-emoji" : "off",
+        "@typescript-eslint/member-delimiter-style": ["error"]
     }
 }

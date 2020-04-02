@@ -7,12 +7,13 @@ interface Props {
     children: React.ReactNode;
     loadMore(page: number): void;
     hasMore: boolean;
+    loading: boolean;
 }
 
 const Loader = <CircularProgress key={0} />;
 
-const InfiniteScroll = (props: Props) => (
-    <InfiniteScroller initialLoad={false} loader={Loader} {...props} />
+const InfiniteScroll = ({ loading, ...rest }: Props) => (
+    <InfiniteScroller initialLoad={false} loader={loading ? Loader : undefined} {...rest} />
 );
 
 export default memo(InfiniteScroll);

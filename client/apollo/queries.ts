@@ -4,6 +4,8 @@ import { gql } from 'apollo-boost';
 export const FIND_USER = gql`
     query findUser($login: String!) {
         findUser(login: $login) {
+            name
+            surname
             login
         }
     }
@@ -12,6 +14,8 @@ export const FIND_USER = gql`
 export const GET_CURRENT_USER = gql`
     query getCurrentUser {
         getCurrentUser {
+            name
+            surname
             login
             createdAt
             updatedAt
