@@ -1,5 +1,7 @@
 import * as path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+// @ts-ignore
+import ConfigWebpackPlugin from 'config-webpack';
 
 
 const BUILD_PATH = path.resolve('build', 'static');
@@ -47,6 +49,7 @@ export default {
         ]
     },
     plugins: [
+        new ConfigWebpackPlugin(),
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'index.html',

@@ -11,6 +11,7 @@ scalar DateTime
 type Mutation {
   userSignIn(login: String!, password: String!): Token!
   userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
+  authVk(code: String!): Token!
   createNewsPost(text: String!, pictureURL: String): NewsPost!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!

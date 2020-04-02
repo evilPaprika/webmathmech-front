@@ -7,6 +7,7 @@ import { AuthMethods } from 'client/types';
 import AsyncButton from 'components/common/async-button';
 import LabeledInput from 'components/common/labeled-input';
 import Modal from 'components/common/modal';
+import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';
 
 
@@ -111,9 +112,9 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
             isOpen={isOpen}
             close={onClose}
         >
-            <>
+            <Box px={3}>
                 {isSignUpMethod && (
-                    <Box px="24px" display="flex">
+                    <Box display="flex">
                         <Box mr="5px">
                             <LabeledInput
                                 size="small"
@@ -132,7 +133,7 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
                         </Box>
                     </Box>
                 )}
-                <Box px="24px" mb="20px">
+                <Box mb="20px">
                     <LabeledInput
                         size="small"
                         label="Логин"
@@ -149,7 +150,7 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
                         helperText="Пароль должен быть длиной от 8 до 64 символов"
                     />
                 </Box>
-                <Box px="24px" mb="40px">
+                <Box mb={2}>
                     <AsyncButton
                         isLoading={loading}
                         size="large"
@@ -162,7 +163,10 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
                     </AsyncButton>
                     {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
                 </Box>
-                <Box px="24px" mb="40px">
+                <Box mb={3}>
+                    <OauthButtons />
+                </Box>
+                <Box mb={4}>
                     <Typography component="span">
                         {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
                     </Typography>
@@ -175,7 +179,7 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
                         {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
                     </Typography>
                 </Box>
-            </>
+            </Box>
         </Modal>
     );
 };

@@ -50,7 +50,7 @@ const NewsPage = () => {
 
     return (
         <Container className={styles.newsPage}>
-            <InfiniteScroll loadMore={fetchMoreData} hasMore={hasMore}>
+            <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                 {newsPosts?.map((newsPost) => <NewsCard newsPost={newsPost} key={newsPost.id} />)}
             </InfiniteScroll>
 

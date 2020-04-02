@@ -1,4 +1,5 @@
 import {
+    AllowNull,
     Column,
     CreatedAt,
     DataType,
@@ -39,8 +40,9 @@ export default class User extends Model<User> {
     @Column
     public login!: string;
 
-    @Column
-    public password!: string;
+    @AllowNull
+    @Column(DataType.STRING)
+    public password!: string | null;
 
     @Field()
     @CreatedAt

@@ -24,3 +24,11 @@ export const CREATE_NEWS_POST = gql`
         }
     }
 `;
+
+export const AUTH_VK = gql`
+    mutation authVk($code: String!) {
+        authVk(code: $code) {
+            token
+        }
+    }
+`;

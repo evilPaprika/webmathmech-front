@@ -8,6 +8,8 @@ export const ROUTES = {
     PERFORMANCES: '/performances',
     ADMIN: '/admin',
     PERSONAL_PAGE: '/personal-page',
+    AUTH: '/auth',
+    AUTH_VK: '/auth/vk',
 };
 
 export const HEADER_TABS = [
