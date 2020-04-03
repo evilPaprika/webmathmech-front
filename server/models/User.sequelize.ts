@@ -32,10 +32,12 @@ export default class User extends Model<User> {
     public surname!: string;
 
     @Field(() => Role)
+    @AllowNull(false)
     @Column
     public role!: Role;
 
     @Field()
+    @AllowNull(false)
     @Unique
     @Column
     public login!: string;

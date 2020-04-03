@@ -13,7 +13,7 @@ export default new ApolloClient<NormalizedCacheObject>({
                 Authorization: token ? `Bearer ${token}` : ''
             }
         });
-    },
+    }
 });
 
 cache.writeData({

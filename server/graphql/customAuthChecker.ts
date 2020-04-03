@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { AuthChecker } from 'type-graphql';
+import { AuthenticationError } from 'apollo-server-koa';
 
 import { ApolloServerContext } from '../types';
 import User from '../models/User.sequelize';
@@ -19,7 +20,7 @@ const customAuthChecker: AuthChecker<ApolloServerContext> = async ({ context }, 
     });
 
     if (!user) {
-        return false;
+        throw new AuthenticationError('User does not exist in database!');
     }
 
     const { role } = user;

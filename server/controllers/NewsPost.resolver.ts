@@ -38,4 +38,9 @@ export default class NewsPostResolver {
     public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
         return NewsPost.findAll({ offset, limit, order: [order] });
     }
+
+    @Mutation(() => Number)
+    public async removeNewsPost(@Arg('id') id : string) {
+        return Boolean(await NewsPost.destroy({ where: { id } }));
+    }
 }
