@@ -20,7 +20,7 @@ export const AuthButtons = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
-    const { data, refetch } = useQuery(GET_CURRENT_USER);
+    const { data, refetch, error } = useQuery(GET_CURRENT_USER);
     const { avatar, name, surname } = data?.getCurrentUser || {};
 
     const openMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -37,6 +37,10 @@ export const AuthButtons = () => {
 
         refetch();
     }, [client]);
+
+    if (error?.graphQLErrors[0].extensions?.code === 'UNAUTHENTICATED') {
+        signOut();
+    }
 
     return (
         <Container className={styles.authButtons__wrapper} maxWidth={false} disableGutters>

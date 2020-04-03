@@ -2,6 +2,7 @@ import {
     Arg,
     Authorized,
     Ctx,
+    Mutation,
     Query,
     Resolver,
 } from 'type-graphql';
@@ -45,5 +46,10 @@ export default class UserResolver {
     @Query(() => [User])
     public async getUsers(@Arg('params') { limit, offset, order }: PaginationInputs) {
         return User.findAll({ offset, limit, order: [order] });
+    }
+
+    @Mutation(() => Boolean)
+    public async removeUser(@Arg('id') id : string) {
+        return Boolean(await User.destroy({ where: { id } }));
     }
 }
