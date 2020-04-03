@@ -39,7 +39,7 @@ export default class NewsPostResolver {
         return NewsPost.findAll({ offset, limit, order: [order] });
     }
 
-    @Mutation(() => Number)
+    @Mutation(() => Boolean)
     public async removeNewsPost(@Arg('id') id : string) {
         return Boolean(await NewsPost.destroy({ where: { id } }));
     }
