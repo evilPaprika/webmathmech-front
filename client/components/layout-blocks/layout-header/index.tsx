@@ -1,8 +1,10 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Container, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
 
-import { HEADER_TABS, ROUTES } from 'client/consts';
+import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
+import { EXTENDED_HEADER_TABS, HEADER_TABS, ROUTES } from 'client/consts';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
 import { HeaderIcons } from './header-icons';
@@ -14,10 +16,17 @@ const DEFAULT_TAB = ROUTES.NEWS;
 const LayoutHeader = () => {
     const styles = useStyles();
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-
+    const { data: { isLoggedIn } } = useQuery<any>(GET_IS_LOGGED_IN);
     const { pathname } = useLocation();
-    const lastTab = HEADER_TABS.find(({ path }) => pathname.startsWith(path))?.path || DEFAULT_TAB;
+
+    const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
+
+    const lastTab = availableHeaderTabs.find(({ path }) => pathname.startsWith(path))?.path || DEFAULT_TAB;
     const [tab, setTab] = useState<string>(lastTab);
+
+    if (tab !== lastTab) {
+        setTab(lastTab);
+    }
 
     const onChangeTab = useCallback((_: React.ChangeEvent<{}>, newTab: string) => {
         setTab(newTab);
@@ -42,10 +51,10 @@ const LayoutHeader = () => {
                     {Icons}
                 </Container>
                 <Tabs value={tab} onChange={onChangeTab} orientation="vertical">
-                    {HEADER_TABS.map(({ name, path }) => (
+                    {availableHeaderTabs.map(({ text, path }) => (
                         <Tab
-                            key={name}
-                            label={name}
+                            key={text}
+                            label={text}
                             value={path}
                             to={path}
                             component={Link}
