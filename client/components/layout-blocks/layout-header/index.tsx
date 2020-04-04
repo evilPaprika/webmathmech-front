@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Container, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
 import { EXTENDED_HEADER_TABS, HEADER_TABS, ROUTES } from 'client/consts';
+import { findMenuItemByPath } from 'client/utils';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
 import { HeaderIcons } from './header-icons';
@@ -21,7 +22,10 @@ const LayoutHeader = () => {
 
     const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
 
-    const lastTab = availableHeaderTabs.find(({ path }) => pathname.startsWith(path))?.path || DEFAULT_TAB;
+    const lastTab = useMemo(
+        () => findMenuItemByPath(availableHeaderTabs, pathname)?.path || DEFAULT_TAB,
+        [pathname]
+    );
     const [tab, setTab] = useState<string>(lastTab);
 
     if (tab !== lastTab) {

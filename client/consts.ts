@@ -42,7 +42,7 @@ export const MENU_ITEMS: Array<MenuItem> = [
     }
 ];
 
-export const EXTENDED_HEADER_TABS: Array<MenuItem> = [...HEADER_TABS, ...MENU_ITEMS];
+export const EXTENDED_HEADER_TABS: Array<MenuItem> = [...MENU_ITEMS, ...HEADER_TABS];
 
 export const CURRENT_YEAR = new Date().getFullYear();
 
