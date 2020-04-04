@@ -5,7 +5,7 @@ import { Avatar, Button, Container, Menu, MenuItem, Typography } from '@material
 import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
-import { ROUTES } from 'client/consts';
+import { MENU_ITEMS, ROUTES } from 'client/consts';
 import { useModal } from 'client/hooks';
 import AuthModal from 'client/components/modals/auth-modal';
 import { useStyles } from './styles';
@@ -64,10 +64,12 @@ export const AuthButtons = () => {
                         onClose={closeMenu}
                         onClick={closeMenu}
                     >
-                        <MenuItem component={Link} to={ROUTES.PERSONAL_PAGE}>
-                            Мой профиль
+                        {MENU_ITEMS.map(({ text, path }) => (
+                            <MenuItem component={Link} to={path}>{text}</MenuItem>
+                        ))}
+                        <MenuItem component={Link} to={ROUTES.NEWS} onClick={signOut}>
+                            Выйти
                         </MenuItem>
-                        <MenuItem onClick={signOut}>Выйти</MenuItem>
                     </Menu>
                 </>
             ) : <Button color="inherit" onClick={openAuthModal}>Войти</Button>}

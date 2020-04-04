@@ -1,3 +1,6 @@
+import { MenuItem } from './types';
+
+
 export const NEWS_POSTS_LIMIT = 10;
 
 export const ROUTES = {
@@ -7,25 +10,39 @@ export const ROUTES = {
     NEWS: '/news',
     PERFORMANCES: '/performances',
     ADMIN: '/admin',
-    PERSONAL_PAGE: '/personal-page',
+    PERSONAL_PAGE: '/my',
+    PERSONAL_PERFORMANCES: '/my-performances',
     AUTH: '/auth',
     AUTH_VK: '/auth/vk',
 };
 
-export const HEADER_TABS = [
+export const HEADER_TABS: Array<MenuItem> = [
     {
-        name: 'Новости',
+        text: 'Новости',
         path: ROUTES.NEWS
     },
     {
-        name: 'Выступления',
+        text: 'Выступления',
         path: ROUTES.PERFORMANCES
     },
     {
-        name: 'Админка',
+        text: 'Админка',
         path: ROUTES.ADMIN
     }
 ];
+
+export const MENU_ITEMS: Array<MenuItem> = [
+    {
+        text: 'Моя страница',
+        path: ROUTES.PERSONAL_PAGE
+    },
+    {
+        text: 'Мои выступления',
+        path: ROUTES.PERSONAL_PERFORMANCES
+    }
+];
+
+export const EXTENDED_HEADER_TABS: Array<MenuItem> = [...MENU_ITEMS, ...HEADER_TABS];
 
 export const CURRENT_YEAR = new Date().getFullYear();
 

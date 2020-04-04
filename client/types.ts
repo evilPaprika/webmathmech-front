@@ -8,3 +8,8 @@ export interface NewsPost {
     text: string;
     pictureURL?: string;
 }
+
+export interface MenuItem {
+    text: string;
+    path: string;
+}

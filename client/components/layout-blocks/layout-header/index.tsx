@@ -1,8 +1,11 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Container, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
+import { AppBar, Container, Divider, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
 
-import { HEADER_TABS, ROUTES } from 'client/consts';
+import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
+import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_ITEMS, ROUTES } from 'client/consts';
+import { findMenuItemByPath } from 'client/utils';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
 import { HeaderIcons } from './header-icons';
@@ -14,10 +17,20 @@ const DEFAULT_TAB = ROUTES.NEWS;
 const LayoutHeader = () => {
     const styles = useStyles();
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-
+    const { data: { isLoggedIn } } = useQuery<any>(GET_IS_LOGGED_IN);
     const { pathname } = useLocation();
-    const lastTab = HEADER_TABS.find(({ path }) => pathname.startsWith(path))?.path || DEFAULT_TAB;
+
+    const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
+
+    const lastTab = useMemo(
+        () => findMenuItemByPath(availableHeaderTabs, pathname)?.path || DEFAULT_TAB,
+        [pathname]
+    );
     const [tab, setTab] = useState<string>(lastTab);
+
+    if (tab !== lastTab) {
+        setTab(lastTab);
+    }
 
     const onChangeTab = useCallback((_: React.ChangeEvent<{}>, newTab: string) => {
         setTab(newTab);
@@ -29,11 +42,11 @@ const LayoutHeader = () => {
         setMobileOpen(false);
     }, []);
 
-    const handleDrawerToggle = () => {
+    const onDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    const Icons = <HeaderIcons onClickByMenu={handleDrawerToggle} onClickByLogo={onClickByLogo} />;
+    const Icons = <HeaderIcons onClickByMenu={onDrawerToggle} onClickByLogo={onClickByLogo} />;
 
     const drawer = (
         <>
@@ -42,15 +55,14 @@ const LayoutHeader = () => {
                     {Icons}
                 </Container>
                 <Tabs value={tab} onChange={onChangeTab} orientation="vertical">
-                    {HEADER_TABS.map(({ name, path }) => (
-                        <Tab
-                            key={name}
-                            label={name}
-                            value={path}
-                            to={path}
-                            component={Link}
-                        />
+                    {isLoggedIn && MENU_ITEMS.map(({ text, path }) => (
+                        <Tab key={text} label={text} value={path} to={path} component={Link} />
                     ))}
+                    <Divider light />
+                    {HEADER_TABS.map(({ text, path }) => (
+                        <Tab key={text} label={text} value={path} to={path} component={Link} />
+                    ))}
+                    <Divider light />
                 </Tabs>
             </div>
             <LayoutFooter />
@@ -71,8 +83,8 @@ const LayoutHeader = () => {
                         classes={{ paper: styles.drawerPaper }}
                         variant="temporary"
                         open={mobileOpen}
-                        onOpen={handleDrawerToggle}
-                        onClose={handleDrawerToggle}
+                        onOpen={onDrawerToggle}
+                        onClose={onDrawerToggle}
                         ModalProps={{ keepMounted: true }}
                     >
                         {drawer}
