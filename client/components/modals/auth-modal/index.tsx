@@ -33,7 +33,7 @@ const DEFAULT_STATE: ModalState = {
     loginMethod: AuthMethods.SignIn,
 };
 
-const AuthModal = ({ isOpen, close, refetch }: Props) => {
+export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
     const styles = useStyles();
 
     const [authState, setAuthState] = useState<ModalState>(DEFAULT_STATE);
@@ -182,6 +182,4 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
             </Box>
         </Modal>
     );
-};
-
-export default memo(AuthModal);
+});

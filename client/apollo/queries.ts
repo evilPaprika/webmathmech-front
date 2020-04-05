@@ -35,6 +35,7 @@ export const GET_NEWS_POSTS = gql`
             id
             text
             pictureURL
+            createdAt
         }
     }
 `;

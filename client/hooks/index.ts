@@ -1,4 +1,5 @@
+import { useMenu } from './use-menu';
 import { useModal } from './use-modal';
 
 
-export { useModal };
+export { useMenu, useModal };

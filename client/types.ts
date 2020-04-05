@@ -7,6 +7,7 @@ export interface NewsPost {
     id: string;
     text: string;
     pictureURL?: string;
+    createdAt: Date;
 }
 
 export interface MenuItem {
