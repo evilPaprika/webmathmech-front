@@ -14,7 +14,7 @@ import { PaginationInputs } from './inputs/PaginationInputs';
 
 @Resolver(User)
 export default class UserResolver {
-    @Authorized([Role.USER])
+    @Authorized([])
     @Query(() => User)
     public async getCurrentUser(@Ctx() context: ApolloServerContext) {
         const jwt = context?.koaCtx?.state?.user;
