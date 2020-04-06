@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
 import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_ITEMS, ROUTES } from 'client/consts';
+import { IsLoggedInData } from 'client/types';
 import { findMenuItemByPath } from 'client/utils';
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
@@ -17,7 +18,7 @@ const DEFAULT_TAB = ROUTES.NEWS;
 const LayoutHeader = () => {
     const styles = useStyles();
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-    const { data: { isLoggedIn } } = useQuery<any>(GET_IS_LOGGED_IN);
+    const { isLoggedIn } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN)?.data || {};
     const { pathname } = useLocation();
 
     const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;

@@ -8,6 +8,7 @@ import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
 import { AuthModal } from 'client/components/modals';
 import { MENU_ITEMS, ROUTES } from 'client/consts';
 import { useMenu, useModal } from 'client/hooks';
+import { IsLoggedInData, UserData } from 'client/types';
 import { useStyles } from './styles';
 
 
@@ -19,8 +20,8 @@ export const AuthButtons = () => {
     const [isOpenAuthModal, openAuthModal, closeAuthModal] = useModal();
     const [anchorEl, openMenu, closeMenu] = useMenu();
 
-    const { data: { isLoggedIn }, client } = useQuery<any>(GET_IS_LOGGED_IN);
-    const { data, refetch, error } = useQuery(GET_CURRENT_USER);
+    const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
+    const { data, refetch, error } = useQuery<UserData>(GET_CURRENT_USER);
     const { avatar, name, surname } = data?.getCurrentUser || {};
 
     const signOut = useCallback(() => {
@@ -35,21 +36,21 @@ export const AuthButtons = () => {
     }
 
     return (
-        <Container className={styles.authButtons__wrapper} maxWidth={false} disableGutters>
+        <Container className={styles.wrapper} maxWidth={false} disableGutters>
             <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={refetch} />
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
-                        <Typography className={styles.authButtons__login}>
+                        <Typography className={styles.login}>
                             {name} {(`${name} ${surname}`).length < MAX_USER_NAME_LENGTH_IN_HEADER && surname}
                         </Typography>
                         {avatar
-                            ? <Avatar alt="avatar" src={data?.getCurrentUser.avatar} />
+                            ? <Avatar alt="avatar" src={avatar} />
                             : <AccountCircle />}
                     </Button>
                     <Menu
                         id="user-menu"
-                        className={styles.authButtons__menu}
+                        className={styles.menu}
                         anchorEl={anchorEl}
                         open={!!anchorEl}
                         disableScrollLock

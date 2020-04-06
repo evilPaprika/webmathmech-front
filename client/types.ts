@@ -35,3 +35,7 @@ export interface User {
 export interface UserData {
     getCurrentUser: Partial<User>;
 }
+
+export interface IsLoggedInData {
+    isLoggedIn: boolean;
+}
