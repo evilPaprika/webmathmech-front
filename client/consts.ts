@@ -1,3 +1,4 @@
+import { GET_NEWS_POSTS } from './apollo/queries';
 import { MenuItem } from './types';
 
 
@@ -47,3 +48,8 @@ export const EXTENDED_HEADER_TABS: Array<MenuItem> = [...MENU_ITEMS, ...HEADER_T
 export const CURRENT_YEAR = new Date().getFullYear();
 
 export const SIDEBAR_WIDTH = 280;
+
+export const GET_NEWS_POST_QUERY_DEFAULT = {
+    query: GET_NEWS_POSTS,
+    variables: { offset: 0, limit: NEWS_POSTS_LIMIT },
+};

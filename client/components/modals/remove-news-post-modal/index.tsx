@@ -3,10 +3,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { Box, Typography, Button } from '@material-ui/core';
 
 import { REMOVE_NEWS_POST } from 'apollo/mutations';
+import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
+import { useModal } from 'client/hooks';
+import { NewsPostsData } from 'client/types';
 import AsyncButton from 'components/common/async-button';
 import { WithAlert } from 'components/common/hocs';
 import Modal from 'components/common/modal';
-import { useModal } from 'client/hooks';
 
 
 interface Props {
@@ -17,10 +19,17 @@ interface Props {
 
 export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) => {
     const [showAlert, openAlert, closeAlert] = useModal();
-    const [removeNewsPost, { loading, error }] = useMutation(
+    const [removeNewsPost, { loading, error, client }] = useMutation(
         REMOVE_NEWS_POST,
         {
             onCompleted() {
+                const data = client?.readQuery<NewsPostsData>(GET_NEWS_POST_QUERY_DEFAULT);
+                if (data) {
+                    client?.writeQuery({
+                        ...GET_NEWS_POST_QUERY_DEFAULT,
+                        data: { getNewsPosts: data.getNewsPosts.filter((post) => post.id !== newsPostId) }
+                    });
+                }
                 close();
                 openAlert();
             }

@@ -12,8 +12,14 @@ interface Props {
     severity?: 'success' | 'info' | 'warning' | 'error';
 }
 
+const TIME_TO_ALERT_DESTROY_IN_MS = 3000;
+
 export const WithAlert = memo(({ children, show, onClose, text, severity = 'success' }: Props) => {
     const styles = useStyles();
+
+    if (show) {
+        setTimeout(onClose, TIME_TO_ALERT_DESTROY_IN_MS);
+    }
 
     return (
         <>

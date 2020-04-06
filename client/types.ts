@@ -10,6 +10,10 @@ export interface NewsPost {
     createdAt: Date;
 }
 
+export interface NewsPostsData {
+    getNewsPosts: Array<NewsPost>;
+}
+
 export interface MenuItem {
     text: string;
     path: string;

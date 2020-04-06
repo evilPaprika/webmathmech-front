@@ -3,27 +3,20 @@ import { useQuery } from '@apollo/react-hooks';
 import { Container } from '@material-ui/core';
 
 import { GET_NEWS_POSTS } from 'apollo/queries';
-import { NEWS_POSTS_LIMIT } from 'client/consts';
-import { NewsPost } from 'client/types';
+import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
+import { NewsPostsData } from 'client/types';
 import ScrollTopIcon from 'components/common/scroll-top-icon';
 import InfiniteScroll from 'components/common/infinite-scroll';
 import NewsCard from './news-card';
 import { useStyles } from './styles';
 
 
-interface NewsPostsData {
-    getNewsPosts: Array<NewsPost>;
-}
-
 const NewsPage = () => {
     const styles = useStyles();
     const [hasMore, setHasMore] = useState<boolean>(true);
 
     const { data, fetchMore, error, loading } = useQuery<NewsPostsData>(GET_NEWS_POSTS, {
-        variables: {
-            offset: 0,
-            limit: NEWS_POSTS_LIMIT
-        },
+        variables: GET_NEWS_POST_QUERY_DEFAULT.variables,
         fetchPolicy: 'cache-and-network'
     });
 

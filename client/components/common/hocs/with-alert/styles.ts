@@ -5,7 +5,7 @@ import { SIDEBAR_WIDTH } from 'client/consts';
 
 export const useStyles = makeStyles((theme) => ({
     alert: {
-        position: 'absolute',
+        position: 'fixed',
         top: '60px',
         right: 0,
     },
