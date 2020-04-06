@@ -3,6 +3,12 @@ export enum AuthMethods {
     SignUp = 'sign-up'
 }
 
+export enum Roles {
+    User = 'USER',
+    Student = 'STUDENT',
+    Admin = 'ADMIN'
+}
+
 export interface NewsPost {
     id: string;
     text: string;
@@ -17,4 +23,15 @@ export interface NewsPostsData {
 export interface MenuItem {
     text: string;
     path: string;
+}
+
+export interface User {
+    name: string;
+    surname: string;
+    avatar: string;
+    role: Roles;
+}
+
+export interface UserData {
+    getCurrentUser: Partial<User>;
 }

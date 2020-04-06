@@ -17,6 +17,7 @@ export const GET_CURRENT_USER = gql`
             name
             surname
             login
+            role
             createdAt
             updatedAt
         }
