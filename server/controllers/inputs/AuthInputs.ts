@@ -32,5 +32,6 @@ export class SignUpInput {
 
     @Field()
     @Length(8, 64)
+    @IsAlphanumeric()
     public password!: string;
 }

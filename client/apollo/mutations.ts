@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 
 export const USER_SIGNUP = gql`
@@ -30,5 +30,11 @@ export const AUTH_VK = gql`
         authVk(code: $code) {
             token
         }
+    }
+`;
+
+export const FILE_UPLOAD = gql`
+    mutation($file: Upload!) {
+        fileUpload(file: $file)
     }
 `;

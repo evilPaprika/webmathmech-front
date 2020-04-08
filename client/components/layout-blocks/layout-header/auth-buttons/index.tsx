@@ -38,7 +38,7 @@ export const AuthButtons = () => {
         refetch();
     }, [client]);
 
-    if (error?.graphQLErrors[0].extensions?.code === 'UNAUTHENTICATED') {
+    if (error?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
         signOut();
     }
 

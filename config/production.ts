@@ -9,6 +9,13 @@ const config: Partial<Config> = {
         clientId: 7381806,
         clientSecret: process.env.VK_APPLICATION_CLIENT_SECRET || '',
         version: '5.3'
+    },
+    minio: {
+        endPoint: 'localhost',
+        port: 45000,
+        useSSL: false,
+        accessKey: process.env.MINIO_ACCESS_KEY || '',
+        secretKey: process.env.MINIO_SECRET_KEY || ''
     }
 };
 

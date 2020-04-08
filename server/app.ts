@@ -7,6 +7,7 @@ import koaStatic from 'koa-static';
 import webpack from 'webpack';
 import send from 'koa-send';
 
+import './minio';
 import router from './router';
 import webpackConfig from '../webpack.config';
 import middlewares from './middlewares';
