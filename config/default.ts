@@ -24,7 +24,7 @@ const config: Config = {
     },
     minio: {
         endPoint: 'direct.webmathmech.site',
-        port: 45000,
+        port: 9000,
         useSSL: false,
         accessKey: process.env.MINIO_ACCESS_KEY || throwError('process.env.MINIO_ACCESS_KEY is not specified 😢'),
         secretKey: process.env.MINIO_SECRET_KEY || throwError('process.env.MINIO_SECRET_KEY is not specified 😢')
