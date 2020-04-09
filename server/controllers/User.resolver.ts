@@ -9,7 +9,6 @@ import {
 
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { Role } from '../models/Role';
 import { PaginationInputs } from './inputs/PaginationInputs';
 
 @Resolver(User)
