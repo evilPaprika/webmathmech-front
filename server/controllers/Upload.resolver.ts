@@ -15,12 +15,16 @@ export interface Upload {
 export class UploadResolver {
     @Mutation(() => String)
     public async fileUpload(@Arg('file', () => GraphQLUpload!) { createReadStream, filename }: Upload) {
-        await new Promise((resolve) => {
-            minioClient.putObject('main', filename, createReadStream(), (error: Error | null) => {
-                if (error) throw new Error(error.message);
-                resolve();
+        try {
+            await new Promise((resolve) => {
+                minioClient.putObject('main', filename, createReadStream(), (error: Error | null) => {
+                    if (error) throw new Error(error.message);
+                    resolve();
+                });
             });
-        });
+        } catch (e) {
+            throw new Error(e.message);
+        }
 
         return `/media/${filename}`;
     }
