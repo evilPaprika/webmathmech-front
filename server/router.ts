@@ -17,8 +17,10 @@ router.get('/robots.txt', async (ctx: Context) => {
 router.get('/media/:filename', async (ctx: Context) => {
     await new Promise((resolve) => {
         minioClient.getObject('main', ctx.params.filename, (error: Error | null, dataStream: Stream) => {
-            // eslint-disable-next-line no-console
-            if (error) console.error(error);
+            if (error) {
+                // eslint-disable-next-line no-console
+                console.error(error);
+            }
             ctx.type = 'jpg';
             ctx.body = dataStream;
             resolve();

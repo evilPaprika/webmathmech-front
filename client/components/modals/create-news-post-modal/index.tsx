@@ -73,7 +73,7 @@ const CreateNewsPostModal = ({ isOpen, close }: Props) => {
         {
             onCompleted(response) {
                 // eslint-disable-next-line no-console
-                console.log(`file uploaded  to ${response.fileUpload}`);
+                console.log(`file uploaded to ${response.fileUpload}`);
             }
         }
     );

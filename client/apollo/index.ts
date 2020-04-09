@@ -20,7 +20,8 @@ const request = (operation: any) => {
 const requestLink = new ApolloLink(
     (operation, forward) => new Observable((observer) => {
         let handle: any;
-        Promise.resolve(operation)
+        Promise
+            .resolve(operation)
             .then((oper) => request(oper))
             .then(() => {
                 handle = forward(operation).subscribe({
@@ -32,7 +33,9 @@ const requestLink = new ApolloLink(
             .catch(observer.error.bind(observer));
 
         return () => {
-            if (handle) handle.unsubscribe();
+            if (handle) {
+                handle.unsubscribe();
+            }
         };
     })
 );
@@ -40,12 +43,12 @@ const requestLink = new ApolloLink(
 export default new ApolloClient({
     link: ApolloLink.from([
         onError(({ graphQLErrors, networkError }) => {
-            if (graphQLErrors) {
-                graphQLErrors.forEach(({ message, locations, path }) => console.log(
-                    `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-                ),);
+            graphQLErrors?.forEach(({ message, locations, path }) => console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+            ),);
+            if (networkError) {
+                console.log(`[Network error]: ${networkError}`);
             }
-            if (networkError) console.log(`[Network error]: ${networkError}`);
         }),
         requestLink,
         createUploadLink({

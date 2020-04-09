@@ -11,7 +11,7 @@ const config: Partial<Config> = {
         version: '5.3'
     },
     minio: {
-        endPoint: 'localhost',
+        endPoint: 'direct.webmathmech.site',
         port: 9000,
         useSSL: false,
         accessKey: process.env.MINIO_ACCESS_KEY || '',

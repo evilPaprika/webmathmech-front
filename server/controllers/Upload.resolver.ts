@@ -17,7 +17,9 @@ export class UploadResolver {
     public async fileUpload(@Arg('file', () => GraphQLUpload!) { createReadStream, filename }: Upload) {
         await new Promise((resolve) => {
             minioClient.putObject('main', filename, createReadStream(), (error: Error | null) => {
-                if (error) throw new Error(error.message);
+                if (error) {
+                    throw new Error(error.message);
+                }
                 resolve();
             });
         });
