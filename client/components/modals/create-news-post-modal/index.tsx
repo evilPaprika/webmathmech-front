@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Box } from '@material-ui/core';
 
-import { CREATE_NEWS_POST } from 'apollo/mutations';
+import { CREATE_NEWS_POST, FILE_UPLOAD } from 'apollo/mutations';
 import { useModal } from 'client/hooks/use-modal';
 import { Alert, AsyncButton, LabeledInput, Modal } from 'components/common';
 
@@ -65,6 +65,32 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
         createNewsPost({ variables });
     }, [createNewsPost, text, pictureURL]);
 
+    // fileupload draft
+    const [fileUpload] = useMutation(
+        FILE_UPLOAD,
+        {
+            onCompleted(response) {
+                // eslint-disable-next-line no-console
+                console.log(`file uploaded to ${response.fileUpload}`);
+            }
+        }
+    );
+
+    // fileupload draft
+    function onFileChange({
+        target: {
+            // @ts-ignore
+            validity,
+            // @ts-ignore
+            files: [file],
+        },
+    }) {
+        if (validity.valid) {
+            fileUpload({ variables: { file } });
+        }
+    }
+
+
     return (
         <>
             <Modal title="Создание новости" isOpen={isOpen} close={onCloseModal}>
@@ -99,6 +125,11 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
                         </AsyncButton>
                         {error && <div className={styles.error}>Произошла ошибка при создании новости</div>}
                     </Box>
+                    <input
+                        type="file"
+                        required
+                        onChange={onFileChange}
+                    />
                 </>
             </Modal>
             {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно создана!" />}

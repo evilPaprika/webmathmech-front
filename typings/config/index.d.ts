@@ -9,6 +9,13 @@ interface IConfig {
         clientSecret: string;
         version: string;
     };
+    minio: {
+        endPoint: string;
+        port: number;
+        useSSL: boolean;
+        accessKey: string;
+        secretKey: string;
+    };
 }
 
 declare module 'config' {

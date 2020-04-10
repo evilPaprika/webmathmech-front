@@ -19,7 +19,10 @@ const createApolloServer = async () => {
             context: ({ ctx }) => ({ koaCtx: ctx }),
             introspection: true,
             playground: true,
-            schema
+            schema,
+            uploads: {
+                maxFileSize: 3e+7 // 30 MB
+            }
         });
     } catch (e) {
         // eslint-disable-next-line no-console

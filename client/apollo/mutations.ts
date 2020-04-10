@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 
 // Authorization
@@ -38,5 +38,11 @@ export const CREATE_NEWS_POST = gql`
 export const REMOVE_NEWS_POST = gql`
     mutation removeNewsPost($id: String!) {
         removeNewsPost(id: $id)
+    }
+`;
+
+export const FILE_UPLOAD = gql`
+    mutation($file: Upload!) {
+        fileUpload(file: $file)
     }
 `;

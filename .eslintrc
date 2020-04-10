@@ -43,6 +43,14 @@
         "max-classes-per-file": "off",
         "import/newline-after-import" : ["error", { "count": 2 }],
         "jsx-a11y/accessible-emoji" : "off",
-        "@typescript-eslint/member-delimiter-style": ["error"]
+        "@typescript-eslint/member-delimiter-style": ["error"],
+        "curly": ["error", "all"],
+        "@typescript-eslint/brace-style": [
+            "error",
+            "1tbs",
+            {
+                "allowSingleLine": false
+            }
+        ]
     }
 }
