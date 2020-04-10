@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Box, Button, Container } from '@material-ui/core';
 
 import { useModal } from 'client/hooks';
-import CreateNewsPostModal from '../../modals/create-news-post-modal';
+import { CreateNewsPostModal } from '../../modals';
 import { useStyles } from './styles';
 
 

@@ -1,13 +1,11 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Box } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 
 import { CREATE_NEWS_POST } from 'apollo/mutations';
 import { useModal } from 'client/hooks/use-modal';
-import AsyncButton from 'components/common/async-button';
-import LabeledInput from 'components/common/labeled-input';
-import Modal from 'components/common/modal';
+import { Alert, AsyncButton, LabeledInput, Modal } from 'components/common';
+
 import { useStyles } from './styles';
 
 
@@ -25,10 +23,10 @@ const DEFAULT_STATE: ModalState = {
     text: ''
 };
 
-const CreateNewsPostModal = ({ isOpen, close }: Props) => {
+export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
     const styles = useStyles();
 
-    const [showAlert, openAlert, closeAlert] = useModal();
+    const [isShownAlert, openAlert, closeAlert] = useModal();
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
     const { text, pictureURL } = modalState;
 
@@ -69,11 +67,7 @@ const CreateNewsPostModal = ({ isOpen, close }: Props) => {
 
     return (
         <>
-            <Modal
-                title="Создание новости"
-                isOpen={isOpen}
-                close={onCloseModal}
-            >
+            <Modal title="Создание новости" isOpen={isOpen} close={onCloseModal}>
                 <>
                     <Box px="24px" mb="20px">
                         <LabeledInput
@@ -107,13 +101,7 @@ const CreateNewsPostModal = ({ isOpen, close }: Props) => {
                     </Box>
                 </>
             </Modal>
-            {showAlert && (
-                <Alert severity="success" onClose={closeAlert} className={styles.alert}>
-                    Новость успешно создана!
-                </Alert>
-            )}
+            {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно создана!" />}
         </>
     );
-};
-
-export default memo(CreateNewsPostModal);
+});

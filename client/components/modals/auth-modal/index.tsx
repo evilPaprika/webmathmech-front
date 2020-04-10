@@ -4,9 +4,7 @@ import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
 import { AuthMethods } from 'client/types';
-import AsyncButton from 'components/common/async-button';
-import LabeledInput from 'components/common/labeled-input';
-import Modal from 'components/common/modal';
+import { AsyncButton, LabeledInput, Modal } from 'components/common';
 import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';
 
@@ -33,7 +31,7 @@ const DEFAULT_STATE: ModalState = {
     loginMethod: AuthMethods.SignIn,
 };
 
-const AuthModal = ({ isOpen, close, refetch }: Props) => {
+export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
     const styles = useStyles();
 
     const [authState, setAuthState] = useState<ModalState>(DEFAULT_STATE);
@@ -182,6 +180,4 @@ const AuthModal = ({ isOpen, close, refetch }: Props) => {
             </Box>
         </Modal>
     );
-};
-
-export default memo(AuthModal);
+});
