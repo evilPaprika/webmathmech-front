@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { } from '@material-ui/core/colors';
 
 
 import LayoutHeader from '../layout-header';

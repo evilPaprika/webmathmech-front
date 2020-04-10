@@ -5,8 +5,7 @@ import { Container } from '@material-ui/core';
 import { GET_NEWS_POSTS } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
 import { NewsPostsData } from 'client/types';
-import ScrollTopIcon from 'components/common/scroll-top-icon';
-import InfiniteScroll from 'components/common/infinite-scroll';
+import { ScrollTopIcon, InfiniteScroll } from 'components/common';
 import NewsCard from './news-card';
 import { useStyles } from './styles';
 

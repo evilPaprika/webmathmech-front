@@ -6,9 +6,8 @@ import { REMOVE_NEWS_POST } from 'apollo/mutations';
 import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { NewsPostsData } from 'client/types';
-import AsyncButton from 'components/common/async-button';
-import { WithAlert } from 'components/common/hocs';
-import Modal from 'components/common/modal';
+import { Alert, AsyncButton, Modal } from 'components/common';
+import { useStyles } from './styles';
 
 
 interface Props {
@@ -18,7 +17,8 @@ interface Props {
 }
 
 export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) => {
-    const [showAlert, openAlert, closeAlert] = useModal();
+    const styles = useStyles();
+    const [isShownAlert, openAlert, closeAlert] = useModal();
     const [removeNewsPost, { loading, error, client }] = useMutation(
         REMOVE_NEWS_POST,
         {
@@ -42,7 +42,7 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     }, [newsPostId]);
 
     return (
-        <WithAlert show={showAlert} onClose={closeAlert} text="Новость успешно удалена!">
+        <>
             <Modal title="Предупреждение" isOpen={isOpen} close={close}>
                 <Box px="24px" mb="40px">
                     <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
@@ -51,8 +51,9 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
                     <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
                     <Button color="secondary" onClick={close}>Отмена</Button>
                 </Box>
-                {error && <Box px="24px" mb="20px">Произошла ошибка. Попробуйте снова</Box>}
+                {error && <Box px="24px" mb="20px" className={styles.error}>Произошла ошибка. Попробуйте снова</Box>}
             </Modal>
-        </WithAlert>
+            {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно удалена!" />}
+        </>
     );
 });

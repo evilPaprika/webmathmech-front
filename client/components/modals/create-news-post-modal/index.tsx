@@ -4,10 +4,8 @@ import { Box } from '@material-ui/core';
 
 import { CREATE_NEWS_POST } from 'apollo/mutations';
 import { useModal } from 'client/hooks/use-modal';
-import AsyncButton from 'components/common/async-button';
-import LabeledInput from 'components/common/labeled-input';
-import { WithAlert } from 'components/common/hocs';
-import Modal from 'components/common/modal';
+import { Alert, AsyncButton, LabeledInput, Modal } from 'components/common';
+
 import { useStyles } from './styles';
 
 
@@ -28,7 +26,7 @@ const DEFAULT_STATE: ModalState = {
 export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
     const styles = useStyles();
 
-    const [showAlert, openAlert, closeAlert] = useModal();
+    const [isShownAlert, openAlert, closeAlert] = useModal();
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
     const { text, pictureURL } = modalState;
 
@@ -68,7 +66,7 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
     }, [createNewsPost, text, pictureURL]);
 
     return (
-        <WithAlert show={showAlert} onClose={closeAlert} text="Новость успешно создана!">
+        <>
             <Modal title="Создание новости" isOpen={isOpen} close={onCloseModal}>
                 <>
                     <Box px="24px" mb="20px">
@@ -103,6 +101,7 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
                     </Box>
                 </>
             </Modal>
-        </WithAlert>
+            {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно создана!" />}
+        </>
     );
 });

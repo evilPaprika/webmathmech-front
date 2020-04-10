@@ -4,9 +4,7 @@ import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
 import { AuthMethods } from 'client/types';
-import AsyncButton from 'components/common/async-button';
-import LabeledInput from 'components/common/labeled-input';
-import Modal from 'components/common/modal';
+import { AsyncButton, LabeledInput, Modal } from 'components/common';
 import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';
 

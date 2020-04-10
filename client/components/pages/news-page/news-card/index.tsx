@@ -4,10 +4,10 @@ import { Box, CardMedia, IconButton, Menu, MenuItem, Typography } from '@materia
 import SettingsIcon from '@material-ui/icons/MoreVert';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
-import { RemoveNewsPostModal } from 'client/components/modals';
 import { useMenu, useModal } from 'client/hooks';
 import { NewsPost, UserData, Roles } from 'client/types';
-import CardItem from 'components/common/card-item';
+import { CardItem } from 'components/common';
+import { RemoveNewsPostModal } from 'components/modals';
 import { useStyles } from './styles';
 
 
