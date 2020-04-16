@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt';
 
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { Role } from '../models/Role';
+import { Role } from '../models/EnumModels';
 import { SALT } from '../consts';
 import { PatchCurrentUserInput, PatchUserInput } from './inputs/PatchUserInputs';
 

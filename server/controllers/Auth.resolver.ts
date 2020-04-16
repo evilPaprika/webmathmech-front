@@ -8,7 +8,7 @@ import {
 import User from '../models/User.sequelize';
 import Token from '../models/Token';
 import { SALT } from '../consts';
-import { Role } from '../models/Role';
+import { Role } from '../models/EnumModels';
 import { SignInInput, SignUpInput } from './inputs/AuthInputs';
 import { createJWTToken } from '../utils';
 

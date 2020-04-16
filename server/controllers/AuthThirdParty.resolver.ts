@@ -7,7 +7,7 @@ import {
 
 import User from '../models/User.sequelize';
 import Token from '../models/Token';
-import { Role } from '../models/Role';
+import { Role } from '../models/EnumModels';
 import { VkSignInput } from './inputs/AuthThirdPartyInputs';
 import { createJWTToken } from '../utils';
 import { fetchVkUserInfo, getVkUserIdAndAccessToken } from '../utils/vkApiMethods';
