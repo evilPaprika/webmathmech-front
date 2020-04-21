@@ -7,44 +7,36 @@ import {
     Model,
     PrimaryKey,
     Table,
-    Unique,
     UpdatedAt,
 } from 'sequelize-typescript';
 import { Field, ID, ObjectType } from 'type-graphql';
-import { Role } from './EnumModels';
-
+import { PerformancePostState } from './EnumModels';
 
 @ObjectType()
 @Table
-export default class User extends Model<User> {
+export default class PerformancePost extends Model<PerformancePost> {
     @Field(() => ID)
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field()
-    @Column
-    public name!: string;
+    @Field({ description: 'News post content' })
+    @Column(DataType.TEXT)
+    public text!: string;
 
-    @Field()
-    @Column
-    public surname!: string;
+    @Field({ nullable: true })
+    @Column(DataType.TEXT)
+    public pictureURL?: string;
 
-    @Field(() => Role)
+    @Field({ nullable: true })
+    @Column(DataType.TEXT)
+    public videoURL?: string;
+
+    @Field(() => PerformancePostState)
     @AllowNull(false)
     @Column
-    public role!: Role;
-
-    @Field()
-    @AllowNull(false)
-    @Unique
-    @Column
-    public login!: string;
-
-    @AllowNull
-    @Column(DataType.STRING)
-    public password!: string | null;
+    public state!: PerformancePostState;
 
     @Field()
     @CreatedAt

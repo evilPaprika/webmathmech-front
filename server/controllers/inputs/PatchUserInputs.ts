@@ -1,6 +1,6 @@
 import { ArgsType, Field } from 'type-graphql';
 import { IsAlphanumeric, Length } from 'class-validator';
-import { Role } from '../../models/Role';
+import { Role } from '../../models/EnumModels';
 import User from '../../models/User.sequelize';
 
 

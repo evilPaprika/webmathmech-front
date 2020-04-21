@@ -16,6 +16,8 @@ type Mutation {
   removeNewsPost(id: String!): Boolean!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!
+  createPerformancePost(text: String!, pictureURL: String, videoURL: String, state: PerformancePostState): PerformancePost!
+  removePerformancePost(id: String!): Boolean!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!
 }
@@ -36,15 +38,34 @@ input PaginationInputs {
   order: [String!] = ["createdAt", "DESC"]
 }
 
+type PerformancePost {
+  id: ID!
+
+  """News post content"""
+  text: String!
+  pictureURL: String
+  videoURL: String
+  state: PerformancePostState!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum PerformancePostState {
+  DRAFT
+  POLL
+  PUBLISHED
+}
+
 type Query {
   findNewsPost(id: String!): NewsPost!
   getNewsPosts(params: PaginationInputs!): [NewsPost!]!
+  findPerformancePost(id: String!): PerformancePost!
+  getPerformancePosts(params: PaginationInputs!): [PerformancePost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: PaginationInputs!): [User!]!
 }
 
-"""User role"""
 enum Role {
   USER
   STUDENT
