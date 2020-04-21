@@ -12,7 +12,7 @@ const CardItem = ({ children }: Props) => {
     const styles = useStyles();
 
     return (
-        <Card className={styles.card} raised elevation={4}>
+        <Card className={styles.card} variant="outlined">
             {children}
         </Card>
     );
