@@ -7,7 +7,7 @@ import {
 } from 'type-graphql';
 
 import { PaginationInputs } from './inputs/PaginationInputs';
-import { CreatePerformancePostInput } from './inputs/PerformancePostInputs';
+import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
 
@@ -40,6 +40,21 @@ export default class PerformancePostResolver {
     @Query(() => [PerformancePost])
     public async getPerformancePosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
         return PerformancePost.findAll({ offset, limit, order: [order] });
+    }
+
+    @Mutation(() => PerformancePost)
+    public async patchPerformancePost(@Args() { id, ...newValues }: PatchPerformancePostInputs) {
+        const performancePost = await PerformancePost.findOne({
+            where: { id },
+        });
+
+        if (!performancePost) {
+            throw new Error('PerformancePost not found');
+        }
+
+        await performancePost.update({ ...newValues });
+
+        return performancePost;
     }
 
     @Mutation(() => Boolean)

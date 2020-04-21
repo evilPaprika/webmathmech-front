@@ -21,3 +21,24 @@ export class CreatePerformancePostInput implements Partial<PerformancePost> {
     @Field(() => PerformancePostState, { nullable: true })
     public state?: PerformancePostState;
 }
+
+@ArgsType()
+export class PatchPerformancePostInputs implements Partial<PerformancePost> {
+    @Field()
+    public id!: string;
+
+    @Field({ nullable: true })
+    @Length(10, 2500)
+    public text!: string;
+
+    @Field({ nullable: true })
+    @Length(5, 2048)
+    public pictureURL?: string;
+
+    @Field({ nullable: true })
+    @Length(5, 2048)
+    public videoURL?: string;
+
+    @Field(() => PerformancePostState, { nullable: true })
+    public state?: PerformancePostState;
+}

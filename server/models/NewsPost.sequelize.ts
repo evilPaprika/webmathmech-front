@@ -1,4 +1,5 @@
 import {
+    AllowNull,
     Column,
     CreatedAt,
     DataType,
@@ -19,6 +20,7 @@ export default class NewsPost extends Model<NewsPost> {
     public id!: string;
 
     @Field({ description: 'News post content' })
+    @AllowNull(false)
     @Column(DataType.TEXT)
     public text!: string;
 
