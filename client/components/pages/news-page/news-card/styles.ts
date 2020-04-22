@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     media: {
-        height: '50vw'
+        objectFit: 'contain'
     },
 
     blockInfo: {
