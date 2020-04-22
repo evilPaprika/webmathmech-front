@@ -13,10 +13,12 @@ type Mutation {
   userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
   authVk(code: String!): Token!
   createNewsPost(text: String!, pictureURL: String): NewsPost!
+  patchNewsPost(id: String!, text: String, pictureURL: String): NewsPost!
   removeNewsPost(id: String!): Boolean!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!
   createPerformancePost(text: String!, pictureURL: String, videoURL: String, state: PerformancePostState): PerformancePost!
+  patchPerformancePost(id: String!, text: String, pictureURL: String, videoURL: String, state: PerformancePostState): PerformancePost!
   removePerformancePost(id: String!): Boolean!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!

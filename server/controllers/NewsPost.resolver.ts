@@ -8,7 +8,7 @@ import {
 
 import NewsPost from '../models/NewsPost.sequelize';
 import { PaginationInputs } from './inputs/PaginationInputs';
-import { CreateNewsPostInput } from './inputs/NewsPostInputs';
+import { CreateNewsPostInput, PatchNewsPostInputs } from './inputs/NewsPostInputs';
 
 
 @Resolver(NewsPost)
@@ -37,6 +37,21 @@ export default class NewsPostResolver {
     @Query(() => [NewsPost])
     public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
         return NewsPost.findAll({ offset, limit, order: [order] });
+    }
+
+    @Mutation(() => NewsPost)
+    public async patchNewsPost(@Args() { id, ...newValues }: PatchNewsPostInputs) {
+        const newsPost = await NewsPost.findOne({
+            where: { id },
+        });
+
+        if (!newsPost) {
+            throw new Error('NewsPost not found');
+        }
+
+        await newsPost.update({ ...newValues });
+
+        return newsPost;
     }
 
     @Mutation(() => Boolean)
