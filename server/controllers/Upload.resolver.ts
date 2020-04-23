@@ -8,6 +8,8 @@ import path from 'path';
 import { minioClient } from '../minio';
 
 
+const FILE_EXTENSIONS_TO_MINIFY = ['.png', '.jpg', '.jpeg'];
+
 export interface Upload {
     filename: string;
     mimetype: string;
@@ -22,7 +24,7 @@ export class UploadResolver {
         const { name, ext } = path.parse(filename);
 
         let fileData: Buffer | ReadStream = createReadStream();
-        if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+        if (FILE_EXTENSIONS_TO_MINIFY.includes(ext)) {
             const buffer = await streamToBuffer(fileData);
             fileData = await sharp(buffer)
                 .jpeg({ quality: 80 })
