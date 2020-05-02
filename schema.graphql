@@ -48,7 +48,7 @@ type PerformancePost {
   pictureURL: String
   videoURL: String
   state: PerformancePostState!
-  rating: Rating!
+  averageRating: Rating!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -70,15 +70,15 @@ type Query {
 }
 
 type Rating {
-  interest: Int!
-  format: Int!
-  content: Int!
+  interest: Float!
+  format: Float!
+  content: Float!
 }
 
 input RatingInput {
-  interest: Int = 0
-  format: Int = 0
-  content: Int = 0
+  interest: Float = 0
+  format: Float = 0
+  content: Float = 0
 }
 
 enum Role {
