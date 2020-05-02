@@ -17,13 +17,13 @@ export default class PerformancePostResolver {
     @Mutation(() => PerformancePost)
     public async createPerformancePost(@Args() {
         state,
-        rating,
+        averageRating,
         ...rest
     }: CreatePerformancePostInput) {
         return PerformancePost.create({
             ...rest,
             state: state || PerformancePostState.DRAFT,
-            rating: rating || new Rating()
+            averageRating: averageRating || new Rating()
         });
     }
 
