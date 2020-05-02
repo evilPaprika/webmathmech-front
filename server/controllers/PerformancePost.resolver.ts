@@ -8,19 +8,22 @@ import {
 
 import { PaginationInputs } from './inputs/PaginationInputs';
 import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
-import PerformancePost from '../models/PerformancePost.sequelize';
+import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
 
 
 @Resolver(PerformancePost)
 export default class PerformancePostResolver {
     @Mutation(() => PerformancePost)
-    public async createPerformancePost(@Args() { text, pictureURL, videoURL, state }: CreatePerformancePostInput) {
+    public async createPerformancePost(@Args() {
+        state,
+        rating,
+        ...rest
+    }: CreatePerformancePostInput) {
         return PerformancePost.create({
-            text,
-            pictureURL,
-            videoURL,
-            state: state || PerformancePostState.DRAFT
+            ...rest,
+            state: state || PerformancePostState.DRAFT,
+            rating: rating || new Rating()
         });
     }
 

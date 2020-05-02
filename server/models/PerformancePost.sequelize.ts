@@ -9,8 +9,29 @@ import {
     Table,
     UpdatedAt,
 } from 'sequelize-typescript';
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, Float, ID, InputType, ObjectType } from 'type-graphql';
+import { IsPositive, Max } from 'class-validator';
 import { PerformancePostState } from './EnumModels';
+
+
+@InputType('RatingInput')
+@ObjectType()
+export class Rating {
+    @Field(() => Float)
+    @IsPositive()
+    @Max(10)
+    interest: number = 0;
+
+    @Field(() => Float)
+    @IsPositive()
+    @Max(10)
+    format: number = 0;
+
+    @Field(() => Float)
+    @IsPositive()
+    @Max(10)
+    content: number = 0;
+}
 
 @ObjectType()
 @Table
@@ -38,6 +59,11 @@ export default class PerformancePost extends Model<PerformancePost> {
     @AllowNull(false)
     @Column
     public state!: PerformancePostState;
+
+    @Field(() => Rating)
+    @AllowNull(false)
+    @Column(DataType.JSON)
+    public averageRating!: Rating;
 
     @Field()
     @CreatedAt

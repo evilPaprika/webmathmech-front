@@ -17,8 +17,8 @@ type Mutation {
   removeNewsPost(id: String!): Boolean!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!
-  createPerformancePost(text: String!, pictureURL: String, videoURL: String, state: PerformancePostState): PerformancePost!
-  patchPerformancePost(id: String!, text: String, pictureURL: String, videoURL: String, state: PerformancePostState): PerformancePost!
+  createPerformancePost(text: String!, pictureURL: String, videoURL: String, state: PerformancePostState, rating: RatingInput): PerformancePost!
+  patchPerformancePost(id: String!, text: String, pictureURL: String, videoURL: String, state: PerformancePostState, rating: RatingInput): PerformancePost!
   removePerformancePost(id: String!): Boolean!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!
@@ -48,6 +48,7 @@ type PerformancePost {
   pictureURL: String
   videoURL: String
   state: PerformancePostState!
+  averageRating: Rating!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -66,6 +67,18 @@ type Query {
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: PaginationInputs!): [User!]!
+}
+
+type Rating {
+  interest: Float!
+  format: Float!
+  content: Float!
+}
+
+input RatingInput {
+  interest: Float = 0
+  format: Float = 0
+  content: Float = 0
 }
 
 enum Role {
