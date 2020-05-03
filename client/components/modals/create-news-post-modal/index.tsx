@@ -77,18 +77,15 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
     );
 
     // fileupload draft
-    function onFileChange({
-        target: {
-            // @ts-ignore
-            validity,
-            // @ts-ignore
-            files: [file],
-        },
-    }) {
+    const onFileChange = ({
+        target: { validity, files },
+    }: React.ChangeEvent<HTMLInputElement>) => {
+        const [file] = files || [];
+
         if (validity.valid) {
             fileUpload({ variables: { file } });
         }
-    }
+    };
 
 
     return (

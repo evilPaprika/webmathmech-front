@@ -1,6 +1,7 @@
 import Alert from './alert';
 import AsyncButton from './async-button';
 import CardItem from './card-item';
+import CollapsibleText from './collapsible-text';
 import InfiniteScroll from './infinite-scroll';
 import LabeledInput from './labeled-input';
 import Modal from './modal';
@@ -11,6 +12,7 @@ export {
     Alert,
     AsyncButton,
     CardItem,
+    CollapsibleText,
     InfiniteScroll,
     LabeledInput,
     Modal,
