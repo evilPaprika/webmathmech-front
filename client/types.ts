@@ -53,8 +53,9 @@ export interface PerformancePostsData {
 export interface User {
     name: string;
     surname: string;
-    avatar: string;
+    avatar?: string;
     role: Roles;
+    login: string;
 }
 
 export interface UserData {
