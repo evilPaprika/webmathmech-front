@@ -16,12 +16,12 @@ const MIN_TEXT_TO_COLLAPSE = 200;
 
 
 export const CollapsibleText = memo((props: Props) => {
-    const [collapsed, setCollapsed] = useToggle();
+    const [collapsed, changeCollapsed] = useToggle();
 
     const { text, minLengthToCollapse = MIN_TEXT_TO_COLLAPSE, Component = Typography, className } = props;
     const isTrimmed = text.length >= minLengthToCollapse;
     const trimmedText = useMemo(
-        () => (collapsed ? text : trimText(text, minLengthToCollapse)),
+        () => (collapsed || !isTrimmed ? text : trimText(text, minLengthToCollapse)),
         [text, collapsed]
     );
 
@@ -30,7 +30,7 @@ export const CollapsibleText = memo((props: Props) => {
             {trimmedText}
             {' '}
             {isTrimmed && (
-                <Button color="secondary" onClick={setCollapsed} size="small">
+                <Button color="secondary" onClick={changeCollapsed} size="small">
                     {collapsed ? 'Скрыть' : 'Показать еще'}
                 </Button>
             )}
