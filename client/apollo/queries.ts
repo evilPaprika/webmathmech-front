@@ -40,3 +40,20 @@ export const GET_NEWS_POSTS = gql`
         }
     }
 `;
+
+export const GET_PERFORMANCE_POSTS = gql`
+    query getPerformancePosts($limit: Int!, $offset: Int!, $order: [String!]) {
+        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }) {
+            id
+            text
+            pictureURL
+            videoURL
+            createdAt
+            averageRating {
+                format
+                content
+                interest
+            }
+        }
+    }
+`;

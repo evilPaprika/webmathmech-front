@@ -1,57 +1,60 @@
 import React, { memo, useState } from 'react';
-import ReactPlayer from 'react-player';
-import { Box, Container, Card, CardContent, Typography } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { Container } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
 
+import { GET_PERFORMANCE_POSTS } from 'client/apollo/queries';
+import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
+import { PerformancePost, PerformancePostsData } from 'client/types';
+import { InfiniteScroll } from 'components/common';
+import { PerformanceCard } from './perfomance-card';
 import { useStyles } from './styles';
 
 
-interface Performance {
-    content: string;
-}
+const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];
 
-const CARDS: Array<Performance> = [
-    {
-        content: 'Some content'
-    }
-];
-
-
-const PerformancesPage = () => {
+export const PerformancesPage = memo(() => {
     const styles = useStyles();
+    const [hasMore, setHasMore] = useState<boolean>(true);
 
-    const [rating, setRating] = useState<number | null>(0);
+    const { data, fetchMore, error, loading } = useQuery<PerformancePostsData>(GET_PERFORMANCE_POSTS, {
+        variables: GET_NEWS_POST_QUERY_DEFAULT.variables,
+        fetchPolicy: 'cache-and-network'
+    });
 
-    const changeRating = (_: React.ChangeEvent<{}>, newRating: number | null) => {
-        setRating(newRating);
+    const items = data?.getPerformancePosts || DEFAULT_PERFORMANCES_LIST;
+
+    const fetchMoreData = (page: number) => {
+        setHasMore(false);
+
+        fetchMore({
+            variables: { offset: page * PERFORMANCE_POSTS_LIMIT, limit: PERFORMANCE_POSTS_LIMIT },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult?.getPerformancePosts?.length) {
+                    return prev;
+                }
+
+                setHasMore(true);
+
+                return {
+                    getPerformancePosts: [
+                        ...prev.getPerformancePosts,
+                        ...fetchMoreResult?.getPerformancePosts
+                    ]
+                };
+            }
+        });
     };
 
     return (
         <Container className={styles.performancesPage}>
-            {CARDS.map(({ content }, index) => (
-                <Card key={index} raised>
-                    <CardContent>
-                        {/* проверка работы видео */}
-                        <ReactPlayer
-                            url="https://www.youtube.com/watch?v=_Ht9woqhWmY"
-                            controls
-                            width={300}
-                            height={150}
-                        />
-                        <Typography style={{ margin: '10px 0' }}>{content}</Typography>
-                        <Box component="fieldset" mb={3} borderColor="transparent">
-                            <Typography component="legend">Рейтинг</Typography>
-                            <Rating
-                                name="rating"
-                                value={rating}
-                                onChange={changeRating}
-                            />
-                        </Box>
-                    </CardContent>
-                </Card>
-            ))}
+            <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
+                {items.map((item) => <PerformanceCard item={item} key={item.id} />)}
+            </InfiniteScroll>
+
+            {error && <div>Произошла ошибка. Пожалуйста, перезагрузите страницу!</div>}
+            {!loading && !items.length && !error && <div>Выступлений не найдено!</div>}
         </Container>
     );
-};
+});
 
-export default memo(PerformancesPage);
+export default PerformancesPage;

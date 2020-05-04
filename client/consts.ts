@@ -1,8 +1,9 @@
-import { GET_NEWS_POSTS } from './apollo/queries';
+import { GET_NEWS_POSTS, GET_PERFORMANCE_POSTS } from './apollo/queries';
 import { MenuItem } from './types';
 
 
 export const NEWS_POSTS_LIMIT = 10;
+export const PERFORMANCE_POSTS_LIMIT = 10;
 
 export const ROUTES = {
     MAIN: '/',
@@ -52,4 +53,9 @@ export const SIDEBAR_WIDTH = 280;
 export const GET_NEWS_POST_QUERY_DEFAULT = {
     query: GET_NEWS_POSTS,
     variables: { offset: 0, limit: NEWS_POSTS_LIMIT },
+};
+
+export const GET_PERFORMANCES_POST_QUERY_DEFAULT = {
+    query: GET_PERFORMANCE_POSTS,
+    variables: { offset: 0, limit: PERFORMANCE_POSTS_LIMIT },
 };

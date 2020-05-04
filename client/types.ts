@@ -16,8 +16,27 @@ export interface NewsPost {
     createdAt: Date;
 }
 
+export interface PerformancePost {
+    id: string;
+    text: string;
+    pictureURL?: string;
+    videoURL?: string;
+    createdAt: Date;
+    averageRating: PerformanceRating;
+}
+
+export interface PerformanceRating {
+    format: number;
+    content: number;
+    interest: number;
+}
+
 export interface NewsPostsData {
     getNewsPosts: Array<NewsPost>;
+}
+
+export interface PerformancePostsData {
+    getPerformancePosts: Array<PerformancePost>;
 }
 
 export interface MenuItem {
@@ -33,7 +52,7 @@ export interface User {
 }
 
 export interface UserData {
-    getCurrentUser: Partial<User>;
+    getCurrentUser: User;
 }
 
 export interface IsLoggedInData {

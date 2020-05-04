@@ -8,3 +8,5 @@ export const findMenuItemByPath = (menuItems: Array<MenuItem>, pathname: string)
 
     return menuItems.find(({ path }) => tabName === path);
 };
+
+export const truncateText = (text: string, length: number): string => `${text.slice(0, length - 2)}...`;

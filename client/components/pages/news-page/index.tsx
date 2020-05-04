@@ -5,7 +5,8 @@ import { Container } from '@material-ui/core';
 import { GET_NEWS_POSTS } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
 import { NewsPostsData } from 'client/types';
-import { ScrollTopIcon, InfiniteScroll } from 'components/common';
+import { InfiniteScroll } from 'components/common';
+
 import NewsCard from './news-card';
 import { useStyles } from './styles';
 
@@ -48,8 +49,6 @@ const NewsPage = () => {
 
             {error && <div>Произошла ошибка. Пожалуйста, перезагрузите страницу!</div>}
             {!loading && !newsPosts.length && !error && <div>Новостей не найдено!</div>}
-
-            <ScrollTopIcon />
         </Container>
     );
 };
