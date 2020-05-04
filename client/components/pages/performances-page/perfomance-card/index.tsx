@@ -19,8 +19,6 @@ export const PerformanceCard = memo(({ item }: Props) => {
 
     const { text, pictureURL, videoURL, averageRating } = item;
 
-    const isVoted = averageRating.format !== 0 && averageRating.content !== 0 && averageRating.interest !== 0;
-
     return (
         <CardItem>
             {pictureURL && <CardMedia component="img" className={styles.media} image={pictureURL} />}
@@ -28,7 +26,7 @@ export const PerformanceCard = memo(({ item }: Props) => {
             <CardInfo item={item} />
             <Box className={styles.description}>
                 <CollapsibleText text={text} className={styles.text} />
-                {isVoted && <CardRating rating={averageRating} />}
+                <CardRating rating={averageRating} />
             </Box>
         </CardItem>
     );
