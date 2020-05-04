@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react';
 import { Button, Typography } from '@material-ui/core';
 
 import { useToggle } from 'client/hooks';
-import { trimText } from 'client/utils';
+import { truncateText } from 'client/utils';
 
 
 interface Props {
@@ -12,25 +12,25 @@ interface Props {
     className?: string;
 }
 
-const MIN_TEXT_TO_COLLAPSE = 200;
+const MIN_TEXT_LENGTH_TO_COLLAPSE = 200;
 
 
 export const CollapsibleText = memo((props: Props) => {
-    const [collapsed, changeCollapsed] = useToggle();
+    const [collapsed, toggleCollapsed] = useToggle();
 
-    const { text, minLengthToCollapse = MIN_TEXT_TO_COLLAPSE, Component = Typography, className } = props;
-    const isTrimmed = text.length >= minLengthToCollapse;
-    const trimmedText = useMemo(
-        () => (collapsed || !isTrimmed ? text : trimText(text, minLengthToCollapse)),
+    const { text, minLengthToCollapse = MIN_TEXT_LENGTH_TO_COLLAPSE, Component = Typography, className } = props;
+    const canCollapse = text.length >= minLengthToCollapse;
+    const truncatedText = useMemo(
+        () => (collapsed || !canCollapse ? text : truncateText(text, minLengthToCollapse)),
         [text, collapsed]
     );
 
     return (
         <Component className={className}>
-            {trimmedText}
+            {truncatedText}
             {' '}
-            {isTrimmed && (
-                <Button color="secondary" onClick={changeCollapsed} size="small">
+            {canCollapse && (
+                <Button color="secondary" onClick={toggleCollapsed} size="small">
                     {collapsed ? 'Скрыть' : 'Показать еще'}
                 </Button>
             )}
