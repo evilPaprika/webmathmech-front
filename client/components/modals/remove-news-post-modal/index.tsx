@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Box, Typography, Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_NEWS_POST } from 'apollo/mutations';
 import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { NewsPostsData } from 'client/types';
-import { Alert, AsyncButton, Modal } from 'components/common';
+import { Alert, AsyncButton, ContainerBox, Modal } from 'components/common';
 import { useStyles } from './styles';
 
 
@@ -44,14 +44,14 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     return (
         <>
             <Modal title="Предупреждение" isOpen={isOpen} close={close}>
-                <Box px="24px" mb="40px">
+                <ContainerBox gap="large">
                     <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
-                </Box>
-                <Box px="24px" mb="20px" display="flex" flexDirection="row-reverse">
+                </ContainerBox>
+                <ContainerBox display="flex" flexDirection="row-reverse">
                     <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
                     <Button color="secondary" onClick={close}>Отмена</Button>
-                </Box>
-                {error && <Box px="24px" mb="20px" className={styles.error}>Произошла ошибка. Попробуйте снова</Box>}
+                </ContainerBox>
+                {error && <ContainerBox className={styles.error}>Произошла ошибка. Попробуйте снова</ContainerBox>}
             </Modal>
             {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно удалена!" />}
         </>

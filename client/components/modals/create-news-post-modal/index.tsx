@@ -1,10 +1,9 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Box } from '@material-ui/core';
 
 import { CREATE_NEWS_POST, FILE_UPLOAD } from 'apollo/mutations';
 import { useModal } from 'client/hooks/use-modal';
-import { Alert, AsyncButton, LabeledInput, Modal } from 'components/common';
+import { Alert, AsyncButton, ContainerBox, LabeledInput, Modal } from 'components/common';
 
 import { useStyles } from './styles';
 
@@ -87,47 +86,44 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
         }
     };
 
-
     return (
         <>
             <Modal title="Создание новости" isOpen={isOpen} close={onCloseModal}>
-                <>
-                    <Box px="24px" mb="20px">
-                        <LabeledInput
-                            value={text}
-                            label="Текст новости"
-                            rowsMax={10}
-                            multiline
-                            onChange={changeText}
-                        />
-                    </Box>
-                    <Box px="24px" mb="20px">
-                        <LabeledInput
-                            value={pictureURL}
-                            size="small"
-                            label="Ссылка на фото"
-                            onChange={changePictureURL}
-                        />
-                    </Box>
-                    <Box px="24px" mb="40px">
-                        <AsyncButton
-                            isLoading={loading}
-                            size="large"
-                            variant="outlined"
-                            color="secondary"
-                            fullWidth
-                            onClick={submit}
-                        >
-                            Создать
-                        </AsyncButton>
-                        {error && <div className={styles.error}>Произошла ошибка при создании новости</div>}
-                    </Box>
-                    <input
-                        type="file"
-                        required
-                        onChange={onFileChange}
+                <ContainerBox>
+                    <LabeledInput
+                        value={text}
+                        label="Текст новости"
+                        rowsMax={10}
+                        multiline
+                        onChange={changeText}
                     />
-                </>
+                </ContainerBox>
+                <ContainerBox>
+                    <LabeledInput
+                        value={pictureURL}
+                        size="small"
+                        label="Ссылка на фото"
+                        onChange={changePictureURL}
+                    />
+                </ContainerBox>
+                <ContainerBox gap="large">
+                    <AsyncButton
+                        isLoading={loading}
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                        onClick={submit}
+                    >
+                        Создать
+                    </AsyncButton>
+                    {error && <div className={styles.error}>Произошла ошибка при создании новости</div>}
+                </ContainerBox>
+                <input
+                    type="file"
+                    required
+                    onChange={onFileChange}
+                />
             </Modal>
             {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно создана!" />}
         </>

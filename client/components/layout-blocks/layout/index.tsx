@@ -35,7 +35,7 @@ const Layout = ({ children }: Props) => {
                     {children}
                 </Box>
 
-                <Box id="layout-icons" display="flex" position="fixed" right="16px" bottom="16px">
+                <Box className={classes.icons}>
                     <ScrollTopIcon />
                     <Teleporter.Target />
                 </Box>

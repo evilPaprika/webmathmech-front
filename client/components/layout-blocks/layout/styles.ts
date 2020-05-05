@@ -7,5 +7,13 @@ export const useStyles = makeStyles({
         fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif`
+    },
+
+    icons: {
+        display: 'flex',
+
+        position: 'fixed',
+        right: '16px',
+        bottom: '16px'
     }
 });

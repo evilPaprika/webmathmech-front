@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Box, FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core';
+import { FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core';
 
 import { CREATE_PERFORMANCE_POST, FILE_UPLOAD } from 'apollo/mutations';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
 import { useModal } from 'client/hooks/use-modal';
 import { MediaTypes, PerformancePostState } from 'client/types';
-import { Alert, AsyncButton, LabeledInput, LabeledSelect, Modal } from 'components/common';
+import { Alert, AsyncButton, ContainerBox, LabeledInput, LabeledSelect, Modal } from 'components/common';
 
 import { useStyles } from './styles';
 
@@ -128,74 +128,72 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
     return (
         <>
             <Modal title="Создание выступления" isOpen={isOpen} close={onCloseModal}>
-                <>
-                    <Box px="24px" mb="20px">
-                        <LabeledInput
-                            value={text}
-                            label="Описание"
-                            rowsMax={10}
-                            multiline
-                            onChange={changeText}
-                        />
-                    </Box>
-                    <Box px="24px" mb="20px">
-                        <LabeledSelect
-                            label="Состояние выступления"
-                            value={state}
-                            fullWidth
-                            onChange={changePerformanceState}
-                        >
-                            {PERFORMANCE_STATES_OPTIONS.map(({ label, value }) => (
-                                <MenuItem value={value} key={label}>{label}</MenuItem>
-                            ))}
-                        </LabeledSelect>
-                    </Box>
-                    <Box px="24px" mb="20px">
-                        <RadioGroup value={media} onChange={changeMediaType}>
-                            {MEDIA_TABS.map(({ label, value }) => (
-                                <FormControlLabel key={label} label={label} value={value} control={<Radio />} />
-                            ))}
-                        </RadioGroup>
-                    </Box>
-                    {media === MediaTypes.Picture && (
-                        <Box px="24px" mb="20px">
-                            <LabeledInput
-                                value={pictureURL}
-                                size="small"
-                                label="Ссылка на фото"
-                                onChange={changePictureURL}
-                            />
-                        </Box>
-                    )}
-                    {media === MediaTypes.Video && (
-                        <Box px="24px" mb="20px">
-                            <LabeledInput
-                                value={videoURL}
-                                size="small"
-                                label="Ссылка на видео"
-                                onChange={changeVideoURL}
-                            />
-                        </Box>
-                    )}
-                    <Box px="24px" mb="40px">
-                        <AsyncButton
-                            isLoading={loading}
-                            size="large"
-                            variant="outlined"
-                            color="secondary"
-                            fullWidth
-                            onClick={submit}
-                        >
-                            Создать
-                        </AsyncButton>
-                        {error && <div className={styles.error}>Произошла ошибка при создании выступления</div>}
-                    </Box>
-                    <input
-                        type="file"
-                        required
-                        onChange={onFileChange}
+                <ContainerBox>
+                    <LabeledInput
+                        value={text}
+                        label="Описание"
+                        rowsMax={10}
+                        multiline
+                        onChange={changeText}
                     />
-                </>
+                </ContainerBox>
+                <ContainerBox>
+                    <LabeledSelect
+                        label="Состояние выступления"
+                        value={state}
+                        fullWidth
+                        onChange={changePerformanceState}
+                    >
+                        {PERFORMANCE_STATES_OPTIONS.map(({ label, value }) => (
+                            <MenuItem value={value} key={label}>{label}</MenuItem>
+                        ))}
+                    </LabeledSelect>
+                </ContainerBox>
+                <ContainerBox>
+                    <RadioGroup value={media} onChange={changeMediaType}>
+                        {MEDIA_TABS.map(({ label, value }) => (
+                            <FormControlLabel key={label} label={label} value={value} control={<Radio />} />
+                        ))}
+                    </RadioGroup>
+                </ContainerBox>
+                {media === MediaTypes.Picture && (
+                    <ContainerBox>
+                        <LabeledInput
+                            value={pictureURL}
+                            size="small"
+                            label="Ссылка на фото"
+                            onChange={changePictureURL}
+                        />
+                    </ContainerBox>
+                )}
+                {media === MediaTypes.Video && (
+                    <ContainerBox>
+                        <LabeledInput
+                            value={videoURL}
+                            size="small"
+                            label="Ссылка на видео"
+                            onChange={changeVideoURL}
+                        />
+                    </ContainerBox>
+                )}
+                <ContainerBox gap="large">
+                    <AsyncButton
+                        isLoading={loading}
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                        onClick={submit}
+                    >
+                        Создать
+                    </AsyncButton>
+                    {error && <div className={styles.error}>Произошла ошибка при создании выступления</div>}
+                </ContainerBox>
+                <input
+                    type="file"
+                    required
+                    onChange={onFileChange}
+                />
             </Modal>
             {isShownAlert && <Alert onClose={closeAlert} text="Выступление успешно создано!" />}
         </>

@@ -3,6 +3,7 @@ import Alert from './alert';
 import AsyncButton from './async-button';
 import CardItem from './card-item';
 import CollapsibleText from './collapsible-text';
+import ContainerBox from './container-box';
 import InfiniteScroll from './infinite-scroll';
 import LabeledInput from './labeled-input';
 import LabeledSelect from './labeled-select';
@@ -17,6 +18,7 @@ export {
     AsyncButton,
     CardItem,
     CollapsibleText,
+    ContainerBox,
     InfiniteScroll,
     LabeledInput,
     LabeledSelect,

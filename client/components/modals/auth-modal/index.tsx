@@ -4,7 +4,7 @@ import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
 import { AuthMethods } from 'client/types';
-import { AsyncButton, LabeledInput, Modal } from 'components/common';
+import { AsyncButton, ContainerBox, LabeledInput, Modal } from 'components/common';
 import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';
 
@@ -110,73 +110,71 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
             isOpen={isOpen}
             close={onClose}
         >
-            <Box px={3}>
-                {isSignUpMethod && (
-                    <Box display="flex">
-                        <Box mr="5px">
-                            <LabeledInput
-                                size="small"
-                                label="Имя"
-                                value={name}
-                                onChange={changeName}
-                            />
-                        </Box>
-                        <Box ml="5px">
-                            <LabeledInput
-                                size="small"
-                                label="Фамилия"
-                                value={surname}
-                                onChange={changeSurname}
-                            />
-                        </Box>
+            {isSignUpMethod && (
+                <ContainerBox display="flex">
+                    <Box mr="5px">
+                        <LabeledInput
+                            size="small"
+                            label="Имя"
+                            value={name}
+                            onChange={changeName}
+                        />
                     </Box>
-                )}
-                <Box mb="20px">
-                    <LabeledInput
-                        size="small"
-                        label="Логин"
-                        value={login}
-                        onChange={changeLogin}
-                        helperText="Логин должен быть длиной от 4 до 16 символов"
-                    />
-                    <LabeledInput
-                        size="small"
-                        type="password"
-                        label="Пароль"
-                        value={password}
-                        onChange={changePassword}
-                        helperText="Пароль должен быть длиной от 8 до 64 символов"
-                    />
-                </Box>
-                <Box mb={2}>
-                    <AsyncButton
-                        isLoading={loading}
-                        size="large"
-                        variant="outlined"
-                        color="secondary"
-                        fullWidth
-                        onClick={submit}
-                    >
-                        {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
-                    </AsyncButton>
-                    {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
-                </Box>
-                <Box mb={3}>
-                    <OauthButtons />
-                </Box>
-                <Box mb={4}>
-                    <Typography component="span">
-                        {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
-                    </Typography>
-                    <Typography
-                        className={styles.textPointer}
-                        component="span"
-                        onClick={changeLoginMethod}
-                        color="secondary"
-                    >
-                        {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
-                    </Typography>
-                </Box>
+                    <Box ml="5px">
+                        <LabeledInput
+                            size="small"
+                            label="Фамилия"
+                            value={surname}
+                            onChange={changeSurname}
+                        />
+                    </Box>
+                </ContainerBox>
+            )}
+            <ContainerBox>
+                <LabeledInput
+                    size="small"
+                    label="Логин"
+                    value={login}
+                    onChange={changeLogin}
+                    helperText="Логин должен быть длиной от 4 до 16 символов"
+                />
+                <LabeledInput
+                    size="small"
+                    type="password"
+                    label="Пароль"
+                    value={password}
+                    onChange={changePassword}
+                    helperText="Пароль должен быть длиной от 8 до 64 символов"
+                />
+            </ContainerBox>
+            <ContainerBox>
+                <AsyncButton
+                    isLoading={loading}
+                    size="large"
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                    onClick={submit}
+                >
+                    {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
+                </AsyncButton>
+                {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
+            </ContainerBox>
+            <Box mb={3}>
+                <OauthButtons />
+            </Box>
+            <Box mb={4}>
+                <Typography component="span">
+                    {isSignUpMethod ? 'Уже зарегистрировались?' : 'Еще нет аккаунта?'}{' '}
+                </Typography>
+                <Typography
+                    className={styles.textPointer}
+                    component="span"
+                    onClick={changeLoginMethod}
+                    color="secondary"
+                >
+                    {isSignUpMethod ? 'Войдите в аккаунт' : 'Зарегистрируйтесь'}
+                </Typography>
             </Box>
         </Modal>
     );
