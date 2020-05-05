@@ -1,5 +1,5 @@
 import { GET_NEWS_POSTS, GET_PERFORMANCE_POSTS } from './apollo/queries';
-import { MenuItem } from './types';
+import { MediaTypes, Options, PerformancePostState } from './types';
 
 
 export const NEWS_POSTS_LIMIT = 10;
@@ -18,33 +18,59 @@ export const ROUTES = {
     AUTH_VK: '/auth/vk',
 };
 
-export const HEADER_TABS: Array<MenuItem> = [
+export const HEADER_TABS: Options = [
     {
-        text: 'Новости',
-        path: ROUTES.NEWS
+        label: 'Новости',
+        value: ROUTES.NEWS
     },
     {
-        text: 'Выступления',
-        path: ROUTES.PERFORMANCES
+        label: 'Выступления',
+        value: ROUTES.PERFORMANCES
     },
     {
-        text: 'Админка',
-        path: ROUTES.ADMIN
+        label: 'Админка',
+        value: ROUTES.ADMIN
     }
 ];
 
-export const MENU_ITEMS: Array<MenuItem> = [
+export const MENU_OPTIONS: Options = [
     {
-        text: 'Моя страница',
-        path: ROUTES.PERSONAL_PAGE
+        label: 'Моя страница',
+        value: ROUTES.PERSONAL_PAGE
     },
     {
-        text: 'Мои выступления',
-        path: ROUTES.PERSONAL_PERFORMANCES
+        label: 'Мои выступления',
+        value: ROUTES.PERSONAL_PERFORMANCES
     }
 ];
 
-export const EXTENDED_HEADER_TABS: Array<MenuItem> = [...MENU_ITEMS, ...HEADER_TABS];
+export const EXTENDED_HEADER_TABS: Options = [...MENU_OPTIONS, ...HEADER_TABS];
+
+export const MEDIA_TABS: Options<MediaTypes> = [
+    {
+        label: 'Добавить картинку',
+        value: MediaTypes.Picture
+    },
+    {
+        label: 'Добавить видео',
+        value: MediaTypes.Video
+    }
+];
+
+export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
+    {
+        label: 'Черновик',
+        value: PerformancePostState.Draft
+    },
+    {
+        label: 'Голосование',
+        value: PerformancePostState.Poll
+    },
+    {
+        label: 'На публикацию',
+        value: PerformancePostState.Published
+    }
+];
 
 export const CURRENT_YEAR = new Date().getFullYear();
 

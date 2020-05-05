@@ -9,6 +9,17 @@ export enum Roles {
     Admin = 'ADMIN'
 }
 
+export enum MediaTypes {
+    Picture = 'picture',
+    Video = 'video',
+}
+
+export enum PerformancePostState {
+    Draft = 'DRAFT',
+    Poll = 'POLL',
+    Published = 'PUBLISHED',
+}
+
 export interface NewsPost {
     id: string;
     text: string;
@@ -39,11 +50,6 @@ export interface PerformancePostsData {
     getPerformancePosts: Array<PerformancePost>;
 }
 
-export interface MenuItem {
-    text: string;
-    path: string;
-}
-
 export interface User {
     name: string;
     surname: string;
@@ -58,3 +64,10 @@ export interface UserData {
 export interface IsLoggedInData {
     isLoggedIn: boolean;
 }
+
+export interface Option<TValue = string> {
+    label: string;
+    value: TValue;
+}
+
+export type Options<TValue = string> = Array<Option<TValue>>;

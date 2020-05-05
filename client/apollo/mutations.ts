@@ -46,3 +46,17 @@ export const FILE_UPLOAD = gql`
         fileUpload(file: $file)
     }
 `;
+
+// Performance posts
+export const CREATE_PERFORMANCE_POST = gql`
+    mutation createPerformancePost(
+        $text: String!,
+        $pictureURL: String,
+        $videoURL: String,
+        $state: PerformancePostState!
+    ) {
+        createPerformancePost(text: $text, pictureURL: $pictureURL, videoURL: $videoURL, state: $state) {
+            id
+        }
+    }
+`;

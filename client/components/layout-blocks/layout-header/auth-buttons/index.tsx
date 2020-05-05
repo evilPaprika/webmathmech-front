@@ -6,7 +6,7 @@ import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
 import { AuthModal } from 'client/components/modals';
-import { MENU_ITEMS, ROUTES } from 'client/consts';
+import { MENU_OPTIONS, ROUTES } from 'client/consts';
 import { useMenu, useModal } from 'client/hooks';
 import { IsLoggedInData, UserData } from 'client/types';
 import { useStyles } from './styles';
@@ -57,8 +57,8 @@ export const AuthButtons = () => {
                         onClose={closeMenu}
                         onClick={closeMenu}
                     >
-                        {MENU_ITEMS.map(({ text, path }) => (
-                            <MenuItem key={text} component={Link} to={path}>{text}</MenuItem>
+                        {MENU_OPTIONS.map(({ label, value }) => (
+                            <MenuItem key={label} component={Link} to={value}>{label}</MenuItem>
                         ))}
                         <MenuItem component={Link} to={ROUTES.NEWS} onClick={signOut}>
                             Выйти

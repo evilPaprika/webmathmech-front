@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+import { ScrollTopIcon, Teleporter } from 'components/common';
 
 import LayoutHeader from '../layout-header';
 import { useStyles } from './styles';
@@ -32,6 +33,11 @@ const Layout = ({ children }: Props) => {
                 <LayoutHeader />
                 <Box textAlign="center" m="80px auto 0">
                     {children}
+                </Box>
+
+                <Box id="layout-icons" display="flex" position="fixed" right="16px" bottom="16px">
+                    <ScrollTopIcon />
+                    <Teleporter.Target />
                 </Box>
             </div>
         </ThemeProvider>
