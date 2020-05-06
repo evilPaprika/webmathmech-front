@@ -4,7 +4,7 @@ import { AppBar, Container, Divider, Drawer, Hidden, SwipeableDrawer, Tab, Tabs,
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
-import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_ITEMS, ROUTES } from 'client/consts';
+import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from 'client/consts';
 import { IsLoggedInData } from 'client/types';
 import { findMenuItemByPath } from 'client/utils';
 import LayoutFooter from '../layout-footer';
@@ -24,7 +24,7 @@ const LayoutHeader = () => {
     const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
 
     const lastTab = useMemo(
-        () => findMenuItemByPath(availableHeaderTabs, pathname)?.path || DEFAULT_TAB,
+        () => findMenuItemByPath(availableHeaderTabs, pathname)?.value || DEFAULT_TAB,
         [pathname]
     );
     const [tab, setTab] = useState<string>(lastTab);
@@ -56,12 +56,12 @@ const LayoutHeader = () => {
                     {Icons}
                 </Container>
                 <Tabs value={tab} onChange={onChangeTab} orientation="vertical">
-                    {isLoggedIn && MENU_ITEMS.map(({ text, path }) => (
-                        <Tab key={text} label={text} value={path} to={path} component={Link} />
+                    {isLoggedIn && MENU_OPTIONS.map(({ label, value }) => (
+                        <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Divider light />
-                    {HEADER_TABS.map(({ text, path }) => (
-                        <Tab key={text} label={text} value={path} to={path} component={Link} />
+                    {HEADER_TABS.map(({ label, value }) => (
+                        <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Divider light />
                 </Tabs>

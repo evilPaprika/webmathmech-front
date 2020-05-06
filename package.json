@@ -95,6 +95,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-player": "^1.15.2",
     "react-router-dom": "^5.1.2",
+    "react-teleporter": "^2.1.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.3",
     "sequelize-typescript": "^1.1.0",

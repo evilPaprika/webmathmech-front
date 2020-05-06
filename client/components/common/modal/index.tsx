@@ -35,7 +35,9 @@ const Modal = ({ isOpen, close, title, children }: Props) => {
                         </IconButton>
                     </Box>
                 </Box>
-                {children}
+                <Box px={3}>
+                    {children}
+                </Box>
             </Container>
         </MaterialUIModal>
     );

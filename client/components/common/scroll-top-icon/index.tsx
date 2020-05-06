@@ -20,7 +20,7 @@ const ScrollTopIcon = () => {
     return (
         <Zoom in={trigger}>
             <div onClick={scrollToTop} role="presentation" className={styles.icon}>
-                <Fab color="primary" size="small" aria-label="scroll back to top">
+                <Fab color="primary" size="medium" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
                 </Fab>
             </div>
