@@ -29,7 +29,6 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     });
 
     const user = data?.getCurrentUser;
-
     const [isEditMode, setIsEditMode] = useState(false);
     const [surname, setSurname] = useState(user?.surname);
     const [name, setName] = useState(user?.name);
