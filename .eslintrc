@@ -51,6 +51,7 @@
             {
                 "allowSingleLine": false
             }
-        ]
+        ],
+        "react/jsx-closing-tag-location": "off"
     }
 }

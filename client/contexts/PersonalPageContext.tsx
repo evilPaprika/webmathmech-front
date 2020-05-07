@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useState, createContext } from 'react';
 import { User, UserData } from 'client/types';
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -10,18 +10,19 @@ interface IPersonalPageContext {
     user?: User;
     isEditMode: boolean;
     toggleEditMode: () => void;
-    newUserStates: {
-        newSurname: [string| undefined, Dispatch<SetStateAction<string | undefined>>];
-        newName: [string| undefined, Dispatch<SetStateAction<string | undefined>>];
+    userStates: {
+        surname: [string | undefined, Dispatch<SetStateAction<string | undefined>>];
+        name: [string | undefined, Dispatch<SetStateAction<string | undefined>>];
     };
     submitNewUserStates: () => void;
+    loading: boolean;
 }
 
-export const PersonalPageContext = React.createContext < IPersonalPageContext >({} as IPersonalPageContext);
+export const PersonalPageContext = createContext<IPersonalPageContext>({} as IPersonalPageContext);
 
 export const PersonalPageContextProvider = ({ children }: {children: ReactElement}) => {
     const { data, refetch, loading, error } = useQuery<UserData>(GET_CURRENT_USER);
-    const [patchCurrentUser, { error: patchError }] = useMutation(PATCH_CURRENT_USER, {
+    const [patchCurrentUser, { error: patchError, loading: patchLoading }] = useMutation(PATCH_CURRENT_USER, {
         async onCompleted() {
             await refetch();
         }
@@ -30,12 +31,12 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     const user = data?.getCurrentUser;
 
     const [isEditMode, setIsEditMode] = useState(false);
-    const [newSurname, setNewSurname] = useState<string | undefined>(user?.surname);
-    const [newName, setNewName] = useState(user?.name);
+    const [surname, setSurname] = useState(user?.surname);
+    const [name, setName] = useState(user?.name);
 
     useEffect(() => {
-        setNewSurname(user?.surname);
-        setNewName(user?.name);
+        setSurname(user?.surname);
+        setName(user?.name);
     }, [data, loading, error]);
 
     const { enqueueSnackbar } = useSnackbar();
@@ -46,25 +47,34 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     }, [patchError, error]);
 
     const toggleEditMode = useCallback(() => {
-        setNewSurname(user?.surname);
-        setNewName(user?.name);
+        setSurname(user?.surname);
+        setName(user?.name);
         setIsEditMode(!isEditMode);
     }, [user?.surname, user?.name, isEditMode]);
 
     const submitNewUserStates = useCallback(async () => {
         await patchCurrentUser({
-            variables: { surname: newSurname, name: newName }
+            variables: { surname, name }
         });
         toggleEditMode();
-    }, [newSurname, newName, toggleEditMode]);
+    }, [surname, name, toggleEditMode]);
 
-    const newUserStates: IPersonalPageContext['newUserStates'] = {
-        newSurname: [newSurname, setNewSurname],
-        newName: [newName, setNewName]
+    const newUserStates: IPersonalPageContext['userStates'] = {
+        surname: [surname, setSurname],
+        name: [name, setName]
     };
 
     return (
-        <PersonalPageContext.Provider value={{ user, isEditMode, toggleEditMode, newUserStates, submitNewUserStates }}>
+        <PersonalPageContext.Provider
+            value={{
+                user,
+                isEditMode,
+                toggleEditMode,
+                userStates: newUserStates,
+                submitNewUserStates,
+                loading: loading || patchLoading
+            }}
+        >
             {children}
         </PersonalPageContext.Provider>
     );

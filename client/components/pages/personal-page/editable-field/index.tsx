@@ -1,14 +1,15 @@
 import React, { memo } from 'react';
 import { Box, TextField, Typography } from '@material-ui/core';
+
 import { useStyles } from './styles';
 
 
 interface Props {
     isEditMode: boolean;
-    value?: string;
-    fontSize: string;
+    value: string;
+    fontSize?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    placeholder: string;
+    placeholder?: string;
 }
 
 const CustomTextField = ({ value, onChange, fontSize, placeholder }: Omit<Props, 'isEditMode'>) => {
@@ -40,7 +41,13 @@ const CustomTypography = ({ value, fontSize }: Omit<Props, 'isEditMode' | 'place
 };
 
 
-export const EditableField = memo(({ isEditMode, value, fontSize, onChange, placeholder }: Props) => {
+export const EditableField = memo(({
+    isEditMode,
+    value,
+    fontSize = '1rem',
+    onChange,
+    placeholder = ''
+}: Props) => {
     const EditableTag = isEditMode ? CustomTextField : CustomTypography;
 
     return (
