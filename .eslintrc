@@ -38,7 +38,6 @@
         "class-methods-use-this": "off",
         "import/prefer-default-export": "off",
         "react/jsx-one-expression-per-line": "off",
-        "react/jsx-wrap-multilines": "off",
         "react/no-array-index-key": "off",
         "max-classes-per-file": "off",
         "import/newline-after-import" : ["error", { "count": 2 }],
@@ -51,7 +50,6 @@
             {
                 "allowSingleLine": false
             }
-        ],
-        "react/jsx-closing-tag-location": "off"
+        ]
     }
 }

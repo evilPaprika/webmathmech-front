@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { ChangeEvent, memo, useContext } from 'react';
 import { Box, Chip, CircularProgress } from '@material-ui/core';
 
 import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
@@ -11,24 +11,28 @@ const PersonalPage = memo(() => {
     const [surname, setSurname] = userStates.surname;
     const [name, setName] = userStates.name;
 
+    const onChangeSurname = (event: ChangeEvent<HTMLInputElement>) => setSurname(event.target.value);
+    const onChangeName = (event: ChangeEvent<HTMLInputElement>) => setName(event.target.value);
+
     return (
         <main>
-            {loading
-                ? <Box display="flex" justifyContent="center">
+            {loading || !user ? (
+                <Box display="flex" justifyContent="center">
                     <CircularProgress />
                 </Box>
-                : <>
+            ) : (
+                <>
                     <EditableField
                         isEditMode={isEditMode}
                         fontSize="40px"
-                        onChange={(event) => setSurname(event.target.value)}
+                        onChange={onChangeSurname}
                         value={surname || ''}
                         placeholder="Фамилия"
                     />
                     <EditableField
                         isEditMode={isEditMode}
                         fontSize="40px"
-                        onChange={(event) => setName(event.target.value)}
+                        onChange={onChangeName}
                         value={name || ''}
                         placeholder="Имя"
                     />
@@ -38,12 +42,13 @@ const PersonalPage = memo(() => {
                             label={user.role}
                             color="primary"
                         />
-                        <Box mt={2}>Логин: {user?.login}</Box>
+                        <Box mt={2}>Логин: {user.login}</Box>
                     </Box>
                     <Box mt={8}>
                         <EditModeButtons />
                     </Box>
-                </>}
+                </>
+            )}
         </main>
     );
 });
