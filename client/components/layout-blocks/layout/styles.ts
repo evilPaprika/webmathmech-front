@@ -10,7 +10,7 @@ sans-serif`
     },
     content: {
         width: '100%',
-        maxWidth: 750,
+        maxWidth: 700,
         margin: '80px auto 0',
         padding: `0 ${theme.spacing(6)}px 0`,
         [theme.breakpoints.down('sm')]: {
