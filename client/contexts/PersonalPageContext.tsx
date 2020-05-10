@@ -21,11 +21,10 @@ interface IPersonalPageContext {
 export const PersonalPageContext = createContext<IPersonalPageContext>({} as IPersonalPageContext);
 
 export const PersonalPageContextProvider = ({ children }: {children: ReactElement}) => {
-    const { data, refetch, loading, error } = useQuery<UserData>(GET_CURRENT_USER);
+    const { data, loading, error } = useQuery<UserData>(GET_CURRENT_USER);
     const [patchCurrentUser, { error: patchError, loading: patchLoading }] = useMutation(PATCH_CURRENT_USER, {
-        async onCompleted() {
-            await refetch();
-        }
+        refetchQueries: [{ query: GET_CURRENT_USER }],
+        awaitRefetchQueries: true,
     });
 
     const user = data?.getCurrentUser;

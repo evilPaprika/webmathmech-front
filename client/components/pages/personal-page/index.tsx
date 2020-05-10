@@ -18,31 +18,35 @@ const PersonalPage = memo(() => {
     return (
         <main>
             <LoadingWrapper loading={loading || !user}>
-                <EditableField
-                    isEditMode={isEditMode}
-                    fontSize="40px"
-                    onChange={onChangeSurname}
-                    value={surname || ''}
-                    placeholder="Фамилия"
-                />
-                <EditableField
-                    isEditMode={isEditMode}
-                    fontSize="40px"
-                    onChange={onChangeName}
-                    value={name || ''}
-                    placeholder="Имя"
-                />
-                <Box mt={1}>
-                    <Chip
-                        size="small"
-                        label={user?.role}
-                        color="primary"
-                    />
-                    <Box mt={2}>Логин: {user?.login}</Box>
-                </Box>
-                <Box mt={8}>
-                    <EditModeButtons />
-                </Box>
+                {user && (
+                    <>
+                        <EditableField
+                            isEditMode={isEditMode}
+                            fontSize="40px"
+                            onChange={onChangeSurname}
+                            value={surname || ''}
+                            placeholder="Фамилия"
+                        />
+                        <EditableField
+                            isEditMode={isEditMode}
+                            fontSize="40px"
+                            onChange={onChangeName}
+                            value={name || ''}
+                            placeholder="Имя"
+                        />
+                        <Box mt={1}>
+                            <Chip
+                                size="small"
+                                label={user.role}
+                                color="primary"
+                            />
+                            <Box mt={2}>Логин: {user.login}</Box>
+                        </Box>
+                        <Box mt={8}>
+                            <EditModeButtons />
+                        </Box>
+                    </>
+                )}
             </LoadingWrapper>
         </main>
     );
