@@ -1,9 +1,10 @@
 import React, { ChangeEvent, memo, useContext } from 'react';
-import { Box, Chip, CircularProgress } from '@material-ui/core';
+import { Box, Chip } from '@material-ui/core';
 
 import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
 import { EditModeButtons } from 'components/pages/personal-page/edit-mode-buttons';
 import { EditableField } from 'components/pages/personal-page/editable-field';
+import { LoadingWrapper } from 'components/common/loading-wrapper';
 
 
 const PersonalPage = memo(() => {
@@ -16,39 +17,33 @@ const PersonalPage = memo(() => {
 
     return (
         <main>
-            {loading || !user ? (
-                <Box display="flex" justifyContent="center">
-                    <CircularProgress />
+            <LoadingWrapper loading={loading || !user}>
+                <EditableField
+                    isEditMode={isEditMode}
+                    fontSize="40px"
+                    onChange={onChangeSurname}
+                    value={surname || ''}
+                    placeholder="Фамилия"
+                />
+                <EditableField
+                    isEditMode={isEditMode}
+                    fontSize="40px"
+                    onChange={onChangeName}
+                    value={name || ''}
+                    placeholder="Имя"
+                />
+                <Box mt={1}>
+                    <Chip
+                        size="small"
+                        label={user?.role}
+                        color="primary"
+                    />
+                    <Box mt={2}>Логин: {user?.login}</Box>
                 </Box>
-            ) : (
-                <>
-                    <EditableField
-                        isEditMode={isEditMode}
-                        fontSize="40px"
-                        onChange={onChangeSurname}
-                        value={surname || ''}
-                        placeholder="Фамилия"
-                    />
-                    <EditableField
-                        isEditMode={isEditMode}
-                        fontSize="40px"
-                        onChange={onChangeName}
-                        value={name || ''}
-                        placeholder="Имя"
-                    />
-                    <Box mt={1}>
-                        <Chip
-                            size="small"
-                            label={user.role}
-                            color="primary"
-                        />
-                        <Box mt={2}>Логин: {user.login}</Box>
-                    </Box>
-                    <Box mt={8}>
-                        <EditModeButtons />
-                    </Box>
-                </>
-            )}
+                <Box mt={8}>
+                    <EditModeButtons />
+                </Box>
+            </LoadingWrapper>
         </main>
     );
 });
