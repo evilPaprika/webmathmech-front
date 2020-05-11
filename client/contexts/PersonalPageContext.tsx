@@ -36,7 +36,7 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     useEffect(() => {
         setSurname(user?.surname);
         setName(user?.name);
-    }, [data, loading, error]);
+    }, [data, loading, error, patchLoading]);
 
     const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
@@ -55,7 +55,7 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
         await patchCurrentUser({
             variables: { surname, name }
         });
-        toggleEditMode();
+        setIsEditMode(!isEditMode);
     }, [surname, name, toggleEditMode]);
 
     const newUserStates: IPersonalPageContext['userStates'] = {
