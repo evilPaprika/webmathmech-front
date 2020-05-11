@@ -59,11 +59,11 @@ const LayoutHeader = () => {
                     {isLoggedIn && MENU_OPTIONS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
-                    <Divider light />
+                    <Tab label="" icon={<Divider light />} disabled />
                     {HEADER_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
-                    <Divider light />
+                    <Tab label="" icon={<Divider light />} disabled />
                 </Tabs>
             </div>
             <LayoutFooter />
