@@ -32,7 +32,11 @@ export default {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'babel-loader'
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                options: {
+                    cacheDirectory: true
+                }
             },
             {
                 test: [/\.jpe?g$/, /\.png$/, /\.webp$/],

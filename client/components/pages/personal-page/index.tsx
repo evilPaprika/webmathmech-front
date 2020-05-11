@@ -1,18 +1,59 @@
-import React, { memo } from 'react';
+import React, { ChangeEvent, memo, useContext } from 'react';
+import { Box, Chip } from '@material-ui/core';
 
-import { useStyles } from './styles';
+import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
+import { EditModeButtons } from 'components/pages/personal-page/edit-mode-buttons';
+import { EditableField } from 'components/pages/personal-page/editable-field';
+import { LoadingWrapper } from 'components/common';
 
 
-const PersonalPage = () => {
-    const styles = useStyles();
+const PersonalPage = memo(() => {
+    const { isEditMode, user, userStates, loading } = useContext(PersonalPageContext);
+    const [surname, setSurname] = userStates.surname;
+    const [name, setName] = userStates.name;
+
+    const onChangeSurname = (event: ChangeEvent<HTMLInputElement>) => setSurname(event.target.value);
+    const onChangeName = (event: ChangeEvent<HTMLInputElement>) => setName(event.target.value);
 
     return (
-        <main className={styles.personalPage}>
-            <div className={styles.personalPage__main}>
-                <div>Персональная страница пользователя!!!</div>
-            </div>
+        <main>
+            <LoadingWrapper loading={loading || !user}>
+                {user && (
+                    <>
+                        <EditableField
+                            isEditMode={isEditMode}
+                            fontSize="40px"
+                            onChange={onChangeSurname}
+                            value={surname || ''}
+                            placeholder="Фамилия"
+                        />
+                        <EditableField
+                            isEditMode={isEditMode}
+                            fontSize="40px"
+                            onChange={onChangeName}
+                            value={name || ''}
+                            placeholder="Имя"
+                        />
+                        <Box mt={1}>
+                            <Chip
+                                size="small"
+                                label={user.role}
+                                color="primary"
+                            />
+                            <Box mt={2}>Логин: {user.login}</Box>
+                        </Box>
+                        <Box mt={8}>
+                            <EditModeButtons />
+                        </Box>
+                    </>
+                )}
+            </LoadingWrapper>
         </main>
     );
-};
+});
 
-export default memo(PersonalPage);
+export default () => (
+    <PersonalPageContextProvider>
+        <PersonalPage />
+    </PersonalPageContextProvider>
+);

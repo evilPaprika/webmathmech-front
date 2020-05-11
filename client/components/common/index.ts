@@ -10,6 +10,7 @@ import LabeledSelect from './labeled-select';
 import Modal from './modal';
 import ScrollTopIcon from './scroll-top-icon';
 import Teleporter from './teleporter';
+import LoadingWrapper from './loading-wrapper';
 
 
 export {
@@ -25,4 +26,5 @@ export {
     Modal,
     ScrollTopIcon,
     Teleporter,
+    LoadingWrapper
 };

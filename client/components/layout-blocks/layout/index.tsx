@@ -31,7 +31,7 @@ const Layout = ({ children }: Props) => {
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
                 <LayoutHeader />
-                <Box textAlign="center" m="80px auto 0">
+                <Box className={classes.content}>
                     {children}
                 </Box>
 

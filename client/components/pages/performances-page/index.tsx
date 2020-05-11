@@ -51,7 +51,7 @@ export const PerformancesPage = memo(() => {
     };
 
     return (
-        <Container className={styles.performancesPage}>
+        <Container className={styles.performancesPage} disableGutters>
             <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                 {items.map((item) => <PerformanceCard item={item} key={item.id} />)}
             </InfiniteScroll>

@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
-import { Card } from '@material-ui/core';
-
-import { useStyles } from './styles';
+import { Box, Card } from '@material-ui/core';
 
 
 interface Props {
@@ -9,12 +7,12 @@ interface Props {
 }
 
 const CardItem = ({ children }: Props) => {
-    const styles = useStyles();
-
     return (
-        <Card className={styles.card} variant="outlined">
-            {children}
-        </Card>
+        <Box my={4}>
+            <Card variant="outlined">
+                {children}
+            </Card>
+        </Box>
     );
 };
 

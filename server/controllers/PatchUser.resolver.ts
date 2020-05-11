@@ -16,7 +16,7 @@ import { PatchCurrentUserInput, PatchUserInput } from './inputs/PatchUserInputs'
 
 @Resolver(User)
 export default class PatchUserResolver {
-    @Authorized([Role.USER])
+    @Authorized()
     @Mutation(() => User)
     public async patchCurrentUser(@Args() newValues: PatchCurrentUserInput,
         @Ctx() context: ApolloServerContext) {
