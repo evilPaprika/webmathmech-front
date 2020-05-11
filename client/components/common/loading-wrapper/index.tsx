@@ -7,20 +7,19 @@ interface Props {
     children: ReactNode;
 }
 
-export default function LoadingWrapper({ loading, children }: Props) {
-    return (
-        <>
-            {loading ? (
-                <Box display="flex" justifyContent="center">
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <Fade mountOnEnter in>
-                    <div>
-                        {children}
-                    </div>
-                </Fade>
-            )}
-        </>
-    );
-}
+const LoadingWrapper = ({ loading, children }: Props) => (
+    loading ? (
+        <Box display="flex" justifyContent="center">
+            <CircularProgress />
+        </Box>
+    ) : (
+        <Fade mountOnEnter in>
+            <div>
+                {children}
+            </div>
+        </Fade>
+    )
+);
+
+
+export default LoadingWrapper;
