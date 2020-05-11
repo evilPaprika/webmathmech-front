@@ -4,7 +4,7 @@ import { Box, Chip } from '@material-ui/core';
 import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
 import { EditModeButtons } from 'components/pages/personal-page/edit-mode-buttons';
 import { EditableField } from 'components/pages/personal-page/editable-field';
-import { LoadingWrapper } from 'components/common/loading-wrapper';
+import { LoadingWrapper } from 'components/common';
 
 
 const PersonalPage = memo(() => {

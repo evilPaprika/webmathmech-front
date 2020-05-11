@@ -7,7 +7,7 @@ interface Props {
     children: ReactNode;
 }
 
-export function LoadingWrapper({ loading, children }:Props) {
+export default function LoadingWrapper({ loading, children }: Props) {
     return (
         <>
             {loading ? (
