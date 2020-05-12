@@ -1,6 +1,16 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Container, Divider, Drawer, Hidden, SwipeableDrawer, Tab, Tabs, Toolbar } from '@material-ui/core';
+import {
+    AppBar,
+    Container,
+    Divider as MUIDivider,
+    Drawer,
+    Hidden,
+    SwipeableDrawer,
+    Tab,
+    Tabs,
+    Toolbar
+} from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
@@ -48,6 +58,9 @@ const LayoutHeader = () => {
     };
 
     const Icons = <HeaderIcons onClickByMenu={onDrawerToggle} onClickByLogo={onClickByLogo} />;
+    const Divider = React.forwardRef(
+        (_, ref) => <MUIDivider innerRef={ref} light />
+    );
 
     const drawer = (
         <>
@@ -59,11 +72,11 @@ const LayoutHeader = () => {
                     {isLoggedIn && MENU_OPTIONS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
-                    <Tab icon={<Divider light />} disabled />
+                    <Tab component={Divider} disabled />
                     {HEADER_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
-                    <Tab icon={<Divider light />} disabled />
+                    <Tab component={Divider} disabled />
                 </Tabs>
             </div>
             <LayoutFooter />
