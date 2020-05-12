@@ -35,6 +35,7 @@ export interface PerformancePost {
     videoURL?: string;
     createdAt: Date;
     averageRating: PerformanceRating;
+    state: PerformancePostState;
 }
 
 export interface PerformanceRating {
@@ -47,8 +48,16 @@ export interface NewsPostsData {
     getNewsPosts: Array<NewsPost>;
 }
 
+export interface NewsPostData {
+    findNewsPost: NewsPost;
+}
+
 export interface PerformancePostsData {
     getPerformancePosts: Array<PerformancePost>;
+}
+
+export interface PerformancePostData {
+    findPerformancePost: PerformancePost;
 }
 
 export interface User {

@@ -4,7 +4,7 @@ import { Box, Button, Container } from '@material-ui/core';
 import { useModal } from 'client/hooks';
 import { ContainerBox } from 'components/common';
 
-import { CreateNewsPostModal, CreatePerformancePostModal } from '../../modals';
+import { NewsPostModal, PerformancePostModal } from '../../modals';
 import { useStyles } from './styles';
 
 
@@ -27,8 +27,12 @@ const AdminPage = () => {
                 </Button>
             </ContainerBox>
 
-            <CreateNewsPostModal isOpen={isOpenNewsPostModal} close={closeNewsPostModal} />
-            <CreatePerformancePostModal isOpen={isOpenPerformancePostModal} close={closePerformancePostModal} />
+            {isOpenNewsPostModal && (
+                <NewsPostModal isOpen={isOpenNewsPostModal} close={closeNewsPostModal} />
+            )}
+            {isOpenPerformancePostModal && (
+                <PerformancePostModal isOpen={isOpenPerformancePostModal} close={closePerformancePostModal} />
+            )}
         </Container>
     );
 };

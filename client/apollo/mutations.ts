@@ -35,6 +35,14 @@ export const CREATE_NEWS_POST = gql`
     }
 `;
 
+export const UPDATE_NEWS_POST = gql`
+    mutation patchNewsPost($id: String!, $description: String!, $pictureURL: String) {
+        patchNewsPost(id: $id, description: $description, pictureURL: $pictureURL) {
+            id
+        }
+    }
+`;
+
 export const REMOVE_NEWS_POST = gql`
     mutation removeNewsPost($id: String!) {
         removeNewsPost(id: $id)
@@ -66,5 +74,32 @@ export const CREATE_PERFORMANCE_POST = gql`
         createPerformancePost(description: $description, pictureURL: $pictureURL, videoURL: $videoURL, state: $state) {
             id
         }
+    }
+`;
+
+
+export const UPDATE_PERFORMANCE_POST = gql`
+    mutation patchPerformancePost(
+        $id: String!,
+        $description: String!,
+        $pictureURL: String,
+        $videoURL: String,
+        $state: PerformancePostState!
+    ) {
+        patchPerformancePost(
+            id: $id,
+            description: $description,
+            pictureURL: $pictureURL,
+            videoURL: $videoURL,
+            state: $state
+        ) {
+            id
+        }
+    }
+`;
+
+export const REMOVE_PERFORMANCE_POST = gql`
+    mutation removePerformancePost($id: String!) {
+        removePerformancePost(id: $id)
     }
 `;

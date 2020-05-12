@@ -1,19 +1,21 @@
-import React, { memo, useCallback, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core';
 
-import { CREATE_PERFORMANCE_POST, FILE_UPLOAD } from 'apollo/mutations';
+import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, UPDATE_PERFORMANCE_POST } from 'apollo/mutations';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
 import { useModal } from 'client/hooks/use-modal';
-import { MediaTypes, PerformancePostState } from 'client/types';
+import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
 import { Alert, AsyncButton, ContainerBox, LabeledInput, LabeledSelect, Modal } from 'components/common';
 
+import { FIND_PERFORMANCE_POST } from 'client/apollo/queries';
 import { useStyles } from './styles';
 
 
 interface Props {
     isOpen: boolean;
     close(): void;
+    performancePostId?: string;
 }
 
 interface ModalState {
@@ -32,11 +34,33 @@ const DEFAULT_STATE: ModalState = {
     media: MediaTypes.Picture,
 };
 
-export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
+
+const postFind = (item?: PerformancePost): ModalState => (
+    item ? {
+        description: item.description,
+        pictureURL: item.pictureURL,
+        videoURL: item.videoURL,
+        state: item.state,
+        media: item.videoURL ? MediaTypes.Video : MediaTypes.Picture
+    } : DEFAULT_STATE
+);
+
+export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id }: Props) => {
     const styles = useStyles();
+
+    const { data } = useQuery<PerformancePostData>(
+        FIND_PERFORMANCE_POST,
+        { variables: { id } }
+    );
 
     const [isShownAlert, openAlert, closeAlert] = useModal();
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
+
+    useEffect(() => {
+        setModalState(postFind(data?.findPerformancePost));
+    }, [data]);
+
+    const isCreate = !id;
     const { description, pictureURL, videoURL, media, state } = modalState;
 
     const onCloseModal = useCallback(() => {
@@ -45,13 +69,14 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         close();
     }, []);
 
-    const [createPerformancePost, { loading, error }] = useMutation(
-        CREATE_PERFORMANCE_POST,
+    const [mutatePerformancePost, { loading, error }] = useMutation(
+        isCreate ? CREATE_PERFORMANCE_POST : UPDATE_PERFORMANCE_POST,
         {
             onCompleted() {
                 onCloseModal();
                 openAlert();
-            }
+            },
+            refetchQueries: ['GET_PERFORMANCE_POSTS'] // TODO
         }
     );
 
@@ -84,12 +109,12 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
     };
 
     const changePerformanceState = (event: React.ChangeEvent<{
-        name?: string | undefined;
-        value: PerformancePostState;
+        name?: string;
+        value: unknown;
     }>) => {
         setModalState({
             ...modalState,
-            state: event.target.value
+            state: event.target.value as PerformancePostState
         });
     };
 
@@ -99,9 +124,10 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
             pictureURL: (media === MediaTypes.Picture && pictureURL?.trim()) || null,
             videoURL: (media === MediaTypes.Video && videoURL?.trim()) || null,
             state,
+            id: !isCreate ? id : null
         };
-        createPerformancePost({ variables });
-    }, [createPerformancePost, modalState]);
+        mutatePerformancePost({ variables });
+    }, [mutatePerformancePost, modalState]);
 
     // fileupload draft
     const [fileUpload] = useMutation(
@@ -125,9 +151,11 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         }
     };
 
+    const title = isCreate ? 'Создание выступления' : 'Редактирование выступления';
+
     return (
         <>
-            <Modal title="Создание выступления" isOpen={isOpen} close={onCloseModal}>
+            <Modal title={title} isOpen={isOpen} close={onCloseModal}>
                 <ContainerBox>
                     <LabeledInput
                         value={description}
@@ -185,9 +213,13 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
                         fullWidth
                         onClick={submit}
                     >
-                        Создать
+                        {isCreate ? 'Создать' : 'Сохранить изменения'}
                     </AsyncButton>
-                    {error && <div className={styles.error}>Произошла ошибка при создании выступления</div>}
+                    {error && (
+                        <div className={styles.error}>
+                            Произошла ошибка при {isCreate ? 'создании' : 'обновлении'} выступления
+                        </div>
+                    )}
                 </ContainerBox>
                 <input
                     type="file"
@@ -195,9 +227,9 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
                     onChange={onFileChange}
                 />
             </Modal>
-            {isShownAlert && <Alert onClose={closeAlert} text="Выступление успешно создано!" />}
+            {isShownAlert && (
+                <Alert onClose={closeAlert} text={`Выступление успешно ${isCreate ? 'создано' : 'обновлено'}!`} />
+            )}
         </>
     );
 });
-
-export default CreatePerformancePostModal;

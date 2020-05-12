@@ -5,9 +5,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'client/apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
-import { PerformancePost, PerformancePostsData, UserData, Roles } from 'client/types';
+import { PerformancePost, PerformancePostsData, Roles, UserData } from 'client/types';
 import { AddEntityIcon, InfiniteScroll, Teleporter } from 'components/common';
-import { CreatePerformancePostModal } from 'components/modals';
+import { PerformancePostModal } from 'components/modals';
 import { PerformanceCard } from './perfomance-card';
 import { useStyles } from './styles';
 
@@ -65,7 +65,7 @@ export const PerformancesPage = memo(() => {
                         <AddEntityIcon onClick={openModal} />
                     </Teleporter.Source>
 
-                    <CreatePerformancePostModal isOpen={isOpenModal} close={closeModal} />
+                    {isOpenModal && <PerformancePostModal isOpen={isOpenModal} close={closeModal} />}
                 </>
             )}
         </Container>
