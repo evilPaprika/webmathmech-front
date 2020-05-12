@@ -94,6 +94,16 @@ export const UPDATE_PERFORMANCE_POST = gql`
             state: $state
         ) {
             id
+            text
+            pictureURL
+            videoURL
+            createdAt
+            state
+            averageRating {
+                format
+                content
+                interest
+            }
         }
     }
 `;

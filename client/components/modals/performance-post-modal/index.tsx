@@ -76,7 +76,15 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                 onCloseModal();
                 openAlert();
             },
-            refetchQueries: ['GET_PERFORMANCE_POSTS'] // TODO
+
+            update: (dataProxy, mutationResult) => {
+                dataProxy.writeQuery({
+                    query: FIND_PERFORMANCE_POST,
+                    data: {
+                        findPerformancePost: mutationResult.data.patchPerformancePost
+                    }
+                });
+            }
         }
     );
 

@@ -60,6 +60,7 @@ export const GET_PERFORMANCE_POSTS = gql`
             pictureURL
             videoURL
             createdAt
+            state
             averageRating {
                 format
                 content
@@ -78,6 +79,11 @@ export const FIND_PERFORMANCE_POST = gql`
             videoURL
             createdAt
             state
+            averageRating {
+                format
+                content
+                interest
+            }
         }
     }
 `;
