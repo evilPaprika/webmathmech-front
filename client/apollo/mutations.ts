@@ -35,10 +35,12 @@ export const CREATE_NEWS_POST = gql`
     }
 `;
 
-export const UPDATE_NEWS_POST = gql`
+export const PATCH_NEWS_POST = gql`
     mutation patchNewsPost($id: String!, $description: String!, $pictureURL: String) {
         patchNewsPost(id: $id, description: $description, pictureURL: $pictureURL) {
             id
+            description
+            pictureURL
         }
     }
 `;
@@ -78,7 +80,7 @@ export const CREATE_PERFORMANCE_POST = gql`
 `;
 
 
-export const UPDATE_PERFORMANCE_POST = gql`
+export const PATCH_PERFORMANCE_POST = gql`
     mutation patchPerformancePost(
         $id: String!,
         $description: String!,
@@ -94,7 +96,7 @@ export const UPDATE_PERFORMANCE_POST = gql`
             state: $state
         ) {
             id
-            text
+            description
             pictureURL
             videoURL
             createdAt

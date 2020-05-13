@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
-import { CREATE_NEWS_POST, FILE_UPLOAD, UPDATE_NEWS_POST } from 'apollo/mutations';
+import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
 import { FIND_NEWS_POST } from 'apollo/queries';
 import { useModal } from 'client/hooks/use-modal';
 import { NewsPost, NewsPostData } from 'client/types';
@@ -39,22 +39,29 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
 
     useEffect(() => {
         setModalState(postFind(data?.findNewsPost));
-    });
+    }, [id, data]);
 
-    const onCloseModal = () => {
+    const onCloseModal = useCallback(() => {
         setModalState(DEFAULT_STATE);
 
         close();
-    };
+    }, []);
 
     const [mutateNewsPost, { loading, error }] = useMutation(
-        isCreate ? CREATE_NEWS_POST : UPDATE_NEWS_POST,
+        isCreate ? CREATE_NEWS_POST : PATCH_NEWS_POST,
         {
             onCompleted() {
                 onCloseModal();
                 openAlert();
             },
-            refetchQueries: ['GET_NEWS_POSTS'] // TODO
+            update: (dataProxy, mutationResult) => {
+                dataProxy.writeQuery({
+                    query: FIND_NEWS_POST,
+                    data: {
+                        findNewsPost: mutationResult.data.patchNewsPost
+                    }
+                });
+            }
         }
     );
 
@@ -79,7 +86,7 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
             id: !isCreate ? id : null
         };
         mutateNewsPost({ variables });
-    }, [mutateNewsPost, description, pictureURL]);
+    }, [mutateNewsPost, modalState, id]);
 
     // fileupload draft
     const [fileUpload] = useMutation(
@@ -111,7 +118,7 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
                 <ContainerBox>
                     <LabeledInput
                         value={description}
-                        label="Текст новости"
+                        label="Описание"
                         rowsMax={10}
                         multiline
                         onChange={changeDescription}

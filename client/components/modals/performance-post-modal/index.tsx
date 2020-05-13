@@ -2,13 +2,13 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core';
 
-import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, UPDATE_PERFORMANCE_POST } from 'apollo/mutations';
+import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from 'apollo/mutations';
+import { FIND_PERFORMANCE_POST } from 'apollo/queries';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
-import { useModal } from 'client/hooks/use-modal';
+import { useModal } from 'client/hooks';
 import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
 import { Alert, AsyncButton, ContainerBox, LabeledInput, LabeledSelect, Modal } from 'components/common';
 
-import { FIND_PERFORMANCE_POST } from 'client/apollo/queries';
 import { useStyles } from './styles';
 
 
@@ -58,7 +58,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
 
     useEffect(() => {
         setModalState(postFind(data?.findPerformancePost));
-    }, [data]);
+    }, [id, data]);
 
     const isCreate = !id;
     const { description, pictureURL, videoURL, media, state } = modalState;
@@ -70,13 +70,12 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
     }, []);
 
     const [mutatePerformancePost, { loading, error }] = useMutation(
-        isCreate ? CREATE_PERFORMANCE_POST : UPDATE_PERFORMANCE_POST,
+        isCreate ? CREATE_PERFORMANCE_POST : PATCH_PERFORMANCE_POST,
         {
             onCompleted() {
                 onCloseModal();
                 openAlert();
             },
-
             update: (dataProxy, mutationResult) => {
                 dataProxy.writeQuery({
                     query: FIND_PERFORMANCE_POST,
@@ -135,7 +134,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
             id: !isCreate ? id : null
         };
         mutatePerformancePost({ variables });
-    }, [mutatePerformancePost, modalState]);
+    }, [mutatePerformancePost, modalState, id]);
 
     // fileupload draft
     const [fileUpload] = useMutation(
