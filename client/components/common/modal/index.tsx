@@ -35,7 +35,7 @@ const Modal = ({ isOpen, close, title, children }: Props) => {
                         </IconButton>
                     </Box>
                 </Box>
-                <Box px={3}>
+                <Box px={3} pb={3}>
                     {children}
                 </Box>
             </Container>

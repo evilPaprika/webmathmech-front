@@ -7,7 +7,15 @@ import { FIND_PERFORMANCE_POST } from 'apollo/queries';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
-import { Alert, AsyncButton, ContainerBox, LabeledInput, LabeledSelect, Modal } from 'components/common';
+import {
+    Alert,
+    AsyncButton,
+    ContainerBox,
+    LabeledInput,
+    LabeledSelect,
+    LoadingWrapper,
+    Modal
+} from 'components/common';
 
 import { useStyles } from './styles';
 
@@ -29,6 +37,8 @@ interface ModalState {
 
 const DEFAULT_STATE: ModalState = {
     description: '',
+    pictureURL: '',
+    videoURL: '',
     state: PerformancePostState.Draft,
 
     media: MediaTypes.Picture,
@@ -38,9 +48,9 @@ const DEFAULT_STATE: ModalState = {
 const postFind = (item?: PerformancePost): ModalState => (
     item ? {
         description: item.description,
-        pictureURL: item.pictureURL,
-        videoURL: item.videoURL,
-        state: item.state,
+        pictureURL: item.pictureURL ?? '',
+        videoURL: item.videoURL ?? '',
+        state: item.state ?? PerformancePostState.Draft,
         media: item.videoURL ? MediaTypes.Video : MediaTypes.Picture
     } : DEFAULT_STATE
 );
@@ -48,7 +58,7 @@ const postFind = (item?: PerformancePost): ModalState => (
 export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id }: Props) => {
     const styles = useStyles();
 
-    const { data } = useQuery<PerformancePostData>(
+    const { data, loading: findLoading } = useQuery<PerformancePostData>(
         FIND_PERFORMANCE_POST,
         { variables: { id } }
     );
@@ -163,76 +173,78 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
     return (
         <>
             <Modal title={title} isOpen={isOpen} close={onCloseModal}>
-                <ContainerBox>
-                    <LabeledInput
-                        value={description}
-                        label="Описание"
-                        rowsMax={10}
-                        multiline
-                        onChange={changeDescription}
-                    />
-                </ContainerBox>
-                <ContainerBox>
-                    <LabeledSelect
-                        label="Состояние выступления"
-                        value={state}
-                        fullWidth
-                        onChange={changePerformanceState}
-                    >
-                        {PERFORMANCE_STATES_OPTIONS.map(({ label, value }) => (
-                            <MenuItem value={value} key={label}>{label}</MenuItem>
-                        ))}
-                    </LabeledSelect>
-                </ContainerBox>
-                <ContainerBox>
-                    <RadioGroup value={media} onChange={changeMediaType}>
-                        {MEDIA_TABS.map(({ label, value }) => (
-                            <FormControlLabel key={label} label={label} value={value} control={<Radio />} />
-                        ))}
-                    </RadioGroup>
-                </ContainerBox>
-                {media === MediaTypes.Picture && (
+                <LoadingWrapper loading={findLoading}>
                     <ContainerBox>
                         <LabeledInput
-                            value={pictureURL}
-                            size="small"
-                            label="Ссылка на фото"
-                            onChange={changePictureURL}
+                            value={description}
+                            label="Описание"
+                            rowsMax={10}
+                            multiline
+                            onChange={changeDescription}
                         />
                     </ContainerBox>
-                )}
-                {media === MediaTypes.Video && (
                     <ContainerBox>
-                        <LabeledInput
-                            value={videoURL}
-                            size="small"
-                            label="Ссылка на видео"
-                            onChange={changeVideoURL}
-                        />
+                        <LabeledSelect
+                            label="Состояние выступления"
+                            value={state}
+                            fullWidth
+                            onChange={changePerformanceState}
+                        >
+                            {PERFORMANCE_STATES_OPTIONS.map(({ label, value }) => (
+                                <MenuItem value={value} key={label}>{label}</MenuItem>
+                            ))}
+                        </LabeledSelect>
                     </ContainerBox>
-                )}
-                <ContainerBox gap="large">
-                    <AsyncButton
-                        isLoading={loading}
-                        size="large"
-                        variant="outlined"
-                        color="secondary"
-                        fullWidth
-                        onClick={submit}
-                    >
-                        {isCreate ? 'Создать' : 'Сохранить изменения'}
-                    </AsyncButton>
-                    {error && (
-                        <div className={styles.error}>
-                            Произошла ошибка при {isCreate ? 'создании' : 'обновлении'} выступления
-                        </div>
+                    <ContainerBox>
+                        <RadioGroup value={media} onChange={changeMediaType}>
+                            {MEDIA_TABS.map(({ label, value }) => (
+                                <FormControlLabel key={label} label={label} value={value} control={<Radio />} />
+                            ))}
+                        </RadioGroup>
+                    </ContainerBox>
+                    {media === MediaTypes.Picture && (
+                        <ContainerBox>
+                            <LabeledInput
+                                value={pictureURL}
+                                size="small"
+                                label="Ссылка на фото"
+                                onChange={changePictureURL}
+                            />
+                        </ContainerBox>
                     )}
-                </ContainerBox>
-                <input
-                    type="file"
-                    required
-                    onChange={onFileChange}
-                />
+                    {media === MediaTypes.Video && (
+                        <ContainerBox>
+                            <LabeledInput
+                                value={videoURL}
+                                size="small"
+                                label="Ссылка на видео"
+                                onChange={changeVideoURL}
+                            />
+                        </ContainerBox>
+                    )}
+                    <ContainerBox gap="large">
+                        <AsyncButton
+                            isLoading={loading}
+                            size="large"
+                            variant="outlined"
+                            color="secondary"
+                            fullWidth
+                            onClick={submit}
+                        >
+                            {isCreate ? 'Создать' : 'Сохранить изменения'}
+                        </AsyncButton>
+                        {error && (
+                            <div className={styles.error}>
+                                Произошла ошибка при {isCreate ? 'создании' : 'обновлении'} выступления
+                            </div>
+                        )}
+                    </ContainerBox>
+                    <input
+                        type="file"
+                        required
+                        onChange={onFileChange}
+                    />
+                </LoadingWrapper>
             </Modal>
             {isShownAlert && (
                 <Alert onClose={closeAlert} text={`Выступление успешно ${isCreate ? 'создано' : 'обновлено'}!`} />
