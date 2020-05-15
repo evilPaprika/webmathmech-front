@@ -10,6 +10,7 @@ import { PaginationInputs } from './inputs/PaginationInputs';
 import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
+import User from '../models/User.sequelize';
 
 
 @Resolver(PerformancePost)
@@ -30,7 +31,7 @@ export default class PerformancePostResolver {
     @Query(() => PerformancePost)
     public async findPerformancePost(@Arg('id') id: string) {
         const newsPost = await PerformancePost.findOne({
-            where: { id },
+            where: { id }, include: [User]
         });
 
         if (!newsPost) {
@@ -42,7 +43,7 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
-        return PerformancePost.findAll({ offset, limit, order: [order] });
+        return PerformancePost.findAll({ offset, limit, order: [order], include: [User] });
     }
 
     @Mutation(() => PerformancePost)

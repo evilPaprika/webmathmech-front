@@ -23,6 +23,9 @@ export class CreatePerformancePostInput implements Partial<PerformancePost> {
 
     @Field(() => Rating, { nullable: true })
     public averageRating?: Rating;
+
+    @Field({ nullable: true })
+    public speakerId?: string;
 }
 
 @ArgsType()
@@ -47,4 +50,7 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
 
     @Field(() => Rating, { nullable: true })
     public averageRating?: Rating;
+
+    @Field({ nullable: true })
+    public speakerId?: string;
 }

@@ -17,8 +17,8 @@ type Mutation {
   removeNewsPost(id: String!): Boolean!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!
-  createPerformancePost(description: String!, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
-  patchPerformancePost(id: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
+  createPerformancePost(description: String!, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput, speakerId: String): PerformancePost!
+  patchPerformancePost(id: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput, speakerId: String): PerformancePost!
   removePerformancePost(id: String!): Boolean!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!
@@ -49,6 +49,8 @@ type PerformancePost {
   videoURL: String
   state: PerformancePostState!
   averageRating: Rating!
+  speakerId: ID
+  speaker: User
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -101,6 +103,7 @@ type User {
   surname: String!
   role: Role!
   login: String!
+  performances: PerformancePost!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
