@@ -55,7 +55,7 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         }
     );
 
-    const changeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setModalState({
             ...modalState,
             description: event.target.value
@@ -134,7 +134,7 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
                         label="Описание"
                         rowsMax={10}
                         multiline
-                        onChange={changeText}
+                        onChange={changeDescription}
                     />
                 </ContainerBox>
                 <ContainerBox>

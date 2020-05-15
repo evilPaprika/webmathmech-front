@@ -45,7 +45,7 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
         }
     );
 
-    const changeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setModalState({
             ...modalState,
             description: event.target.value
@@ -60,7 +60,7 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
     };
 
     const submit = useCallback(() => {
-        const variables = { text: description.trim(), pictureURL: pictureURL?.trim() || null };
+        const variables = { description: description.trim(), pictureURL: pictureURL?.trim() || null };
         createNewsPost({ variables });
     }, [createNewsPost, description, pictureURL]);
 
@@ -95,7 +95,7 @@ export const CreateNewsPostModal = memo(({ isOpen, close }: Props) => {
                         label="Текст новости"
                         rowsMax={10}
                         multiline
-                        onChange={changeText}
+                        onChange={changeDescription}
                     />
                 </ContainerBox>
                 <ContainerBox>
