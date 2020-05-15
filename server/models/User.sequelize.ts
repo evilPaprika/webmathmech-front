@@ -51,7 +51,12 @@ export default class User extends Model<User> {
     @Column(DataType.STRING)
     public password!: string | null;
 
-    @Field()
+    @Field({ nullable: true })
+    @AllowNull
+    @Column
+    public universityGroup?: string;
+
+    @Field({ nullable: true })
     @HasMany(() => PerformancePost)
     public performances?: PerformancePost;
 
