@@ -15,6 +15,7 @@ registerEnumType(Role, {
 export enum PerformancePostState {
     DRAFT = 'DRAFT',
     POLL = 'POLL',
+    POLL_FINISHED = 'POLL_FINISHED',
     PUBLISHED = 'PUBLISHED',
 }
 

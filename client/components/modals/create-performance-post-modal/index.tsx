@@ -85,11 +85,11 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
 
     const changePerformanceState = (event: React.ChangeEvent<{
         name?: string | undefined;
-        value: unknown;
+        value: PerformancePostState;
     }>) => {
         setModalState({
             ...modalState,
-            state: event.target.value as PerformancePostState
+            state: event.target.value
         });
     };
 

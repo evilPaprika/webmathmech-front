@@ -67,9 +67,13 @@ export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
         value: PerformancePostState.Poll
     },
     {
+        label: 'Голосование окончено',
+        value: PerformancePostState.PollFinished
+    },
+    {
         label: 'На публикацию',
         value: PerformancePostState.Published
-    }
+    },
 ];
 
 export const CURRENT_YEAR = new Date().getFullYear();
