@@ -48,10 +48,15 @@ export default class PerformancePost extends Model<PerformancePost> {
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'News post content' })
+    @Field()
     @AllowNull(false)
     @Column(DataType.TEXT)
-    public description!: string;
+    public title!: string;
+
+    @Field({ nullable: true })
+    @AllowNull
+    @Column(DataType.TEXT)
+    public description?: string;
 
     @Field({ nullable: true })
     @Column(DataType.TEXT)

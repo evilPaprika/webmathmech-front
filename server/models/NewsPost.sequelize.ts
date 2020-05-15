@@ -19,7 +19,7 @@ export default class NewsPost extends Model<NewsPost> {
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'News post content' })
+    @Field()
     @AllowNull(false)
     @Column(DataType.TEXT)
     public description!: string;
