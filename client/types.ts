@@ -22,14 +22,14 @@ export enum PerformancePostState {
 
 export interface NewsPost {
     id: string;
-    text: string;
+    description: string;
     pictureURL?: string;
     createdAt: Date;
 }
 
 export interface PerformancePost {
     id: string;
-    text: string;
+    description: string;
     pictureURL?: string;
     videoURL?: string;
     createdAt: Date;

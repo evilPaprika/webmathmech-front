@@ -28,8 +28,8 @@ export const AUTH_VK = gql`
 
 // News posts
 export const CREATE_NEWS_POST = gql`
-    mutation createNewsPost($text: String!, $pictureURL: String) {
-        createNewsPost(text: $text, pictureURL: $pictureURL) {
+    mutation createNewsPost($description: String!, $pictureURL: String) {
+        createNewsPost(description: $description, pictureURL: $pictureURL) {
             id
         }
     }
@@ -58,12 +58,12 @@ export const PATCH_CURRENT_USER = gql`
 // Performance posts
 export const CREATE_PERFORMANCE_POST = gql`
     mutation createPerformancePost(
-        $text: String!,
+        $description: String!,
         $pictureURL: String,
         $videoURL: String,
         $state: PerformancePostState!
     ) {
-        createPerformancePost(text: $text, pictureURL: $pictureURL, videoURL: $videoURL, state: $state) {
+        createPerformancePost(description: $description, pictureURL: $pictureURL, videoURL: $videoURL, state: $state) {
             id
         }
     }

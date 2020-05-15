@@ -45,7 +45,7 @@ export default class PerformancePost extends Model<PerformancePost> {
     @Field({ description: 'News post content' })
     @AllowNull(false)
     @Column(DataType.TEXT)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Column(DataType.TEXT)

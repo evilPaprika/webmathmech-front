@@ -17,15 +17,15 @@ interface Props {
 export const PerformanceCard = memo(({ item }: Props) => {
     const styles = useStyles();
 
-    const { text, pictureURL, videoURL, averageRating } = item;
+    const { description, pictureURL, videoURL, averageRating } = item;
 
     return (
         <CardItem>
             {pictureURL && <CardMedia component="img" className={styles.media} image={pictureURL} />}
             {videoURL && <ReactPlayer url={videoURL} width="100%" controls />}
             <CardInfo item={item} />
-            <Box className={styles.description}>
-                <CollapsibleText text={text} className={styles.text} />
+            <Box className={styles.descriptionContainer}>
+                <CollapsibleText text={description} className={styles.description} />
                 <CardRating rating={averageRating} />
             </Box>
         </CardItem>
