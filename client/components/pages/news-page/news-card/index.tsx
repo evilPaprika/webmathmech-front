@@ -56,13 +56,13 @@ const CardInfo = ({ newsPost }: Props) => {
 const NewsCard = ({ newsPost }: Props) => {
     const styles = useStyles();
 
-    const { text, pictureURL } = newsPost;
+    const { description, pictureURL } = newsPost;
 
     return (
         <CardItem>
             {pictureURL && <CardMedia component="img" className={styles.media} image={pictureURL} />}
             <CardInfo newsPost={newsPost} />
-            <Typography className={styles.text}>{text}</Typography>
+            <Typography className={styles.description}>{description}</Typography>
         </CardItem>
     );
 };

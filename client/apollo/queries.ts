@@ -34,7 +34,7 @@ export const GET_NEWS_POSTS = gql`
     query getNewsPosts($limit: Int!, $offset: Int!, $order: [String!]) {
         getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) {
             id
-            text
+            description
             pictureURL
             createdAt
         }
@@ -45,7 +45,7 @@ export const GET_PERFORMANCE_POSTS = gql`
     query getPerformancePosts($limit: Int!, $offset: Int!, $order: [String!]) {
         getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }) {
             id
-            text
+            description
             pictureURL
             videoURL
             createdAt

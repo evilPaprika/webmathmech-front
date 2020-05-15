@@ -14,9 +14,9 @@ import { CreateNewsPostInput, PatchNewsPostInputs } from './inputs/NewsPostInput
 @Resolver(NewsPost)
 export default class NewsPostResolver {
     @Mutation(() => NewsPost)
-    public async createNewsPost(@Args() { text, pictureURL }: CreateNewsPostInput) {
+    public async createNewsPost(@Args() { description, pictureURL }: CreateNewsPostInput) {
         return NewsPost.create({
-            text,
+            description,
             pictureURL
         });
     }

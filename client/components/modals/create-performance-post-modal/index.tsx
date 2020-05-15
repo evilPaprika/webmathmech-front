@@ -17,7 +17,7 @@ interface Props {
 }
 
 interface ModalState {
-    text: string;
+    description: string;
     pictureURL?: string;
     videoURL?: string;
     state: PerformancePostState;
@@ -26,7 +26,7 @@ interface ModalState {
 }
 
 const DEFAULT_STATE: ModalState = {
-    text: '',
+    description: '',
     state: PerformancePostState.Draft,
 
     media: MediaTypes.Picture,
@@ -37,7 +37,7 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
 
     const [isShownAlert, openAlert, closeAlert] = useModal();
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
-    const { text, pictureURL, videoURL, media, state } = modalState;
+    const { description, pictureURL, videoURL, media, state } = modalState;
 
     const onCloseModal = useCallback(() => {
         setModalState(DEFAULT_STATE);
@@ -55,10 +55,10 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         }
     );
 
-    const changeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setModalState({
             ...modalState,
-            text: event.target.value
+            description: event.target.value
         });
     };
 
@@ -95,7 +95,7 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
 
     const submit = useCallback(() => {
         const variables = {
-            text: text.trim(),
+            description: description.trim(),
             pictureURL: (media === MediaTypes.Picture && pictureURL?.trim()) || null,
             videoURL: (media === MediaTypes.Video && videoURL?.trim()) || null,
             state,
@@ -130,11 +130,11 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
             <Modal title="Создание выступления" isOpen={isOpen} close={onCloseModal}>
                 <ContainerBox>
                     <LabeledInput
-                        value={text}
+                        value={description}
                         label="Описание"
                         rowsMax={10}
                         multiline
-                        onChange={changeText}
+                        onChange={changeDescription}
                     />
                 </ContainerBox>
                 <ContainerBox>

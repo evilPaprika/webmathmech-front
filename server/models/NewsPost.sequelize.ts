@@ -22,7 +22,7 @@ export default class NewsPost extends Model<NewsPost> {
     @Field({ description: 'News post content' })
     @AllowNull(false)
     @Column(DataType.TEXT)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Column(DataType.TEXT)

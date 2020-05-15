@@ -8,7 +8,7 @@ import { PerformancePostState } from '../../models/EnumModels';
 export class CreatePerformancePostInput implements Partial<PerformancePost> {
     @Field()
     @Length(10, 2500)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Length(5, 2048)
@@ -32,7 +32,7 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
 
     @Field({ nullable: true })
     @Length(10, 2500)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Length(5, 2048)

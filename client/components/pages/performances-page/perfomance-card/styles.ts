@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles((theme) => ({
-    text: {
+    description: {
         margin: theme.spacing(2),
 
         textAlign: 'start',
@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
 
-    description: {
+    descriptionContainer: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',

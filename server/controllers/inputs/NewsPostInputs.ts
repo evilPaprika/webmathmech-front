@@ -7,7 +7,7 @@ import NewsPost from '../../models/NewsPost.sequelize';
 export class CreateNewsPostInput implements Partial<NewsPost> {
     @Field()
     @Length(10, 2500)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Length(5, 2048)
@@ -22,7 +22,7 @@ export class PatchNewsPostInputs implements Partial<NewsPost> {
 
     @Field({ nullable: true })
     @Length(10, 2500)
-    public text!: string;
+    public description!: string;
 
     @Field({ nullable: true })
     @Length(5, 2048)

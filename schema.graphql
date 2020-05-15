@@ -12,13 +12,13 @@ type Mutation {
   userSignIn(login: String!, password: String!): Token!
   userSignUp(name: String!, surname: String!, login: String!, password: String!): Token!
   authVk(code: String!): Token!
-  createNewsPost(text: String!, pictureURL: String): NewsPost!
-  patchNewsPost(id: String!, text: String, pictureURL: String): NewsPost!
+  createNewsPost(description: String!, pictureURL: String): NewsPost!
+  patchNewsPost(id: String!, description: String, pictureURL: String): NewsPost!
   removeNewsPost(id: String!): Boolean!
   patchCurrentUser(name: String, surname: String, password: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role): User!
-  createPerformancePost(text: String!, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
-  patchPerformancePost(id: String!, text: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
+  createPerformancePost(description: String!, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
+  patchPerformancePost(id: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput): PerformancePost!
   removePerformancePost(id: String!): Boolean!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!
@@ -28,7 +28,7 @@ type NewsPost {
   id: ID!
 
   """News post content"""
-  text: String!
+  description: String!
   pictureURL: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -44,7 +44,7 @@ type PerformancePost {
   id: ID!
 
   """News post content"""
-  text: String!
+  description: String!
   pictureURL: String
   videoURL: String
   state: PerformancePostState!
