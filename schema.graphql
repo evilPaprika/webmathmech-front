@@ -101,7 +101,7 @@ type User {
   role: Role!
   login: String!
   universityGroup: String
-  performances: PerformancePost
+  performances: [PerformancePost!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }

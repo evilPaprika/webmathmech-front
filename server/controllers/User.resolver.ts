@@ -10,6 +10,7 @@ import {
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
 import { PaginationInputs } from './inputs/PaginationInputs';
+import PerformancePost from '../models/PerformancePost.sequelize';
 
 @Resolver(User)
 export default class UserResolver {
@@ -19,7 +20,7 @@ export default class UserResolver {
         const jwt = context?.koaCtx?.state?.user;
 
         const user = await User.findOne({
-            where: { id: jwt.id },
+            where: { id: jwt.id }, include: [PerformancePost]
         });
 
         if (!user) {
@@ -32,7 +33,7 @@ export default class UserResolver {
     @Query(() => User)
     public async findUser(@Arg('login') login: string) {
         const user = await User.findOne({
-            where: { login },
+            where: { login }, include: [PerformancePost]
         });
 
         if (!user) {

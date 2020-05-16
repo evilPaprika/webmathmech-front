@@ -32,7 +32,6 @@ jobs:
             docker pull webmathmech/front:${{ env.BRANCH }}
             docker rm $(docker stop $(docker ps -a -q --format "{{.ID}} {{.Ports}}" | grep -oP "\S+ (?=0.0.0.0:${{ env.DEPLOY_PORT }})")) || true
             docker run --env-file=docker_environment_front -p ${{ env.DEPLOY_PORT }}:3001 -d --rm webmathmech/front:${{ env.BRANCH }}
-
       - name: post sticky comment
         uses: marocchino/sticky-pull-request-comment@v1
         with:

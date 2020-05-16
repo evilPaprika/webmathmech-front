@@ -30,15 +30,15 @@ export default class PerformancePostResolver {
 
     @Query(() => PerformancePost)
     public async findPerformancePost(@Arg('id') id: string) {
-        const newsPost = await PerformancePost.findOne({
+        const performancePost = await PerformancePost.findOne({
             where: { id }, include: [User]
         });
 
-        if (!newsPost) {
-            throw new Error('News post not found');
+        if (!performancePost) {
+            throw new Error('Performance post  not found');
         }
 
-        return newsPost;
+        return performancePost;
     }
 
     @Query(() => [PerformancePost])

@@ -56,9 +56,9 @@ export default class User extends Model<User> {
     @Column
     public universityGroup?: string;
 
-    @Field({ nullable: true })
+    @Field(() => [PerformancePost], { nullable: true })
     @HasMany(() => PerformancePost)
-    public performances?: PerformancePost;
+    public performances?: [PerformancePost];
 
     @Field()
     @CreatedAt
