@@ -1,9 +1,11 @@
 import {
     AllowNull,
+    BelongsTo,
     Column,
     CreatedAt,
     DataType,
     Default,
+    ForeignKey,
     Model,
     PrimaryKey,
     Table,
@@ -11,7 +13,11 @@ import {
 } from 'sequelize-typescript';
 import { Field, Float, ID, InputType, ObjectType } from 'type-graphql';
 import { IsPositive, Max } from 'class-validator';
+
 import { PerformancePostState } from './EnumModels';
+// https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
+// eslint-disable-next-line import/no-cycle
+import User from './User.sequelize';
 
 
 @InputType('RatingInput')
@@ -42,10 +48,15 @@ export default class PerformancePost extends Model<PerformancePost> {
     @Column(DataType.UUID)
     public id!: string;
 
-    @Field({ description: 'News post content' })
+    @Field()
     @AllowNull(false)
     @Column(DataType.TEXT)
-    public description!: string;
+    public title!: string;
+
+    @Field({ nullable: true })
+    @AllowNull
+    @Column(DataType.TEXT)
+    public description?: string;
 
     @Field({ nullable: true })
     @Column(DataType.TEXT)
@@ -64,6 +75,16 @@ export default class PerformancePost extends Model<PerformancePost> {
     @AllowNull(false)
     @Column(DataType.JSON)
     public averageRating!: Rating;
+
+    @Field(() => ID, { nullable: true })
+    @ForeignKey(() => User)
+    @AllowNull(true)
+    @Column(DataType.UUID)
+    speakerId?: string;
+
+    @Field(() => User, { nullable: true })
+    @BelongsTo(() => User)
+    speaker?: User;
 
     @Field()
     @CreatedAt

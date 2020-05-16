@@ -18,6 +18,10 @@ export class PatchCurrentUserInput implements Partial<User> {
     @Length(8, 64)
     @IsAlphanumeric()
     public password?: string;
+
+    @Field({ nullable: true })
+    @Length(2, 10)
+    public universityGroup?: string;
 }
 
 @ArgsType()
@@ -35,4 +39,8 @@ export class PatchUserInput implements Partial<User> {
 
     @Field(() => Role, { nullable: true })
     public role?: Role;
+
+    @Field({ nullable: true })
+    @Length(2, 10)
+    public universityGroup?: string;
 }

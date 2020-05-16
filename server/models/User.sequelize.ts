@@ -4,6 +4,7 @@ import {
     CreatedAt,
     DataType,
     Default,
+    HasMany,
     Model,
     PrimaryKey,
     Table,
@@ -11,7 +12,11 @@ import {
     UpdatedAt,
 } from 'sequelize-typescript';
 import { Field, ID, ObjectType } from 'type-graphql';
+
 import { Role } from './EnumModels';
+// https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
+// eslint-disable-next-line import/no-cycle
+import PerformancePost from './PerformancePost.sequelize';
 
 
 @ObjectType()
@@ -45,6 +50,15 @@ export default class User extends Model<User> {
     @AllowNull
     @Column(DataType.STRING)
     public password!: string | null;
+
+    @Field({ nullable: true })
+    @AllowNull
+    @Column
+    public universityGroup?: string;
+
+    @Field(() => [PerformancePost], { nullable: true })
+    @HasMany(() => PerformancePost)
+    public performances?: [PerformancePost];
 
     @Field()
     @CreatedAt

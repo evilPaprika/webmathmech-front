@@ -17,6 +17,7 @@ export enum MediaTypes {
 export enum PerformancePostState {
     Draft = 'DRAFT',
     Poll = 'POLL',
+    PollFinished = 'POLL_FINISHED',
     Published = 'PUBLISHED',
 }
 
