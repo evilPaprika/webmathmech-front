@@ -12,7 +12,7 @@ interface Props {
     close(): void;
 }
 
-const Modal = ({ isOpen, close, title, children }: Props) => {
+export const Modal = memo(({ isOpen, close, title, children }: Props) => {
     const styles = useStyles();
 
     return (
@@ -35,12 +35,12 @@ const Modal = ({ isOpen, close, title, children }: Props) => {
                         </IconButton>
                     </Box>
                 </Box>
-                <Box px={3}>
+                <Box px={3} pb={3}>
                     {children}
                 </Box>
             </Container>
         </MaterialUIModal>
     );
-};
+});
 
-export default memo(Modal);
+export default Modal;

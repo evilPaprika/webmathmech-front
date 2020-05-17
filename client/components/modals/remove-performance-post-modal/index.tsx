@@ -4,37 +4,36 @@ import React, { memo, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Button, Typography } from '@material-ui/core';
 
-import { REMOVE_NEWS_POST } from 'apollo/mutations';
-import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
-import { NewsPostsData } from 'client/types';
+import { REMOVE_PERFORMANCE_POST } from 'apollo/mutations';
+import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from 'client/consts';
+import { PerformancePostsData } from 'client/types';
 import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 
 interface Props {
-    newsPostId: string;
+    performancePostId: string;
     isOpen: boolean;
     close(): void;
 }
 
-export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) => {
+export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, close }: Props) => {
     const { enqueueSnackbar } = useSnackbar();
-
-    const [removeNewsPost, { loading, client }] = useMutation(
-        REMOVE_NEWS_POST,
+    const [removePerformancePost, { loading, client }] = useMutation(
+        REMOVE_PERFORMANCE_POST,
         {
             onCompleted() {
-                const data = client?.readQuery<NewsPostsData>(GET_NEWS_POST_QUERY_DEFAULT);
+                const data = client?.readQuery<PerformancePostsData>(GET_PERFORMANCES_POST_QUERY_DEFAULT);
                 if (data) {
+                    const updatedData = data.getPerformancePosts.filter((post) => post.id !== performancePostId);
                     client?.writeQuery({
-                        ...GET_NEWS_POST_QUERY_DEFAULT,
-                        data: { getNewsPosts: data.getNewsPosts.filter((post) => post.id !== newsPostId) }
+                        ...GET_PERFORMANCES_POST_QUERY_DEFAULT,
+                        data: { getPerformancePosts: updatedData }
                     });
                 }
-                enqueueSnackbar('Новость успешно удалена!', { variant: 'success' });
-                close();
+                enqueueSnackbar('Пост с выступлением успешно удален!', { variant: 'success' });
             },
             onError(error: ApolloError) {
-                const title = 'Произошла ошибка при удалении новости';
+                const title = 'Произошла ошибка при удалении выступления';
 
                 enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
@@ -42,14 +41,14 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     );
 
     const onRemove = useCallback(() => {
-        const variables = { id: newsPostId };
-        removeNewsPost({ variables });
-    }, [newsPostId]);
+        const variables = { id: performancePostId };
+        removePerformancePost({ variables });
+    }, [performancePostId]);
 
     return (
         <Modal title="Предупреждение" isOpen={isOpen} close={close}>
             <ContainerBox gap="large">
-                <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
+                <Typography>Вы уверены, что хотите безвозвратно удалить пост с выступлением?</Typography>
             </ContainerBox>
             <ContainerBox display="flex" flexDirection="row-reverse">
                 <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>

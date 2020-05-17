@@ -2,10 +2,12 @@ import React, { memo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Container } from '@material-ui/core';
 
-import { GET_NEWS_POSTS } from 'apollo/queries';
+import { GET_CURRENT_USER, GET_NEWS_POSTS } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
-import { NewsPostsData } from 'client/types';
-import { InfiniteScroll } from 'components/common';
+import { useModal } from 'client/hooks';
+import { NewsPostsData, Roles, UserData } from 'client/types';
+import { InfiniteScroll, Teleporter, AddEntityIcon } from 'components/common';
+import { NewsPostModal } from 'components/modals';
 
 import NewsCard from './news-card';
 import { useStyles } from './styles';
@@ -14,6 +16,9 @@ import { useStyles } from './styles';
 const NewsPage = () => {
     const styles = useStyles();
     const [hasMore, setHasMore] = useState<boolean>(true);
+    const [isOpenModal, openModal, closeModal] = useModal();
+    const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
+    const { role } = userData?.getCurrentUser || {};
 
     const { data, fetchMore, error, loading } = useQuery<NewsPostsData>(GET_NEWS_POSTS, {
         variables: GET_NEWS_POST_QUERY_DEFAULT.variables,
@@ -44,11 +49,21 @@ const NewsPage = () => {
     return (
         <Container className={styles.newsPage} disableGutters>
             <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
-                {newsPosts?.map((newsPost) => <NewsCard newsPost={newsPost} key={newsPost.id} />)}
+                {newsPosts?.map((item) => <NewsCard item={item} key={item.id} />)}
             </InfiniteScroll>
 
             {error && <div>Произошла ошибка. Пожалуйста, перезагрузите страницу!</div>}
             {!loading && !newsPosts.length && !error && <div>Новостей не найдено!</div>}
+
+            {role === Roles.Admin && (
+                <>
+                    <Teleporter.Source>
+                        <AddEntityIcon onClick={openModal} />
+                    </Teleporter.Source>
+
+                    {isOpenModal && <NewsPostModal isOpen={isOpenModal} close={closeModal} />}
+                </>
+            )}
         </Container>
     );
 };

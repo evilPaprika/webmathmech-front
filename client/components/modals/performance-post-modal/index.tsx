@@ -1,19 +1,28 @@
-import React, { memo, useCallback, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core';
 
-import { CREATE_PERFORMANCE_POST, FILE_UPLOAD } from 'apollo/mutations';
+import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from 'apollo/mutations';
+import { FIND_PERFORMANCE_POST } from 'apollo/queries';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
-import { useModal } from 'client/hooks/use-modal';
-import { MediaTypes, PerformancePostState } from 'client/types';
-import { Alert, AsyncButton, ContainerBox, LabeledInput, LabeledSelect, Modal } from 'components/common';
-
-import { useStyles } from './styles';
+import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
+import {
+    AsyncButton,
+    ContainerBox,
+    LabeledInput,
+    LabeledSelect,
+    LoadingWrapper,
+    Modal,
+    SnackbarErrorText
+} from 'components/common';
 
 
 interface Props {
     isOpen: boolean;
     close(): void;
+    performancePostId?: string;
 }
 
 interface ModalState {
@@ -27,16 +36,38 @@ interface ModalState {
 
 const DEFAULT_STATE: ModalState = {
     description: '',
+    pictureURL: '',
+    videoURL: '',
     state: PerformancePostState.Draft,
 
     media: MediaTypes.Picture,
 };
 
-export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
-    const styles = useStyles();
+const applyDefaultState = (item?: PerformancePost): ModalState => (
+    item ? {
+        description: item.description ?? DEFAULT_STATE.description,
+        pictureURL: item.pictureURL ?? DEFAULT_STATE.pictureURL,
+        videoURL: item.videoURL ?? DEFAULT_STATE.videoURL,
+        state: item.state ?? DEFAULT_STATE.state,
+        media: item.videoURL ? MediaTypes.Video : MediaTypes.Picture
+    } : DEFAULT_STATE
+);
 
-    const [isShownAlert, openAlert, closeAlert] = useModal();
+export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id }: Props) => {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const { data, loading: findLoading } = useQuery<PerformancePostData>(
+        FIND_PERFORMANCE_POST,
+        { variables: { id } }
+    );
+
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
+
+    useEffect(() => {
+        setModalState(applyDefaultState(data?.findPerformancePost));
+    }, [id, data]);
+
+    const isCreate = !id;
     const { description, pictureURL, videoURL, media, state } = modalState;
 
     const onCloseModal = useCallback(() => {
@@ -45,12 +76,29 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         close();
     }, []);
 
-    const [createPerformancePost, { loading, error }] = useMutation(
-        CREATE_PERFORMANCE_POST,
+    const [mutatePerformancePost, { loading }] = useMutation(
+        isCreate ? CREATE_PERFORMANCE_POST : PATCH_PERFORMANCE_POST,
         {
             onCompleted() {
+                enqueueSnackbar(
+                    `Выступление успешно ${isCreate ? 'создано' : 'обновлено'}!`,
+                    { variant: 'success' }
+                );
                 onCloseModal();
-                openAlert();
+            },
+            update: (dataProxy, mutationResult) => {
+                dataProxy.writeQuery({
+                    query: FIND_PERFORMANCE_POST,
+                    data: {
+                        findPerformancePost: mutationResult.data.patchPerformancePost
+                    },
+                    variables: { id: mutationResult.data.patchPerformancePost.id }
+                });
+            },
+            onError(error: ApolloError) {
+                const title = `Произошла ошибка при ${isCreate ? 'создании' : 'обновлении'} выступления`;
+
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
         }
     );
@@ -84,12 +132,12 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
     };
 
     const changePerformanceState = (event: React.ChangeEvent<{
-        name?: string | undefined;
-        value: PerformancePostState;
+        name?: string;
+        value: unknown;
     }>) => {
         setModalState({
             ...modalState,
-            state: event.target.value
+            state: event.target.value as PerformancePostState
         });
     };
 
@@ -99,9 +147,10 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
             pictureURL: (media === MediaTypes.Picture && pictureURL?.trim()) || null,
             videoURL: (media === MediaTypes.Video && videoURL?.trim()) || null,
             state,
+            id: !isCreate ? id : null
         };
-        createPerformancePost({ variables });
-    }, [createPerformancePost, modalState]);
+        mutatePerformancePost({ variables });
+    }, [mutatePerformancePost, modalState, id]);
 
     // fileupload draft
     const [fileUpload] = useMutation(
@@ -125,9 +174,11 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
         }
     };
 
+    const title = isCreate ? 'Создание выступления' : 'Редактирование выступления';
+
     return (
-        <>
-            <Modal title="Создание выступления" isOpen={isOpen} close={onCloseModal}>
+        <Modal title={title} isOpen={isOpen} close={onCloseModal}>
+            <LoadingWrapper loading={findLoading}>
                 <ContainerBox>
                     <LabeledInput
                         value={description}
@@ -185,19 +236,15 @@ export const CreatePerformancePostModal = memo(({ isOpen, close }: Props) => {
                         fullWidth
                         onClick={submit}
                     >
-                        Создать
+                        {isCreate ? 'Создать' : 'Сохранить изменения'}
                     </AsyncButton>
-                    {error && <div className={styles.error}>Произошла ошибка при создании выступления</div>}
                 </ContainerBox>
                 <input
                     type="file"
                     required
                     onChange={onFileChange}
                 />
-            </Modal>
-            {isShownAlert && <Alert onClose={closeAlert} text="Выступление успешно создано!" />}
-        </>
+            </LoadingWrapper>
+        </Modal>
     );
 });
-
-export default CreatePerformancePostModal;

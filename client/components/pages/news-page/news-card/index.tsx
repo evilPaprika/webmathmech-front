@@ -7,25 +7,26 @@ import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
 import { NewsPost, UserData, Roles } from 'client/types';
 import { CardItem } from 'components/common';
-import { RemoveNewsPostModal } from 'components/modals';
+import { NewsPostModal, RemoveNewsPostModal } from 'components/modals';
 import { useStyles } from './styles';
 
 
 interface Props {
-    newsPost: NewsPost;
+    item: NewsPost;
 }
 
-const CardInfo = ({ newsPost }: Props) => {
+const CardInfo = ({ item }: Props) => {
     const styles = useStyles();
     const [anchorEl, openMenu, closeMenu] = useMenu();
-    const [isOpenModal, openModal, closeModal] = useModal();
+    const [isOpenEditModal, openEditModal, closeEditModal] = useModal();
+    const [isOpenRemoveModal, openRemoveModal, closeRemoveModal] = useModal();
     const { data } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = data?.getCurrentUser || {};
 
     return (
         <Box className={styles.blockInfo}>
             <Typography className={styles.date}>
-                Создано {new Date(newsPost.createdAt).toLocaleString()}
+                Создано {new Date(item.createdAt).toLocaleString()}
             </Typography>
             {role === Roles.Admin && (
                 <>
@@ -44,24 +45,34 @@ const CardInfo = ({ newsPost }: Props) => {
                         onClose={closeMenu}
                         onClick={closeMenu}
                     >
-                        <MenuItem onClick={openModal}>Удалить</MenuItem>
+                        <MenuItem onClick={openEditModal}>Редактировать</MenuItem>
+                        <MenuItem onClick={openRemoveModal}>Удалить</MenuItem>
                     </Menu>
-                    <RemoveNewsPostModal newsPostId={newsPost.id} isOpen={isOpenModal} close={closeModal} />
+                    <NewsPostModal
+                        newsPostId={item.id}
+                        isOpen={isOpenEditModal}
+                        close={closeEditModal}
+                    />
+                    <RemoveNewsPostModal
+                        newsPostId={item.id}
+                        isOpen={isOpenRemoveModal}
+                        close={closeRemoveModal}
+                    />
                 </>
             )}
         </Box>
     );
 };
 
-const NewsCard = ({ newsPost }: Props) => {
+const NewsCard = ({ item }: Props) => {
     const styles = useStyles();
 
-    const { description, pictureURL } = newsPost;
+    const { description, pictureURL } = item;
 
     return (
         <CardItem>
             {pictureURL && <CardMedia component="img" className={styles.media} image={pictureURL} />}
-            <CardInfo newsPost={newsPost} />
+            <CardInfo item={item} />
             <Typography className={styles.description}>{description}</Typography>
         </CardItem>
     );

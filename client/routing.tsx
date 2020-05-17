@@ -1,8 +1,10 @@
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { SnackbarProvider } from 'notistack';
+import { Fade } from '@material-ui/core';
 
+import { ROUTES } from 'client/consts';
 import Layout from 'components/layout-blocks/layout';
 import {
     AdminPage,
@@ -13,13 +15,18 @@ import {
     PersonalPage,
     PersonalPerformancesPage
 } from 'components/pages';
-import { ROUTES } from 'client/consts';
-import { Fade } from '@material-ui/core';
+
 import apolloClient from './apollo';
 
 
 const PageTransitionHOC = (Component: React.ElementType) => (
-    () => <Fade mountOnEnter in><div><Component /></div></Fade>
+    () => (
+        <Fade mountOnEnter in>
+            <div>
+                <Component />
+            </div>
+        </Fade>
+    )
 );
 
 export default (

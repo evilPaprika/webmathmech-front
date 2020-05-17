@@ -8,12 +8,12 @@ interface Props {
     [prop: string]: unknown;
 }
 
-const AsyncButton = ({ isLoading, children, ...otherProps }: Props) => (
+export const AsyncButton = memo(({ isLoading, children, ...otherProps }: Props) => (
     <Box textAlign="center">
         {isLoading
             ? <CircularProgress />
             : <Button {...otherProps}>{children}</Button>}
     </Box>
-);
+));
 
-export default memo(AsyncButton);
+export default AsyncButton;

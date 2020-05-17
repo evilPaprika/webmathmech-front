@@ -12,7 +12,7 @@ enum InputTypes {
 
 type Props = Partial<OutlinedTextFieldProps> & { label: string };
 
-const LabeledInput = (props: Props) => {
+const LabeledInput = memo((props: Props) => {
     const { type = InputTypes.Text, color = 'secondary', variant = 'outlined', ...otherProps } = props;
     const styles = useStyles();
 
@@ -30,10 +30,10 @@ const LabeledInput = (props: Props) => {
             />
         </FormControl>
     );
-};
+});
 
 
-const LabeledPasswordInput = (props: Props) => {
+export const LabeledPasswordInput = (props: Props) => {
     const styles = useStyles();
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -68,4 +68,4 @@ const LabeledPasswordInput = (props: Props) => {
     );
 };
 
-export default memo(LabeledInput);
+export default LabeledInput;
