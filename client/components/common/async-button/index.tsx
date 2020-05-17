@@ -1,12 +1,11 @@
 import React, { memo } from 'react';
-import { Box, Button, CircularProgress } from '@material-ui/core';
+import { Box, Button, ButtonProps, CircularProgress } from '@material-ui/core';
 
 
-interface Props {
+type Props = ButtonProps & {
     children: React.ReactNode;
     isLoading: boolean;
-    [prop: string]: unknown;
-}
+};
 
 export const AsyncButton = memo(({ isLoading, children, ...otherProps }: Props) => (
     <Box textAlign="center">
