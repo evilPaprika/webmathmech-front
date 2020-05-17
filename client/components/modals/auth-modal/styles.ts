@@ -1,13 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
     textPointer: {
         cursor: 'pointer'
-    },
-
-    error: {
-        marginTop: '5px',
-        color: theme.palette.error.main
     }
 }));

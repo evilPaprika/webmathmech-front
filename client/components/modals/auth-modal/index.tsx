@@ -1,10 +1,13 @@
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
 import React, { memo, useCallback, useState } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
 import { AuthMethods } from 'client/types';
-import { AsyncButton, ContainerBox, LabeledInput, Modal } from 'components/common';
+import { AsyncButton, ContainerBox, LabeledInput, Modal, SnackbarErrorText } from 'components/common';
+
 import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';
 
@@ -33,6 +36,7 @@ const DEFAULT_STATE: ModalState = {
 
 export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
     const styles = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [authState, setAuthState] = useState<ModalState>(DEFAULT_STATE);
     const { name, surname, login, password, loginMethod } = authState;
@@ -47,7 +51,7 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
 
     const client = useApolloClient();
 
-    const [userAuth, { loading, error }] = useMutation(
+    const [userAuth, { loading }] = useMutation(
         isSignUpMethod ? USER_SIGNUP : USER_SIGNIN,
         {
             onCompleted(response) {
@@ -57,6 +61,11 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
 
                 refetch();
                 onClose();
+            },
+            onError: (error: ApolloError) => {
+                const title = 'Произошла ошибка. Проверьте введенные данные';
+
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
         }
     );
@@ -158,7 +167,6 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
                 >
                     {isSignUpMethod ? 'Зарегистрироваться' : 'Войти'}
                 </AsyncButton>
-                {error && <div className={styles.error}>Произошла ошибка, проверьте введенные данные</div>}
             </ContainerBox>
             <Box mb={3}>
                 <OauthButtons />
