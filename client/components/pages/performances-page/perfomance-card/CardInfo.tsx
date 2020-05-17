@@ -51,20 +51,16 @@ export const CardInfo = memo(({ item }: Props) => {
                         <MenuItem onClick={openRemoveModal}>Удалить</MenuItem>
                     </Menu>
 
-                    {isOpenEditModal && (
-                        <PerformancePostModal
-                            performancePostId={item.id}
-                            isOpen={isOpenEditModal}
-                            close={closeEditModal}
-                        />
-                    )}
-                    {isOpenRemoveModal && (
-                        <RemovePerformancePostModal
-                            performancePostId={item.id}
-                            isOpen={isOpenRemoveModal}
-                            close={closeRemoveModal}
-                        />
-                    )}
+                    <PerformancePostModal
+                        performancePostId={item.id}
+                        isOpen={isOpenEditModal}
+                        close={closeEditModal}
+                    />
+                    <RemovePerformancePostModal
+                        performancePostId={item.id}
+                        isOpen={isOpenRemoveModal}
+                        close={closeRemoveModal}
+                    />
                 </>
             )}
         </Box>

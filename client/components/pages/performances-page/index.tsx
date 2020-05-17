@@ -2,20 +2,19 @@ import React, { memo, useState } from 'react';
 import { Container } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
-import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'client/apollo/queries';
+import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { PerformancePost, PerformancePostsData, Roles, UserData } from 'client/types';
 import { AddEntityIcon, InfiniteScroll, Teleporter } from 'components/common';
 import { PerformancePostModal } from 'components/modals';
+
 import { PerformanceCard } from './perfomance-card';
-import { useStyles } from './styles';
 
 
 const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];
 
 export const PerformancesPage = memo(() => {
-    const styles = useStyles();
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [isOpenModal, openModal, closeModal] = useModal();
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
@@ -51,7 +50,7 @@ export const PerformancesPage = memo(() => {
     };
 
     return (
-        <Container className={styles.performancesPage} disableGutters>
+        <Container disableGutters>
             <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                 {items.map((item) => <PerformanceCard item={item} key={item.id} />)}
             </InfiniteScroll>

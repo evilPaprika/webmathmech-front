@@ -2,9 +2,10 @@ import React, { ChangeEvent, memo, useContext } from 'react';
 import { Box, Chip } from '@material-ui/core';
 
 import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
-import { EditModeButtons } from 'components/pages/personal-page/edit-mode-buttons';
-import { EditableField } from 'components/pages/personal-page/editable-field';
 import { LoadingWrapper } from 'components/common';
+
+import { EditModeButtons } from './edit-mode-buttons';
+import { EditableField } from './editable-field';
 
 
 const PersonalPage = memo(() => {
