@@ -1,28 +1,25 @@
 import moment from 'moment';
-import React, { memo } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Typography, Box, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Box, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MoreVert';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
-import { PerformancePost, Roles, UserData } from 'client/types';
-import { PerformancePostModal, RemovePerformancePostModal } from 'components/modals';
-
+import { NewsPost, UserData, Roles } from 'client/types';
+import { NewsPostModal, RemoveNewsPostModal } from 'components/modals';
 import { useStyles } from './styles';
 
 
 interface Props {
-    item: PerformancePost;
+    item: NewsPost;
 }
 
-export const CardInfo = memo(({ item }: Props) => {
+export const CardInfo = ({ item }: Props) => {
     const styles = useStyles();
     const [anchorEl, openMenu, closeMenu] = useMenu();
-
-    const [isOpenRemoveModal, openRemoveModal, closeRemoveModal] = useModal();
     const [isOpenEditModal, openEditModal, closeEditModal] = useModal();
-
+    const [isOpenRemoveModal, openRemoveModal, closeRemoveModal] = useModal();
     const { data } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = data?.getCurrentUser || {};
 
@@ -51,14 +48,13 @@ export const CardInfo = memo(({ item }: Props) => {
                         <MenuItem onClick={openEditModal}>Редактировать</MenuItem>
                         <MenuItem onClick={openRemoveModal}>Удалить</MenuItem>
                     </Menu>
-
-                    <PerformancePostModal
-                        performancePostId={item.id}
+                    <NewsPostModal
+                        newsPostId={item.id}
                         isOpen={isOpenEditModal}
                         close={closeEditModal}
                     />
-                    <RemovePerformancePostModal
-                        performancePostId={item.id}
+                    <RemoveNewsPostModal
+                        newsPostId={item.id}
                         isOpen={isOpenRemoveModal}
                         close={closeRemoveModal}
                     />
@@ -66,6 +62,4 @@ export const CardInfo = memo(({ item }: Props) => {
             )}
         </Box>
     );
-});
-
-export default CardInfo;
+};
