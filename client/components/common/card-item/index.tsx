@@ -6,7 +6,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-const CardItem = ({ children }: Props) => {
+export const CardItem = memo(({ children }: Props) => {
     return (
         <Box my={4}>
             <Card variant="outlined">
@@ -14,6 +14,6 @@ const CardItem = ({ children }: Props) => {
             </Card>
         </Box>
     );
-};
+});
 
-export default memo(CardItem);
+export default CardItem;

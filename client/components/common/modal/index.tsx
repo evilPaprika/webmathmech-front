@@ -12,7 +12,7 @@ interface Props {
     close(): void;
 }
 
-const Modal = ({ isOpen, close, title, children }: Props) => {
+export const Modal = memo(({ isOpen, close, title, children }: Props) => {
     const styles = useStyles();
 
     return (
@@ -41,6 +41,6 @@ const Modal = ({ isOpen, close, title, children }: Props) => {
             </Container>
         </MaterialUIModal>
     );
-};
+});
 
-export default memo(Modal);
+export default Modal;

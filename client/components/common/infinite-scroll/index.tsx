@@ -12,8 +12,8 @@ interface Props {
 
 const Loader = <CircularProgress key={0} />;
 
-const InfiniteScroll = ({ loading, ...rest }: Props) => (
+export const InfiniteScroll = memo(({ loading, ...rest }: Props) => (
     <InfiniteScroller initialLoad={false} loader={loading ? Loader : undefined} {...rest} />
-);
+));
 
-export default memo(InfiniteScroll);
+export default InfiniteScroll;

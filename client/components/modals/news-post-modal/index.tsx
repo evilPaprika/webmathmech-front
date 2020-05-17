@@ -1,13 +1,12 @@
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
 import { FIND_NEWS_POST } from 'apollo/queries';
-import { useModal } from 'client/hooks/use-modal';
 import { NewsPost, NewsPostData } from 'client/types';
-import { Alert, AsyncButton, ContainerBox, LabeledInput, LoadingWrapper, Modal } from 'components/common';
-
-import { useStyles } from './styles';
+import { AsyncButton, ContainerBox, LabeledInput, LoadingWrapper, Modal, SnackbarErrorText } from 'components/common';
 
 
 interface Props {
@@ -26,23 +25,25 @@ const DEFAULT_STATE: ModalState = {
     pictureURL: '',
 };
 
-const postFind = (item?: NewsPost) => item ?? DEFAULT_STATE;
+const applyDefaultState = (item?: NewsPost) => ({
+    description: item?.description ?? DEFAULT_STATE.description,
+    pictureURL: item?.pictureURL ?? DEFAULT_STATE.pictureURL,
+});
 
 export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => {
-    const styles = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const { data, loading: findLoading } = useQuery<NewsPostData>(
         FIND_NEWS_POST,
         { variables: { id } }
     );
 
-    const [isShownAlert, openAlert, closeAlert] = useModal();
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
     const { description, pictureURL } = modalState;
     const isCreate = !id;
 
     useEffect(() => {
-        setModalState(postFind(data?.findNewsPost));
+        setModalState(applyDefaultState(data?.findNewsPost));
     }, [id, data]);
 
     const onCloseModal = useCallback(() => {
@@ -51,20 +52,29 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
         close();
     }, []);
 
-    const [mutateNewsPost, { loading, error }] = useMutation(
+    const [mutateNewsPost, { loading }] = useMutation(
         isCreate ? CREATE_NEWS_POST : PATCH_NEWS_POST,
         {
             onCompleted() {
+                enqueueSnackbar(
+                    `Новость успешно ${isCreate ? 'создана' : 'обновлена'}!`,
+                    { variant: 'success' }
+                );
                 onCloseModal();
-                openAlert();
             },
             update: (dataProxy, mutationResult) => {
                 dataProxy.writeQuery({
                     query: FIND_NEWS_POST,
                     data: {
                         findNewsPost: mutationResult.data.patchNewsPost
-                    }
+                    },
+                    variables: { id: mutationResult.data.patchNewsPost.id }
                 });
+            },
+            onError: (error: ApolloError) => {
+                const title = `Произошла ошибка при ${isCreate ? 'создании' : 'обновлении'} новости`;
+
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
         }
     );
@@ -117,53 +127,43 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
     const title = isCreate ? 'Создание новости' : 'Редактирование новости';
 
     return (
-        <>
-            <Modal title={title} isOpen={isOpen} close={onCloseModal}>
-                <LoadingWrapper loading={findLoading}>
-                    <ContainerBox>
-                        <LabeledInput
-                            value={description}
-                            label="Описание"
-                            rowsMax={10}
-                            multiline
-                            onChange={changeDescription}
-                        />
-                    </ContainerBox>
-                    <ContainerBox>
-                        <LabeledInput
-                            value={pictureURL}
-                            size="small"
-                            label="Ссылка на фото"
-                            onChange={changePictureURL}
-                        />
-                    </ContainerBox>
-                    <ContainerBox gap="large">
-                        <AsyncButton
-                            isLoading={loading}
-                            size="large"
-                            variant="outlined"
-                            color="secondary"
-                            fullWidth
-                            onClick={submit}
-                        >
-                            {isCreate ? 'Создать' : 'Сохранить изменения'}
-                        </AsyncButton>
-                        {error && (
-                            <div className={styles.error}>
-                                Произошла ошибка при {isCreate ? 'создании' : 'обновлении'} новости
-                            </div>
-                        )}
-                    </ContainerBox>
-                    <input
-                        type="file"
-                        required
-                        onChange={onFileChange}
+        <Modal title={title} isOpen={isOpen} close={onCloseModal}>
+            <LoadingWrapper loading={findLoading}>
+                <ContainerBox>
+                    <LabeledInput
+                        value={description}
+                        label="Описание"
+                        rowsMax={10}
+                        multiline
+                        onChange={changeDescription}
                     />
-                </LoadingWrapper>
-            </Modal>
-            {isShownAlert && (
-                <Alert onClose={closeAlert} text={`Новость успешно ${isCreate ? 'создана' : 'обновлена'}!`} />
-            )}
-        </>
+                </ContainerBox>
+                <ContainerBox>
+                    <LabeledInput
+                        value={pictureURL}
+                        size="small"
+                        label="Ссылка на фото"
+                        onChange={changePictureURL}
+                    />
+                </ContainerBox>
+                <ContainerBox gap="large">
+                    <AsyncButton
+                        isLoading={loading}
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                        onClick={submit}
+                    >
+                        {isCreate ? 'Создать' : 'Сохранить изменения'}
+                    </AsyncButton>
+                </ContainerBox>
+                <input
+                    type="file"
+                    required
+                    onChange={onFileChange}
+                />
+            </LoadingWrapper>
+        </Modal>
     );
 });

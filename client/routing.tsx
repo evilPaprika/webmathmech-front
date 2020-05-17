@@ -20,7 +20,13 @@ import apolloClient from './apollo';
 
 
 const PageTransitionHOC = (Component: React.ElementType) => (
-    () => <Fade mountOnEnter in><div><Component /></div></Fade>
+    () => (
+        <Fade mountOnEnter in>
+            <div>
+                <Component />
+            </div>
+        </Fade>
+    )
 );
 
 export default (

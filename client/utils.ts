@@ -1,3 +1,5 @@
+import { ApolloError } from 'apollo-client';
+
 import { Option, Options } from './types';
 
 
@@ -10,3 +12,25 @@ export const findMenuItemByPath = (menuItems: Options, pathname: string): Option
 };
 
 export const truncateText = (text: string, length: number): string => `${text.slice(0, length - 2)}...`;
+
+interface ValidationError {
+    constraints?: {
+        [x: string]: string;
+    };
+}
+
+export const getErrors = (error: ApolloError): Array<string> | null => {
+    if (!error) {
+        return null;
+    }
+
+    const validationErrors: ValidationError[] = error.graphQLErrors[0].extensions?.exception.validationErrors;
+
+    if (!validationErrors) {
+        return [error.message];
+    }
+
+    return validationErrors.map(({ constraints = {} }) => Object
+        .values(constraints)
+        .join('\n'));
+};

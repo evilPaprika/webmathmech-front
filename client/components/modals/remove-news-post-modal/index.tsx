@@ -1,13 +1,13 @@
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
 import React, { memo, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_NEWS_POST } from 'apollo/mutations';
 import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
-import { useModal } from 'client/hooks';
 import { NewsPostsData } from 'client/types';
-import { Alert, AsyncButton, ContainerBox, Modal } from 'components/common';
-import { useStyles } from './styles';
+import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 
 interface Props {
@@ -17,9 +17,9 @@ interface Props {
 }
 
 export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) => {
-    const styles = useStyles();
-    const [isShownAlert, openAlert, closeAlert] = useModal();
-    const [removeNewsPost, { loading, error, client }] = useMutation(
+    const { enqueueSnackbar } = useSnackbar();
+
+    const [removeNewsPost, { loading, client }] = useMutation(
         REMOVE_NEWS_POST,
         {
             onCompleted() {
@@ -30,8 +30,13 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
                         data: { getNewsPosts: data.getNewsPosts.filter((post) => post.id !== newsPostId) }
                     });
                 }
+                enqueueSnackbar('Новость успешно удалена!', { variant: 'success' });
                 close();
-                openAlert();
+            },
+            onError(error: ApolloError) {
+                const title = 'Произошла ошибка при удалении новости';
+
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
         }
     );
@@ -42,18 +47,14 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     }, [newsPostId]);
 
     return (
-        <>
-            <Modal title="Предупреждение" isOpen={isOpen} close={close}>
-                <ContainerBox gap="large">
-                    <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
-                </ContainerBox>
-                <ContainerBox display="flex" flexDirection="row-reverse">
-                    <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
-                    <Button color="secondary" onClick={close}>Отмена</Button>
-                </ContainerBox>
-                {error && <ContainerBox className={styles.error}>Произошла ошибка. Попробуйте снова</ContainerBox>}
-            </Modal>
-            {isShownAlert && <Alert onClose={closeAlert} text="Новость успешно удалена!" />}
-        </>
+        <Modal title="Предупреждение" isOpen={isOpen} close={close}>
+            <ContainerBox gap="large">
+                <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
+            </ContainerBox>
+            <ContainerBox display="flex" flexDirection="row-reverse">
+                <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
+                <Button color="secondary" onClick={close}>Отмена</Button>
+            </ContainerBox>
+        </Modal>
     );
 });

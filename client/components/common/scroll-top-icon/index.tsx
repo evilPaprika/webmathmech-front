@@ -5,7 +5,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useStyles } from './styles';
 
 
-const ScrollTopIcon = () => {
+export const ScrollTopIcon = memo(() => {
     const styles = useStyles();
 
     const trigger = useScrollTrigger({
@@ -26,6 +26,6 @@ const ScrollTopIcon = () => {
             </div>
         </Zoom>
     );
-};
+});
 
-export default memo(ScrollTopIcon);
+export default ScrollTopIcon;

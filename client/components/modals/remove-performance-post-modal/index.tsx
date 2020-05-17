@@ -1,14 +1,13 @@
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
 import React, { memo, useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_PERFORMANCE_POST } from 'apollo/mutations';
 import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from 'client/consts';
-import { useModal } from 'client/hooks';
 import { PerformancePostsData } from 'client/types';
-import { Alert, AsyncButton, ContainerBox, Modal } from 'components/common';
-
-import { useStyles } from './styles';
+import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 
 interface Props {
@@ -18,9 +17,8 @@ interface Props {
 }
 
 export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, close }: Props) => {
-    const styles = useStyles();
-    const [isShownAlert, openAlert, closeAlert] = useModal();
-    const [removePerformancePost, { loading, error, client }] = useMutation(
+    const { enqueueSnackbar } = useSnackbar();
+    const [removePerformancePost, { loading, client }] = useMutation(
         REMOVE_PERFORMANCE_POST,
         {
             onCompleted() {
@@ -32,8 +30,12 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
                         data: { getPerformancePosts: updatedData }
                     });
                 }
-                close();
-                openAlert();
+                enqueueSnackbar('Пост с выступлением успешно удален!', { variant: 'success' });
+            },
+            onError(error: ApolloError) {
+                const title = 'Произошла ошибка при удалении выступления';
+
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
             }
         }
     );
@@ -44,18 +46,14 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
     }, [performancePostId]);
 
     return (
-        <>
-            <Modal title="Предупреждение" isOpen={isOpen} close={close}>
-                <ContainerBox gap="large">
-                    <Typography>Вы уверены, что хотите безвозвратно удалить пост с выступлением?</Typography>
-                </ContainerBox>
-                <ContainerBox display="flex" flexDirection="row-reverse">
-                    <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
-                    <Button color="secondary" onClick={close}>Отмена</Button>
-                </ContainerBox>
-                {error && <ContainerBox className={styles.error}>Произошла ошибка. Попробуйте снова</ContainerBox>}
-            </Modal>
-            {isShownAlert && <Alert onClose={closeAlert} text="Пост с выступлением успешно удален!" />}
-        </>
+        <Modal title="Предупреждение" isOpen={isOpen} close={close}>
+            <ContainerBox gap="large">
+                <Typography>Вы уверены, что хотите безвозвратно удалить пост с выступлением?</Typography>
+            </ContainerBox>
+            <ContainerBox display="flex" flexDirection="row-reverse">
+                <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
+                <Button color="secondary" onClick={close}>Отмена</Button>
+            </ContainerBox>
+        </Modal>
     );
 });
