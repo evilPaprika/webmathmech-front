@@ -46,7 +46,7 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
     }, [performancePostId]);
 
     return (
-        <Modal title="Предупреждение" isOpen={isOpen} close={close}>
+        <Modal title="Предупреждение" isOpen={isOpen} close={close} disablePaddings>
             <ContainerBox gap="large">
                 <Typography>Вы уверены, что хотите безвозвратно удалить пост с выступлением?</Typography>
             </ContainerBox>

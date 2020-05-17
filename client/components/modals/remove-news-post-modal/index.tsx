@@ -47,7 +47,7 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     }, [newsPostId]);
 
     return (
-        <Modal title="Предупреждение" isOpen={isOpen} close={close}>
+        <Modal title="Предупреждение" isOpen={isOpen} close={close} disablePaddings>
             <ContainerBox gap="large">
                 <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
             </ContainerBox>
