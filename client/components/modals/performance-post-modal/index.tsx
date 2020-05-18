@@ -152,6 +152,12 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
         mutatePerformancePost({ variables });
     }, [mutatePerformancePost, modalState, id]);
 
+    const onEnterPress = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.charCode === 13) {
+            submit();
+        }
+    }, []);
+
     // fileupload draft
     const [fileUpload] = useMutation(
         FILE_UPLOAD,
@@ -224,6 +230,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                             size="small"
                             label="Ссылка на видео"
                             onChange={changeVideoURL}
+                            onKeyPress={onEnterPress}
                         />
                     </ContainerBox>
                 )}

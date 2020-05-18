@@ -78,6 +78,12 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
         userAuth({ variables });
     }, [userAuth, login, password, name, surname]);
 
+    const onEnterPress = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.charCode === 13) {
+            submit();
+        }
+    }, []);
+
     const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAuthState({
             ...authState,
@@ -123,17 +129,17 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
                 <ContainerBox display="flex">
                     <Box mr="5px">
                         <LabeledInput
-                            size="small"
-                            label="Имя"
                             value={name}
+                            label="Имя"
+                            size="small"
                             onChange={changeName}
                         />
                     </Box>
                     <Box ml="5px">
                         <LabeledInput
-                            size="small"
-                            label="Фамилия"
                             value={surname}
+                            label="Фамилия"
+                            size="small"
                             onChange={changeSurname}
                         />
                     </Box>
@@ -141,19 +147,20 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
             )}
             <ContainerBox>
                 <LabeledInput
-                    size="small"
-                    label="Логин"
                     value={login}
-                    onChange={changeLogin}
+                    label="Логин"
+                    size="small"
                     helperText="Логин должен быть длиной от 4 до 16 символов"
+                    onChange={changeLogin}
                 />
                 <LabeledInput
-                    size="small"
+                    value={password}
                     type="password"
                     label="Пароль"
-                    value={password}
-                    onChange={changePassword}
+                    size="small"
                     helperText="Пароль должен быть длиной от 8 до 64 символов"
+                    onChange={changePassword}
+                    onKeyPress={onEnterPress}
                 />
             </ContainerBox>
             <ContainerBox>

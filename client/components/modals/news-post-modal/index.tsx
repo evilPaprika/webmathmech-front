@@ -102,6 +102,12 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
         mutateNewsPost({ variables });
     }, [mutateNewsPost, modalState, id]);
 
+    const onEnterPress = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.charCode === 13) {
+            submit();
+        }
+    }, []);
+
     // fileupload draft
     const [fileUpload] = useMutation(
         FILE_UPLOAD,
@@ -144,6 +150,7 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
                         size="small"
                         label="Ссылка на фото"
                         onChange={changePictureURL}
+                        onKeyPress={onEnterPress}
                     />
                 </ContainerBox>
                 <ContainerBox gap="large">
