@@ -59,7 +59,7 @@ const NewsPage = () => {
                         <AddEntityIcon onClick={openModal} />
                     </Teleporter.Source>
 
-                    <NewsPostModal isOpen={isOpenModal} close={closeModal} />
+                    {isOpenModal && <NewsPostModal isOpen={isOpenModal} close={closeModal} />}
                 </>
             )}
         </Container>

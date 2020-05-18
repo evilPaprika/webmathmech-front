@@ -48,16 +48,20 @@ export const CardInfo = ({ item }: Props) => {
                         <MenuItem onClick={openEditModal}>Редактировать</MenuItem>
                         <MenuItem onClick={openRemoveModal}>Удалить</MenuItem>
                     </Menu>
-                    <NewsPostModal
-                        newsPostId={item.id}
-                        isOpen={isOpenEditModal}
-                        close={closeEditModal}
-                    />
-                    <RemoveNewsPostModal
-                        newsPostId={item.id}
-                        isOpen={isOpenRemoveModal}
-                        close={closeRemoveModal}
-                    />
+                    {isOpenEditModal && (
+                        <NewsPostModal
+                            newsPostId={item.id}
+                            isOpen={isOpenEditModal}
+                            close={closeEditModal}
+                        />
+                    )}
+                    {isOpenRemoveModal && (
+                        <RemoveNewsPostModal
+                            newsPostId={item.id}
+                            isOpen={isOpenRemoveModal}
+                            close={closeRemoveModal}
+                        />
+                    )}
                 </>
             )}
         </Box>
