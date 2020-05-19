@@ -23,7 +23,9 @@ export const AuthButtons = () => {
     const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
     const { data, refetch, error } = useQuery<UserData>(GET_CURRENT_USER);
     const { avatar, name, surname } = data?.getCurrentUser || {};
-    const showSurname = `${name} ${surname}`.length < MAX_USER_NAME_LENGTH_IN_HEADER;
+    const userName = `${name} ${surname}`.length < MAX_USER_NAME_LENGTH_IN_HEADER
+        ? `${name} ${surname}`
+        : name;
 
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
@@ -43,7 +45,7 @@ export const AuthButtons = () => {
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
                         <Typography className={styles.login}>
-                            {name} {showSurname && surname}
+                            {userName}
                         </Typography>
                         {avatar
                             ? <Avatar alt="avatar" src={avatar} />
