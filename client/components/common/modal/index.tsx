@@ -10,10 +10,9 @@ interface Props {
     children: React.ReactNode;
     isOpen: boolean;
     close(): void;
-    disablePaddings?: boolean;
 }
 
-export const Modal = memo(({ isOpen, close, title, children, disablePaddings }: Props) => {
+export const Modal = memo(({ isOpen, close, title, children }: Props) => {
     const styles = useStyles();
 
     return (
@@ -36,7 +35,7 @@ export const Modal = memo(({ isOpen, close, title, children, disablePaddings }: 
                         </IconButton>
                     </Box>
                 </Box>
-                <Box pt={5} px={3} pb={!disablePaddings ? 3 : 0}>
+                <Box pt={5} px={3} pb={3}>
                     {children}
                 </Box>
             </Container>

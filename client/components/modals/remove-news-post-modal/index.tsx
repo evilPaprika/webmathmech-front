@@ -47,11 +47,11 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
     }, [newsPostId]);
 
     return (
-        <Modal title="Предупреждение" isOpen={isOpen} close={close} disablePaddings>
+        <Modal title="Предупреждение" isOpen={isOpen} close={close}>
             <ContainerBox gap="large">
                 <Typography>Вы уверены, что хотите безвозвратно удалить новость?</Typography>
             </ContainerBox>
-            <ContainerBox display="flex" flexDirection="row-reverse">
+            <ContainerBox display="flex" flexDirection="row-reverse" gap="none">
                 <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
                 <Button color="secondary" onClick={close}>Отмена</Button>
             </ContainerBox>
