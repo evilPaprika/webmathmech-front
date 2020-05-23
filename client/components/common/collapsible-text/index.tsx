@@ -6,7 +6,7 @@ import { truncateText } from 'client/utils';
 
 
 interface Props {
-    text: string;
+    text?: string;
     minLengthToCollapse?: number;
     Component?: React.ElementType;
     className?: string;
@@ -16,16 +16,17 @@ const MIN_TEXT_LENGTH_TO_COLLAPSE = 200;
 
 
 export const CollapsibleText = memo((props: Props) => {
+    const { text = '', minLengthToCollapse = MIN_TEXT_LENGTH_TO_COLLAPSE, Component = Typography, className } = props;
+
     const [collapsed, toggleCollapsed] = useToggle();
 
-    const { text, minLengthToCollapse = MIN_TEXT_LENGTH_TO_COLLAPSE, Component = Typography, className } = props;
     const canCollapse = text.length >= minLengthToCollapse;
     const truncatedText = useMemo(
         () => (collapsed || !canCollapse ? text : truncateText(text, minLengthToCollapse)),
         [text, collapsed]
     );
 
-    return (
+    return truncatedText ? (
         <Component className={className}>
             {truncatedText}
             {' '}
@@ -35,7 +36,7 @@ export const CollapsibleText = memo((props: Props) => {
                 </Button>
             )}
         </Component>
-    );
+    ) : null;
 });
 
 

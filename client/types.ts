@@ -1,12 +1,11 @@
+import { Query } from 'client/typings/generated';
+
+
+export * from 'client/typings/generated';
+
 export enum AuthMethods {
     SignIn = 'sign-in',
     SignUp = 'sign-up'
-}
-
-export enum Roles {
-    User = 'USER',
-    Student = 'STUDENT',
-    Admin = 'ADMIN'
 }
 
 export enum MediaTypes {
@@ -14,62 +13,24 @@ export enum MediaTypes {
     Video = 'video',
 }
 
-export enum PerformancePostState {
-    Draft = 'DRAFT',
-    Poll = 'POLL',
-    PollFinished = 'POLL_FINISHED',
-    Published = 'PUBLISHED',
-}
-
-export interface NewsPost {
-    id: string;
-    description: string;
-    pictureURL?: string;
-    createdAt: Date;
-}
-
-export interface PerformancePost {
-    id: string;
-    description: string;
-    pictureURL?: string;
-    videoURL?: string;
-    createdAt: Date;
-    averageRating: PerformanceRating;
-    state: PerformancePostState;
-}
-
-export interface PerformanceRating {
-    format: number;
-    content: number;
-    interest: number;
-}
-
 export interface NewsPostsData {
-    getNewsPosts: Array<NewsPost>;
+    getNewsPosts: Query['getNewsPosts'];
 }
 
 export interface NewsPostData {
-    findNewsPost: NewsPost;
+    findNewsPost: Query['findNewsPost'];
 }
 
 export interface PerformancePostsData {
-    getPerformancePosts: Array<PerformancePost>;
+    getPerformancePosts: Query['getPerformancePosts'];
 }
 
 export interface PerformancePostData {
-    findPerformancePost: PerformancePost;
-}
-
-export interface User {
-    name: string;
-    surname: string;
-    avatar?: string;
-    role: Roles;
-    login: string;
+    findPerformancePost: Query['findPerformancePost'];
 }
 
 export interface UserData {
-    getCurrentUser: User;
+    getCurrentUser: Query['getCurrentUser'];
 }
 
 export interface IsLoggedInData {

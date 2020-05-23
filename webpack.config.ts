@@ -25,6 +25,7 @@ export default {
             apollo: path.resolve(PROJECT_ROOT, 'client/apollo/'),
             components: path.resolve(PROJECT_ROOT, 'client/components/'),
             contexts: path.resolve(PROJECT_ROOT, 'client/contexts/'),
+            typings: path.resolve(PROJECT_ROOT, 'client/typings/'),
         }
     },
     mode,

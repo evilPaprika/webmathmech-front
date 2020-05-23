@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 // Authorization
 export const USER_SIGNUP = gql`
-    mutation userSignUp($login: String!, $password: String!, $name: String!, $surname: String!) {
+    mutation ($login: String!, $password: String!, $name: String!, $surname: String!) {
         userSignUp(login: $login, password: $password, name: $name, surname: $surname) {
             token
         }
@@ -11,7 +11,7 @@ export const USER_SIGNUP = gql`
 `;
 
 export const USER_SIGNIN = gql`
-    mutation userSignIn($login: String!, $password: String!) {
+    mutation ($login: String!, $password: String!) {
         userSignIn(login: $login, password: $password) {
             token
         }
@@ -19,7 +19,7 @@ export const USER_SIGNIN = gql`
 `;
 
 export const AUTH_VK = gql`
-    mutation authVk($code: String!) {
+    mutation ($code: String!) {
         authVk(code: $code) {
             token
         }
@@ -28,7 +28,7 @@ export const AUTH_VK = gql`
 
 // News posts
 export const CREATE_NEWS_POST = gql`
-    mutation createNewsPost($description: String!, $pictureURL: String) {
+    mutation ($description: String!, $pictureURL: String) {
         createNewsPost(description: $description, pictureURL: $pictureURL) {
             id
         }
@@ -36,7 +36,7 @@ export const CREATE_NEWS_POST = gql`
 `;
 
 export const PATCH_NEWS_POST = gql`
-    mutation patchNewsPost($id: String!, $description: String!, $pictureURL: String) {
+    mutation ($id: String!, $description: String!, $pictureURL: String) {
         patchNewsPost(id: $id, description: $description, pictureURL: $pictureURL) {
             id
             description
@@ -46,19 +46,19 @@ export const PATCH_NEWS_POST = gql`
 `;
 
 export const REMOVE_NEWS_POST = gql`
-    mutation removeNewsPost($id: String!) {
+    mutation ($id: String!) {
         removeNewsPost(id: $id)
     }
 `;
 
 export const FILE_UPLOAD = gql`
-    mutation($file: Upload!) {
+    mutation ($file: Upload!) {
         fileUpload(file: $file)
     }
 `;
 
 export const PATCH_CURRENT_USER = gql`
-    mutation($name: String, $surname: String, $password: String) {
+    mutation ($name: String, $surname: String, $password: String) {
         patchCurrentUser(name: $name, surname: $surname, password: $password){
             id
         }
@@ -67,7 +67,7 @@ export const PATCH_CURRENT_USER = gql`
 
 // Performance posts
 export const CREATE_PERFORMANCE_POST = gql`
-    mutation createPerformancePost(
+    mutation (
         $description: String!,
         $pictureURL: String,
         $videoURL: String,
@@ -81,7 +81,7 @@ export const CREATE_PERFORMANCE_POST = gql`
 
 
 export const PATCH_PERFORMANCE_POST = gql`
-    mutation patchPerformancePost(
+    mutation (
         $id: String!,
         $description: String!,
         $pictureURL: String,
@@ -111,7 +111,7 @@ export const PATCH_PERFORMANCE_POST = gql`
 `;
 
 export const REMOVE_PERFORMANCE_POST = gql`
-    mutation removePerformancePost($id: String!) {
+    mutation ($id: String!) {
         removePerformancePost(id: $id)
     }
 `;
