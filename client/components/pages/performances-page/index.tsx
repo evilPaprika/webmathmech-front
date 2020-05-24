@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
-import { PerformancePost, PerformancePostsData, Roles, UserData } from 'client/types';
+import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/types';
 import { AddEntityIcon, InfiniteScroll, Teleporter } from 'components/common';
 import { PerformancePostModal } from 'components/modals';
 
@@ -58,7 +58,7 @@ export const PerformancesPage = memo(() => {
             {error && <div>Произошла ошибка. Пожалуйста, перезагрузите страницу!</div>}
             {!loading && !items.length && !error && <div>Выступлений не найдено!</div>}
 
-            {role === Roles.Admin && (
+            {role === Role.Admin && (
                 <>
                     <Teleporter.Source>
                         <AddEntityIcon onClick={openModal} />

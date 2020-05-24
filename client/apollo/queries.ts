@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 
 export const FIND_USER = gql`
-    query findUser($login: String!) {
+    query ($login: String!) {
         findUser(login: $login) {
             name
             surname
@@ -12,7 +12,7 @@ export const FIND_USER = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-    query getCurrentUser {
+    query {
         getCurrentUser {
             name
             surname
@@ -31,7 +31,7 @@ export const GET_IS_LOGGED_IN = gql`
 `;
 
 export const GET_NEWS_POSTS = gql`
-    query getNewsPosts($limit: Int!, $offset: Int!, $order: [String!]) {
+    query ($limit: Int!, $offset: Int!, $order: [String!]) {
         getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) {
             id
             description
@@ -43,7 +43,7 @@ export const GET_NEWS_POSTS = gql`
 
 
 export const FIND_NEWS_POST = gql`
-    query findNewsPost($id: String!) {
+    query ($id: String!) {
         findNewsPost(id: $id) {
             id
             description
@@ -53,7 +53,7 @@ export const FIND_NEWS_POST = gql`
 `;
 
 export const GET_PERFORMANCE_POSTS = gql`
-    query getPerformancePosts($limit: Int!, $offset: Int!, $order: [String!]) {
+    query ($limit: Int!, $offset: Int!, $order: [String!]) {
         getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }) {
             id
             description
@@ -71,7 +71,7 @@ export const GET_PERFORMANCE_POSTS = gql`
 `;
 
 export const FIND_PERFORMANCE_POST = gql`
-    query findPerformancePost($id: String!) {
+    query ($id: String!) {
         findPerformancePost(id: $id) {
             id
             description

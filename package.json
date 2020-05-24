@@ -12,6 +12,7 @@
     "build:server": "tsc --project server",
     "build:client": "webpack --config build/webpack.config.js",
     "build:production": "run-s build build:client",
+    "generate": "graphql-codegen --config codegen.yaml",
     "watch:server": "tsc --project server --watch",
     "lint": "eslint --ext=.ts,.tsx ./",
     "lint:fix": "eslint --fix --ext=.ts,.tsx ./"
@@ -111,6 +112,8 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.14.0",
+    "@graphql-codegen/typescript": "^1.14.0",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "babel-eslint": "^10.0.3",

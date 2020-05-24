@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Paper } from '@material-ui/core';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
 
-import { PerformanceRating } from 'client/types';
+import { Rating } from 'client/types';
 import { useStyles } from './styles';
 
 
 interface Props {
-    rating: PerformanceRating;
+    rating: Rating;
 }
 
 export const CardRating = memo(({ rating }: Props) => {

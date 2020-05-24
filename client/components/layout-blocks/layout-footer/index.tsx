@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Box, Container, Link, Typography } from '@material-ui/core';
 
 import { CURRENT_YEAR } from 'client/consts';
+
 import LogoVK from './logos/vk_logo.svg';
 import LogoMail from './logos/mail_logo.svg';
 import LogoGithub from './logos/github_logo.svg';
