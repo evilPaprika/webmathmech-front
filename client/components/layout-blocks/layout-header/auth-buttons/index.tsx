@@ -8,11 +8,23 @@ import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
 import { AuthModal } from 'client/components/modals';
 import { MENU_OPTIONS, ROUTES } from 'client/consts';
 import { useMenu, useModal } from 'client/hooks';
-import { IsLoggedInData, UserData } from 'client/types';
+import { IsLoggedInData, User, UserData } from 'client/types';
 import { useStyles } from './styles';
 
 
 const MAX_USER_NAME_LENGTH_IN_HEADER = 25;
+
+const getUsername = (user: User) => {
+    const { name, surname } = user;
+
+    if (!name && !surname) {
+        return '';
+    }
+
+    const isSurnameShown = `${name} ${surname}`.length < MAX_USER_NAME_LENGTH_IN_HEADER;
+
+    return `${name} ${isSurnameShown && surname}`.trim();
+};
 
 export const AuthButtons = () => {
     const styles = useStyles();
@@ -22,10 +34,8 @@ export const AuthButtons = () => {
 
     const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
     const { data, refetch, error } = useQuery<UserData>(GET_CURRENT_USER);
-    const { avatar, name, surname } = data?.getCurrentUser || {};
-    const userName = `${name} ${surname}`.length < MAX_USER_NAME_LENGTH_IN_HEADER
-        ? `${name} ${surname}`
-        : name;
+    const user = data?.getCurrentUser || {} as User;
+    const { avatar } = user;
 
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
@@ -44,8 +54,8 @@ export const AuthButtons = () => {
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
-                        <Typography className={styles.login}>
-                            {userName}
+                        <Typography className={styles.username}>
+                            {getUsername(user)}
                         </Typography>
                         {avatar
                             ? <Avatar alt="avatar" src={avatar} />
