@@ -5,7 +5,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Box, Typography } from '@material-ui/core';
 
 import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
-import { AuthMethods } from 'client/typings';
+import { AuthMethods } from 'client/types';
 import { AsyncButton, ContainerBox, LabeledInput, Modal, SnackbarErrorText } from 'components/common';
 
 import { OauthButtons } from './oauth-buttons';

@@ -6,7 +6,7 @@ import SettingsIcon from '@material-ui/icons/MoreVert';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
-import { NewsPost, UserData, Roles } from 'client/types';
+import { NewsPost, UserData, Role } from 'client/types';
 import { NewsPostModal, RemoveNewsPostModal } from 'components/modals';
 import { useStyles } from './styles';
 
@@ -28,7 +28,7 @@ export const CardInfo = ({ item }: Props) => {
             <Typography className={styles.date}>
                 {moment(item.createdAt).lang('ru').fromNow()}
             </Typography>
-            {role === Roles.Admin && (
+            {role === Role.Admin && (
                 <>
                     <IconButton aria-controls="user-menu" size="small" onClick={openMenu}>
                         <SettingsIcon />

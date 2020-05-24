@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import ReactPlayer from 'react-player';
 import { Box, CardMedia } from '@material-ui/core';
 
-import { PerformancePost } from 'client/typings';
+import { PerformancePost } from 'client/types';
 import { CardItem, CollapsibleText } from 'components/common';
 
 import { CardInfo } from './CardInfo';

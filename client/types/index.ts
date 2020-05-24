@@ -1,7 +1,7 @@
 import { Query } from './generated';
 
 
-export * from 'client/typings/generated';
+export * from 'client/types/generated';
 
 export enum AuthMethods {
     SignIn = 'sign-in',

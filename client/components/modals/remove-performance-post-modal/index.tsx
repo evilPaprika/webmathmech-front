@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_PERFORMANCE_POST } from 'apollo/mutations';
 import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from 'client/consts';
-import { PerformancePostsData } from 'client/typings';
+import { PerformancePostsData } from 'client/types';
 import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 

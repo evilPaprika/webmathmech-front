@@ -8,7 +8,7 @@ import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
 import { AuthModal } from 'client/components/modals';
 import { MENU_OPTIONS, ROUTES } from 'client/consts';
 import { useMenu, useModal } from 'client/hooks';
-import { IsLoggedInData, User, UserData } from 'client/typings';
+import { IsLoggedInData, User, UserData } from 'client/types';
 
 import { useStyles } from './styles';
 
