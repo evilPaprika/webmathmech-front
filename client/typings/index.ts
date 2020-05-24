@@ -1,4 +1,4 @@
-import { Query } from 'client/typings/generated';
+import { Query } from './generated';
 
 
 export * from 'client/typings/generated';

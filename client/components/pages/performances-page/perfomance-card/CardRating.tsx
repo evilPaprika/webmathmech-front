@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
 
-import { Rating } from 'client/types';
+import { Rating } from 'client/typings';
 import { useStyles } from './styles';
 
 

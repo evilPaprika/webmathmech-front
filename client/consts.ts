@@ -1,5 +1,5 @@
 import { GET_NEWS_POSTS, GET_PERFORMANCE_POSTS } from './apollo/queries';
-import { MediaTypes, Options, PerformancePostState } from './types';
+import { MediaTypes, Options, PerformancePostState } from './typings';
 
 
 export const NEWS_POSTS_LIMIT = 10;

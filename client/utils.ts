@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-client';
 
-import { Option, Options } from './types';
+import { Option, Options } from './typings';
 
 
 const PATH_REGEXP = /^(\/[\w-]+)/;

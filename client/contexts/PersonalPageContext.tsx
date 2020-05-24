@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { PATCH_CURRENT_USER } from 'apollo/mutations';
 import { GET_CURRENT_USER } from 'apollo/queries';
-import { User, UserData } from 'client/types';
+import { User, UserData } from 'client/typings';
 import { SnackbarErrorText } from 'components/common';
 
 

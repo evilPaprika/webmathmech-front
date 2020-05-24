@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_NEWS_POST } from 'apollo/mutations';
 import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
-import { NewsPostsData } from 'client/types';
+import { NewsPostsData } from 'client/typings';
 import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 

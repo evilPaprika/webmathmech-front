@@ -1,7 +1,8 @@
 import { ApolloError } from 'apollo-client';
 import React, { memo, useMemo } from 'react';
-import { getErrors } from 'client/utils';
 import { Box } from '@material-ui/core';
+
+import { getErrors } from 'client/utils';
 
 
 interface Props {

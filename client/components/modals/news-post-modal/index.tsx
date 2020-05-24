@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
 import { FIND_NEWS_POST } from 'apollo/queries';
-import { NewsPost, NewsPostData } from 'client/types';
+import { NewsPost, NewsPostData } from 'client/typings';
 import { AsyncButton, ContainerBox, LabeledInput, LoadingWrapper, Modal, SnackbarErrorText } from 'components/common';
 
 

@@ -6,7 +6,7 @@ import SettingsIcon from '@material-ui/icons/MoreVert';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
-import { PerformancePost, Role, UserData } from 'client/types';
+import { PerformancePost, Role, UserData } from 'client/typings';
 import { PerformancePostModal, RemovePerformancePostModal } from 'components/modals';
 
 import { useStyles } from './styles';

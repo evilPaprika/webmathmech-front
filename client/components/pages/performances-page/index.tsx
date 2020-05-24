@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
-import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/types';
+import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/typings';
 import { AddEntityIcon, InfiniteScroll, Teleporter } from 'components/common';
 import { PerformancePostModal } from 'components/modals';
 

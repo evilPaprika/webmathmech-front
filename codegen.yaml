@@ -1,6 +1,6 @@
 hooks:
   afterOneFileWrite:
-    - eslint --fix --ext=.ts ./client/typings/
+    - eslint --fix --ext=.ts ./client/typings/generated.ts
 generates:
   ./client/typings/generated.ts:
     schema: ./schema.graphql

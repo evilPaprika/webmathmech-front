@@ -7,7 +7,7 @@ import { FormControlLabel, MenuItem, Radio, RadioGroup } from '@material-ui/core
 import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from 'apollo/mutations';
 import { FIND_PERFORMANCE_POST } from 'apollo/queries';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
-import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
+import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/typings';
 import {
     AsyncButton,
     ContainerBox,
