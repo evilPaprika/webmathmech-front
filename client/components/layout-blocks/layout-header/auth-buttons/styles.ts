@@ -6,7 +6,7 @@ export const useStyles = makeStyles((styles) => ({
         display: 'flex',
         justifyContent: 'flex-end',
     },
-    login: {
+    username: {
         marginRight: '10px'
     },
     menu: {

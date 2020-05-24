@@ -10,11 +10,9 @@ import { InfiniteScroll, Teleporter, AddEntityIcon } from 'components/common';
 import { NewsPostModal } from 'components/modals';
 
 import NewsCard from './news-card';
-import { useStyles } from './styles';
 
 
 const NewsPage = () => {
-    const styles = useStyles();
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [isOpenModal, openModal, closeModal] = useModal();
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
@@ -47,7 +45,7 @@ const NewsPage = () => {
     };
 
     return (
-        <Container className={styles.newsPage} disableGutters>
+        <Container disableGutters>
             <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                 {newsPosts?.map((item) => <NewsCard item={item} key={item.id} />)}
             </InfiniteScroll>

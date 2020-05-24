@@ -9,8 +9,6 @@ export const useStyles = makeStyles((theme) => ({
 sans-serif`
     },
     content: {
-        width: '100%',
-        maxWidth: 700,
         margin: '80px auto 0',
         padding: `0 ${theme.spacing(6)}px 0`,
         [theme.breakpoints.down('sm')]: {
@@ -19,6 +17,14 @@ sans-serif`
         [theme.breakpoints.down('xs')]: {
             padding: `0 ${theme.spacing(2)}px 0`,
         },
+
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        width: '100%',
+        maxWidth: 700,
     },
 
     icons: {

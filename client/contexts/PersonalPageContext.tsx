@@ -1,9 +1,12 @@
-import React, { Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useState, createContext } from 'react';
-import { User, UserData } from 'client/types';
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { PATCH_CURRENT_USER } from 'apollo/mutations';
+import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
+import React, { createContext, Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+
+import { PATCH_CURRENT_USER } from 'apollo/mutations';
+import { GET_CURRENT_USER } from 'apollo/queries';
+import { User, UserData } from 'client/types';
+import { SnackbarErrorText } from 'components/common';
 
 
 interface IPersonalPageContext {
@@ -21,10 +24,19 @@ interface IPersonalPageContext {
 export const PersonalPageContext = createContext<IPersonalPageContext>({} as IPersonalPageContext);
 
 export const PersonalPageContextProvider = ({ children }: {children: ReactElement}) => {
-    const { data, loading, error } = useQuery<UserData>(GET_CURRENT_USER);
-    const [patchCurrentUser, { error: patchError, loading: patchLoading }] = useMutation(PATCH_CURRENT_USER, {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const onError = (error: ApolloError) => {
+        const title = 'Произошла ошибка, попробуйте еще раз';
+        enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
+    };
+
+    const { data, loading } = useQuery<UserData>(GET_CURRENT_USER, { onError });
+
+    const [patchCurrentUser, { loading: patchLoading }] = useMutation(PATCH_CURRENT_USER, {
         refetchQueries: [{ query: GET_CURRENT_USER }],
         awaitRefetchQueries: true,
+        onError
     });
 
     const user = data?.getCurrentUser;
@@ -36,14 +48,7 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     useEffect(() => {
         setSurname(user?.surname);
         setName(user?.name);
-    }, [data, loading, error, patchLoading]);
-
-    const { enqueueSnackbar } = useSnackbar();
-    useEffect(() => {
-        if (patchError || error) {
-            enqueueSnackbar('Произошла ошибка, попробуйте еще раз', { variant: 'error' });
-        }
-    }, [patchError, error]);
+    }, [data, loading, patchLoading]);
 
     const toggleEditMode = useCallback(() => {
         setSurname(user?.surname);

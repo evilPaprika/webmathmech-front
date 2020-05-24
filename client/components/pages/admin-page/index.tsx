@@ -5,16 +5,14 @@ import { useModal } from 'client/hooks';
 import { ContainerBox } from 'components/common';
 
 import { NewsPostModal, PerformancePostModal } from '../../modals';
-import { useStyles } from './styles';
 
 
 const AdminPage = () => {
-    const styles = useStyles();
     const [isOpenNewsPostModal, openNewsPostModal, closeNewsPostModal] = useModal();
     const [isOpenPerformancePostModal, openPerformancePostModal, closePerformancePostModal] = useModal();
 
     return (
-        <Container className={styles.adminPage}>
+        <Container>
             <Box mb={2}>Админка!!!</Box>
             <ContainerBox>
                 <Button color="secondary" size="large" variant="outlined" onClick={openNewsPostModal}>
@@ -27,9 +25,7 @@ const AdminPage = () => {
                 </Button>
             </ContainerBox>
 
-            {isOpenNewsPostModal && (
-                <NewsPostModal isOpen={isOpenNewsPostModal} close={closeNewsPostModal} />
-            )}
+            {isOpenNewsPostModal && <NewsPostModal isOpen={isOpenNewsPostModal} close={closeNewsPostModal} />}
             {isOpenPerformancePostModal && (
                 <PerformancePostModal isOpen={isOpenPerformancePostModal} close={closePerformancePostModal} />
             )}

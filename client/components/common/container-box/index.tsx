@@ -4,9 +4,11 @@ import { Box, BoxProps } from '@material-ui/core';
 import { useStyles } from './styles';
 
 
+type GapType = 'small' | 'medium' | 'large' | 'none';
+
 interface OwnProps {
     children?: React.ReactNode;
-    gap?: 'small' | 'medium' | 'large';
+    gap?: GapType;
 }
 
 type Props = OwnProps & BoxProps;

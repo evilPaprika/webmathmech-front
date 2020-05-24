@@ -50,7 +50,7 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
             <ContainerBox gap="large">
                 <Typography>Вы уверены, что хотите безвозвратно удалить пост с выступлением?</Typography>
             </ContainerBox>
-            <ContainerBox display="flex" flexDirection="row-reverse">
+            <ContainerBox display="flex" flexDirection="row-reverse" gap="none">
                 <AsyncButton isLoading={loading} color="secondary" onClick={onRemove}>Удалить</AsyncButton>
                 <Button color="secondary" onClick={close}>Отмена</Button>
             </ContainerBox>

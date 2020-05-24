@@ -86,6 +86,7 @@
     "koa-static": "^5.0.0",
     "koa-webpack": "^5.2.4",
     "minio": "^7.0.15",
+    "moment": "^2.25.3",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "notistack": "^0.9.14",

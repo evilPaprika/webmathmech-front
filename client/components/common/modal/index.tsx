@@ -23,7 +23,7 @@ export const Modal = memo(({ isOpen, close, title, children }: Props) => {
             onClose={close}
         >
             <Container className={styles.modalForm} disableGutters>
-                <Box position="relative" color="primary.contrastText" bgcolor="primary.main" mb="40px">
+                <Box position="relative" color="primary.contrastText" bgcolor="primary.main">
                     <Box p={3}>
                         <Typography variant="h5">
                             {title}
@@ -35,7 +35,7 @@ export const Modal = memo(({ isOpen, close, title, children }: Props) => {
                         </IconButton>
                     </Box>
                 </Box>
-                <Box px={3} pb={3}>
+                <Box pt={5} px={3} pb={3}>
                     {children}
                 </Box>
             </Container>
