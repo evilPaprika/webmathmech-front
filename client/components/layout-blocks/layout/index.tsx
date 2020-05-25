@@ -32,7 +32,9 @@ const Layout = ({ children }: Props) => {
             <div className={classes.root}>
                 <LayoutHeader />
                 <Box className={classes.content}>
-                    {children}
+                    <Box width="100%">
+                        {children}
+                    </Box>
                 </Box>
 
                 <Box className={classes.icons}>
