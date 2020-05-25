@@ -72,9 +72,8 @@ export default class PerformancePost extends Model<PerformancePost> {
     public state!: PerformancePostState;
 
     @Field(() => Rating)
-    @AllowNull(false)
     @Column(DataType.JSON)
-    public averageRating!: Rating;
+    public averageRating: Rating = new Rating();
 
     @Field(() => ID, { nullable: true })
     @ForeignKey(() => User)
