@@ -48,7 +48,6 @@ type PerformancePost {
   videoURL: String
   state: PerformancePostState!
   averageRating: Rating!
-  speakerId: ID
   speaker: User
   pollVotes: [PollVote!]
   createdAt: DateTime!
@@ -63,9 +62,7 @@ enum PerformancePostState {
 }
 
 type PollVote {
-  userId: ID!
   user: User!
-  performanceId: ID!
   performance: PerformancePost!
   rating: Rating!
   createdAt: DateTime!

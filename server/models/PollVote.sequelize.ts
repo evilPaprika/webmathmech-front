@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
 import {
     AllowNull,
     BelongsTo,
@@ -20,7 +20,6 @@ import PerformancePost, { Rating } from './PerformancePost.sequelize';
 @ObjectType()
 @Table
 export default class PollVote extends Model<PollVote> {
-    @Field(() => ID)
     @PrimaryKey
     @ForeignKey(() => User)
     @AllowNull(false)
@@ -31,7 +30,6 @@ export default class PollVote extends Model<PollVote> {
     @BelongsTo(() => User)
     public user!: User;
 
-    @Field(() => ID)
     @PrimaryKey
     @ForeignKey(() => PerformancePost)
     @AllowNull(false)
