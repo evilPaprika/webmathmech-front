@@ -1,6 +1,6 @@
 import { ArgsType, Field } from 'type-graphql';
 import { Length } from 'class-validator';
-import PerformancePost, { Rating } from '../../models/PerformancePost.sequelize';
+import PerformancePost from '../../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../../models/EnumModels';
 
 
@@ -24,9 +24,6 @@ export class CreatePerformancePostInput implements Partial<PerformancePost> {
 
     @Field(() => PerformancePostState, { nullable: true })
     public state?: PerformancePostState;
-
-    @Field(() => Rating, { nullable: true })
-    public averageRating?: Rating;
 
     @Field({ nullable: true })
     public speakerId?: string;
@@ -55,9 +52,6 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
 
     @Field(() => PerformancePostState, { nullable: true })
     public state?: PerformancePostState;
-
-    @Field(() => Rating, { nullable: true })
-    public averageRating?: Rating;
 
     @Field({ nullable: true })
     public speakerId?: string;

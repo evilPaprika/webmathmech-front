@@ -21,13 +21,11 @@ export default class PerformancePostResolver {
     @Mutation(() => PerformancePost)
     public async createPerformancePost(@Args() {
         state,
-        averageRating,
         ...rest
     }: CreatePerformancePostInput) {
         return PerformancePost.create({
             ...rest,
             state: state || PerformancePostState.DRAFT,
-            averageRating: averageRating || new Rating(),
         },
         { include: [{ model: User, required: true, right: true }], });
     }
