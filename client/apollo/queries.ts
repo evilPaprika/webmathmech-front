@@ -32,7 +32,7 @@ export const GET_IS_LOGGED_IN = gql`
 
 export const GET_NEWS_POSTS = gql`
     query ($limit: Int!, $offset: Int!, $order: [String!]) {
-        getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) {
+        getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) @connection(key: "getNewsPosts") {
             id
             description
             pictureURL

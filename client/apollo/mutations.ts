@@ -31,6 +31,9 @@ export const CREATE_NEWS_POST = gql`
     mutation ($description: String!, $pictureURL: String) {
         createNewsPost(description: $description, pictureURL: $pictureURL) {
             id
+            description
+            pictureURL
+            createdAt
         }
     }
 `;
@@ -41,6 +44,7 @@ export const PATCH_NEWS_POST = gql`
             id
             description
             pictureURL
+            createdAt
         }
     }
 `;

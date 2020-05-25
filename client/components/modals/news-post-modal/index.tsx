@@ -4,8 +4,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
-import { FIND_NEWS_POST } from 'apollo/queries';
-import { NewsPost, NewsPostData } from 'client/types';
+import { FIND_NEWS_POST, GET_NEWS_POSTS } from 'apollo/queries';
+import { NewsPost, NewsPostData, NewsPostsData } from 'client/types';
 import { AsyncButton, ContainerBox, LabeledInput, LoadingWrapper, Modal, SnackbarErrorText } from 'components/common';
 
 
@@ -63,19 +63,31 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
                 onCloseModal();
             },
             update: (dataProxy, mutationResult) => {
-                dataProxy.writeQuery({
-                    query: FIND_NEWS_POST,
-                    data: {
-                        findNewsPost: mutationResult.data.patchNewsPost
-                    },
-                    variables: { id: mutationResult.data.patchNewsPost.id }
-                });
+                if (isCreate) {
+                    const newsPostData = dataProxy.readQuery<NewsPostsData>({ query: GET_NEWS_POSTS });
+                    if (newsPostData) {
+                        dataProxy.writeQuery({
+                            query: GET_NEWS_POSTS,
+                            data: {
+                                getNewsPosts: [mutationResult.data.createNewsPost, ...newsPostData.getNewsPosts]
+                            }
+                        });
+                    }
+                } else {
+                    dataProxy.writeQuery({
+                        query: FIND_NEWS_POST,
+                        data: {
+                            findNewsPost: mutationResult.data.patchNewsPost
+                        },
+                        variables: { id: mutationResult.data.patchNewsPost.id }
+                    });
+                }
             },
             onError: (error: ApolloError) => {
                 const title = `Произошла ошибка при ${isCreate ? 'создании' : 'обновлении'} новости`;
 
                 enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
-            }
+            },
         }
     );
 
