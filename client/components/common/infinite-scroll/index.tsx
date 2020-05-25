@@ -11,10 +11,10 @@ interface Props {
     loading: boolean;
 }
 
-const Loader = () => <LoadingWrapper loading key={0} />;
+const Loader = <LoadingWrapper loading key={0} />;
 
 export const InfiniteScroll = memo(({ loading, ...rest }: Props) => (
-    <InfiniteScroller initialLoad={false} loader={loading ? <Loader /> : undefined} {...rest} />
+    <InfiniteScroller initialLoad={false} loader={loading ? Loader : undefined} {...rest} />
 ));
 
 export default InfiniteScroll;

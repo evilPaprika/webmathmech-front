@@ -7,20 +7,20 @@ interface Props {
     children?: ReactNode;
 }
 
-const LoadingWrapper = ({ loading, children }: Props) => {
-    const Loader = (
-        <Box display="flex" justifyContent="center">
-            <CircularProgress />
-        </Box>
-    );
+const Loader = (
+    <Box display="flex" justifyContent="center">
+        <CircularProgress />
+    </Box>
+);
 
+const LoadingWrapper = ({ loading, children }: Props) => {
     const Content = (children ? (
         <Fade mountOnEnter in>
             <div>
                 {children}
             </div>
         </Fade>
-    ) : <></>);
+    ) : null);
 
     return loading ? Loader : Content;
 };
