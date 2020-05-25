@@ -56,7 +56,8 @@ export default new ApolloClient({
             credentials: 'same-origin',
         }),
     ]),
-    cache
+    cache,
+    resolvers: {}
 });
 
 cache.writeData({
