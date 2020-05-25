@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import InfiniteScroller from 'react-infinite-scroller';
-import { CircularProgress } from '@material-ui/core';
+
+import LoadingWrapper from 'components/common/loading-wrapper';
 
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
     loading: boolean;
 }
 
-const Loader = <CircularProgress key={0} />;
+const Loader = <LoadingWrapper loading key={0} />;
 
 export const InfiniteScroll = memo(({ loading, ...rest }: Props) => (
     <InfiniteScroller initialLoad={false} loader={loading ? Loader : undefined} {...rest} />
