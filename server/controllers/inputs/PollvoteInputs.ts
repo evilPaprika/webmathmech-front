@@ -3,7 +3,7 @@ import PollVote from '../../models/PollVote.sequelize';
 import { Rating } from '../../models/PerformancePost.sequelize';
 
 @ArgsType()
-export class voteInput implements Partial<PollVote> {
+export class VoteInput implements Partial<PollVote> {
     @Field()
     public userId!: string;
 
@@ -15,7 +15,7 @@ export class voteInput implements Partial<PollVote> {
 }
 
 @ArgsType()
-export class voteCurrentUserInput implements Partial<PollVote> {
+export class VoteCurrentUserInput implements Partial<PollVote> {
     @Field()
     public performanceId!: string;
 

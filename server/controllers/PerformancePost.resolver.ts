@@ -76,7 +76,7 @@ export default class PerformancePostResolver {
 
     @FieldResolver()
     averageRating(@Root() { pollVotes }: PerformancePost): Rating {
-        if (!pollVotes || pollVotes.length === 0) {
+        if (!pollVotes?.length) {
             return new Rating();
         }
 

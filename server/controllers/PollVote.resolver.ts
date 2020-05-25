@@ -4,18 +4,18 @@ import PollVote from '../models/PollVote.sequelize';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import { ApolloServerContext } from '../types';
 import User from '../models/User.sequelize';
-import { voteCurrentUserInput, voteInput } from './inputs/PollvoteInputs';
+import { VoteCurrentUserInput, VoteInput } from './inputs/PollvoteInputs';
 
 
 @Resolver(PollVote)
 export default class PollVoteResolver {
     @Mutation(() => PollVote)
-    public async vote(@Args() args: voteInput) {
+    public async vote(@Args() args: VoteInput) {
         return PollVote.create(args);
     }
 
     @Mutation(() => PollVote)
-    public async voteCurrentUser(@Args() args: voteCurrentUserInput,
+    public async voteCurrentUser(@Args() args: VoteCurrentUserInput,
         @Ctx() context: ApolloServerContext) {
         const jwt = context.koaCtx?.state?.user;
 
