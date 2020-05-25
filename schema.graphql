@@ -20,6 +20,8 @@ type Mutation {
   createPerformancePost(title: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput, speakerId: String): PerformancePost!
   patchPerformancePost(id: String!, title: String, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, averageRating: RatingInput, speakerId: String): PerformancePost!
   removePerformancePost(id: String!): Boolean!
+  vote(userId: String!, performanceId: String!, rating: RatingInput!): PollVote!
+  voteCurrentUser(performanceId: String!, rating: RatingInput!): PollVote!
   fileUpload(file: Upload!): String!
   removeUser(id: String!): Boolean!
 }
@@ -48,6 +50,7 @@ type PerformancePost {
   averageRating: Rating!
   speakerId: ID
   speaker: User
+  pollVotes: [PollVote!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -57,6 +60,16 @@ enum PerformancePostState {
   POLL
   POLL_FINISHED
   PUBLISHED
+}
+
+type PollVote {
+  userId: ID!
+  user: User!
+  performanceId: ID!
+  performance: PerformancePost!
+  rating: Rating!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
@@ -102,6 +115,7 @@ type User {
   login: String!
   universityGroup: String
   performances: [PerformancePost!]
+  pollVotes: [PollVote!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }

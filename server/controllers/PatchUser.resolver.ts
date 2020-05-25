@@ -20,7 +20,7 @@ export default class PatchUserResolver {
     @Mutation(() => User)
     public async patchCurrentUser(@Args() newValues: PatchCurrentUserInput,
         @Ctx() context: ApolloServerContext) {
-        const jwt = context?.koaCtx?.state?.user;
+        const jwt = context.koaCtx?.state?.user;
 
         const user = await User.findOne({
             where: { id: jwt.id },

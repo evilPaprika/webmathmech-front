@@ -9,7 +9,7 @@ import User from '../models/User.sequelize';
 // and check his permission in db against `roles` argument
 // that comes from `@Authorized`, eg. ["ADMIN", "MODERATOR"]
 const customAuthChecker: AuthChecker<ApolloServerContext> = async ({ context }, roles,) => {
-    const jwt = context?.koaCtx?.state?.user;
+    const jwt = context.koaCtx?.state?.user;
 
     if (!jwt) {
         return false;

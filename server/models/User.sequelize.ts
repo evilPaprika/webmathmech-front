@@ -17,6 +17,8 @@ import { Role } from './EnumModels';
 // https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
 // eslint-disable-next-line import/no-cycle
 import PerformancePost from './PerformancePost.sequelize';
+// eslint-disable-next-line import/no-cycle
+import PollVote from './PollVote.sequelize';
 
 
 @ObjectType()
@@ -59,6 +61,10 @@ export default class User extends Model<User> {
     @Field(() => [PerformancePost], { nullable: true })
     @HasMany(() => PerformancePost)
     public performances?: [PerformancePost];
+
+    @Field(() => [PollVote], { nullable: true })
+    @HasMany(() => PollVote)
+    public pollVotes?: [PollVote];
 
     @Field()
     @CreatedAt

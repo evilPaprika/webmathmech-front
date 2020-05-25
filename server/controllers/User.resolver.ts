@@ -11,16 +11,18 @@ import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
 import { PaginationInputs } from './inputs/PaginationInputs';
 import PerformancePost from '../models/PerformancePost.sequelize';
+import PollVote from '../models/PollVote.sequelize';
 
 @Resolver(User)
 export default class UserResolver {
     @Authorized([])
     @Query(() => User)
     public async getCurrentUser(@Ctx() context: ApolloServerContext) {
-        const jwt = context?.koaCtx?.state?.user;
+        const jwt = context.koaCtx?.state?.user;
 
         const user = await User.findOne({
-            where: { id: jwt.id }, include: [PerformancePost]
+            where: { id: jwt.id },
+            include: [PerformancePost, { model: PollVote, include: [PerformancePost] }]
         });
 
         if (!user) {
@@ -33,7 +35,8 @@ export default class UserResolver {
     @Query(() => User)
     public async findUser(@Arg('login') login: string) {
         const user = await User.findOne({
-            where: { login }, include: [PerformancePost]
+            where: { login },
+            include: [PerformancePost, { model: PollVote, include: [PerformancePost] }]
         });
 
         if (!user) {
@@ -45,7 +48,12 @@ export default class UserResolver {
 
     @Query(() => [User])
     public async getUsers(@Arg('params') { limit, offset, order }: PaginationInputs) {
-        return User.findAll({ offset, limit, order: [order] });
+        return User.findAll({
+            offset,
+            limit,
+            order: [order],
+            include: [PerformancePost, { model: PollVote, include: [PerformancePost] }]
+        });
     }
 
     @Mutation(() => Boolean)

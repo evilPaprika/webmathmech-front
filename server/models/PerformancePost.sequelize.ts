@@ -6,6 +6,7 @@ import {
     DataType,
     Default,
     ForeignKey,
+    HasMany,
     Model,
     PrimaryKey,
     Table,
@@ -18,6 +19,8 @@ import { PerformancePostState } from './EnumModels';
 // https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
 // eslint-disable-next-line import/no-cycle
 import User from './User.sequelize';
+// eslint-disable-next-line import/no-cycle
+import PollVote from './PollVote.sequelize';
 
 
 @InputType('RatingInput')
@@ -72,8 +75,7 @@ export default class PerformancePost extends Model<PerformancePost> {
     public state!: PerformancePostState;
 
     @Field(() => Rating)
-    @Column(DataType.JSON)
-    public averageRating: Rating = new Rating();
+    public averageRating!: Rating;
 
     @Field(() => ID, { nullable: true })
     @ForeignKey(() => User)
@@ -84,6 +86,10 @@ export default class PerformancePost extends Model<PerformancePost> {
     @Field(() => User, { nullable: true })
     @BelongsTo(() => User)
     speaker?: User;
+
+    @Field(() => [PollVote], { nullable: true })
+    @HasMany(() => PollVote)
+    public pollVotes?: PollVote[];
 
     @Field()
     @CreatedAt
