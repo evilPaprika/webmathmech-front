@@ -104,7 +104,7 @@ const LayoutHeader = () => {
                         {drawer}
                     </SwipeableDrawer>
                 </Hidden>
-                <Hidden xsDown implementation="css">
+                <Hidden smDown implementation="css">
                     <Drawer
                         classes={{ paper: styles.drawerPaper }}
                         variant="permanent"
