@@ -12,9 +12,6 @@ export const useStyles = makeStyles((theme) => createStyles({
             width: SIDEBAR_WIDTH,
             flexShrink: 0,
         },
-        [theme.breakpoints.down('sm')]: {
-            display: 'none',
-        },
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
