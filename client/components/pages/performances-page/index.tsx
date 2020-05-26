@@ -6,10 +6,7 @@ import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/types';
-import { AddEntityIcon, InfiniteScroll, Teleporter } from 'components/common';
-import { PerformancePostModal } from 'components/modals';
-
-import { PerformanceCard } from './perfomance-card';
+import { AddEntityIcon, InfiniteScroll, Teleporter, PerformanceCard, PerformancePostModal } from 'components/common';
 
 
 const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];

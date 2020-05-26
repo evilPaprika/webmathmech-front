@@ -11,6 +11,9 @@ import Modal from './modal';
 import ScrollTopIcon from './scroll-top-icon';
 import SnackbarErrorText from './snackbar-error-text';
 import Teleporter from './teleporter';
+import PerformanceCard from './perfomance-card';
+import { NewsPostModal } from './news-post-modal';
+import { PerformancePostModal } from './performance-post-modal';
 
 
 export {
@@ -27,4 +30,7 @@ export {
     ScrollTopIcon,
     SnackbarErrorText,
     Teleporter,
+    PerformanceCard,
+    NewsPostModal,
+    PerformancePostModal
 };

@@ -8,15 +8,13 @@ import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from 'ap
 import { FIND_PERFORMANCE_POST } from 'apollo/queries';
 import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
 import { MediaTypes, PerformancePostData, PerformancePostState, PerformancePost } from 'client/types';
-import {
-    AsyncButton,
-    ContainerBox,
-    LabeledInput,
-    LabeledSelect,
-    LoadingWrapper,
-    Modal,
-    SnackbarErrorText
-} from 'components/common';
+import { SnackbarErrorText } from 'components/common/snackbar-error-text';
+import Modal from 'components/common/modal';
+import LoadingWrapper from 'components/common/loading-wrapper';
+import ContainerBox from 'components/common/container-box';
+import LabeledInput from 'components/common/labeled-input';
+import AsyncButton from 'components/common/async-button';
+import LabeledSelect from 'components/common/labeled-select';
 
 
 interface Props {

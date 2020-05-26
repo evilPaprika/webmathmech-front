@@ -3,7 +3,8 @@ import ReactPlayer from 'react-player';
 import { Box, CardMedia } from '@material-ui/core';
 
 import { PerformancePost } from 'client/types';
-import { CardItem, CollapsibleText } from 'components/common';
+import CollapsibleText from '../collapsible-text';
+import CardItem from '../card-item';
 
 import { CardInfo } from './CardInfo';
 import { CardRating } from './CardRating';
