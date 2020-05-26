@@ -12,6 +12,8 @@ import { PerformancePostModal, RemovePerformancePostModal } from 'components/mod
 import { useStyles } from './styles';
 
 
+moment.locale('ru');
+
 interface Props {
     item: PerformancePost;
 }
@@ -29,7 +31,7 @@ export const CardInfo = memo(({ item }: Props) => {
     return (
         <Box className={styles.blockInfo}>
             <Typography className={styles.date}>
-                {moment(item.createdAt).lang('ru').fromNow()}
+                {moment(item.createdAt).fromNow()}
             </Typography>
             {role === Role.Admin && (
                 <>
