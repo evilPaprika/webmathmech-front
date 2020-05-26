@@ -118,7 +118,7 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
         if (event.charCode === 13) {
             submit();
         }
-    }, []);
+    }, [submit]);
 
     // fileupload draft
     const [fileUpload] = useMutation(

@@ -24,7 +24,7 @@ export const getErrors = (error: ApolloError): Array<string> | null => {
         return null;
     }
 
-    const validationErrors: ValidationError[] = error.graphQLErrors[0].extensions?.exception.validationErrors;
+    const validationErrors: ValidationError[] = error.graphQLErrors[0].extensions?.exception?.validationErrors;
 
     if (!validationErrors) {
         return [error.message];
