@@ -11,6 +11,8 @@ import { NewsPostModal, RemoveNewsPostModal } from 'components/modals';
 import { useStyles } from './styles';
 
 
+moment.locale('ru');
+
 interface Props {
     item: NewsPost;
 }
@@ -26,7 +28,7 @@ export const CardInfo = ({ item }: Props) => {
     return (
         <Box className={styles.blockInfo}>
             <Typography className={styles.date}>
-                {moment(item.createdAt).lang('ru').fromNow()}
+                {moment(item.createdAt).fromNow()}
             </Typography>
             {role === Role.Admin && (
                 <>
