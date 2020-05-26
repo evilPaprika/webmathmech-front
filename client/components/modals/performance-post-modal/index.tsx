@@ -156,7 +156,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
         if (event.charCode === 13) {
             submit();
         }
-    }, []);
+    }, [submit]);
 
     // fileupload draft
     const [fileUpload] = useMutation(

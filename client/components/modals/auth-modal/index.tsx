@@ -82,7 +82,7 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
         if (event.charCode === 13) {
             submit();
         }
-    }, []);
+    }, [submit]);
 
     const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAuthState({
