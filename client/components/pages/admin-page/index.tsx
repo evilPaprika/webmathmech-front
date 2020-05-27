@@ -2,9 +2,7 @@ import React, { memo } from 'react';
 import { Box, Button, Container } from '@material-ui/core';
 
 import { useModal } from 'client/hooks';
-import { ContainerBox } from 'components/common';
-
-import { NewsPostModal, PerformancePostModal } from '../../modals';
+import { ContainerBox, NewsPostModal, PerformancePostModal } from 'components/common';
 
 
 const AdminPage = () => {

@@ -24,6 +24,26 @@ export const GET_CURRENT_USER = gql`
     }
 `;
 
+export const GET_CURRENT_USER_PERFORMANCES = gql`
+    query {
+        getCurrentUser {
+            performances {
+                id
+                description
+                pictureURL
+                videoURL
+                createdAt
+                state
+                averageRating {
+                    format
+                    content
+                    interest
+                }
+            }
+        }
+    }
+`;
+
 export const GET_IS_LOGGED_IN = gql`
     {
         isLoggedIn @client

@@ -7,7 +7,9 @@ import SettingsIcon from '@material-ui/icons/MoreVert';
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
 import { NewsPost, UserData, Role } from 'client/types';
-import { NewsPostModal, RemoveNewsPostModal } from 'components/modals';
+import { NewsPostModal } from 'components/common';
+
+import { RemoveNewsPostModal } from './remove-news-post-modal';
 import { useStyles } from './styles';
 
 

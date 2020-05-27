@@ -1,54 +1,46 @@
-import React, { memo, useState } from 'react';
-import ReactPlayer from 'react-player';
-import { Box, Container, Card, CardContent, Typography } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import React, { memo, } from 'react';
+import { Box, Container, Typography } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
+import { useSnackbar } from 'notistack';
+import { ApolloError } from 'apollo-client';
+
+import { GET_CURRENT_USER_PERFORMANCES } from 'apollo/queries';
+import { PerformancePost, UserData } from 'client/types';
+import { PerformanceCard, SnackbarErrorText } from 'components/common';
 
 
-interface Performance {
-    content: string;
-}
+const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];
 
-const CARDS: Array<Performance> = [
-    {
-        content: 'Some content'
-    }
-];
+export const PersonalPerformancesPage = memo(() => {
+    const { enqueueSnackbar } = useSnackbar();
 
+    const { data, loading } = useQuery<UserData>(GET_CURRENT_USER_PERFORMANCES,
+        {
+            onError(error: ApolloError) {
+                const title = 'Произошла ошибка при выполнении запроса ваших выступлений';
 
-const PersonalPerformancesPage = () => {
-    const [rating, setRating] = useState<number | null>(0);
+                enqueueSnackbar(<SnackbarErrorText title={title} error={error} />, { variant: 'error' });
+            }
+        });
 
-    const changeRating = (_: React.ChangeEvent<{}>, newRating: number | null) => {
-        setRating(newRating);
-    };
+    const items = data?.getCurrentUser.performances || DEFAULT_PERFORMANCES_LIST;
 
     return (
         <Container disableGutters>
-            <h2>Персональные выступления!!!</h2>
-            {CARDS.map(({ content }, index) => (
-                <Card key={index} raised>
-                    <CardContent>
-                        {/* проверка работы видео */}
-                        <ReactPlayer
-                            url="https://www.youtube.com/watch?v=t2T0Ynr_y-A"
-                            controls
-                            width={300}
-                            height={150}
-                        />
-                        <Typography style={{ margin: '10px 0' }}>{content}</Typography>
-                        <Box component="fieldset" mb={3} borderColor="transparent">
-                            <Typography component="legend">Рейтинг</Typography>
-                            <Rating
-                                name="rating"
-                                value={rating}
-                                onChange={changeRating}
-                            />
-                        </Box>
-                    </CardContent>
-                </Card>
-            ))}
+            {items.map((item) => <PerformanceCard item={item} key={item.id} />)}
+            {!loading && !items.length
+            && (
+                <Box mt={4}>
+                    <Typography
+                        variant="h4"
+                        align="center"
+                    >
+                        Выступлений не найдено!
+                    </Typography>
+                </Box>
+            )}
         </Container>
     );
-};
+});
 
-export default memo(PersonalPerformancesPage);
+export default PersonalPerformancesPage;

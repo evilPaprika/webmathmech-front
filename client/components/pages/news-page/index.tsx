@@ -6,8 +6,7 @@ import { GET_CURRENT_USER, GET_NEWS_POSTS } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { NewsPostsData, Role, UserData } from 'client/types';
-import { InfiniteScroll, Teleporter, AddEntityIcon } from 'components/common';
-import { NewsPostModal } from 'components/modals';
+import { InfiniteScroll, Teleporter, AddEntityIcon, NewsPostModal } from 'components/common';
 
 import NewsCard from './news-card';
 

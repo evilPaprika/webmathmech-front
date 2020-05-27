@@ -5,11 +5,11 @@ import { Button, Container, Menu, MenuItem, Typography } from '@material-ui/core
 import { AccountCircle } from '@material-ui/icons';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
-import { AuthModal } from 'client/components/modals';
 import { MENU_OPTIONS, ROUTES } from 'client/consts';
 import { useMenu, useModal } from 'client/hooks';
 import { IsLoggedInData, User, UserData } from 'client/types';
 
+import { AuthModal } from './auth-modal';
 import { useStyles } from './styles';
 
 

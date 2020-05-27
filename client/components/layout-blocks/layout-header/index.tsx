@@ -17,6 +17,7 @@ import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
 import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from 'client/consts';
 import { IsLoggedInData } from 'client/types';
 import { findMenuItemByPath } from 'client/utils';
+
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';
 import { HeaderIcons } from './header-icons';
