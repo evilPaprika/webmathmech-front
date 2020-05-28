@@ -4,6 +4,7 @@ import CardItem from './card-item';
 import CollapsibleText from './collapsible-text';
 import ContainerBox from './container-box';
 import InfiniteScroll from './infinite-scroll';
+import LabeledBox from './labeled-box';
 import LabeledInput from './labeled-input';
 import LabeledSelect from './labeled-select';
 import LoadingWrapper from './loading-wrapper';
@@ -23,6 +24,7 @@ export {
     CollapsibleText,
     ContainerBox,
     InfiniteScroll,
+    LabeledBox,
     LabeledInput,
     LabeledSelect,
     LoadingWrapper,

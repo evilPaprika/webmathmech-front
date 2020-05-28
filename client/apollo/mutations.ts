@@ -62,8 +62,8 @@ export const FILE_UPLOAD = gql`
 `;
 
 export const PATCH_CURRENT_USER = gql`
-    mutation ($name: String, $surname: String, $password: String) {
-        patchCurrentUser(name: $name, surname: $surname, password: $password){
+    mutation ($name: String, $surname: String, $password: String, $universityGroup: String) {
+        patchCurrentUser(name: $name, surname: $surname, password: $password, universityGroup: $universityGroup){
             id
         }
     }

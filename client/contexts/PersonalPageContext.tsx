@@ -5,17 +5,20 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { PATCH_CURRENT_USER } from 'apollo/mutations';
 import { GET_CURRENT_USER } from 'apollo/queries';
-import { User, UserData } from 'client/types';
+import { User, UserData, MutationPatchCurrentUserArgs } from 'client/types';
 import { SnackbarErrorText } from 'components/common';
 
+
+type MayBeString = string | undefined;
 
 interface IPersonalPageContext {
     user?: User;
     isEditMode: boolean;
     toggleEditMode: () => void;
     userStates: {
-        surname: [string | undefined, Dispatch<SetStateAction<string | undefined>>];
-        name: [string | undefined, Dispatch<SetStateAction<string | undefined>>];
+        surname: [string, Dispatch<SetStateAction<string>>];
+        name: [string, Dispatch<SetStateAction<string>>];
+        universityGroup: [MayBeString, Dispatch<SetStateAction<MayBeString>>];
     };
     submitNewUserStates: () => void;
     loading: boolean;
@@ -42,30 +45,36 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     const user = data?.getCurrentUser;
 
     const [isEditMode, setIsEditMode] = useState(false);
-    const [surname, setSurname] = useState(user?.surname);
-    const [name, setName] = useState(user?.name);
+    const [surname, setSurname] = useState<string>(user?.surname || '');
+    const [name, setName] = useState<string>(user?.name || '');
+    const [group, setGroup] = useState<MayBeString>(user?.universityGroup || '');
+
+    const setState = () => {
+        setSurname(user?.surname || '');
+        setName(user?.name || '');
+        setGroup(user?.universityGroup || '');
+    };
 
     useEffect(() => {
-        setSurname(user?.surname);
-        setName(user?.name);
+        setState();
     }, [data, loading, patchLoading]);
 
     const toggleEditMode = useCallback(() => {
-        setSurname(user?.surname);
-        setName(user?.name);
         setIsEditMode(!isEditMode);
-    }, [user?.surname, user?.name, isEditMode]);
+    }, [isEditMode]);
 
     const submitNewUserStates = useCallback(async () => {
-        await patchCurrentUser({
-            variables: { surname, name }
-        });
-        setIsEditMode(!isEditMode);
-    }, [surname, name, toggleEditMode]);
+        const variables: MutationPatchCurrentUserArgs = { surname, name, universityGroup: group };
+
+        await patchCurrentUser({ variables });
+
+        toggleEditMode();
+    }, [surname, name, group, toggleEditMode]);
 
     const newUserStates: IPersonalPageContext['userStates'] = {
         surname: [surname, setSurname],
-        name: [name, setName]
+        name: [name, setName],
+        universityGroup: [group, setGroup]
     };
 
     return (

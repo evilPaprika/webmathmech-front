@@ -18,6 +18,7 @@ export const GET_CURRENT_USER = gql`
             surname
             login
             role
+            universityGroup
             createdAt
             updatedAt
         }
