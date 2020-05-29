@@ -1,3 +1,3 @@
 # webmathmech-front
 
-site: https://webmathmech.site/
+website: https://webmathmech.site/
