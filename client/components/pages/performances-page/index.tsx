@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
-import { GET_NEWS_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
+import { GET_PERFORMANCES_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
 import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/types';
 import { AddEntityIcon, InfiniteScroll, Teleporter, PerformanceCard, PerformancePostModal } from 'components/common';
@@ -18,8 +18,7 @@ export const PerformancesPage = memo(() => {
     const { role } = userData?.getCurrentUser || {};
 
     const { data, fetchMore, error, loading } = useQuery<PerformancePostsData>(GET_PERFORMANCE_POSTS, {
-        variables: GET_NEWS_POST_QUERY_DEFAULT.variables,
-        fetchPolicy: 'cache-and-network'
+        variables: GET_PERFORMANCES_POST_QUERY_DEFAULT.variables
     });
 
     const items = data?.getPerformancePosts || DEFAULT_PERFORMANCES_LIST;

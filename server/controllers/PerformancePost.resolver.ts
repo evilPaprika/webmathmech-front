@@ -8,7 +8,7 @@ import {
     Root,
 } from 'type-graphql';
 
-import { PaginationInputs } from './inputs/PaginationInputs';
+import { OffsetPaginationInputs } from './inputs/PaginationInputs';
 import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
@@ -45,7 +45,7 @@ export default class PerformancePostResolver {
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
+    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs) {
         return PerformancePost.findAll({
             offset,
             limit,

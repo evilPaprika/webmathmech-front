@@ -6,8 +6,9 @@ import {
     Resolver,
 } from 'type-graphql';
 
+import { Op } from 'sequelize';
 import NewsPost from '../models/NewsPost.sequelize';
-import { PaginationInputs } from './inputs/PaginationInputs';
+import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 import { CreateNewsPostInput, PatchNewsPostInputs } from './inputs/NewsPostInputs';
 
 
@@ -35,8 +36,21 @@ export default class NewsPostResolver {
     }
 
     @Query(() => [NewsPost])
-    public async getNewsPosts(@Arg('params') { limit, offset, order }: PaginationInputs) {
+    public async getNewsPosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs) {
         return NewsPost.findAll({ offset, limit, order: [order] });
+    }
+
+    @Query(() => [NewsPost])
+    public async getNewsPostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+        return NewsPost.findAll({
+            limit,
+            where: {
+                createdAt: {
+                    [Op.lt]: dateTimeCursor
+                }
+            },
+            order: [['createdAt', 'DESC']]
+        });
     }
 
     @Mutation(() => NewsPost)

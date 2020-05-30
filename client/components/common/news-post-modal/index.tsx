@@ -4,8 +4,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
-import { FIND_NEWS_POST, GET_NEWS_POSTS } from 'apollo/queries';
-import { NewsPost, NewsPostData, NewsPostsData } from 'client/types';
+import { FIND_NEWS_POST, GET_NEWS_POSTS_CURSOR } from 'apollo/queries';
+import { NewsPost, NewsPostData, NewsPostsCursorData } from 'client/types';
 import { SnackbarErrorText } from 'components/common/snackbar-error-text';
 import Modal from 'components/common/modal';
 import LoadingWrapper from 'components/common/loading-wrapper';
@@ -69,12 +69,15 @@ export const NewsPostModal = memo(({ isOpen, close, newsPostId: id }: Props) => 
             },
             update: (dataProxy, mutationResult) => {
                 if (isCreate) {
-                    const newsPostData = dataProxy.readQuery<NewsPostsData>({ query: GET_NEWS_POSTS });
+                    const newsPostData = dataProxy.readQuery<NewsPostsCursorData>({ query: GET_NEWS_POSTS_CURSOR });
                     if (newsPostData) {
                         dataProxy.writeQuery({
-                            query: GET_NEWS_POSTS,
+                            query: GET_NEWS_POSTS_CURSOR,
                             data: {
-                                getNewsPosts: [mutationResult.data.createNewsPost, ...newsPostData.getNewsPosts]
+                                getNewsPostsCursor: [
+                                    mutationResult.data.createNewsPost,
+                                    ...newsPostData.getNewsPostsCursor
+                                ]
                             }
                         });
                     }
