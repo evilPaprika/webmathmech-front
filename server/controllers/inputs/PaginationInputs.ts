@@ -10,7 +10,7 @@ export class OffsetPaginationInputs {
     public limit: number = 10;
 
     @Field(() => Int)
-    public offset!: number;
+    public offset: number = 0;
 
     @Field(() => [String])
     public order: OrderItem = ['createdAt', 'DESC'];

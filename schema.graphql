@@ -41,7 +41,7 @@ type NewsPost {
 
 input OffsetPaginationInputs {
   limit: Int = 10
-  offset: Int!
+  offset: Int = 0
   order: [String!] = ["createdAt", "DESC"]
 }
 

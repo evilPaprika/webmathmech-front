@@ -151,7 +151,7 @@ export type NewsPost = {
 
 export type OffsetPaginationInputs = {
     limit?: Maybe<Scalars['Int']>;
-    offset: Scalars['Int'];
+    offset?: Maybe<Scalars['Int']>;
     order?: Maybe<Array<Scalars['String']>>;
 };
 
