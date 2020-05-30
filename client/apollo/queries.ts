@@ -52,7 +52,7 @@ export const GET_IS_LOGGED_IN = gql`
 `;
 
 export const GET_NEWS_POSTS = gql`
-    query ($limit: Int!, $offset: Int!, $order: [String!]) {
+    query ($limit: Int, $offset: Int!, $order: [String!]) {
         getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) @connection(key: "getNewsPosts") {
             id
             description
@@ -62,6 +62,20 @@ export const GET_NEWS_POSTS = gql`
     }
 `;
 
+export const GET_NEWS_POSTS_CURSOR = gql`
+    query ($limit: Int, $dateTimeCursor: DateTime) {
+        getNewsPostsCursor(params: { 
+            limit: $limit, 
+            dateTimeCursor: $dateTimeCursor
+        }) 
+        @connection(key: "getNewsPostsCursor") {
+            id
+            description
+            pictureURL
+            createdAt
+        }
+    }
+`;
 
 export const FIND_NEWS_POST = gql`
     query ($id: String!) {

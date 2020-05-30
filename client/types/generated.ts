@@ -12,6 +12,11 @@ export type Scalars = {
     Upload: any;
 };
 
+export type CursorPaginationInputs = {
+    limit?: Maybe<Scalars['Int']>;
+    dateTimeCursor?: Maybe<Scalars['DateTime']>;
+};
+
 
 export type Mutation = {
     __typename?: 'Mutation';
@@ -26,6 +31,8 @@ export type Mutation = {
     createPerformancePost: PerformancePost;
     patchPerformancePost: PerformancePost;
     removePerformancePost: Scalars['Boolean'];
+    vote: PollVote;
+    voteCurrentUser: PollVote;
     fileUpload: Scalars['String'];
     removeUser: Scalars['Boolean'];
 };
@@ -91,7 +98,6 @@ export type MutationCreatePerformancePostArgs = {
     pictureURL?: Maybe<Scalars['String']>;
     videoURL?: Maybe<Scalars['String']>;
     state?: Maybe<PerformancePostState>;
-    averageRating?: Maybe<RatingInput>;
     speakerId?: Maybe<Scalars['String']>;
 };
 
@@ -103,13 +109,25 @@ export type MutationPatchPerformancePostArgs = {
     pictureURL?: Maybe<Scalars['String']>;
     videoURL?: Maybe<Scalars['String']>;
     state?: Maybe<PerformancePostState>;
-    averageRating?: Maybe<RatingInput>;
     speakerId?: Maybe<Scalars['String']>;
 };
 
 
 export type MutationRemovePerformancePostArgs = {
     id: Scalars['String'];
+};
+
+
+export type MutationVoteArgs = {
+    userId: Scalars['String'];
+    performanceId: Scalars['String'];
+    rating: RatingInput;
+};
+
+
+export type MutationVoteCurrentUserArgs = {
+    performanceId: Scalars['String'];
+    rating: RatingInput;
 };
 
 
@@ -131,7 +149,7 @@ export type NewsPost = {
     updatedAt: Scalars['DateTime'];
 };
 
-export type PaginationInputs = {
+export type OffsetPaginationInputs = {
     limit?: Maybe<Scalars['Int']>;
     offset: Scalars['Int'];
     order?: Maybe<Array<Scalars['String']>>;
@@ -146,8 +164,8 @@ export type PerformancePost = {
     videoURL?: Maybe<Scalars['String']>;
     state: PerformancePostState;
     averageRating: Rating;
-    speakerId?: Maybe<Scalars['ID']>;
     speaker?: Maybe<User>;
+    pollVotes?: Maybe<Array<PollVote>>;
     createdAt: Scalars['DateTime'];
     updatedAt: Scalars['DateTime'];
 };
@@ -159,10 +177,20 @@ export enum PerformancePostState {
     Published = 'PUBLISHED'
 }
 
+export type PollVote = {
+    __typename?: 'PollVote';
+    user: User;
+    performance: PerformancePost;
+    rating: Rating;
+    createdAt: Scalars['DateTime'];
+    updatedAt: Scalars['DateTime'];
+};
+
 export type Query = {
     __typename?: 'Query';
     findNewsPost: NewsPost;
     getNewsPosts: Array<NewsPost>;
+    getNewsPostsCursor: Array<NewsPost>;
     findPerformancePost: PerformancePost;
     getPerformancePosts: Array<PerformancePost>;
     getCurrentUser: User;
@@ -177,7 +205,12 @@ export type QueryFindNewsPostArgs = {
 
 
 export type QueryGetNewsPostsArgs = {
-    params: PaginationInputs;
+    params: OffsetPaginationInputs;
+};
+
+
+export type QueryGetNewsPostsCursorArgs = {
+    params: CursorPaginationInputs;
 };
 
 
@@ -187,7 +220,7 @@ export type QueryFindPerformancePostArgs = {
 
 
 export type QueryGetPerformancePostsArgs = {
-    params: PaginationInputs;
+    params: OffsetPaginationInputs;
 };
 
 
@@ -197,7 +230,7 @@ export type QueryFindUserArgs = {
 
 
 export type QueryGetUsersArgs = {
-    params: PaginationInputs;
+    params: OffsetPaginationInputs;
 };
 
 export type Rating = {
@@ -234,6 +267,7 @@ export type User = {
     login: Scalars['String'];
     universityGroup?: Maybe<Scalars['String']>;
     performances?: Maybe<Array<PerformancePost>>;
+    pollVotes?: Maybe<Array<PollVote>>;
     createdAt: Scalars['DateTime'];
     updatedAt: Scalars['DateTime'];
 };

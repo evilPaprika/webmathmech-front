@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_NEWS_POST } from 'apollo/mutations';
 import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
-import { NewsPostsData } from 'client/types';
+import { NewsPostsCursorData } from 'client/types';
 import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
 
 
@@ -23,11 +23,11 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
         REMOVE_NEWS_POST,
         {
             onCompleted() {
-                const data = client?.readQuery<NewsPostsData>(GET_NEWS_POST_QUERY_DEFAULT);
+                const data = client?.readQuery<NewsPostsCursorData>(GET_NEWS_POST_QUERY_DEFAULT);
                 if (data) {
                     client?.writeQuery({
                         ...GET_NEWS_POST_QUERY_DEFAULT,
-                        data: { getNewsPosts: data.getNewsPosts.filter((post) => post.id !== newsPostId) }
+                        data: { getNewsPostsCursor: data.getNewsPostsCursor.filter((post) => post.id !== newsPostId) }
                     });
                 }
                 enqueueSnackbar('Новость успешно удалена!', { variant: 'success' });

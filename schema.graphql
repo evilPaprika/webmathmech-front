@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CursorPaginationInputs {
+  limit: Int = 10
+  dateTimeCursor: DateTime = "+275760-09-13T00:00:00.000Z"
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -34,7 +39,7 @@ type NewsPost {
   updatedAt: DateTime!
 }
 
-input PaginationInputs {
+input OffsetPaginationInputs {
   limit: Int = 10
   offset: Int!
   order: [String!] = ["createdAt", "DESC"]
@@ -71,12 +76,13 @@ type PollVote {
 
 type Query {
   findNewsPost(id: String!): NewsPost!
-  getNewsPosts(params: PaginationInputs!): [NewsPost!]!
+  getNewsPosts(params: OffsetPaginationInputs!): [NewsPost!]!
+  getNewsPostsCursor(params: CursorPaginationInputs!): [NewsPost!]!
   findPerformancePost(id: String!): PerformancePost!
-  getPerformancePosts(params: PaginationInputs!): [PerformancePost!]!
+  getPerformancePosts(params: OffsetPaginationInputs!): [PerformancePost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
-  getUsers(params: PaginationInputs!): [User!]!
+  getUsers(params: OffsetPaginationInputs!): [User!]!
 }
 
 type Rating {

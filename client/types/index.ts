@@ -17,6 +17,10 @@ export interface NewsPostsData {
     getNewsPosts: Query['getNewsPosts'];
 }
 
+export interface NewsPostsCursorData {
+    getNewsPostsCursor: Query['getNewsPostsCursor'];
+}
+
 export interface NewsPostData {
     findNewsPost: Query['findNewsPost'];
 }

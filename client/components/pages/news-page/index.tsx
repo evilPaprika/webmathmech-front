@@ -2,10 +2,10 @@ import React, { memo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Container } from '@material-ui/core';
 
-import { GET_CURRENT_USER, GET_NEWS_POSTS } from 'apollo/queries';
+import { GET_CURRENT_USER, GET_NEWS_POSTS_CURSOR } from 'apollo/queries';
 import { GET_NEWS_POST_QUERY_DEFAULT, NEWS_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
-import { NewsPostsData, Role, UserData } from 'client/types';
+import { NewsPostsCursorData, Role, UserData } from 'client/types';
 import { InfiniteScroll, Teleporter, AddEntityIcon, NewsPostModal } from 'components/common';
 
 import NewsCard from './news-card';
@@ -17,27 +17,31 @@ const NewsPage = () => {
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = userData?.getCurrentUser || {};
 
-    const { data, fetchMore, error, loading } = useQuery<NewsPostsData>(GET_NEWS_POSTS, {
-        variables: GET_NEWS_POST_QUERY_DEFAULT.variables,
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data, fetchMore, error, loading, client } = useQuery<NewsPostsCursorData>(
+        GET_NEWS_POSTS_CURSOR,
+        { variables: GET_NEWS_POST_QUERY_DEFAULT.variables, }
+    );
 
-    const newsPosts = data?.getNewsPosts || [];
+    const newsPosts = data?.getNewsPostsCursor || [];
 
-    const fetchMoreData = (page: number) => {
+    const fetchMoreData = () => {
         setHasMore(false);
 
+        const posts = client
+            .readQuery<NewsPostsCursorData>({ query: GET_NEWS_POSTS_CURSOR })
+            ?.getNewsPostsCursor || [];
+        const lastPost = posts[posts.length - 1];
         fetchMore({
-            variables: { offset: page * NEWS_POSTS_LIMIT, limit: NEWS_POSTS_LIMIT },
+            variables: { dateTimeCursor: lastPost.createdAt, limit: NEWS_POSTS_LIMIT },
             updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult?.getNewsPosts?.length) {
+                if (!fetchMoreResult?.getNewsPostsCursor?.length) {
                     return prev;
                 }
 
                 setHasMore(true);
 
                 return {
-                    getNewsPosts: [...prev.getNewsPosts, ...fetchMoreResult?.getNewsPosts]
+                    getNewsPostsCursor: [...prev.getNewsPostsCursor, ...fetchMoreResult?.getNewsPostsCursor]
                 };
             }
         });

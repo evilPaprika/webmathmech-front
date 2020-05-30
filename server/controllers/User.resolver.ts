@@ -9,7 +9,7 @@ import {
 
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { PaginationInputs } from './inputs/PaginationInputs';
+import { OffsetPaginationInputs } from './inputs/PaginationInputs';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 
@@ -47,7 +47,7 @@ export default class UserResolver {
     }
 
     @Query(() => [User])
-    public async getUsers(@Arg('params') { limit, offset, order }: PaginationInputs) {
+    public async getUsers(@Arg('params') { limit, offset, order }: OffsetPaginationInputs) {
         return User.findAll({
             offset,
             limit,
