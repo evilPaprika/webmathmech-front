@@ -4,14 +4,14 @@ import { Box, BoxProps } from '@material-ui/core';
 import { useStyles } from './styles';
 
 
-type GapType = 'small' | 'medium' | 'large' | 'none';
+type GapType = 'small' | 'medium' | 'large' | 'extra' | 'none';
 
 interface OwnProps {
     children?: React.ReactNode;
     gap?: GapType;
 }
 
-type Props = OwnProps & BoxProps;
+export type Props = OwnProps & BoxProps;
 
 export const ContainerBox = (props: Props) => {
     const styles: Record<string, string> = useStyles();

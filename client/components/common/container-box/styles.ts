@@ -17,4 +17,8 @@ export const useStyles = makeStyles(() => ({
     gap_large: {
         marginBottom: '40px',
     },
+
+    gap_extra: {
+        marginBottom: '60px',
+    }
 }));

@@ -1,8 +1,8 @@
 import React, { ChangeEvent, memo, useContext } from 'react';
-import { Box, Chip } from '@material-ui/core';
+import { Chip } from '@material-ui/core';
 
 import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
-import { LoadingWrapper } from 'components/common';
+import { ContainerBox, LabeledBox, LoadingWrapper } from 'components/common';
 
 import { EditModeButtons } from './edit-mode-buttons';
 import { EditableField } from './editable-field';
@@ -12,44 +12,49 @@ const PersonalPage = memo(() => {
     const { isEditMode, user, userStates, loading } = useContext(PersonalPageContext);
     const [surname, setSurname] = userStates.surname;
     const [name, setName] = userStates.name;
+    const [group, setGroup] = userStates.universityGroup;
 
     const onChangeSurname = (event: ChangeEvent<HTMLInputElement>) => setSurname(event.target.value);
     const onChangeName = (event: ChangeEvent<HTMLInputElement>) => setName(event.target.value);
+    const onChangeGroup = (event: ChangeEvent<HTMLInputElement>) => setGroup(event.target.value);
 
     return (
-        <main>
-            <LoadingWrapper loading={loading || !user}>
+        <ContainerBox>
+            <LoadingWrapper loading={loading}>
                 {user && (
                     <>
-                        <EditableField
-                            isEditMode={isEditMode}
-                            fontSize="40px"
-                            onChange={onChangeSurname}
-                            value={surname || ''}
-                            placeholder="Фамилия"
-                        />
-                        <EditableField
-                            isEditMode={isEditMode}
-                            fontSize="40px"
-                            onChange={onChangeName}
-                            value={name || ''}
-                            placeholder="Имя"
-                        />
-                        <Box mt={1}>
-                            <Chip
-                                size="small"
-                                label={user.role}
-                                color="primary"
+                        <ContainerBox>
+                            <EditableField
+                                value={name}
+                                isEditMode={isEditMode}
+                                fontSize="40px"
+                                placeholder="Имя"
+                                onChange={onChangeName}
                             />
-                            <Box mt={2}>Логин: {user.login}</Box>
-                        </Box>
-                        <Box mt={8}>
+                            <EditableField
+                                value={surname}
+                                isEditMode={isEditMode}
+                                fontSize="40px"
+                                placeholder="Фамилия"
+                                onChange={onChangeSurname}
+                            />
+                        </ContainerBox>
+                        <ContainerBox>
+                            <Chip label={user.role} size="small" color="primary" />
+                        </ContainerBox>
+                        <LabeledBox label="Логин">{user.login}</LabeledBox>
+                        <LabeledBox label="Группа" gap="extra">
+                            {isEditMode
+                                ? <EditableField value={group || ''} isEditMode={isEditMode} onChange={onChangeGroup} />
+                                : user.universityGroup || '-'}
+                        </LabeledBox>
+                        <ContainerBox>
                             <EditModeButtons />
-                        </Box>
+                        </ContainerBox>
                     </>
                 )}
             </LoadingWrapper>
-        </main>
+        </ContainerBox>
     );
 });
 
