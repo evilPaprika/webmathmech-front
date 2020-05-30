@@ -60,15 +60,15 @@ export const PersonalPageContextProvider = ({ children }: {children: ReactElemen
     }, [data, loading, patchLoading]);
 
     const toggleEditMode = useCallback(() => {
+        setState();
         setIsEditMode(!isEditMode);
-    }, [isEditMode]);
+    }, [user, isEditMode]);
 
     const submitNewUserStates = useCallback(async () => {
         const variables: MutationPatchCurrentUserArgs = { surname, name, universityGroup: group };
 
         await patchCurrentUser({ variables });
-
-        toggleEditMode();
+        setIsEditMode(!isEditMode);
     }, [surname, name, group, toggleEditMode]);
 
     const newUserStates: IPersonalPageContext['userStates'] = {
