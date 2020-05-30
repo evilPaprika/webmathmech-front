@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+/* User queries */
+export const GET_USERS = gql`
+    query ($limit: Int, $offset: Int, $order: [String!]) {
+        getUsers(params: { limit: $limit, offset: $offset, order: $order }) {
+            name
+            surname
+            id
+        }
+    }
+`;
 
 export const FIND_USER = gql`
     query ($login: String!) {
@@ -51,6 +61,7 @@ export const GET_IS_LOGGED_IN = gql`
     }
 `;
 
+/* News posts queries */
 export const GET_NEWS_POSTS = gql`
     query ($limit: Int, $offset: Int!, $order: [String!]) {
         getNewsPosts(params: { limit: $limit, offset: $offset, order: $order }) @connection(key: "getNewsPosts") {
@@ -87,15 +98,50 @@ export const FIND_NEWS_POST = gql`
     }
 `;
 
+/* Performances posts queries */
 export const GET_PERFORMANCE_POSTS = gql`
     query ($limit: Int!, $offset: Int!, $order: [String!]) {
-        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }) {
+        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order })
+        @connection(key: "getPerformancePosts") {
             id
+            title
             description
             pictureURL
             videoURL
             createdAt
             state
+            speaker {
+                id
+                name
+                surname
+            }
+            averageRating {
+                format
+                content
+                interest
+            }
+        }
+    }
+`;
+
+export const GET_PERFORMANCE_POSTS_CURSOR = gql`
+    query ($limit: Int, $dateTimeCursor: DateTime) {
+        getPerformancePostsCursor(params: { 
+            limit: $limit, 
+            dateTimeCursor: $dateTimeCursor
+        }) @connection(key: "getPerformancePostsCursor") {
+            id
+            title
+            description
+            pictureURL
+            videoURL
+            createdAt
+            state
+            speaker {
+                id
+                name
+                surname
+            }
             averageRating {
                 format
                 content
@@ -109,11 +155,17 @@ export const FIND_PERFORMANCE_POST = gql`
     query ($id: String!) {
         findPerformancePost(id: $id) {
             id
+            title
             description
             pictureURL
             videoURL
             createdAt
             state
+            speaker {
+                id
+                name
+                surname
+            }
             averageRating {
                 format
                 content

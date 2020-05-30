@@ -29,8 +29,16 @@ export interface PerformancePostsData {
     getPerformancePosts: Query['getPerformancePosts'];
 }
 
+export interface PerformancePostsCursorData {
+    getPerformancePostsCursor: Query['getPerformancePostsCursor'];
+}
+
 export interface PerformancePostData {
     findPerformancePost: Query['findPerformancePost'];
+}
+
+export interface UsersData {
+    getUsers: Query['getUsers'];
 }
 
 export interface UserData {

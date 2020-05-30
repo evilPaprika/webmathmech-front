@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     description: {
-        margin: theme.spacing(2),
-
         textAlign: 'start',
         whiteSpace: 'pre-line',
         wordBreak: 'break-word',
@@ -23,6 +21,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     date: {
+        marginRight: 20,
         fontSize: 10,
         textAlign: 'start',
         color: theme.palette.text.secondary
@@ -45,7 +44,5 @@ export const useStyles = makeStyles((theme) => ({
 
     rating: {
         width: 220,
-
-        margin: theme.spacing(2)
     }
 }));

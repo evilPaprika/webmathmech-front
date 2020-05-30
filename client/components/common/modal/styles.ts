@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     modalForm: {
-        width: '400px',
+        maxWidth: '600px',
 
         backgroundColor: theme.palette.background.paper,
         borderRadius: '5px',

@@ -6,7 +6,7 @@ import { Button, Typography } from '@material-ui/core';
 
 import { REMOVE_PERFORMANCE_POST } from 'apollo/mutations';
 import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from 'client/consts';
-import { PerformancePostsData } from 'client/types';
+import { PerformancePostsCursorData } from 'client/types';
 import { AsyncButton } from '../../async-button';
 import { ContainerBox } from '../../container-box';
 import { Modal } from '../../modal';
@@ -25,12 +25,12 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
         REMOVE_PERFORMANCE_POST,
         {
             onCompleted() {
-                const data = client?.readQuery<PerformancePostsData>(GET_PERFORMANCES_POST_QUERY_DEFAULT);
+                const data = client?.readQuery<PerformancePostsCursorData>(GET_PERFORMANCES_POST_QUERY_DEFAULT);
                 if (data) {
-                    const updatedData = data.getPerformancePosts.filter((post) => post.id !== performancePostId);
+                    const updatedData = data.getPerformancePostsCursor.filter((post) => post.id !== performancePostId);
                     client?.writeQuery({
                         ...GET_PERFORMANCES_POST_QUERY_DEFAULT,
-                        data: { getPerformancePosts: updatedData }
+                        data: { getPerformancePostsCursor: updatedData }
                     });
                 }
                 enqueueSnackbar('Пост с выступлением успешно удален!', { variant: 'success' });

@@ -1,4 +1,4 @@
-import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS } from './apollo/queries';
+import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS_CURSOR } from './apollo/queries';
 import { MediaTypes, Options, PerformancePostState } from './types';
 
 
@@ -63,7 +63,7 @@ export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
         value: PerformancePostState.Draft
     },
     {
-        label: 'Голосование',
+        label: 'Идёт голосование',
         value: PerformancePostState.Poll
     },
     {
@@ -86,6 +86,6 @@ export const GET_NEWS_POST_QUERY_DEFAULT = {
 };
 
 export const GET_PERFORMANCES_POST_QUERY_DEFAULT = {
-    query: GET_PERFORMANCE_POSTS,
-    variables: { offset: 0, limit: PERFORMANCE_POSTS_LIMIT },
+    query: GET_PERFORMANCE_POSTS_CURSOR,
+    variables: { limit: PERFORMANCE_POSTS_LIMIT },
 };
