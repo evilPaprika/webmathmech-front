@@ -2,7 +2,7 @@ import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-apollo';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
+import { Button, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 import RatingMUI from '@material-ui/lab/Rating';
 
 import { VOTE_CURRENT_USER } from 'apollo/mutations';
@@ -11,8 +11,8 @@ import { useToggle } from 'client/hooks';
 import { FindVoteCurrentUserData, PerformancePost, PollVote, QueryFindVoteCurrentUserArgs, Rating } from 'client/types';
 import { SnackbarErrorText } from 'components/common/snackbar-error-text';
 
+import { AsyncTable } from '../table';
 import { useStyles } from './styles';
-import LoadingWrapper from '../loading-wrapper';
 
 
 interface Props {
@@ -82,62 +82,59 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
     };
 
     return (
-        <Paper className={styles.rating}>
-            <LoadingWrapper loading={loading}>
-                <TableContainer>
-                    <Table size="small">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>
-                                    <Typography>Форма</Typography>
-                                    <RatingMUI
-                                        value={format}
-                                        disabled={!isActivePoll}
-                                        name={`format-${id}`}
-                                        max={10}
-                                        size="small"
-                                        onChange={changeFormat}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <Typography>Содержание</Typography>
-                                    <RatingMUI
-                                        value={content}
-                                        disabled={!isActivePoll}
-                                        name={`content-${id}`}
-                                        max={10}
-                                        size="small"
-                                        onChange={changeContent}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <Typography>Интерес</Typography>
-                                    <RatingMUI
-                                        value={interest}
-                                        disabled={!isActivePoll}
-                                        name={`interest-${id}`}
-                                        max={10}
-                                        size="small"
-                                        onChange={changeInterest}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    {isActivePoll
-                                        ? <Button onClick={submit}>Давай проголосуем?</Button>
-                                        : 'Спасибон за голос, чё'}
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </LoadingWrapper>
-        </Paper>
+        <AsyncTable className={styles.rating} size="small" loading={loading}>
+            <TableBody>
+                <TableRow>
+                    <TableCell>
+                        <Typography>Форма</Typography>
+                        <RatingMUI
+                            value={format}
+                            disabled={!isActivePoll}
+                            name={`format-${id}`}
+                            max={10}
+                            size="small"
+                            onChange={changeFormat}
+                        />
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        <Typography>Содержание</Typography>
+                        <RatingMUI
+                            value={content}
+                            disabled={!isActivePoll}
+                            name={`content-${id}`}
+                            max={10}
+                            size="small"
+                            onChange={changeContent}
+                        />
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>
+                        <Typography>Интерес</Typography>
+                        <RatingMUI
+                            value={interest}
+                            disabled={!isActivePoll}
+                            name={`interest-${id}`}
+                            max={10}
+                            size="small"
+                            onChange={changeInterest}
+                        />
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell align="center">
+                        {isActivePoll
+                            ? (
+                                <Button variant="outlined" color="secondary" fullWidth onClick={submit}>
+                                    Проголосовать
+                                </Button>
+                            ) : <Typography>Ваш голос засчитан!</Typography>}
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        </AsyncTable>
     );
 });
 

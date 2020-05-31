@@ -11,6 +11,7 @@ import LoadingWrapper from './loading-wrapper';
 import Modal from './modal';
 import ScrollTopIcon from './scroll-top-icon';
 import SnackbarErrorText from './snackbar-error-text';
+import { Table, AsyncTable } from './table';
 import Teleporter from './teleporter';
 import PerformanceCard from './perfomance-card';
 import { NewsPostModal } from './news-post-modal';
@@ -31,6 +32,8 @@ export {
     Modal,
     ScrollTopIcon,
     SnackbarErrorText,
+    Table,
+    AsyncTable,
     Teleporter,
     PerformanceCard,
     NewsPostModal,
