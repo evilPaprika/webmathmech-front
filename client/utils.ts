@@ -46,7 +46,7 @@ export const mapPerformanceState = (state: PerformancePostState): string => {
         case PerformancePostState.Published:
             return 'На публикацию';
         default:
-            return '';
+            throw new Error('Performance post state is not implemented');
     }
 };
 
