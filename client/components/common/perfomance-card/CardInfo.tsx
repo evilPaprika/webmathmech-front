@@ -1,12 +1,13 @@
 import moment from 'moment';
 import React, { memo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Typography, Box, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Box, Chip, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MoreVert';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { useMenu, useModal } from 'client/hooks';
 import { PerformancePost, Role, UserData } from 'client/types';
+import { mapPerformanceState } from 'client/utils';
 
 import { PerformancePostModal } from '../performance-post-modal';
 import { RemovePerformancePostModal } from './remove-performance-post-modal';
@@ -31,11 +32,16 @@ export const CardInfo = memo(({ item }: Props) => {
 
     return (
         <Box className={styles.blockInfo}>
-            <Typography className={styles.date}>
-                {moment(item.createdAt).fromNow()}
-            </Typography>
+            <Box>
+                <Typography className={styles.date}>
+                    {moment(item.createdAt).fromNow()}
+                </Typography>
+                <Typography>{`${item.speaker?.name || ''} ${item.speaker?.surname || ''}`}</Typography>
+            </Box>
+
             {role === Role.Admin && (
-                <>
+                <Box display="flex" alignItems="center">
+                    <Chip label={mapPerformanceState(item.state)} size="small" variant="outlined" />
                     <IconButton aria-controls="user-menu" size="small" onClick={openMenu}>
                         <SettingsIcon />
                     </IconButton>
@@ -69,7 +75,7 @@ export const CardInfo = memo(({ item }: Props) => {
                             close={closeRemoveModal}
                         />
                     )}
-                </>
+                </Box>
             )}
         </Box>
     );

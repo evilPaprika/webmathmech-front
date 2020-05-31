@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import {
     Arg,
     Args,
@@ -8,7 +9,7 @@ import {
     Root,
 } from 'type-graphql';
 
-import { OffsetPaginationInputs } from './inputs/PaginationInputs';
+import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
@@ -54,10 +55,23 @@ export default class PerformancePostResolver {
         });
     }
 
+    @Query(() => [PerformancePost])
+    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+        return PerformancePost.findAll({
+            limit,
+            where: {
+                createdAt: {
+                    [Op.lt]: dateTimeCursor
+                }
+            },
+            order: [['createdAt', 'DESC']]
+        });
+    }
+
     @Mutation(() => PerformancePost)
     public async patchPerformancePost(@Args() { id, ...newValues }: PatchPerformancePostInputs) {
         const performancePost = await PerformancePost.findOne({
-            where: { id },
+            where: { id }
         });
 
         if (!performancePost) {
@@ -99,5 +113,16 @@ export default class PerformancePostResolver {
         });
 
         return averageRating;
+    }
+
+    @FieldResolver()
+    async speaker(@Root() { speakerId }: PerformancePost) {
+        if (!speakerId) {
+            return null;
+        }
+
+        return User.findOne({
+            where: { id: speakerId },
+        });
     }
 }

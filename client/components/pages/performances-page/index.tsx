@@ -2,10 +2,10 @@ import React, { memo, useState } from 'react';
 import { Container } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
-import { GET_PERFORMANCE_POSTS, GET_CURRENT_USER } from 'apollo/queries';
+import { GET_PERFORMANCE_POSTS_CURSOR, GET_CURRENT_USER } from 'apollo/queries';
 import { GET_PERFORMANCES_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
 import { useModal } from 'client/hooks';
-import { PerformancePost, PerformancePostsData, Role, UserData } from 'client/types';
+import { PerformancePost, PerformancePostsCursorData, Role, UserData } from 'client/types';
 import { AddEntityIcon, InfiniteScroll, Teleporter, PerformanceCard, PerformancePostModal } from 'components/common';
 
 
@@ -17,28 +17,35 @@ export const PerformancesPage = memo(() => {
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = userData?.getCurrentUser || {};
 
-    const { data, fetchMore, error, loading } = useQuery<PerformancePostsData>(GET_PERFORMANCE_POSTS, {
-        variables: GET_PERFORMANCES_POST_QUERY_DEFAULT.variables
-    });
+    const { data, fetchMore, error, loading, client } = useQuery<PerformancePostsCursorData>(
+        GET_PERFORMANCE_POSTS_CURSOR, {
+            variables: GET_PERFORMANCES_POST_QUERY_DEFAULT.variables
+        }
+    );
 
-    const items = data?.getPerformancePosts || DEFAULT_PERFORMANCES_LIST;
+    const items = data?.getPerformancePostsCursor || DEFAULT_PERFORMANCES_LIST;
 
-    const fetchMoreData = (page: number) => {
+    const fetchMoreData = () => {
         setHasMore(false);
 
+        const posts = client
+            .readQuery<PerformancePostsCursorData>({ query: GET_PERFORMANCE_POSTS_CURSOR })
+            ?.getPerformancePostsCursor || [];
+        const lastPost = posts[posts.length - 1];
+
         fetchMore({
-            variables: { offset: page * PERFORMANCE_POSTS_LIMIT, limit: PERFORMANCE_POSTS_LIMIT },
+            variables: { dateTimeCursor: lastPost.createdAt, limit: PERFORMANCE_POSTS_LIMIT },
             updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult?.getPerformancePosts?.length) {
+                if (!fetchMoreResult?.getPerformancePostsCursor?.length) {
                     return prev;
                 }
 
                 setHasMore(true);
 
                 return {
-                    getPerformancePosts: [
-                        ...prev.getPerformancePosts,
-                        ...fetchMoreResult?.getPerformancePosts
+                    getPerformancePostsCursor: [
+                        ...prev.getPerformancePostsCursor,
+                        ...fetchMoreResult?.getPerformancePostsCursor
                     ]
                 };
             }

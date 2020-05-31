@@ -10,13 +10,20 @@ interface Props {
     minLengthToCollapse?: number;
     Component?: React.ElementType;
     className?: string;
+    [x: string]: any;
 }
 
 const MIN_TEXT_LENGTH_TO_COLLAPSE = 200;
 
 
 export const CollapsibleText = memo((props: Props) => {
-    const { text = '', minLengthToCollapse = MIN_TEXT_LENGTH_TO_COLLAPSE, Component = Typography, className } = props;
+    const {
+        text = '',
+        minLengthToCollapse = MIN_TEXT_LENGTH_TO_COLLAPSE,
+        Component = Typography,
+        className,
+        ...other
+    } = props;
 
     const [collapsed, toggleCollapsed] = useToggle();
 
@@ -27,7 +34,7 @@ export const CollapsibleText = memo((props: Props) => {
     );
 
     return truncatedText ? (
-        <Component className={className}>
+        <Component className={className} {...other}>
             {truncatedText}
             {' '}
             {canCollapse && (

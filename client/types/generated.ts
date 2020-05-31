@@ -193,6 +193,7 @@ export type Query = {
     getNewsPostsCursor: Array<NewsPost>;
     findPerformancePost: PerformancePost;
     getPerformancePosts: Array<PerformancePost>;
+    getPerformancePostsCursor: Array<PerformancePost>;
     getCurrentUser: User;
     findUser: User;
     getUsers: Array<User>;
@@ -221,6 +222,11 @@ export type QueryFindPerformancePostArgs = {
 
 export type QueryGetPerformancePostsArgs = {
     params: OffsetPaginationInputs;
+};
+
+
+export type QueryGetPerformancePostsCursorArgs = {
+    params: CursorPaginationInputs;
 };
 
 

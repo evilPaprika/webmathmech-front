@@ -80,6 +80,7 @@ type Query {
   getNewsPostsCursor(params: CursorPaginationInputs!): [NewsPost!]!
   findPerformancePost(id: String!): PerformancePost!
   getPerformancePosts(params: OffsetPaginationInputs!): [PerformancePost!]!
+  getPerformancePostsCursor(params: CursorPaginationInputs!): [PerformancePost!]!
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: OffsetPaginationInputs!): [User!]!

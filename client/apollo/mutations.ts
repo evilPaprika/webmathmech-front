@@ -72,13 +72,31 @@ export const PATCH_CURRENT_USER = gql`
 // Performance posts
 export const CREATE_PERFORMANCE_POST = gql`
     mutation (
-        $description: String!,
+        $title: String!,
+        $description: String,
         $pictureURL: String,
         $videoURL: String,
-        $state: PerformancePostState!
+        $state: PerformancePostState,
+        $speakerId: String
     ) {
-        createPerformancePost(description: $description, pictureURL: $pictureURL, videoURL: $videoURL, state: $state) {
-            id
+        createPerformancePost(
+            title: $title,
+            description: $description,
+            pictureURL: $pictureURL,
+            videoURL: $videoURL,
+            state: $state,
+            speakerId: $speakerId
+        ) {
+            title
+            description
+            pictureURL
+            videoURL
+            state
+            speaker {
+                id
+                name
+                surname
+            }
         }
     }
 `;
@@ -87,24 +105,34 @@ export const CREATE_PERFORMANCE_POST = gql`
 export const PATCH_PERFORMANCE_POST = gql`
     mutation (
         $id: String!,
-        $description: String!,
+        $title: String,
+        $description: String,
         $pictureURL: String,
         $videoURL: String,
-        $state: PerformancePostState!
+        $state: PerformancePostState,
+        $speakerId: String
     ) {
         patchPerformancePost(
             id: $id,
+            title: $title,
             description: $description,
             pictureURL: $pictureURL,
             videoURL: $videoURL,
-            state: $state
+            state: $state,
+            speakerId: $speakerId
         ) {
             id
+            title
             description
             pictureURL
             videoURL
             createdAt
             state
+            speaker {
+                id
+                name
+                surname
+            }
             averageRating {
                 format
                 content
