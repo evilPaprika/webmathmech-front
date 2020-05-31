@@ -1,10 +1,10 @@
-import { Args, Ctx, FieldResolver, Mutation, Resolver, Root, } from 'type-graphql';
+import { Args, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
 import PollVote from '../models/PollVote.sequelize';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import { ApolloServerContext } from '../types';
 import User from '../models/User.sequelize';
-import { VoteCurrentUserInput, VoteInput } from './inputs/PollvoteInputs';
+import { FindVoteCurrentUser, VoteCurrentUserInput, VoteInput } from './inputs/PollVoteInputs';
 
 
 @Resolver(PollVote)
@@ -20,7 +20,7 @@ export default class PollVoteResolver {
         const jwt = context.koaCtx?.state?.user;
 
         return PollVote.create(
-            { id: jwt.id, ...args },
+            { userId: jwt.id, ...args },
         );
     }
 
@@ -32,5 +32,18 @@ export default class PollVoteResolver {
     @FieldResolver()
     async performance(@Root() { performanceId }: PollVote) {
         return PerformancePost.findOne({ where: { id: performanceId } });
+    }
+
+    @Query(() => PollVote)
+    public async findVoteCurrentUser(@Args() { performanceId }: FindVoteCurrentUser,
+        @Ctx() context: ApolloServerContext) {
+        const jwt = context.koaCtx?.state?.user;
+
+        return PollVote.findOne({
+            where: {
+                performanceId,
+                userId: jwt.id
+            },
+        });
     }
 }

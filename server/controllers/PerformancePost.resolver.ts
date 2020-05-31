@@ -64,7 +64,8 @@ export default class PerformancePostResolver {
                     [Op.lt]: dateTimeCursor
                 }
             },
-            order: [['createdAt', 'DESC']]
+            order: [['createdAt', 'DESC']],
+            include: [User, { model: PollVote, include: [User] }]
         });
     }
 

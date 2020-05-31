@@ -1,6 +1,7 @@
 import { ArgsType, Field } from 'type-graphql';
-import PollVote from '../../models/PollVote.sequelize';
+
 import { Rating } from '../../models/PerformancePost.sequelize';
+import PollVote from '../../models/PollVote.sequelize';
 
 @ArgsType()
 export class VoteInput implements Partial<PollVote> {
@@ -21,4 +22,10 @@ export class VoteCurrentUserInput implements Partial<PollVote> {
 
     @Field(() => Rating)
     public rating!: Rating;
+}
+
+@ArgsType()
+export class FindVoteCurrentUser implements Partial<PollVote> {
+    @Field()
+    public performanceId!: string;
 }

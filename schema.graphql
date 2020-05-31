@@ -81,6 +81,7 @@ type Query {
   findPerformancePost(id: String!): PerformancePost!
   getPerformancePosts(params: OffsetPaginationInputs!): [PerformancePost!]!
   getPerformancePostsCursor(params: CursorPaginationInputs!): [PerformancePost!]!
+  findVoteCurrentUser(performanceId: String!): PollVote!
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: OffsetPaginationInputs!): [User!]!

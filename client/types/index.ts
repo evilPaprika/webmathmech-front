@@ -37,6 +37,10 @@ export interface PerformancePostData {
     findPerformancePost: Query['findPerformancePost'];
 }
 
+export interface FindVoteCurrentUserData {
+    findVoteCurrentUser: Query['findVoteCurrentUser'];
+}
+
 export interface UsersData {
     getUsers: Query['getUsers'];
 }

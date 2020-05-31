@@ -1,16 +1,39 @@
 import React, { memo } from 'react';
+import { useQuery } from 'react-apollo';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
 
-import { Rating } from 'client/types';
+import { GET_CURRENT_USER } from 'apollo/queries';
+import { PerformancePost, PerformancePostState, Role, UserData } from 'client/types';
+
+import EditRatingForm from './EditRatingForm';
 import { useStyles } from './styles';
 
 
 interface Props {
-    rating: Rating;
+    item: PerformancePost;
 }
 
-export const CardRating = memo(({ rating }: Props) => {
+const AVAILABLE_ROLES_TO_VOTE: Array<Role | undefined> = [Role.Student, Role.Admin];
+
+export const CardRating = memo((props: Props) => {
     const styles = useStyles();
+
+    const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
+    const { role } = userData?.getCurrentUser || {};
+
+    const performance = props.item;
+    const { averageRating: rating, state } = performance;
+
+    const isActivePoll = state === PerformancePostState.Poll;
+    const isShownRating = [PerformancePostState.PollFinished, PerformancePostState.Published].includes(state);
+
+    if (isActivePoll && AVAILABLE_ROLES_TO_VOTE.includes(role)) {
+        return <EditRatingForm {...props} />;
+    }
+
+    if (!isShownRating) {
+        return null;
+    }
 
     return (
         <Paper className={styles.rating}>
