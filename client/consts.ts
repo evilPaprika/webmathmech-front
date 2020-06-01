@@ -71,7 +71,7 @@ export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
         value: PerformancePostState.PollFinished
     },
     {
-        label: 'На публикацию',
+        label: 'Опубликовано',
         value: PerformancePostState.Published
     },
 ];
