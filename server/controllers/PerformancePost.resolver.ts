@@ -13,7 +13,7 @@ import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/Paginat
 import {
     CreatePerformancePostInput,
     PatchPerformancePostInputs,
-    PerformanceAdditionalPaginationArgs
+    PerformancePaginationFiltersInput
 } from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
@@ -51,13 +51,13 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
-        @Args() { filterByStates }: PerformanceAdditionalPaginationArgs) {
+        @Arg('filter') { states }: PerformancePaginationFiltersInput) {
         return PerformancePost.findAll({
             offset,
             limit,
             where: {
                 state: {
-                    [Op.in]: filterByStates
+                    [Op.in]: states
                 }
             },
             order: [order],
@@ -67,7 +67,7 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
-        @Args() { filterByStates }: PerformanceAdditionalPaginationArgs) {
+        @Arg('filter') { states }: PerformancePaginationFiltersInput) {
         return PerformancePost.findAll({
             limit,
             where: {
@@ -75,7 +75,7 @@ export default class PerformancePostResolver {
                     [Op.lt]: dateTimeCursor
                 },
                 state: {
-                    [Op.in]: filterByStates
+                    [Op.in]: states
                 }
             },
             order: [['createdAt', 'DESC']],

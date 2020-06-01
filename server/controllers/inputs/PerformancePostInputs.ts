@@ -1,4 +1,4 @@
-import { ArgsType, Field } from 'type-graphql';
+import { ArgsType, Field, InputType } from 'type-graphql';
 import { Length } from 'class-validator';
 import PerformancePost from '../../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../../models/EnumModels';
@@ -57,8 +57,8 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
     public speakerId?: string;
 }
 
-@ArgsType()
-export class PerformanceAdditionalPaginationArgs {
+@InputType()
+export class PerformancePaginationFiltersInput {
     @Field(() => [PerformancePostState], { nullable: true })
-    public filterByStates?: PerformancePostState[];
+    public states?: PerformancePostState[];
 }

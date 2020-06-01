@@ -45,6 +45,10 @@ input OffsetPaginationInputs {
   order: [String!] = ["createdAt", "DESC"]
 }
 
+input PerformancePaginationFiltersInput {
+  states: [PerformancePostState!]
+}
+
 type PerformancePost {
   id: ID!
   title: String!
@@ -79,8 +83,8 @@ type Query {
   getNewsPosts(params: OffsetPaginationInputs!): [NewsPost!]!
   getNewsPostsCursor(params: CursorPaginationInputs!): [NewsPost!]!
   findPerformancePost(id: String!): PerformancePost!
-  getPerformancePosts(filterByStates: [PerformancePostState!], params: OffsetPaginationInputs!): [PerformancePost!]!
-  getPerformancePostsCursor(filterByStates: [PerformancePostState!], params: CursorPaginationInputs!): [PerformancePost!]!
+  getPerformancePosts(filter: PerformancePaginationFiltersInput!, params: OffsetPaginationInputs!): [PerformancePost!]!
+  getPerformancePostsCursor(filter: PerformancePaginationFiltersInput!, params: CursorPaginationInputs!): [PerformancePost!]!
   findVoteCurrentUser(performanceId: String!): PollVote!
   getCurrentUser: User!
   findUser(login: String!): User!
