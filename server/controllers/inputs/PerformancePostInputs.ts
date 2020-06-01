@@ -56,3 +56,9 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
     @Field({ nullable: true })
     public speakerId?: string;
 }
+
+@ArgsType()
+export class PerformanceAdditionalPaginationArgs {
+    @Field(() => [PerformancePostState], { nullable: true })
+    public filterByStates?: PerformancePostState[];
+}

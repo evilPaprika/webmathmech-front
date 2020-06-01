@@ -79,8 +79,8 @@ type Query {
   getNewsPosts(params: OffsetPaginationInputs!): [NewsPost!]!
   getNewsPostsCursor(params: CursorPaginationInputs!): [NewsPost!]!
   findPerformancePost(id: String!): PerformancePost!
-  getPerformancePosts(params: OffsetPaginationInputs!): [PerformancePost!]!
-  getPerformancePostsCursor(params: CursorPaginationInputs!): [PerformancePost!]!
+  getPerformancePosts(filterByStates: [PerformancePostState!], params: OffsetPaginationInputs!): [PerformancePost!]!
+  getPerformancePostsCursor(filterByStates: [PerformancePostState!], params: CursorPaginationInputs!): [PerformancePost!]!
   findVoteCurrentUser(performanceId: String!): PollVote!
   getCurrentUser: User!
   findUser(login: String!): User!

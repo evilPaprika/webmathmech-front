@@ -10,7 +10,11 @@ import {
 } from 'type-graphql';
 
 import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
-import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
+import {
+    CreatePerformancePostInput,
+    PatchPerformancePostInputs,
+    PerformanceAdditionalPaginationArgs
+} from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
 import User from '../models/User.sequelize';
@@ -46,22 +50,32 @@ export default class PerformancePostResolver {
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs) {
+    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
+        @Args() { filterByStates }: PerformanceAdditionalPaginationArgs) {
         return PerformancePost.findAll({
             offset,
             limit,
+            where: {
+                state: {
+                    [Op.in]: filterByStates
+                }
+            },
             order: [order],
             include: [User, { model: PollVote, include: [User] }]
         });
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
+        @Args() { filterByStates }: PerformanceAdditionalPaginationArgs) {
         return PerformancePost.findAll({
             limit,
             where: {
                 createdAt: {
                     [Op.lt]: dateTimeCursor
+                },
+                state: {
+                    [Op.in]: filterByStates
                 }
             },
             order: [['createdAt', 'DESC']],

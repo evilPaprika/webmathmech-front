@@ -222,11 +222,13 @@ export type QueryFindPerformancePostArgs = {
 
 
 export type QueryGetPerformancePostsArgs = {
+    filterByStates?: Maybe<Array<PerformancePostState>>;
     params: OffsetPaginationInputs;
 };
 
 
 export type QueryGetPerformancePostsCursorArgs = {
+    filterByStates?: Maybe<Array<PerformancePostState>>;
     params: CursorPaginationInputs;
 };
 
