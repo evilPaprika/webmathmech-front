@@ -19,7 +19,7 @@ interface Props {
 export const PerformanceCard = memo(({ item }: Props) => {
     const styles = useStyles();
 
-    const { description, pictureURL, videoURL, averageRating } = item;
+    const { description, pictureURL, videoURL } = item;
 
     return (
         <CardItem>
@@ -27,13 +27,13 @@ export const PerformanceCard = memo(({ item }: Props) => {
             {videoURL && <ReactPlayer url={videoURL} width="100%" controls />}
             <CardInfo item={item} />
             <Box className={styles.descriptionContainer} m={2} mt={0}>
-                <Box>
+                <Box mr={2}>
                     <ContainerBox gap="small">
                         <Typography variant="h5">{item.title}</Typography>
                     </ContainerBox>
                     <CollapsibleText variant="body2" text={description} className={styles.description} />
                 </Box>
-                <CardRating rating={averageRating} />
+                <CardRating performance={item} />
             </Box>
         </CardItem>
     );

@@ -133,6 +133,13 @@ export const PATCH_PERFORMANCE_POST = gql`
                 name
                 surname
             }
+            pollVotes {
+                rating {
+                    format
+                    content
+                    interest
+                }
+            }
             averageRating {
                 format
                 content
@@ -145,5 +152,24 @@ export const PATCH_PERFORMANCE_POST = gql`
 export const REMOVE_PERFORMANCE_POST = gql`
     mutation ($id: String!) {
         removePerformancePost(id: $id)
+    }
+`;
+
+export const VOTE_CURRENT_USER = gql`
+    mutation ($performanceId: String!, $rating: RatingInput!) {
+        voteCurrentUser(performanceId: $performanceId, rating: $rating) {
+            user {
+                id
+            }
+            performance {
+                id
+            }
+            rating {
+                format
+                content
+                interest
+            }
+            createdAt
+        }
     }
 `;

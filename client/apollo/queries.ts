@@ -110,6 +110,13 @@ export const GET_PERFORMANCE_POSTS = gql`
             videoURL
             createdAt
             state
+            pollVotes {
+                rating {
+                    format
+                    content
+                    interest
+                }
+            }
             speaker {
                 id
                 name
@@ -137,6 +144,13 @@ export const GET_PERFORMANCE_POSTS_CURSOR = gql`
             videoURL
             createdAt
             state
+            pollVotes {
+                rating {
+                    format
+                    content
+                    interest
+                }
+            }
             speaker {
                 id
                 name
@@ -161,6 +175,13 @@ export const FIND_PERFORMANCE_POST = gql`
             videoURL
             createdAt
             state
+            pollVotes {
+                rating {
+                    format
+                    content
+                    interest
+                }
+            }
             speaker {
                 id
                 name
@@ -171,6 +192,25 @@ export const FIND_PERFORMANCE_POST = gql`
                 content
                 interest
             }
+        }
+    }
+`;
+
+export const FIND_VOTE_CURRENT_USER = gql`
+    query ($performanceId: String!) {
+        findVoteCurrentUser(performanceId: $performanceId) {
+            user {
+                id
+            }
+            performance {
+                id
+            }
+            rating {
+                format
+                content
+                interest
+            }
+            createdAt
         }
     }
 `;

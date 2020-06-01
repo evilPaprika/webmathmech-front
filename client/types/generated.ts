@@ -194,6 +194,7 @@ export type Query = {
     findPerformancePost: PerformancePost;
     getPerformancePosts: Array<PerformancePost>;
     getPerformancePostsCursor: Array<PerformancePost>;
+    findVoteCurrentUser: PollVote;
     getCurrentUser: User;
     findUser: User;
     getUsers: Array<User>;
@@ -227,6 +228,11 @@ export type QueryGetPerformancePostsArgs = {
 
 export type QueryGetPerformancePostsCursorArgs = {
     params: CursorPaginationInputs;
+};
+
+
+export type QueryFindVoteCurrentUserArgs = {
+    performanceId: Scalars['String'];
 };
 
 
