@@ -34,6 +34,8 @@ const EditRatingForm = memo(({ performance: { id } }: Props) => {
     const [rating, setRating] = useState<RatingState>(DEFAULT_RATING);
     const { format, content, interest } = rating;
 
+    const isVoteDisabled = [format, content, interest].includes(0);
+
     const [isPollActive, setIsPollActive] = useToggle(true);
 
     const { data, loading } = useQuery<FindVoteCurrentUserData, QueryFindVoteCurrentUserArgs>(
@@ -127,7 +129,13 @@ const EditRatingForm = memo(({ performance: { id } }: Props) => {
                     <TableCell align="center">
                         {isPollActive
                             ? (
-                                <Button variant="outlined" color="secondary" fullWidth onClick={submit}>
+                                <Button
+                                    disabled={isVoteDisabled}
+                                    variant="outlined"
+                                    color="secondary"
+                                    fullWidth
+                                    onClick={submit}
+                                >
                                     Проголосовать
                                 </Button>
                             ) : <Typography>Ваш голос засчитан!</Typography>}
