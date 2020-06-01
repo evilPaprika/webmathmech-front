@@ -27,7 +27,7 @@ export const PerformanceCard = memo(({ item }: Props) => {
             {videoURL && <ReactPlayer url={videoURL} width="100%" controls />}
             <CardInfo item={item} />
             <Box className={styles.descriptionContainer} m={2} mt={0}>
-                <Box mr={2}>
+                <Box mr={2} mb={2}>
                     <ContainerBox gap="small">
                         <Typography variant="h5">{item.title}</Typography>
                     </ContainerBox>

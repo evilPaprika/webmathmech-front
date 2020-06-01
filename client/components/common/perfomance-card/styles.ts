@@ -37,8 +37,7 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'flex-start',
 
         [theme.breakpoints.down('xs')]: {
-            flexDirection: 'column-reverse',
-            alignItems: 'flex-end',
+            flexDirection: 'column'
         },
     },
 
