@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, WhereOptions } from 'sequelize';
 import {
     Arg,
     Args,
@@ -51,15 +51,21 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
-        @Arg('filter') { states }: PerformancePaginationFiltersInput) {
-        return PerformancePost.findAll({
-            offset,
-            limit,
-            where: {
+        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        const where: WhereOptions = { };
+
+        if (states) {
+            where.states = {
                 state: {
                     [Op.in]: states
                 }
-            },
+            };
+        }
+
+        return PerformancePost.findAll({
+            offset,
+            limit,
+            where,
             order: [order],
             include: [User, { model: PollVote, include: [User] }]
         });
@@ -67,17 +73,20 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
-        @Arg('filter') { states }: PerformancePaginationFiltersInput) {
-        return PerformancePost.findAll({
-            limit,
-            where: {
-                createdAt: {
-                    [Op.lt]: dateTimeCursor
-                },
+        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        const where: WhereOptions = { createdAt: { [Op.lt]: dateTimeCursor } };
+
+        if (states) {
+            where.states = {
                 state: {
                     [Op.in]: states
                 }
-            },
+            };
+        }
+
+        return PerformancePost.findAll({
+            limit,
+            where,
             order: [['createdAt', 'DESC']],
             include: [User, { model: PollVote, include: [User] }]
         });
