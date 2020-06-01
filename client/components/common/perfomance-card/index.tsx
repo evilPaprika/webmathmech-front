@@ -33,7 +33,7 @@ export const PerformanceCard = memo(({ item }: Props) => {
                     </ContainerBox>
                     <CollapsibleText variant="body2" text={description} className={styles.description} />
                 </Box>
-                <CardRating item={item} />
+                <CardRating performance={item} />
             </Box>
         </CardItem>
     );

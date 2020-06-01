@@ -6,12 +6,12 @@ import { GET_CURRENT_USER } from 'apollo/queries';
 import { PerformancePost, PerformancePostState, Role, UserData } from 'client/types';
 
 import { Table } from '../table';
-import EditRatingForm from './EditRatingForm';
+import CardRatingForVoting from './CardRatingForVoting';
 import { useStyles } from './styles';
 
 
 interface Props {
-    item: PerformancePost;
+    performance: PerformancePost;
 }
 
 const AVAILABLE_ROLES_TO_VOTE: Array<Role | undefined> = [Role.Student, Role.Admin];
@@ -22,17 +22,16 @@ export const CardRating = memo((props: Props) => {
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = userData?.getCurrentUser || {};
 
-    const performance = props.item;
-    const { averageRating: rating, state } = performance;
+    const { averageRating: rating, state } = props.performance;
 
-    const isActivePoll = state === PerformancePostState.Poll;
-    const isShownRating = [PerformancePostState.PollFinished, PerformancePostState.Published].includes(state);
+    const isPollActive = state === PerformancePostState.Poll;
+    const isRatingVisible = [PerformancePostState.PollFinished, PerformancePostState.Published].includes(state);
 
-    if (isActivePoll && AVAILABLE_ROLES_TO_VOTE.includes(role)) {
-        return <EditRatingForm {...props} />;
+    if (isPollActive && AVAILABLE_ROLES_TO_VOTE.includes(role)) {
+        return <CardRatingForVoting {...props} />;
     }
 
-    if (!isShownRating) {
+    if (!isRatingVisible) {
         return null;
     }
 

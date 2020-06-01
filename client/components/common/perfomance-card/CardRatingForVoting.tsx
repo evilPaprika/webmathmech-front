@@ -11,12 +11,12 @@ import { useToggle } from 'client/hooks';
 import { FindVoteCurrentUserData, PerformancePost, PollVote, QueryFindVoteCurrentUserArgs, Rating } from 'client/types';
 import { SnackbarErrorText } from 'components/common/snackbar-error-text';
 
-import { AsyncTable } from '../table';
+import { Table } from '../table';
 import { useStyles } from './styles';
 
 
 interface Props {
-    item: PerformancePost;
+    performance: PerformancePost;
 }
 
 type RatingState = Rating;
@@ -27,14 +27,14 @@ const DEFAULT_RATING: RatingState = {
     interest: 0
 };
 
-const EditRatingForm = memo(({ item: { id } }: Props) => {
+const EditRatingForm = memo(({ performance: { id } }: Props) => {
     const styles = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
     const [rating, setRating] = useState<RatingState>(DEFAULT_RATING);
     const { format, content, interest } = rating;
 
-    const [isActivePoll, changeIsActivePoll] = useToggle(true);
+    const [isPollActive, setIsPollActive] = useToggle(true);
 
     const { data, loading } = useQuery<FindVoteCurrentUserData, QueryFindVoteCurrentUserArgs>(
         FIND_VOTE_CURRENT_USER,
@@ -46,7 +46,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
     useEffect(() => {
         if (data) {
             setRating(voteData.rating);
-            changeIsActivePoll(false);
+            setIsPollActive(false);
         }
     }, [data, loading]);
 
@@ -65,7 +65,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
     const [vote] = useMutation(VOTE_CURRENT_USER, {
         variables: { performanceId: id, rating },
         onCompleted: () => {
-            changeIsActivePoll(false);
+            setIsPollActive(false);
             enqueueSnackbar('Ваш голос успешно сохранён!', { variant: 'success' });
         },
         onError(error: ApolloError) {
@@ -82,14 +82,14 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
     };
 
     return (
-        <AsyncTable className={styles.rating} size="small" loading={loading}>
+        <Table className={styles.rating} size="small" loading={loading}>
             <TableBody>
                 <TableRow>
                     <TableCell>
                         <Typography>Форма</Typography>
                         <RatingMUI
                             value={format}
-                            disabled={!isActivePoll}
+                            disabled={!isPollActive}
                             name={`format-${id}`}
                             max={10}
                             size="small"
@@ -102,7 +102,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
                         <Typography>Содержание</Typography>
                         <RatingMUI
                             value={content}
-                            disabled={!isActivePoll}
+                            disabled={!isPollActive}
                             name={`content-${id}`}
                             max={10}
                             size="small"
@@ -115,7 +115,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
                         <Typography>Интерес</Typography>
                         <RatingMUI
                             value={interest}
-                            disabled={!isActivePoll}
+                            disabled={!isPollActive}
                             name={`interest-${id}`}
                             max={10}
                             size="small"
@@ -125,7 +125,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
                 </TableRow>
                 <TableRow>
                     <TableCell align="center">
-                        {isActivePoll
+                        {isPollActive
                             ? (
                                 <Button variant="outlined" color="secondary" fullWidth onClick={submit}>
                                     Проголосовать
@@ -134,7 +134,7 @@ const EditRatingForm = memo(({ item: { id } }: Props) => {
                     </TableCell>
                 </TableRow>
             </TableBody>
-        </AsyncTable>
+        </Table>
     );
 });
 
