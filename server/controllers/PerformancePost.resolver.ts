@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Op, WhereOptions } from 'sequelize';
 import {
     Arg,
     Args,
@@ -10,7 +10,11 @@ import {
 } from 'type-graphql';
 
 import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
-import { CreatePerformancePostInput, PatchPerformancePostInputs } from './inputs/PerformancePostInputs';
+import {
+    CreatePerformancePostInput,
+    PatchPerformancePostInputs,
+    PerformancePaginationFiltersInput
+} from './inputs/PerformancePostInputs';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import { PerformancePostState } from '../models/EnumModels';
 import User from '../models/User.sequelize';
@@ -46,24 +50,43 @@ export default class PerformancePostResolver {
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs) {
+    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
+        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        const where: WhereOptions = { };
+
+        if (states) {
+            where.states = {
+                state: {
+                    [Op.in]: states
+                }
+            };
+        }
+
         return PerformancePost.findAll({
             offset,
             limit,
+            where,
             order: [order],
             include: [User, { model: PollVote, include: [User] }]
         });
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
+        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        const where: WhereOptions = { createdAt: { [Op.lt]: dateTimeCursor } };
+
+        if (states) {
+            where.states = {
+                state: {
+                    [Op.in]: states
+                }
+            };
+        }
+
         return PerformancePost.findAll({
             limit,
-            where: {
-                createdAt: {
-                    [Op.lt]: dateTimeCursor
-                }
-            },
+            where,
             order: [['createdAt', 'DESC']],
             include: [User, { model: PollVote, include: [User] }]
         });

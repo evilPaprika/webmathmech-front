@@ -155,6 +155,10 @@ export type OffsetPaginationInputs = {
     order?: Maybe<Array<Scalars['String']>>;
 };
 
+export type PerformancePaginationFiltersInput = {
+    states?: Maybe<Array<PerformancePostState>>;
+};
+
 export type PerformancePost = {
     __typename?: 'PerformancePost';
     id: Scalars['ID'];
@@ -222,11 +226,13 @@ export type QueryFindPerformancePostArgs = {
 
 
 export type QueryGetPerformancePostsArgs = {
+    filter?: Maybe<PerformancePaginationFiltersInput>;
     params: OffsetPaginationInputs;
 };
 
 
 export type QueryGetPerformancePostsCursorArgs = {
+    filter?: Maybe<PerformancePaginationFiltersInput>;
     params: CursorPaginationInputs;
 };
 

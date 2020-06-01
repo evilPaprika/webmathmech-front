@@ -100,8 +100,8 @@ export const FIND_NEWS_POST = gql`
 
 /* Performances posts queries */
 export const GET_PERFORMANCE_POSTS = gql`
-    query ($limit: Int!, $offset: Int!, $order: [String!]) {
-        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order })
+    query ($limit: Int!, $offset: Int!, $order: [String!], $states: [PerformancePostState!]) {
+        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }, filter: {states: $states})
         @connection(key: "getPerformancePosts") {
             id
             title
@@ -132,11 +132,15 @@ export const GET_PERFORMANCE_POSTS = gql`
 `;
 
 export const GET_PERFORMANCE_POSTS_CURSOR = gql`
-    query ($limit: Int, $dateTimeCursor: DateTime) {
-        getPerformancePostsCursor(params: { 
-            limit: $limit, 
-            dateTimeCursor: $dateTimeCursor
-        }) @connection(key: "getPerformancePostsCursor") {
+    query ($limit: Int, $dateTimeCursor: DateTime, $states: [PerformancePostState!]) {
+        getPerformancePostsCursor(
+            params: 
+            { 
+                limit: $limit, 
+                dateTimeCursor: $dateTimeCursor,
+            },
+            filter: {states: $states}
+        ) @connection(key: "getPerformancePostsCursor") {
             id
             title
             description
