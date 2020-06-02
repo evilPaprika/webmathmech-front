@@ -84,33 +84,25 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
         }
     }, [submit]);
 
-    const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthState({
-            ...authState,
-            name: event.target.value
-        });
-    };
+    const changeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setAuthState((prevState) => ({ ...prevState, name: event.target.value }));
+    }, []);
 
-    const changeSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthState({
-            ...authState,
-            surname: event.target.value
-        });
-    };
+    const changeSurname = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setAuthState((prevState) => ({ ...prevState, surname: event.target.value }));
+    }, []);
 
-    const changeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthState({
-            ...authState,
-            login: event.target.value
-        });
-    };
+    const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setAuthState((prevState) => ({ ...prevState, login: event.target.value }));
+    }, []);
 
-    const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthState({
-            ...authState,
-            password: event.target.value
-        });
-    };
+    const changePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setAuthState((prevState) => ({ ...prevState, password: event.target.value }));
+    }, []);
 
     const changeLoginMethod = useCallback(() => {
         setAuthState({
