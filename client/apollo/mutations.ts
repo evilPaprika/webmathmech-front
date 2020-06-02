@@ -87,15 +87,29 @@ export const CREATE_PERFORMANCE_POST = gql`
             state: $state,
             speakerId: $speakerId
         ) {
+            id
             title
             description
             pictureURL
             videoURL
+            createdAt
             state
             speaker {
                 id
                 name
                 surname
+            }
+            pollVotes {
+                rating {
+                    format
+                    content
+                    interest
+                }
+            }
+            averageRating {
+                format
+                content
+                interest
             }
         }
     }

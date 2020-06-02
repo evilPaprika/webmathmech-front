@@ -1,3 +1,4 @@
+import { mapPerformanceState } from 'client/utils';
 import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS_CURSOR } from './apollo/queries';
 import { MediaTypes, Options, PerformancePostState } from './types';
 
@@ -59,19 +60,19 @@ export const MEDIA_TABS: Options<MediaTypes> = [
 
 export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
     {
-        label: 'Черновик',
+        label: mapPerformanceState(PerformancePostState.Draft),
         value: PerformancePostState.Draft
     },
     {
-        label: 'Идёт голосование',
+        label: mapPerformanceState(PerformancePostState.Poll),
         value: PerformancePostState.Poll
     },
     {
-        label: 'Голосование окончено',
+        label: mapPerformanceState(PerformancePostState.PollFinished),
         value: PerformancePostState.PollFinished
     },
     {
-        label: 'Опубликовано',
+        label: mapPerformanceState(PerformancePostState.Published),
         value: PerformancePostState.Published
     },
 ];

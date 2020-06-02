@@ -14,14 +14,14 @@ import {
     PerformancePost,
     PerformancePostsCursorData
 } from 'client/types';
-import { mapSpeakerToOption } from 'client/utils';
+import { mapPerformanceState, mapSpeakerToOption } from 'client/utils';
 import { SnackbarErrorText } from 'components/common/snackbar-error-text';
 import Modal from 'components/common/modal';
 import LoadingWrapper from 'components/common/loading-wrapper';
 import ContainerBox from 'components/common/container-box';
 import LabeledInput from 'components/common/labeled-input';
 import AsyncButton from 'components/common/async-button';
-import LabeledSelect from 'components/common/labeled-select';
+import AutocompleteSelect from 'components/common/autocomplete-select';
 import { UsersSelect } from './users-select';
 
 
@@ -74,13 +74,13 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
     }, [id, data]);
 
     const isCreate = !id;
-    const { title, description, pictureURL, videoURL, media, state, speakerId, speaker } = modalState;
+    const { title, description, pictureURL, videoURL, media, state, speakerId } = modalState;
 
     const onCloseModal = useCallback(() => {
-        setModalState(DEFAULT_STATE);
+        setModalState(applyDefaultState(data?.findPerformancePost));
 
         close();
-    }, []);
+    }, [data]);
 
     const [mutatePerformancePost, { loading }] = useMutation(
         isCreate ? CREATE_PERFORMANCE_POST : PATCH_PERFORMANCE_POST,
@@ -126,38 +126,43 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
         }
     );
 
-    const changeTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setModalState({ ...modalState, title: event.target.value });
-    };
+    const changeTitle = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        event.persist();
+        setModalState((prevState) => ({ ...prevState, title: event.target.value }));
+    }, []);
 
-    const changeSpeaker = (value: string) => {
-        setModalState({ ...modalState, speakerId: value });
-    };
+    const changeSpeaker = useCallback((value: string) => {
+        setModalState((prevState) => ({ ...prevState, speakerId: value }));
+    }, []);
 
-    const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setModalState({ ...modalState, description: event.target.value });
-    };
+    const changeDescription = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        event.persist();
+        setModalState((prevState) => ({ ...prevState, description: event.target.value }));
+    }, []);
 
-    const changeMediaType = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setModalState({ ...modalState, media: event.target.value as MediaTypes });
-    };
+    const changeMediaType = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setModalState((prevState) => ({ ...prevState, media: event.target.value as MediaTypes }));
+    }, []);
 
-    const changePictureURL = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setModalState({ ...modalState, pictureURL: event.target.value });
-    };
+    const changePictureURL = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setModalState((prevState) => ({ ...prevState, pictureURL: event.target.value }));
+    }, []);
 
-    const changeVideoURL = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setModalState({ ...modalState, videoURL: event.target.value });
-    };
+    const changeVideoURL = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setModalState((prevState) => ({ ...prevState, videoURL: event.target.value }));
+    }, []);
 
-    const changePerformanceState = (value: string) => {
-        setModalState({ ...modalState, state: value as PerformancePostState });
-    };
+    const changePerformanceState = useCallback((value: string) => {
+        setModalState((prevState) => ({ ...prevState, state: value as PerformancePostState }));
+    }, []);
 
     const submit = useCallback(() => {
         const variables = {
             title: title?.trim(),
-            description: description?.trim(),
+            description: description?.trim() || null,
             pictureURL: (media === MediaTypes.Picture && pictureURL?.trim()) || null,
             videoURL: (media === MediaTypes.Video && videoURL?.trim()) || null,
             state,
@@ -210,7 +215,9 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                 </ContainerBox>
                 <ContainerBox>
                     <UsersSelect
-                        value={mapSpeakerToOption(speaker)}
+                        defaultValue={
+                            data && mapSpeakerToOption(data?.findPerformancePost.speaker)
+                        }
                         isCreateMode={isCreate}
                         label="Спикер"
                         fullWidth
@@ -227,8 +234,11 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                     />
                 </ContainerBox>
                 <ContainerBox>
-                    <LabeledSelect
-                        value={PERFORMANCE_STATES_OPTIONS.find((pState) => state === pState.value)}
+                    <AutocompleteSelect
+                        defaultValue={data && {
+                            value: data?.findPerformancePost.state,
+                            label: mapPerformanceState(data?.findPerformancePost.state)
+                        }}
                         options={PERFORMANCE_STATES_OPTIONS}
                         label="Состояние выступления"
                         fullWidth
