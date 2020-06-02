@@ -30,15 +30,15 @@ const LayoutFooter = () => {
 
     return (
         <Container className={styles.container} maxWidth={false}>
-            <Box className={styles.socialGroup} mb="10px">
+            <Box className={styles.socialGroup} mb="5px">
                 {FOOTER_LOGOS.map(({ SvgSocialIcon, href }) => (
                     <Link key={href} href={href} target="_blank" className={styles.socialIcon}>
                         <SvgSocialIcon className={styles.socialIconImage} />
                     </Link>
                 ))}
             </Box>
-            <Box textAlign="center">
-                <Typography variant="body2" color="textPrimary">
+            <Box textAlign="center" mb={2}>
+                <Typography variant="body2" color="textSecondary">
                     {'Copyright by '}
                     <Link color="inherit" href="https://webmathmech.site/" target="_blank">
                         WebMathMech
