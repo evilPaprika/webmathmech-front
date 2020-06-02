@@ -40,11 +40,24 @@ export const GET_CURRENT_USER_PERFORMANCES = gql`
         getCurrentUser {
             performances {
                 id
+                title
                 description
                 pictureURL
                 videoURL
                 createdAt
                 state
+                pollVotes {
+                    rating {
+                        format
+                        content
+                        interest
+                    }
+                }
+                speaker {
+                    id
+                    name
+                    surname
+                }
                 averageRating {
                     format
                     content

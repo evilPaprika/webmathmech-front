@@ -20,6 +20,9 @@ const theme = createMuiTheme({
             main: '#16242f',
             light: '#444f58',
             contrastText: '#fff'
+        },
+        background: {
+            default: '#f7f7f7'
         }
     }
 });
@@ -29,7 +32,7 @@ const Layout = ({ children }: Props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className={classes.root}>
+            <Box bgcolor="background.default" height="100%" className={classes.root}>
                 <LayoutHeader />
                 <Box className={classes.content}>
                     <Box width="100%">
@@ -41,7 +44,7 @@ const Layout = ({ children }: Props) => {
                     <ScrollTopIcon />
                     <Teleporter.Target />
                 </Box>
-            </div>
+            </Box>
         </ThemeProvider>
     );
 };
