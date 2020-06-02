@@ -12,6 +12,7 @@ import { mapPerformanceState } from 'client/utils';
 import { PerformancePostModal } from '../performance-post-modal';
 import { RemovePerformancePostModal } from './remove-performance-post-modal';
 import { useStyles } from './styles';
+import { VotesModal } from './votes-modal';
 
 
 moment.locale('ru');
@@ -26,6 +27,7 @@ export const CardInfo = memo(({ item }: Props) => {
 
     const [isOpenRemoveModal, openRemoveModal, closeRemoveModal] = useModal();
     const [isOpenEditModal, openEditModal, closeEditModal] = useModal();
+    const [isOpenVotesModal, openVotesModal, closeVotesModal] = useModal();
 
     const { data } = useQuery<UserData>(GET_CURRENT_USER);
     const { role } = data?.getCurrentUser || {};
@@ -58,6 +60,7 @@ export const CardInfo = memo(({ item }: Props) => {
                         onClick={closeMenu}
                     >
                         <MenuItem onClick={openEditModal}>Редактировать</MenuItem>
+                        <MenuItem onClick={openVotesModal}>Посмотреть голосовавших</MenuItem>
                         <MenuItem onClick={openRemoveModal}>Удалить</MenuItem>
                     </Menu>
 
@@ -73,6 +76,14 @@ export const CardInfo = memo(({ item }: Props) => {
                             performancePostId={item.id}
                             isOpen={isOpenRemoveModal}
                             close={closeRemoveModal}
+                        />
+                    )}
+
+                    {isOpenVotesModal && (
+                        <VotesModal
+                            votes={item?.pollVotes || []}
+                            isOpen={isOpenVotesModal}
+                            close={closeVotesModal}
                         />
                     )}
                 </Box>

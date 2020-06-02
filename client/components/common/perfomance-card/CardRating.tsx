@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useQuery } from 'react-apollo';
-import { TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
+import { TableCell, TableRow, Typography } from '@material-ui/core';
 
 import { GET_CURRENT_USER } from 'apollo/queries';
 import { PerformancePost, PerformancePostState, Role, UserData } from 'client/types';
@@ -37,32 +37,30 @@ export const CardRating = memo((props: Props) => {
 
     return (
         <Table className={styles.rating} size="small">
-            <TableBody>
-                <TableRow>
-                    <TableCell>
-                        <Typography>Форма</Typography>
-                    </TableCell>
-                    <TableCell>
-                        <Typography>{rating.format.toFixed(2)}</Typography>
-                    </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        <Typography>Содержание</Typography>
-                    </TableCell>
-                    <TableCell>
-                        <Typography>{rating.content.toFixed(2)}</Typography>
-                    </TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>
-                        <Typography>Интерес</Typography>
-                    </TableCell>
-                    <TableCell>
-                        <Typography>{rating.interest.toFixed(2)}</Typography>
-                    </TableCell>
-                </TableRow>
-            </TableBody>
+            <TableRow>
+                <TableCell>
+                    <Typography>Форма</Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography>{rating.format.toFixed(2)}</Typography>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Typography>Содержание</Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography>{rating.content.toFixed(2)}</Typography>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell>
+                    <Typography>Интерес</Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography>{rating.interest.toFixed(2)}</Typography>
+                </TableCell>
+            </TableRow>
         </Table>
     );
 });
