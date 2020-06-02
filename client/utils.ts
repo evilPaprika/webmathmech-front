@@ -44,7 +44,7 @@ export const mapPerformanceState = (state: PerformancePostState): string => {
         case PerformancePostState.PollFinished:
             return 'Голосование окончено';
         case PerformancePostState.Published:
-            return 'На публикацию';
+            return 'Опубликовано';
         default:
             throw new Error('Performance post state is not implemented');
     }
