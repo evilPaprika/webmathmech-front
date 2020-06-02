@@ -7,7 +7,7 @@ import { Option, Options } from 'client/types';
 
 interface OwnProps {
     label: string;
-    defaultValue: Option | null | undefined;
+    defaultValue?: Option | null;
     options?: Options;
     onChange: (value: string) => void;
 }
