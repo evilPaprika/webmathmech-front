@@ -13,7 +13,7 @@ interface Props {
     width?: string;
 }
 
-export const Modal = memo(({ isOpen, close, title, children, width }: Props) => {
+export const Modal = memo(({ isOpen, close, title, children, width = '100%' }: Props) => {
     const styles = useStyles();
 
     return (
@@ -23,7 +23,7 @@ export const Modal = memo(({ isOpen, close, title, children, width }: Props) => 
             disableScrollLock
             onClose={close}
         >
-            <Box width={width || '100%'} className={styles.modalForm}>
+            <Box width={width} className={styles.modalForm}>
                 <Box position="relative" color="primary.contrastText" bgcolor="primary.main">
                     <Box p={3}>
                         <Typography variant="h5">
