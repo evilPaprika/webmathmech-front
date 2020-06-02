@@ -37,7 +37,7 @@ const LayoutFooter = () => {
                     </Link>
                 ))}
             </Box>
-            <Box textAlign="center" mb="12px">
+            <Box textAlign="center" mb={2}>
                 <Typography variant="body2" color="textSecondary">
                     {'Copyright by '}
                     <Link color="inherit" href="https://webmathmech.site/" target="_blank">
