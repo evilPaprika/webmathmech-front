@@ -67,7 +67,7 @@ export const PerformancesPage = memo(() => {
                         <AddEntityIcon onClick={openModal} />
                     </Teleporter.Source>
 
-                    {isOpenModal && <PerformancePostModal isOpen={isOpenModal} close={closeModal} />}
+                    <PerformancePostModal isOpen={isOpenModal} close={closeModal} />
                 </>
             )}
         </Container>

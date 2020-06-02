@@ -24,9 +24,7 @@ const AdminPage = () => {
             </ContainerBox>
 
             {isOpenNewsPostModal && <NewsPostModal isOpen={isOpenNewsPostModal} close={closeNewsPostModal} />}
-            {isOpenPerformancePostModal && (
-                <PerformancePostModal isOpen={isOpenPerformancePostModal} close={closePerformancePostModal} />
-            )}
+            <PerformancePostModal isOpen={isOpenPerformancePostModal} close={closePerformancePostModal} />
         </Container>
     );
 };

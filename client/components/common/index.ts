@@ -6,7 +6,7 @@ import ContainerBox from './container-box';
 import InfiniteScroll from './infinite-scroll';
 import LabeledBox from './labeled-box';
 import LabeledInput from './labeled-input';
-import LabeledSelect from './labeled-select';
+import AutocompleteSelect from './autocomplete-select';
 import LoadingWrapper from './loading-wrapper';
 import Modal from './modal';
 import ScrollTopIcon from './scroll-top-icon';
@@ -27,7 +27,7 @@ export {
     InfiniteScroll,
     LabeledBox,
     LabeledInput,
-    LabeledSelect,
+    AutocompleteSelect,
     LoadingWrapper,
     Modal,
     ScrollTopIcon,
