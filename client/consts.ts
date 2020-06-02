@@ -49,11 +49,11 @@ export const EXTENDED_HEADER_TABS: Options = [...MENU_OPTIONS, ...HEADER_TABS];
 
 export const MEDIA_TABS: Options<MediaTypes> = [
     {
-        label: 'Добавить картинку',
+        label: 'Вставить картинку',
         value: MediaTypes.Picture
     },
     {
-        label: 'Добавить видео',
+        label: 'Вставить видео',
         value: MediaTypes.Video
     }
 ];
