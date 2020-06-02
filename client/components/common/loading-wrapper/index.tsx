@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Loader = (
-    <Box display="flex" justifyContent="center">
+    <Box display="flex" justifyContent="center" m={1}>
         <CircularProgress />
     </Box>
 );

@@ -32,14 +32,13 @@ const Layout = ({ children }: Props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box bgcolor="background.default" height="100%" className={classes.root}>
+            <Box className={classes.root}>
                 <LayoutHeader />
                 <Box className={classes.content}>
                     <Box width="100%">
                         {children}
                     </Box>
                 </Box>
-
                 <Box className={classes.icons}>
                     <ScrollTopIcon />
                     <Teleporter.Target />
