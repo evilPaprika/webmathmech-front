@@ -124,6 +124,7 @@ export const AuthModal = memo(({ isOpen, close, refetch }: Props) => {
             title={isSignUpMethod ? 'Регистрация' : 'Вход'}
             isOpen={isOpen}
             close={onClose}
+            width="400px"
         >
             {isSignUpMethod && (
                 <ContainerBox display="flex">

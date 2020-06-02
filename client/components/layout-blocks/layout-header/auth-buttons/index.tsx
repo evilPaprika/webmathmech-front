@@ -40,8 +40,10 @@ export const AuthButtons = () => {
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
         client.writeData({ data: { isLoggedIn: false } });
-
-        refetch();
+        client.writeQuery({
+            query: GET_CURRENT_USER,
+            data: { getCurrentUser: null }
+        });
     }, [client]);
 
     if (error?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {

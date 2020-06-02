@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Box, Container, IconButton, Modal as MaterialUIModal, Typography } from '@material-ui/core';
+import { Box, IconButton, Modal as MaterialUIModal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { useStyles } from './styles';
@@ -10,9 +10,10 @@ interface Props {
     children: React.ReactNode;
     isOpen: boolean;
     close(): void;
+    width?: string;
 }
 
-export const Modal = memo(({ isOpen, close, title, children }: Props) => {
+export const Modal = memo(({ isOpen, close, title, children, width = '100%' }: Props) => {
     const styles = useStyles();
 
     return (
@@ -22,7 +23,7 @@ export const Modal = memo(({ isOpen, close, title, children }: Props) => {
             disableScrollLock
             onClose={close}
         >
-            <Container className={styles.modalForm} disableGutters>
+            <Box width={width} className={styles.modalForm}>
                 <Box position="relative" color="primary.contrastText" bgcolor="primary.main">
                     <Box p={3}>
                         <Typography variant="h5">
@@ -38,7 +39,7 @@ export const Modal = memo(({ isOpen, close, title, children }: Props) => {
                 <Box pt={5} px={3} pb={3}>
                     {children}
                 </Box>
-            </Container>
+            </Box>
         </MaterialUIModal>
     );
 });
