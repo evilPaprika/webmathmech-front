@@ -2,6 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles((theme) => ({
+    '@global': {
+        'html, body, #root': {
+            height: '100%',
+            background: theme.palette.background.default
+        },
+    },
     root: {
         display: 'flex',
         fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,7 +15,7 @@ export const useStyles = makeStyles((theme) => ({
 sans-serif`
     },
     content: {
-        margin: '80px auto 0',
+        margin: '70px auto 0',
         padding: `0 ${theme.spacing(6)}px 0`,
         [theme.breakpoints.down('sm')]: {
             padding: `0 ${theme.spacing(4)}px 0`,
@@ -21,7 +27,6 @@ sans-serif`
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
 
         width: '100%',
         maxWidth: 700,
