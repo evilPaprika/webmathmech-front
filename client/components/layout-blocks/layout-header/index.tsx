@@ -2,14 +2,17 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     AppBar,
+    Box,
     Container,
     Divider as MUIDivider,
     Drawer,
     Hidden,
+    Slide,
     SwipeableDrawer,
     Tab,
     Tabs,
-    Toolbar
+    Toolbar,
+    useScrollTrigger
 } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -86,12 +89,16 @@ const LayoutHeader = () => {
 
     return (
         <>
-            <AppBar position="fixed" className={styles.appBar}>
-                <Toolbar>
-                    {Icons}
-                    <AuthButtons />
-                </Toolbar>
-            </AppBar>
+            <Box className={styles.appBar}>
+                <HideOnScroll>
+                    <AppBar position="relative">
+                        <Toolbar>
+                            {Icons}
+                            <AuthButtons />
+                        </Toolbar>
+                    </AppBar>
+                </HideOnScroll>
+            </Box>
             <nav className={styles.drawer}>
                 <Hidden smUp implementation="css">
                     <SwipeableDrawer
@@ -118,5 +125,17 @@ const LayoutHeader = () => {
         </>
     );
 };
+
+function HideOnScroll({ children }: {children: React.ReactNode}) {
+    const trigger = useScrollTrigger();
+
+    return (
+        <Slide direction="down" in={!trigger}>
+            <div>
+                {children}
+            </div>
+        </Slide>
+    );
+}
 
 export default memo(LayoutHeader);
