@@ -11,10 +11,11 @@ import {
     AuthPage,
     Error404,
     NewsPage,
-    PerformancesPage,
     PersonalPage,
-    PersonalPerformancesPage
+    PersonalPerformancesPage,
+    PublishedPerformancesPage
 } from '_components/pages';
+import AllPerformancesPage from '_components/pages/all-performances-page';
 
 import apolloClient from './apollo';
 
@@ -37,7 +38,11 @@ export default (
                     <Switch>
                         <Redirect exact from={ROUTES.MAIN} to={ROUTES.NEWS} />
                         <Route path={ROUTES.NEWS} component={PageTransitionHOC(NewsPage)} />
-                        <Route path={ROUTES.PERFORMANCES} component={PageTransitionHOC(PerformancesPage)} />
+                        <Route
+                            path={ROUTES.PUBLISHED_PERFORMANCES}
+                            component={PageTransitionHOC(PublishedPerformancesPage)}
+                        />
+                        <Route path={ROUTES.ALL_PERFORMANCES} component={PageTransitionHOC(AllPerformancesPage)} />
                         <Route path={ROUTES.ADMIN} component={PageTransitionHOC(AdminPage)} />
                         <Route path={ROUTES.PERSONAL_PAGE} component={PageTransitionHOC(PersonalPage)} />
                         <Route

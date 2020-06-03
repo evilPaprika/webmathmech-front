@@ -1,4 +1,4 @@
-import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries';
+import { GET_NEWS_POSTS_CURSOR } from '_apollo/queries';
 import { mapPerformanceState } from '_client/utils';
 
 import { MediaTypes, Options, PerformancePostState } from './types';
@@ -12,7 +12,8 @@ export const ROUTES = {
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     NEWS: '/news',
-    PERFORMANCES: '/performances',
+    PUBLISHED_PERFORMANCES: '/performances',
+    ALL_PERFORMANCES: '/all-performances',
     ADMIN: '/admin',
     PERSONAL_PAGE: '/my',
     PERSONAL_PERFORMANCES: '/my-performances',
@@ -27,12 +28,20 @@ export const HEADER_TABS: Options = [
     },
     {
         label: 'Выступления',
-        value: ROUTES.PERFORMANCES
+        value: ROUTES.PUBLISHED_PERFORMANCES
     },
+
+];
+
+export const ADMIN_TABS: Options = [
     {
         label: 'Админка',
         value: ROUTES.ADMIN
-    }
+    },
+    {
+        label: 'Все Выступления',
+        value: ROUTES.ALL_PERFORMANCES
+    },
 ];
 
 export const MENU_OPTIONS: Options = [
@@ -46,7 +55,7 @@ export const MENU_OPTIONS: Options = [
     }
 ];
 
-export const EXTENDED_HEADER_TABS: Options = [...MENU_OPTIONS, ...HEADER_TABS];
+export const EXTENDED_HEADER_TABS: Options = [...MENU_OPTIONS, ...HEADER_TABS, ...ADMIN_TABS];
 
 export const MEDIA_TABS: Options<MediaTypes> = [
     {
@@ -85,9 +94,4 @@ export const SIDEBAR_WIDTH = 280;
 export const GET_NEWS_POST_QUERY_DEFAULT = {
     query: GET_NEWS_POSTS_CURSOR,
     variables: { limit: NEWS_POSTS_LIMIT },
-};
-
-export const GET_PERFORMANCES_POST_QUERY_DEFAULT = {
-    query: GET_PERFORMANCE_POSTS_CURSOR,
-    variables: { limit: PERFORMANCE_POSTS_LIMIT },
 };

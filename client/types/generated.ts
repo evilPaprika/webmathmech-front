@@ -226,13 +226,13 @@ export type QueryFindPerformancePostArgs = {
 
 
 export type QueryGetPerformancePostsArgs = {
-    filter?: Maybe<PerformancePaginationFiltersInput>;
+    filters?: Maybe<PerformancePaginationFiltersInput>;
     params: OffsetPaginationInputs;
 };
 
 
 export type QueryGetPerformancePostsCursorArgs = {
-    filter?: Maybe<PerformancePaginationFiltersInput>;
+    filters?: Maybe<PerformancePaginationFiltersInput>;
     params: CursorPaginationInputs;
 };
 

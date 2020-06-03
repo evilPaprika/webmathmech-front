@@ -25,6 +25,9 @@ const NewsPage = () => {
     const newsPosts = data?.getNewsPostsCursor || [];
 
     const fetchMoreData = () => {
+        if (loading) {
+            return;
+        }
         setHasMore(false);
 
         const posts = client

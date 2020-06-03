@@ -112,53 +112,16 @@ export const FIND_NEWS_POST = gql`
 `;
 
 /* Performances posts queries */
-export const GET_PERFORMANCE_POSTS = gql`
-    query ($limit: Int!, $offset: Int!, $order: [String!], $states: [PerformancePostState!]) {
-        getPerformancePosts(params: { limit: $limit, offset: $offset, order: $order }, filter: {states: $states})
-        @connection(key: "getPerformancePosts") {
-            id
-            title
-            description
-            pictureURL
-            videoURL
-            createdAt
-            state
-            pollVotes {
-                rating {
-                    format
-                    content
-                    interest
-                }
-                user {
-                    id
-                    name
-                    surname
-                }
-            }
-            speaker {
-                id
-                name
-                surname
-            }
-            averageRating {
-                format
-                content
-                interest
-            }
-        }
-    }
-`;
-
 export const GET_PERFORMANCE_POSTS_CURSOR = gql`
-    query ($limit: Int, $dateTimeCursor: DateTime, $states: [PerformancePostState!]) {
+    query ($limit: Int, $dateTimeCursor: DateTime, $filters: PerformancePaginationFiltersInput) {
         getPerformancePostsCursor(
             params: 
             { 
                 limit: $limit, 
                 dateTimeCursor: $dateTimeCursor,
             },
-            filter: {states: $states}
-        ) @connection(key: "getPerformancePostsCursor") {
+            filters: $filters
+        ) @connection(key: "getPerformancePostsCursor", filter: ["filters"]) {
             id
             title
             description

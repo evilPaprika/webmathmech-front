@@ -2,12 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const useStyles = makeStyles((theme) => ({
-    '@global': {
-        'html, body, #root': {
-            height: '100%',
-            background: theme.palette.background.default
-        },
-    },
     root: {
         display: 'flex',
         fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useContext, useEffect, useState } from 'react';
 
 import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from '_apollo/mutations';
 import { FIND_PERFORMANCE_POST, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries';
@@ -22,6 +22,7 @@ import LabeledInput from '_components/common/labeled-input';
 import LoadingWrapper from '_components/common/loading-wrapper';
 import Modal from '_components/common/modal';
 import { SnackbarErrorText } from '_components/common/snackbar-error-text';
+import { PerformanceListContext } from '_contexts/PerformanceList.context';
 
 import { UsersSelect } from './users-select';
 
@@ -61,13 +62,12 @@ const applyDefaultState = (item?: PerformancePost): ModalState => (
 );
 
 export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id }: Props) => {
+    const { filters } = useContext(PerformanceListContext);
     const { enqueueSnackbar } = useSnackbar();
-
     const { data, loading: findLoading } = useQuery<PerformancePostData>(
         FIND_PERFORMANCE_POST,
         { variables: { id } }
     );
-
     const [modalState, setModalState] = useState<ModalState>(DEFAULT_STATE);
 
     useEffect(() => {
@@ -96,11 +96,12 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
             update: (dataProxy, mutationResult) => {
                 if (isCreate) {
                     const performancePostData = dataProxy.readQuery<PerformancePostsCursorData>(
-                        { query: GET_PERFORMANCE_POSTS_CURSOR }
+                        { query: GET_PERFORMANCE_POSTS_CURSOR, variables: { filters } }
                     );
                     if (performancePostData) {
                         dataProxy.writeQuery({
                             query: GET_PERFORMANCE_POSTS_CURSOR,
+                            variables: { filters },
                             data: {
                                 getPerformancePostsCursor: [
                                     mutationResult.data.createPerformancePost,
