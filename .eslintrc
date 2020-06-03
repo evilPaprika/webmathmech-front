@@ -23,7 +23,7 @@
                     "error",
                     {
                         "groups": [
-                            // Related packages come first.
+                            // External packages come first.
                             ["^[^_]"],
                             // Internal packages.
                             ["^(_components|_contexts|_apollo|_client)"],
