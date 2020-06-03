@@ -25,12 +25,20 @@ export default class PollVoteResolver {
     }
 
     @FieldResolver()
-    async user(@Root() { userId }: PollVote) {
+    async user(@Root() { userId, user }: PollVote) {
+        if (user) {
+            return user;
+        }
+
         return User.findOne({ where: { id: userId } });
     }
 
     @FieldResolver()
-    async performance(@Root() { performanceId }: PollVote) {
+    async performance(@Root() { performanceId, performance }: PollVote) {
+        if (performance) {
+            return performance;
+        }
+
         return PerformancePost.findOne({ where: { id: performanceId } });
     }
 
