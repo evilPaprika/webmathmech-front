@@ -140,9 +140,13 @@ export default class PerformancePostResolver {
     }
 
     @FieldResolver()
-    async speaker(@Root() { speakerId }: PerformancePost) {
+    async speaker(@Root() { speakerId, speaker }: PerformancePost) {
         if (!speakerId) {
             return null;
+        }
+
+        if (speaker) {
+            return speaker;
         }
 
         return User.findOne({
