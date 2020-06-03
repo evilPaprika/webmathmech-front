@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
 import { Box, Button, ButtonProps, CircularProgress } from '@material-ui/core';
+import React, { memo } from 'react';
 
 
 type Props = ButtonProps & {

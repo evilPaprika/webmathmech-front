@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import queryString from 'query-string';
-import fetch from 'node-fetch';
 import config from 'config';
+import fetch from 'node-fetch';
+import queryString from 'query-string';
 
 
 interface VkGetUserRequest {

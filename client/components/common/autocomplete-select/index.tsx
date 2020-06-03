@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react';
 import { TextField } from '@material-ui/core';
 import Autocomplete, { AutocompleteProps, RenderInputParams } from '@material-ui/lab/Autocomplete';
+import React, { memo, useState } from 'react';
 
-import { Option, Options } from 'client/types';
+import { Option, Options } from '_client/types';
 
 
 interface OwnProps {

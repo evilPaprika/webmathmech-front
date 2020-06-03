@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
 import { Box } from '@material-ui/core';
+import React, { memo } from 'react';
 
 import ContainerBox, { Props as ContainerBoxProps } from '../container-box';
 

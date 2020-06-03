@@ -1,12 +1,12 @@
+import { Box, CardMedia, Typography } from '@material-ui/core';
 import React, { memo } from 'react';
 import ReactPlayer from 'react-player';
-import { Box, CardMedia, Typography } from '@material-ui/core';
 
-import { PerformancePost } from 'client/types';
+import { PerformancePost } from '_client/types';
 
+import CardItem from '../card-item';
 import CollapsibleText from '../collapsible-text';
 import { ContainerBox } from '../container-box';
-import CardItem from '../card-item';
 import { CardInfo } from './CardInfo';
 import { CardRating } from './CardRating';
 import { useStyles } from './styles';

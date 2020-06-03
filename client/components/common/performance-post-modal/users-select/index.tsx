@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Query } from 'react-apollo';
 
-import { GET_USERS } from 'apollo/queries';
-import { Options, UsersData } from 'client/types';
-import { mapSpeakerToOption } from 'client/utils';
+import { GET_USERS } from '_apollo/queries';
+import { Options, UsersData } from '_client/types';
+import { mapSpeakerToOption } from '_client/utils';
+
 import { AutocompleteSelect, Props as SelectProps } from '../../autocomplete-select';
 
 

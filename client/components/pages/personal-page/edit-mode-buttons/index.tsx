@@ -1,7 +1,8 @@
-import React, { memo, useContext } from 'react';
 import { Button, ButtonGroup } from '@material-ui/core';
 import { Cancel as CancelIcon, Edit as EditIcon, Save as SaveIcon } from '@material-ui/icons';
-import { PersonalPageContext } from 'contexts/PersonalPageContext';
+import React, { memo, useContext } from 'react';
+
+import { PersonalPageContext } from '_contexts/PersonalPageContext';
 
 
 export const EditModeButtons = memo(() => {

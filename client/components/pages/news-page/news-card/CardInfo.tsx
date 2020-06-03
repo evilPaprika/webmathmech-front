@@ -1,13 +1,13 @@
-import moment from 'moment';
-import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Box, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MoreVert';
+import moment from 'moment';
+import React from 'react';
 
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { useMenu, useModal } from 'client/hooks';
-import { NewsPost, UserData, Role } from 'client/types';
-import { NewsPostModal } from 'components/common';
+import { GET_CURRENT_USER } from '_apollo/queries';
+import { useMenu, useModal } from '_client/hooks';
+import { NewsPost, Role, UserData } from '_client/types';
+import { NewsPostModal } from '_components/common';
 
 import { RemoveNewsPostModal } from './remove-news-post-modal';
 import { useStyles } from './styles';

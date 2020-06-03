@@ -5,12 +5,12 @@ import {
     Resolver
 } from 'type-graphql';
 
-import User from '../models/User.sequelize';
-import Token from '../models/Token';
 import { SALT } from '../consts';
 import { Role } from '../models/EnumModels';
-import { SignInInput, SignUpInput } from './inputs/AuthInputs';
+import Token from '../models/Token';
+import User from '../models/User.sequelize';
 import { createJWTToken } from '../utils';
+import { SignInInput, SignUpInput } from './inputs/AuthInputs';
 
 @Resolver()
 export default class AuthResolver {

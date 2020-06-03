@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
 import { Fab, useScrollTrigger, Zoom } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import React, { memo } from 'react';
 
 import { useStyles } from './styles';
 

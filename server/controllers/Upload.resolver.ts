@@ -1,9 +1,9 @@
-import { Resolver, Mutation, Arg } from 'type-graphql';
+import { streamToBuffer } from '@jorgeferrero/stream-to-buffer';
 import { GraphQLUpload } from 'apollo-server-koa';
 import { ReadStream } from 'fs';
-import sharp from 'sharp';
-import { streamToBuffer } from '@jorgeferrero/stream-to-buffer';
 import path from 'path';
+import sharp from 'sharp';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 
 import { minioClient } from '../minio';
 

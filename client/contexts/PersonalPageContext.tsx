@@ -1,12 +1,12 @@
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { createContext, Dispatch, ReactElement, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
 
-import { PATCH_CURRENT_USER } from 'apollo/mutations';
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { User, UserData, MutationPatchCurrentUserArgs } from 'client/types';
-import { SnackbarErrorText } from 'components/common';
+import { PATCH_CURRENT_USER } from '_apollo/mutations';
+import { GET_CURRENT_USER } from '_apollo/queries';
+import { MutationPatchCurrentUserArgs, User, UserData } from '_client/types';
+import { SnackbarErrorText } from '_components/common';
 
 
 type MayBeString = string | undefined;

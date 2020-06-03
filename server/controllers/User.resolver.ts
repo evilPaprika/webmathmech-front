@@ -7,11 +7,11 @@ import {
     Resolver,
 } from 'type-graphql';
 
+import PerformancePost from '../models/PerformancePost.sequelize';
+import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
 import { OffsetPaginationInputs } from './inputs/PaginationInputs';
-import PerformancePost from '../models/PerformancePost.sequelize';
-import PollVote from '../models/PollVote.sequelize';
 
 @Resolver(User)
 export default class UserResolver {

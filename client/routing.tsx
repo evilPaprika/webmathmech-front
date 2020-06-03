@@ -1,11 +1,11 @@
+import { ApolloProvider } from '@apollo/react-hooks';
+import { Fade } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { Fade } from '@material-ui/core';
 
-import { ROUTES } from 'client/consts';
-import Layout from 'components/layout-blocks/layout';
+import { ROUTES } from '_client/consts';
+import Layout from '_components/layout-blocks/layout';
 import {
     AdminPage,
     AuthPage,
@@ -14,7 +14,7 @@ import {
     PerformancesPage,
     PersonalPage,
     PersonalPerformancesPage
-} from 'components/pages';
+} from '_components/pages';
 
 import apolloClient from './apollo';
 

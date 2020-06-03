@@ -1,5 +1,6 @@
-import { mapPerformanceState } from 'client/utils';
-import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS_CURSOR } from './apollo/queries';
+import { GET_NEWS_POSTS_CURSOR, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries';
+import { mapPerformanceState } from '_client/utils';
+
 import { MediaTypes, Options, PerformancePostState } from './types';
 
 

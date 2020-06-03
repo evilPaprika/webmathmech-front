@@ -1,5 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 import {
     AppBar,
     Container,
@@ -11,12 +10,13 @@ import {
     Tabs,
     Toolbar
 } from '@material-ui/core';
-import { useQuery } from '@apollo/react-hooks';
+import React, { memo, useCallback, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import { GET_IS_LOGGED_IN } from 'client/apollo/queries';
-import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from 'client/consts';
-import { IsLoggedInData } from 'client/types';
-import { findMenuItemByPath } from 'client/utils';
+import { GET_IS_LOGGED_IN } from '_apollo/queries';
+import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from '_client/consts';
+import { IsLoggedInData } from '_client/types';
+import { findMenuItemByPath } from '_client/utils';
 
 import LayoutFooter from '../layout-footer';
 import { AuthButtons } from './auth-buttons';

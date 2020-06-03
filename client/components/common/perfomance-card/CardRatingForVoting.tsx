@@ -1,15 +1,21 @@
-import { ApolloError } from 'apollo-client';
-import { useSnackbar } from 'notistack';
-import React, { memo, useState, useEffect } from 'react';
-import { useMutation, useQuery } from 'react-apollo';
 import { Button, TableCell, TableRow, Typography } from '@material-ui/core';
 import RatingMUI from '@material-ui/lab/Rating';
+import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
+import React, { memo, useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo';
 
-import { VOTE_CURRENT_USER } from 'apollo/mutations';
-import { FIND_VOTE_CURRENT_USER } from 'apollo/queries';
-import { useToggle } from 'client/hooks';
-import { FindVoteCurrentUserData, PerformancePost, PollVote, QueryFindVoteCurrentUserArgs, Rating } from 'client/types';
-import { SnackbarErrorText } from 'components/common/snackbar-error-text';
+import { VOTE_CURRENT_USER } from '_apollo/mutations';
+import { FIND_VOTE_CURRENT_USER } from '_apollo/queries';
+import { useToggle } from '_client/hooks';
+import {
+    FindVoteCurrentUserData,
+    PerformancePost,
+    PollVote,
+    QueryFindVoteCurrentUserArgs,
+    Rating
+} from '_client/types';
+import { SnackbarErrorText } from '_components/common/snackbar-error-text';
 
 import { Table } from '../table';
 import { useStyles } from './styles';

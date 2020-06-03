@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
 import { Box, Container, Link, Typography } from '@material-ui/core';
+import React, { memo } from 'react';
 
-import { CURRENT_YEAR } from 'client/consts';
+import { CURRENT_YEAR } from '_client/consts';
 
-import LogoVK from './logos/vk_logo.svg';
-import LogoMail from './logos/mail_logo.svg';
 import LogoGithub from './logos/github_logo.svg';
+import LogoMail from './logos/mail_logo.svg';
+import LogoVK from './logos/vk_logo.svg';
 import { useStyles } from './styles';
 
 

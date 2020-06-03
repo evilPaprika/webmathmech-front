@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import {
     Arg,
     Args,
@@ -6,10 +7,9 @@ import {
     Resolver,
 } from 'type-graphql';
 
-import { Op } from 'sequelize';
 import NewsPost from '../models/NewsPost.sequelize';
-import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 import { CreateNewsPostInput, PatchNewsPostInputs } from './inputs/NewsPostInputs';
+import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 
 
 @Resolver(NewsPost)

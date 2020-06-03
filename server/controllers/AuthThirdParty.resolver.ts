@@ -5,12 +5,12 @@ import {
     Resolver,
 } from 'type-graphql';
 
-import User from '../models/User.sequelize';
-import Token from '../models/Token';
 import { Role } from '../models/EnumModels';
-import { VkSignInput } from './inputs/AuthThirdPartyInputs';
+import Token from '../models/Token';
+import User from '../models/User.sequelize';
 import { createJWTToken } from '../utils';
 import { fetchVkUserInfo, getVkUserIdAndAccessToken } from '../utils/vkApiMethods';
+import { VkSignInput } from './inputs/AuthThirdPartyInputs';
 
 
 @Resolver()

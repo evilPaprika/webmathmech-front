@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
 import { TableCell, TableRow } from '@material-ui/core';
+import React, { memo } from 'react';
 
-import { PollVote } from 'client/types';
+import { PollVote } from '_client/types';
 
 import { Modal } from '../../modal';
 import Table from '../../table';

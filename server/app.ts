@@ -1,18 +1,18 @@
+import './minio';
+import config from 'config';
 import Koa, { Context } from 'koa';
+import mount from 'koa-mount';
+import send from 'koa-send';
+import koaStatic from 'koa-static';
 import koaWebpack from 'koa-webpack';
 import path from 'path';
-import mount from 'koa-mount';
-import config from 'config';
-import koaStatic from 'koa-static';
 import webpack from 'webpack';
-import send from 'koa-send';
 
-import './minio';
-import router from './router';
 import webpackConfig from '../webpack.config';
-import middlewares from './middlewares';
-import createApolloServer from './graphql';
 import connectDB from './database';
+import createApolloServer from './graphql';
+import middlewares from './middlewares';
+import router from './router';
 
 
 const app = new Koa();

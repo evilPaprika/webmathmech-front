@@ -1,13 +1,13 @@
+import { useMutation } from '@apollo/react-hooks';
+import { Button, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { Button, Typography } from '@material-ui/core';
 
-import { REMOVE_NEWS_POST } from 'apollo/mutations';
-import { GET_NEWS_POST_QUERY_DEFAULT } from 'client/consts';
-import { NewsPostsCursorData } from 'client/types';
-import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from 'components/common';
+import { REMOVE_NEWS_POST } from '_apollo/mutations';
+import { GET_NEWS_POST_QUERY_DEFAULT } from '_client/consts';
+import { NewsPostsCursorData } from '_client/types';
+import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from '_components/common';
 
 
 interface Props {

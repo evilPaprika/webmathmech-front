@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
 import { Paper, Table as TableMUI, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import React, { memo } from 'react';
 
 import LoadingWrapper from '../loading-wrapper';
 

@@ -1,5 +1,5 @@
-import { ArgsType, Field } from 'type-graphql';
 import { IsAlphanumeric, Length } from 'class-validator';
+import { ArgsType, Field } from 'type-graphql';
 
 
 @ArgsType()

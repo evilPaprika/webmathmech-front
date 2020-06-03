@@ -1,12 +1,13 @@
+import { useMutation } from '@apollo/react-hooks';
+import { Button, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { Button, Typography } from '@material-ui/core';
 
-import { REMOVE_PERFORMANCE_POST } from 'apollo/mutations';
-import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from 'client/consts';
-import { PerformancePostsCursorData } from 'client/types';
+import { REMOVE_PERFORMANCE_POST } from '_apollo/mutations';
+import { GET_PERFORMANCES_POST_QUERY_DEFAULT } from '_client/consts';
+import { PerformancePostsCursorData } from '_client/types';
+
 import { AsyncButton } from '../../async-button';
 import { ContainerBox } from '../../container-box';
 import { Modal } from '../../modal';

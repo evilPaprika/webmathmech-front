@@ -1,12 +1,12 @@
-import React, { memo, } from 'react';
-import { Box, Container, Typography } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
-import { useSnackbar } from 'notistack';
+import { Box, Container, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
+import { useSnackbar } from 'notistack';
+import React, { memo, } from 'react';
 
-import { GET_CURRENT_USER_PERFORMANCES } from 'apollo/queries';
-import { PerformancePost, UserData } from 'client/types';
-import { PerformanceCard, SnackbarErrorText } from 'components/common';
+import { GET_CURRENT_USER_PERFORMANCES } from '_apollo/queries';
+import { PerformancePost, UserData } from '_client/types';
+import { PerformanceCard, SnackbarErrorText } from '_components/common';
 
 
 const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];
@@ -28,13 +28,9 @@ export const PersonalPerformancesPage = memo(() => {
     return (
         <Container disableGutters>
             {items.map((item) => <PerformanceCard item={item} key={item.id} />)}
-            {!loading && !items.length
-            && (
+            {!loading && !items.length && (
                 <Box mt={4}>
-                    <Typography
-                        variant="h4"
-                        align="center"
-                    >
+                    <Typography variant="h4" align="center">
                         Выступлений не найдено!
                     </Typography>
                 </Box>

@@ -1,12 +1,12 @@
-import React, { memo, useState } from 'react';
-import { Container } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
+import { Container } from '@material-ui/core';
+import React, { memo, useState } from 'react';
 
-import { GET_PERFORMANCE_POSTS_CURSOR, GET_CURRENT_USER } from 'apollo/queries';
-import { GET_PERFORMANCES_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from 'client/consts';
-import { useModal } from 'client/hooks';
-import { PerformancePost, PerformancePostsCursorData, Role, UserData } from 'client/types';
-import { AddEntityIcon, InfiniteScroll, Teleporter, PerformanceCard, PerformancePostModal } from 'components/common';
+import { GET_CURRENT_USER, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries';
+import { GET_PERFORMANCES_POST_QUERY_DEFAULT, PERFORMANCE_POSTS_LIMIT } from '_client/consts';
+import { useModal } from '_client/hooks';
+import { PerformancePost, PerformancePostsCursorData, Role, UserData } from '_client/types';
+import { AddEntityIcon, InfiniteScroll, PerformanceCard, PerformancePostModal, Teleporter } from '_components/common';
 
 
 const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];

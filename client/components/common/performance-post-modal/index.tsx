@@ -1,27 +1,28 @@
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 
-import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from 'apollo/mutations';
-import { FIND_PERFORMANCE_POST, GET_PERFORMANCE_POSTS_CURSOR } from 'apollo/queries';
-import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from 'client/consts';
+import { CREATE_PERFORMANCE_POST, FILE_UPLOAD, PATCH_PERFORMANCE_POST } from '_apollo/mutations';
+import { FIND_PERFORMANCE_POST, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries';
+import { MEDIA_TABS, PERFORMANCE_STATES_OPTIONS } from '_client/consts';
 import {
     MediaTypes,
-    PerformancePostData,
-    PerformancePostState,
     PerformancePost,
-    PerformancePostsCursorData
-} from 'client/types';
-import { mapPerformanceState, mapSpeakerToOption } from 'client/utils';
-import { SnackbarErrorText } from 'components/common/snackbar-error-text';
-import Modal from 'components/common/modal';
-import LoadingWrapper from 'components/common/loading-wrapper';
-import ContainerBox from 'components/common/container-box';
-import LabeledInput from 'components/common/labeled-input';
-import AsyncButton from 'components/common/async-button';
-import AutocompleteSelect from 'components/common/autocomplete-select';
+    PerformancePostData,
+    PerformancePostsCursorData,
+    PerformancePostState
+} from '_client/types';
+import { mapPerformanceState, mapSpeakerToOption } from '_client/utils';
+import AsyncButton from '_components/common/async-button';
+import AutocompleteSelect from '_components/common/autocomplete-select';
+import ContainerBox from '_components/common/container-box';
+import LabeledInput from '_components/common/labeled-input';
+import LoadingWrapper from '_components/common/loading-wrapper';
+import Modal from '_components/common/modal';
+import { SnackbarErrorText } from '_components/common/snackbar-error-text';
+
 import { UsersSelect } from './users-select';
 
 

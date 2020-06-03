@@ -1,14 +1,14 @@
+import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
+import { CircularProgress, Container, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import queryString from 'query-string';
 import React, { memo, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
-import { CircularProgress, Container, Typography } from '@material-ui/core';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { AUTH_VK } from 'apollo/mutations';
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { SnackbarErrorText } from 'components/common';
+import { AUTH_VK } from '_apollo/mutations';
+import { GET_CURRENT_USER } from '_apollo/queries';
+import { SnackbarErrorText } from '_components/common';
 
 
 export const AuthVk = memo(() => {

@@ -1,5 +1,5 @@
-import { Field, InputType, Int } from 'type-graphql';
 import { OrderItem } from 'sequelize';
+import { Field, InputType, Int } from 'type-graphql';
 
 
 const maxDate = new Date(8640000000000000);

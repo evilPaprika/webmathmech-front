@@ -1,17 +1,17 @@
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
 
-import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from 'apollo/mutations';
-import { FIND_NEWS_POST, GET_NEWS_POSTS_CURSOR } from 'apollo/queries';
-import { NewsPost, NewsPostData, NewsPostsCursorData } from 'client/types';
-import { SnackbarErrorText } from 'components/common/snackbar-error-text';
-import Modal from 'components/common/modal';
-import LoadingWrapper from 'components/common/loading-wrapper';
-import ContainerBox from 'components/common/container-box';
-import LabeledInput from 'components/common/labeled-input';
-import AsyncButton from 'components/common/async-button';
+import { CREATE_NEWS_POST, FILE_UPLOAD, PATCH_NEWS_POST } from '_apollo/mutations';
+import { FIND_NEWS_POST, GET_NEWS_POSTS_CURSOR } from '_apollo/queries';
+import { NewsPost, NewsPostData, NewsPostsCursorData } from '_client/types';
+import AsyncButton from '_components/common/async-button';
+import ContainerBox from '_components/common/container-box';
+import LabeledInput from '_components/common/labeled-input';
+import LoadingWrapper from '_components/common/loading-wrapper';
+import Modal from '_components/common/modal';
+import { SnackbarErrorText } from '_components/common/snackbar-error-text';
 
 
 interface Props {

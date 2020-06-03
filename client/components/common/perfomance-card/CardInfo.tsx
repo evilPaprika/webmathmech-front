@@ -1,13 +1,13 @@
-import moment from 'moment';
-import React, { memo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Chip, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MoreVert';
+import moment from 'moment';
+import React, { memo } from 'react';
 
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { useMenu, useModal } from 'client/hooks';
-import { PerformancePost, Role, UserData } from 'client/types';
-import { mapPerformanceState } from 'client/utils';
+import { GET_CURRENT_USER } from '_apollo/queries';
+import { useMenu, useModal } from '_client/hooks';
+import { PerformancePost, Role, UserData } from '_client/types';
+import { mapPerformanceState } from '_client/utils';
 
 import { PerformancePostModal } from '../performance-post-modal';
 import { RemovePerformancePostModal } from './remove-performance-post-modal';
