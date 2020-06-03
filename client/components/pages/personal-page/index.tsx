@@ -1,7 +1,7 @@
 import { Chip } from '@material-ui/core';
 import React, { ChangeEvent, memo, useContext } from 'react';
 
-import { PersonalPageContext, PersonalPageContextProvider } from '_client/contexts/PersonalPageContext';
+import { PersonalPageContext, PersonalPageContextProvider } from '_client/contexts/PersonalPage.context';
 import { CardItem, ContainerBox, LabeledBox, LoadingWrapper } from '_components/common';
 
 import { EditModeButtons } from './edit-mode-buttons';

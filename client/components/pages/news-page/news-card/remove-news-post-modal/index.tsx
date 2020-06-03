@@ -5,7 +5,8 @@ import { useSnackbar } from 'notistack';
 import React, { memo, useCallback } from 'react';
 
 import { REMOVE_NEWS_POST } from '_apollo/mutations';
-import { GET_NEWS_POST_QUERY_DEFAULT } from '_client/consts';
+import { GET_NEWS_POSTS_CURSOR } from '_apollo/queries';
+import { NEWS_POSTS_LIMIT } from '_client/consts';
 import { NewsPostsCursorData } from '_client/types';
 import { AsyncButton, ContainerBox, Modal, SnackbarErrorText } from '_components/common';
 
@@ -23,10 +24,14 @@ export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) =
         REMOVE_NEWS_POST,
         {
             onCompleted() {
-                const data = client?.readQuery<NewsPostsCursorData>(GET_NEWS_POST_QUERY_DEFAULT);
+                const data = client?.readQuery<NewsPostsCursorData>({
+                    query: GET_NEWS_POSTS_CURSOR,
+                    variables: { limit: NEWS_POSTS_LIMIT }
+                });
                 if (data) {
                     client?.writeQuery({
-                        ...GET_NEWS_POST_QUERY_DEFAULT,
+                        query: GET_NEWS_POSTS_CURSOR,
+                        variables: { limit: NEWS_POSTS_LIMIT },
                         data: { getNewsPostsCursor: data.getNewsPostsCursor.filter((post) => post.id !== newsPostId) }
                     });
                 }

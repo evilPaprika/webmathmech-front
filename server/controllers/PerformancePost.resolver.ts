@@ -51,7 +51,7 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
-        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        @Arg('filters', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
         const where: WhereOptions = { };
 
         if (states) {
@@ -73,14 +73,12 @@ export default class PerformancePostResolver {
 
     @Query(() => [PerformancePost])
     public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
-        @Arg('filter', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
+        @Arg('filters', { nullable: true }) { states }: PerformancePaginationFiltersInput = {}) {
         const where: WhereOptions = { createdAt: { [Op.lt]: dateTimeCursor } };
 
         if (states) {
-            where.states = {
-                state: {
-                    [Op.in]: states
-                }
+            where.state = {
+                [Op.in]: states
             };
         }
 

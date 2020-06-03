@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React, { memo } from 'react';
 
@@ -32,6 +32,7 @@ const Layout = ({ children }: Props) => {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Box className={classes.root}>
                 <LayoutHeader />
                 <Box className={classes.content}>
