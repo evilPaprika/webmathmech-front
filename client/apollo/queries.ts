@@ -129,6 +129,11 @@ export const GET_PERFORMANCE_POSTS = gql`
                     content
                     interest
                 }
+                user {
+                    id
+                    name
+                    surname
+                }
             }
             speaker {
                 id
@@ -167,6 +172,11 @@ export const GET_PERFORMANCE_POSTS_CURSOR = gql`
                     content
                     interest
                 }
+                user {
+                    id
+                    name
+                    surname
+                }
             }
             speaker {
                 id
@@ -197,6 +207,11 @@ export const FIND_PERFORMANCE_POST = gql`
                     format
                     content
                     interest
+                }
+                user {
+                    id
+                    name
+                    surname
                 }
             }
             speaker {
