@@ -1,4 +1,3 @@
-import { GET_NEWS_POSTS_CURSOR } from '_apollo/queries';
 import { mapPerformanceState } from '_client/utils';
 
 import { MediaTypes, Options, PerformancePostState } from './types';
@@ -90,8 +89,3 @@ export const PERFORMANCE_STATES_OPTIONS: Options<PerformancePostState> = [
 export const CURRENT_YEAR = new Date().getFullYear();
 
 export const SIDEBAR_WIDTH = 280;
-
-export const GET_NEWS_POST_QUERY_DEFAULT = {
-    query: GET_NEWS_POSTS_CURSOR,
-    variables: { limit: NEWS_POSTS_LIMIT },
-};

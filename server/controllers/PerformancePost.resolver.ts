@@ -78,7 +78,7 @@ export default class PerformancePostResolver {
 
         if (states) {
             where.state = {
-                [Op.in]: ['PUBLISHED']
+                [Op.in]: states
             };
         }
 
