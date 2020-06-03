@@ -1,9 +1,9 @@
+import { TableCell, TableRow, Typography } from '@material-ui/core';
 import React, { memo } from 'react';
 import { useQuery } from 'react-apollo';
-import { TableCell, TableRow, Typography } from '@material-ui/core';
 
-import { GET_CURRENT_USER } from 'apollo/queries';
-import { PerformancePost, PerformancePostState, Role, UserData } from 'client/types';
+import { GET_CURRENT_USER } from '_apollo/queries';
+import { PerformancePost, PerformancePostState, Role, UserData } from '_client/types';
 
 import { Table } from '../table';
 import CardRatingForVoting from './CardRatingForVoting';

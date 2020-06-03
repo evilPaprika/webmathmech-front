@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import React, { memo } from 'react';
 
 import { useStyles } from './styles';
 

@@ -1,9 +1,9 @@
 import { Args, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
-import PollVote from '../models/PollVote.sequelize';
 import PerformancePost from '../models/PerformancePost.sequelize';
-import { ApolloServerContext } from '../types';
+import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
+import { ApolloServerContext } from '../types';
 import { FindVoteCurrentUser, VoteCurrentUserInput, VoteInput } from './inputs/PollVoteInputs';
 
 

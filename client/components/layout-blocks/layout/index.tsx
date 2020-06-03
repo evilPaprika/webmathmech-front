@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
 import { Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React, { memo } from 'react';
 
-import { ScrollTopIcon, Teleporter } from 'components/common';
+import { ScrollTopIcon, Teleporter } from '_components/common';
 
 import LayoutHeader from '../layout-header';
 import { useStyles } from './styles';

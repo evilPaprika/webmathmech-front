@@ -1,6 +1,6 @@
-import React, { memo, useState } from 'react';
-import { FormControl, InputAdornment, IconButton, OutlinedTextFieldProps, TextField } from '@material-ui/core';
+import { FormControl, IconButton, InputAdornment, OutlinedTextFieldProps, TextField } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import React, { memo, useState } from 'react';
 
 import { useStyles } from './styles';
 

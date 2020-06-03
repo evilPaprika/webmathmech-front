@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
 import { Container } from '@material-ui/core';
+import React, { memo } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { ROUTES } from 'client/consts';
+import { ROUTES } from '_client/consts';
+
 import { AuthVk } from './vk';
 
 

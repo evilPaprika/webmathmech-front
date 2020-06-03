@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Button, Container, Menu, MenuItem, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from 'apollo/queries';
-import { MENU_OPTIONS, ROUTES } from 'client/consts';
-import { useMenu, useModal } from 'client/hooks';
-import { IsLoggedInData, User, UserData } from 'client/types';
+import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
+import { MENU_OPTIONS, ROUTES } from '_client/consts';
+import { useMenu, useModal } from '_client/hooks';
+import { IsLoggedInData, User, UserData } from '_client/types';
 
 import { AuthModal } from './auth-modal';
 import { useStyles } from './styles';

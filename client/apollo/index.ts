@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { onError } from 'apollo-link-error';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink, Observable } from 'apollo-link';
+import { onError } from 'apollo-link-error';
 import { createUploadLink } from 'apollo-upload-client';
 
 

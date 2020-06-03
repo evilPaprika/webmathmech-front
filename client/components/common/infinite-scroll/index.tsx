@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import InfiniteScroller from 'react-infinite-scroller';
 
-import LoadingWrapper from 'components/common/loading-wrapper';
+import LoadingWrapper from '_components/common/loading-wrapper';
 
 
 interface Props {

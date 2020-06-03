@@ -1,7 +1,8 @@
-import { ArgsType, Field, InputType } from 'type-graphql';
 import { Length } from 'class-validator';
-import PerformancePost from '../../models/PerformancePost.sequelize';
+import { ArgsType, Field, InputType } from 'type-graphql';
+
 import { PerformancePostState } from '../../models/EnumModels';
+import PerformancePost from '../../models/PerformancePost.sequelize';
 
 
 @ArgsType()

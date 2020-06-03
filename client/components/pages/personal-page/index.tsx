@@ -1,8 +1,8 @@
-import React, { ChangeEvent, memo, useContext } from 'react';
 import { Chip } from '@material-ui/core';
+import React, { ChangeEvent, memo, useContext } from 'react';
 
-import { PersonalPageContext, PersonalPageContextProvider } from 'client/contexts/PersonalPageContext';
-import { CardItem, ContainerBox, LabeledBox, LoadingWrapper } from 'components/common';
+import { PersonalPageContext, PersonalPageContextProvider } from '_client/contexts/PersonalPageContext';
+import { CardItem, ContainerBox, LabeledBox, LoadingWrapper } from '_components/common';
 
 import { EditModeButtons } from './edit-mode-buttons';
 import { EditableField } from './editable-field';

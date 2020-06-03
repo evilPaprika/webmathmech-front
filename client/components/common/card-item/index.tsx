@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
 import { Box, Card } from '@material-ui/core';
+import React, { memo } from 'react';
 
 
 interface Props {

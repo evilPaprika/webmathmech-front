@@ -1,9 +1,9 @@
 import 'reflect-metadata';
-import { AuthChecker } from 'type-graphql';
 import { AuthenticationError } from 'apollo-server-koa';
+import { AuthChecker } from 'type-graphql';
 
-import { ApolloServerContext } from '../types';
 import User from '../models/User.sequelize';
+import { ApolloServerContext } from '../types';
 
 // here you can read jwt from context
 // and check his permission in db against `roles` argument

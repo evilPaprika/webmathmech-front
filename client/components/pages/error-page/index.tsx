@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
 import { Container } from '@material-ui/core';
+import React, { memo } from 'react';
 
 
 const Error404 = () => {

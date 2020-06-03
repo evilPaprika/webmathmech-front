@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
 import { Box, IconButton, Modal as MaterialUIModal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import React, { memo } from 'react';
 
 import { useStyles } from './styles';
 

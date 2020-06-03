@@ -9,16 +9,16 @@ import {
     Root,
 } from 'type-graphql';
 
+import { PerformancePostState } from '../models/EnumModels';
+import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
+import PollVote from '../models/PollVote.sequelize';
+import User from '../models/User.sequelize';
 import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 import {
     CreatePerformancePostInput,
     PatchPerformancePostInputs,
     PerformancePaginationFiltersInput
 } from './inputs/PerformancePostInputs';
-import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
-import { PerformancePostState } from '../models/EnumModels';
-import User from '../models/User.sequelize';
-import PollVote from '../models/PollVote.sequelize';
 
 
 @Resolver(PerformancePost)

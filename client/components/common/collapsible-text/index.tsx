@@ -1,8 +1,8 @@
-import React, { memo, useMemo } from 'react';
 import { Button, Typography } from '@material-ui/core';
+import React, { memo, useMemo } from 'react';
 
-import { useToggle } from 'client/hooks';
-import { truncateText } from 'client/utils';
+import { useToggle } from '_client/hooks';
+import { truncateText } from '_client/utils';
 
 
 interface Props {
@@ -38,7 +38,7 @@ export const CollapsibleText = memo((props: Props) => {
             {truncatedText}
             {' '}
             {canCollapse && (
-                <Button color="secondary" onClick={toggleCollapsed} size="small">
+                <Button color="secondary" onClick={() => toggleCollapsed()} size="small">
                     {collapsed ? 'Скрыть' : 'Показать еще'}
                 </Button>
             )}

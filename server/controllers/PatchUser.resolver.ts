@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import {
     Args,
     Authorized,
@@ -5,12 +6,11 @@ import {
     Mutation,
     Resolver,
 } from 'type-graphql';
-import bcrypt from 'bcrypt';
 
+import { SALT } from '../consts';
+import { Role } from '../models/EnumModels';
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { Role } from '../models/EnumModels';
-import { SALT } from '../consts';
 import { PatchCurrentUserInput, PatchUserInput } from './inputs/PatchUserInputs';
 
 

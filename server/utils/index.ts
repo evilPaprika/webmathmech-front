@@ -1,8 +1,8 @@
-import jsonwebtoken from 'jsonwebtoken';
 import config from 'config';
+import jsonwebtoken from 'jsonwebtoken';
 
-import { IJWTPayLoad } from '../types/jwt';
 import { JWT_TOKEN_EXPIRATION_TIME } from '../consts';
+import { IJWTPayLoad } from '../types/jwt';
 
 
 export function createJWTToken(payload: IJWTPayLoad) {

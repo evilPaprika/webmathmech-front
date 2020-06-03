@@ -15,6 +15,27 @@
     "globals": {
         "CONFIG": false
     },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "simple-import-sort/sort": [
+                    "error",
+                    {
+                        "groups": [
+                            // External packages come first.
+                            ["^[^_]"],
+                            // Internal packages.
+                            ["^(_components|_contexts|_apollo|_client)"],
+                            // Relative imports.
+                            ["^\\.\\./", "^\\./"]
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "plugins": ["simple-import-sort"],
     "rules": {
         "@typescript-eslint/indent": ["error", 4],
         "react/jsx-indent": ["error", 4],
@@ -50,6 +71,10 @@
             {
                 "allowSingleLine": false
             }
-        ]
+        ],
+        "simple-import-sort/sort": "error",
+        "sort-imports": "off",
+        "import/first": "error",
+        "import/no-duplicates": "error"
     }
 }

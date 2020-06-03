@@ -1,8 +1,8 @@
-import koaCompose from 'koa-compose';
-import logger from 'koa-logger';
-import koaBodyparser from 'koa-bodyparser';
-import koaJwt from 'koa-jwt';
 import config from 'config';
+import koaBodyparser from 'koa-bodyparser';
+import koaCompose from 'koa-compose';
+import koaJwt from 'koa-jwt';
+import logger from 'koa-logger';
 
 
 export default koaCompose(

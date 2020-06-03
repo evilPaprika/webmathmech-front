@@ -21,10 +21,10 @@
     "typeRoots" : ["./node_modules/@types", "./typings"],
     "baseUrl": "./",
     "paths": {
-      "client/*": ["client/*"],
-      "apollo/*": ["client/apollo/*"],
-      "components/*": ["client/components/*"],
-      "contexts/*": ["client/contexts/*"]
+      "_client/*": ["client/*"],
+      "_apollo/*": ["client/apollo/*"],
+      "_components/*": ["client/components/*"],
+      "_contexts/*": ["client/contexts/*"]
     }
   },
   "exclude": ["node_modules"]

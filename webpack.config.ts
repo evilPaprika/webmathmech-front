@@ -1,7 +1,7 @@
-import * as path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 // @ts-ignore
 import ConfigWebpackPlugin from 'config-webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as path from 'path';
 
 
 const BUILD_PATH = path.resolve('build', 'static');
@@ -21,10 +21,10 @@ export default {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         alias: {
-            client: path.resolve(PROJECT_ROOT, 'client/'),
-            apollo: path.resolve(PROJECT_ROOT, 'client/apollo/'),
-            components: path.resolve(PROJECT_ROOT, 'client/components/'),
-            contexts: path.resolve(PROJECT_ROOT, 'client/contexts/'),
+            _client: path.resolve(PROJECT_ROOT, 'client/'),
+            _apollo: path.resolve(PROJECT_ROOT, 'client/apollo/'),
+            _components: path.resolve(PROJECT_ROOT, 'client/components/'),
+            _contexts: path.resolve(PROJECT_ROOT, 'client/contexts/'),
         }
     },
     mode,

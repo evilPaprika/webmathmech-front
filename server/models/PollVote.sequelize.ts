@@ -1,4 +1,3 @@
-import { Field, ObjectType } from 'type-graphql';
 import {
     AllowNull,
     BelongsTo,
@@ -11,11 +10,13 @@ import {
     Table,
     UpdatedAt
 } from 'sequelize-typescript';
+import { Field, ObjectType } from 'type-graphql';
+
+// eslint-disable-next-line import/no-cycle
+import PerformancePost, { Rating } from './PerformancePost.sequelize';
 // https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
 // eslint-disable-next-line import/no-cycle
 import User from './User.sequelize';
-// eslint-disable-next-line import/no-cycle
-import PerformancePost, { Rating } from './PerformancePost.sequelize';
 
 @ObjectType()
 @Table

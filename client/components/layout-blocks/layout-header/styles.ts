@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import { SIDEBAR_WIDTH } from 'client/consts';
+import { SIDEBAR_WIDTH } from '_client/consts';
 
 
 export const useStyles = makeStyles((theme) => createStyles({

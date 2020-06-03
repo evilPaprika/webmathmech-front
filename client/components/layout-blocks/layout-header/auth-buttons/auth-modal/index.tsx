@@ -1,12 +1,12 @@
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { Box, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
 import React, { memo, useCallback, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { Box, Typography } from '@material-ui/core';
 
-import { USER_SIGNIN, USER_SIGNUP } from 'apollo/mutations';
-import { AuthMethods } from 'client/types';
-import { AsyncButton, ContainerBox, LabeledInput, Modal, SnackbarErrorText } from 'components/common';
+import { USER_SIGNIN, USER_SIGNUP } from '_apollo/mutations';
+import { AuthMethods } from '_client/types';
+import { AsyncButton, ContainerBox, LabeledInput, Modal, SnackbarErrorText } from '_components/common';
 
 import { OauthButtons } from './oauth-buttons';
 import { useStyles } from './styles';

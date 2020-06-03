@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
 import { Link, Typography } from '@material-ui/core';
 import queryString from 'query-string';
+import React, { memo } from 'react';
 
 // import VkLogo from './oauth-logos/vk-social-network-logo.svg';
 // import { useStyles } from './styles';

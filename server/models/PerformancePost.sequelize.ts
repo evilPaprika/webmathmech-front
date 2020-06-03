@@ -1,3 +1,4 @@
+import { IsPositive, Max } from 'class-validator';
 import {
     AllowNull,
     BelongsTo,
@@ -13,14 +14,13 @@ import {
     UpdatedAt,
 } from 'sequelize-typescript';
 import { Field, Float, ID, InputType, ObjectType } from 'type-graphql';
-import { IsPositive, Max } from 'class-validator';
 
 import { PerformancePostState } from './EnumModels';
+// eslint-disable-next-line import/no-cycle
+import PollVote from './PollVote.sequelize';
 // https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
 // eslint-disable-next-line import/no-cycle
 import User from './User.sequelize';
-// eslint-disable-next-line import/no-cycle
-import PollVote from './PollVote.sequelize';
 
 
 @InputType('RatingInput')
