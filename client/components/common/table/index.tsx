@@ -1,40 +1,88 @@
-import { Paper, Table as TableMUI, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import {
+    Paper,
+    Table as TableMUI,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TableSortLabel
+} from '@material-ui/core';
 import React, { memo } from 'react';
+
+import { SortDirection } from '_client/types';
 
 import LoadingWrapper from '../loading-wrapper';
 
+
+export interface ColumnProps<T = string> {
+    id?: T;
+    title: string;
+}
 
 interface TableProps {
     children: React.ReactNode;
     size?: 'small' | 'medium';
     className?: string;
     loading?: boolean;
-    columns?: Array<React.ReactNode>;
+    columnTitles?: Array<ColumnProps>;
+    stickyHeader?: boolean;
+    sortDirection?: SortDirection;
+    orderBy?: string;
+    onSortRequest?: (event: React.MouseEvent<unknown>, property: any) => void;
 }
 
-export const Table = memo(({ className, size = 'medium', children, loading, columns }: TableProps) => (
-    <Paper className={className}>
-        <LoadingWrapper loading={Boolean(loading)}>
-            <TableContainer>
-                <TableMUI size={size}>
-                    {columns && (
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column, index) => (
-                                    <TableCell key={index}>
-                                        {column}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                    )}
-                    <TableBody>
-                        {children}
-                    </TableBody>
-                </TableMUI>
-            </TableContainer>
-        </LoadingWrapper>
-    </Paper>
-));
+export const Table = memo((props: TableProps) => {
+    const {
+        className,
+        size = 'medium',
+        children,
+        loading,
+        columnTitles,
+        stickyHeader,
+        sortDirection,
+        orderBy,
+        onSortRequest
+    } = props;
+
+    const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
+        if (onSortRequest) {
+            onSortRequest(event, property);
+        }
+    };
+
+    return (
+        <Paper className={className}>
+            <LoadingWrapper loading={Boolean(loading)}>
+                <TableContainer>
+                    <TableMUI size={size} stickyHeader={stickyHeader}>
+                        {columnTitles && (
+                            <TableHead>
+                                <TableRow>
+                                    {columnTitles.map(({ id, title }) => (
+                                        <TableCell key={title} sortDirection={orderBy === id ? sortDirection : false}>
+                                            {id ? (
+                                                <TableSortLabel
+                                                    active={orderBy === id}
+                                                    direction={orderBy === id ? sortDirection : SortDirection.Asc}
+                                                    onClick={createSortHandler(id)}
+                                                >
+                                                    {title}
+                                                </TableSortLabel>
+                                            ) : title}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                        )}
+                        <TableBody>
+                            {children}
+                        </TableBody>
+                    </TableMUI>
+                </TableContainer>
+            </LoadingWrapper>
+        </Paper>
+    );
+});
 
 export default Table;

@@ -57,3 +57,11 @@ export const mapSpeakerToOption = (speaker?: User | null): Option => (speaker ? 
     label: '',
     value: ''
 }));
+
+export const getFullName = (user: User) => {
+    if (!user || !user.name || !user.surname) {
+        return '';
+    }
+
+    return `${user.name} ${user.surname}`;
+};

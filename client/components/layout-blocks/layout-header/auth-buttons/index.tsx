@@ -8,6 +8,7 @@ import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
 import { MENU_OPTIONS, ROUTES } from '_client/consts';
 import { useMenu, useModal } from '_client/hooks';
 import { IsLoggedInData, User, UserData } from '_client/types';
+import { getFullName } from '_client/utils';
 
 import { AuthModal } from './auth-modal';
 import { useStyles } from './styles';
@@ -22,7 +23,7 @@ const getUsername = (user: User) => {
         return '';
     }
 
-    const isSurnameShown = `${name} ${surname}`.length < MAX_USER_NAME_LENGTH_IN_HEADER;
+    const isSurnameShown = getFullName(user).length < MAX_USER_NAME_LENGTH_IN_HEADER;
 
     return `${name} ${isSurnameShown && surname}`.trim();
 };
