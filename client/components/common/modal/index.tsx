@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@material-ui/core';
+import { Box, Dialog, DialogContent, DialogProps, DialogTitle, IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { memo } from 'react';
 
@@ -10,7 +10,7 @@ interface Props {
     children: React.ReactNode;
     isOpen: boolean;
     close(): void;
-    maxWidth?: false | 'xs' | 'xl' | 'sm' | 'md' | 'lg';
+    maxWidth?: DialogProps['maxWidth'];
 }
 
 export const Modal = memo(({ isOpen, close, title, children, maxWidth }: Props) => {
