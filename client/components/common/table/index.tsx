@@ -27,7 +27,7 @@ interface TableProps {
     loading?: boolean;
     columnTitles?: Array<ColumnProps>;
     stickyHeader?: boolean;
-    order?: SortDirection;
+    sortDirection?: SortDirection;
     orderBy?: string;
     onSortRequest?: (event: React.MouseEvent<unknown>, property: any) => void;
 }
@@ -40,7 +40,7 @@ export const Table = memo((props: TableProps) => {
         loading,
         columnTitles,
         stickyHeader,
-        order,
+        sortDirection,
         orderBy,
         onSortRequest
     } = props;
@@ -60,11 +60,11 @@ export const Table = memo((props: TableProps) => {
                             <TableHead>
                                 <TableRow>
                                     {columnTitles.map(({ id, title }) => (
-                                        <TableCell key={title} sortDirection={orderBy === id ? order : false}>
+                                        <TableCell key={title} sortDirection={orderBy === id ? sortDirection : false}>
                                             {id ? (
                                                 <TableSortLabel
                                                     active={orderBy === id}
-                                                    direction={orderBy === id ? order : SortDirection.Asc}
+                                                    direction={orderBy === id ? sortDirection : SortDirection.Asc}
                                                     onClick={createSortHandler(id)}
                                                 >
                                                     {title}

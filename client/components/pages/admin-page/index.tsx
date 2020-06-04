@@ -27,18 +27,18 @@ const UsersPage = memo(() => {
     const { data, loading } = useQuery<UsersData>(GET_USERS, { variables: { limit: USERS_LIMIT } });
     const users: Array<User> = data?.getUsers || [];
 
-    const [order, setOrder] = React.useState<SortDirection>(SortDirection.Asc);
+    const [sortDirection, setSortDirection] = React.useState<SortDirection>(SortDirection.Asc);
     const [orderBy, setOrderBy] = React.useState<UserKey>('name');
 
     const handleSort = (_: React.MouseEvent<unknown>, property: UserKey) => {
-        const isAsc = orderBy === property && order === SortDirection.Asc;
-        setOrder(isAsc ? SortDirection.Desc : SortDirection.Asc);
+        const isAsc = orderBy === property && sortDirection === SortDirection.Asc;
+        setSortDirection(isAsc ? SortDirection.Desc : SortDirection.Asc);
         setOrderBy(property);
     };
 
     const sortedUsers = useMemo(
-        () => users.sort(sortBy(order === SortDirection.Asc ? `${orderBy}^` : `-${orderBy}^`)),
-        [users, order, orderBy]
+        () => users.sort(sortBy(sortDirection === SortDirection.Asc ? `${orderBy}^` : `-${orderBy}^`)),
+        [users, sortDirection, orderBy]
     );
 
     return (
@@ -49,7 +49,7 @@ const UsersPage = memo(() => {
                     loading={loading}
                     stickyHeader
                     onSortRequest={handleSort}
-                    order={order}
+                    sortDirection={sortDirection}
                     orderBy={orderBy}
                 >
                     {sortedUsers.map((user: User) => {
