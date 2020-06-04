@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import React, { memo } from 'react';
 
-import { Order } from '_client/types';
+import { SortDirection } from '_client/types';
 
 import LoadingWrapper from '../loading-wrapper';
 
@@ -27,7 +27,7 @@ interface TableProps {
     loading?: boolean;
     columnTitles?: Array<ColumnProps>;
     stickyHeader?: boolean;
-    order?: Order;
+    order?: SortDirection;
     orderBy?: string;
     onSortRequest?: (event: React.MouseEvent<unknown>, property: any) => void;
 }
@@ -64,7 +64,7 @@ export const Table = memo((props: TableProps) => {
                                             {id ? (
                                                 <TableSortLabel
                                                     active={orderBy === id}
-                                                    direction={orderBy === id ? order : Order.Asc}
+                                                    direction={orderBy === id ? order : SortDirection.Asc}
                                                     onClick={createSortHandler(id)}
                                                 >
                                                     {title}

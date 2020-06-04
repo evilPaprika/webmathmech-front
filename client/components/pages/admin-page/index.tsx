@@ -6,7 +6,7 @@ import { sortBy } from 'sort-by-typescript';
 
 import { GET_USERS } from '_apollo/queries';
 import { ColumnProps } from '_client/components/common/table';
-import { Order, User, UsersData } from '_client/types';
+import { SortDirection, User, UsersData } from '_client/types';
 import { ContainerBox, Table } from '_components/common';
 
 
@@ -27,17 +27,17 @@ const UsersPage = memo(() => {
     const { data, loading } = useQuery<UsersData>(GET_USERS, { variables: { limit: USERS_LIMIT } });
     const users: Array<User> = data?.getUsers || [];
 
-    const [order, setOrder] = React.useState<Order>(Order.Asc);
+    const [order, setOrder] = React.useState<SortDirection>(SortDirection.Asc);
     const [orderBy, setOrderBy] = React.useState<UserKey>('name');
 
     const handleSort = (_: React.MouseEvent<unknown>, property: UserKey) => {
-        const isAsc = orderBy === property && order === Order.Asc;
-        setOrder(isAsc ? Order.Desc : Order.Asc);
+        const isAsc = orderBy === property && order === SortDirection.Asc;
+        setOrder(isAsc ? SortDirection.Desc : SortDirection.Asc);
         setOrderBy(property);
     };
 
     const sortedUsers = useMemo(
-        () => users.sort(sortBy(order === Order.Asc ? `${orderBy}^` : `-${orderBy}^`)),
+        () => users.sort(sortBy(order === SortDirection.Asc ? `${orderBy}^` : `-${orderBy}^`)),
         [users, order, orderBy]
     );
 
