@@ -25,11 +25,11 @@ interface TableProps {
     size?: 'small' | 'medium';
     className?: string;
     loading?: boolean;
-    columns?: Array<ColumnProps>;
+    columnTitles?: Array<ColumnProps>;
     stickyHeader?: boolean;
     order?: Order;
     orderBy?: string;
-    onRequestSort?: (event: React.MouseEvent<unknown>, property: any) => void;
+    onSortRequest?: (event: React.MouseEvent<unknown>, property: any) => void;
 }
 
 export const Table = memo((props: TableProps) => {
@@ -38,16 +38,16 @@ export const Table = memo((props: TableProps) => {
         size = 'medium',
         children,
         loading,
-        columns,
+        columnTitles,
         stickyHeader,
         order,
         orderBy,
-        onRequestSort
+        onSortRequest
     } = props;
 
     const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
-        if (onRequestSort) {
-            onRequestSort(event, property);
+        if (onSortRequest) {
+            onSortRequest(event, property);
         }
     };
 
@@ -56,10 +56,10 @@ export const Table = memo((props: TableProps) => {
             <LoadingWrapper loading={Boolean(loading)}>
                 <TableContainer>
                     <TableMUI size={size} stickyHeader={stickyHeader}>
-                        {columns && (
+                        {columnTitles && (
                             <TableHead>
                                 <TableRow>
-                                    {columns.map(({ id, title }) => (
+                                    {columnTitles.map(({ id, title }) => (
                                         <TableCell key={title} sortDirection={orderBy === id ? order : false}>
                                             {id ? (
                                                 <TableSortLabel

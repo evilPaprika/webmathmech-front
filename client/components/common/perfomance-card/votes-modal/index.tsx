@@ -25,7 +25,7 @@ const COLUMNS: Array<ColumnProps> = [
 
 export const VotesModal = memo(({ votes, isOpen, close }: Props) => (
     <Modal title="Список проголосовавших" isOpen={isOpen} close={close}>
-        <Table columns={COLUMNS}>
+        <Table columnTitles={COLUMNS}>
             {votes?.map((vote) => {
                 const { user, rating } = vote;
                 const { format, content, interest } = rating || {};

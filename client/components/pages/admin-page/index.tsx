@@ -1,6 +1,6 @@
 import { Container, TableCell, TableRow } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useQuery } from 'react-apollo';
 import { sortBy } from 'sort-by-typescript';
 
@@ -30,39 +30,42 @@ const UsersPage = memo(() => {
     const [order, setOrder] = React.useState<Order>(Order.Asc);
     const [orderBy, setOrderBy] = React.useState<UserKey>('name');
 
-    const handleRequestSort = (_: React.MouseEvent<unknown>, property: UserKey) => {
+    const handleSort = (_: React.MouseEvent<unknown>, property: UserKey) => {
         const isAsc = orderBy === property && order === Order.Asc;
         setOrder(isAsc ? Order.Desc : Order.Asc);
         setOrderBy(property);
     };
 
+    const sortedUsers = useMemo(
+        () => users.sort(sortBy(order === Order.Asc ? `${orderBy}^` : `-${orderBy}^`)),
+        [users, order, orderBy]
+    );
+
     return (
         <Container disableGutters>
             <ContainerBox gap="extra">
                 <Table
-                    columns={COLUMNS}
+                    columnTitles={COLUMNS}
                     loading={loading}
                     stickyHeader
-                    onRequestSort={handleRequestSort}
+                    onSortRequest={handleSort}
                     order={order}
                     orderBy={orderBy}
                 >
-                    {users
-                        .sort(sortBy(order === Order.Asc ? `${orderBy}^` : `-${orderBy}^`))
-                        .map((user: User) => {
-                            const { id, name, surname, login, universityGroup, role } = user;
+                    {sortedUsers.map((user: User) => {
+                        const { id, name, surname, login, universityGroup, role } = user;
 
-                            return (
-                                <TableRow key={id} hover>
-                                    <TableCell>{name}</TableCell>
-                                    <TableCell>{surname}</TableCell>
-                                    <TableCell>{login}</TableCell>
-                                    <TableCell>{universityGroup || '—'}</TableCell>
-                                    <TableCell>{role}</TableCell>
-                                    <TableCell><DeleteIcon /></TableCell>
-                                </TableRow>
-                            );
-                        })}
+                        return (
+                            <TableRow key={id} hover>
+                                <TableCell>{name}</TableCell>
+                                <TableCell>{surname}</TableCell>
+                                <TableCell>{login}</TableCell>
+                                <TableCell>{universityGroup || '—'}</TableCell>
+                                <TableCell>{role}</TableCell>
+                                <TableCell><DeleteIcon /></TableCell>
+                            </TableRow>
+                        );
+                    })}
                 </Table>
             </ContainerBox>
         </Container>
