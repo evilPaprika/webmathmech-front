@@ -14,7 +14,8 @@ interface OwnProps {
 
 export type Props = Omit<AutocompleteProps<Option>, 'renderInput' | 'options'> & OwnProps;
 
-export const AutocompleteSelect = memo(({ label, fullWidth, options, defaultValue, onChange, ...props }: Props) => {
+export const AutocompleteSelect = memo((props: Props) => {
+    const { label, fullWidth, options, defaultValue, onChange, size = 'small', ...otherProps } = props;
     const [defaultValueCopy] = useState(defaultValue);
     const onChangeInput = (_: React.ChangeEvent<{}>, option: Option | null) => {
         onChange(option?.value || '');
@@ -26,13 +27,13 @@ export const AutocompleteSelect = memo(({ label, fullWidth, options, defaultValu
             options={options || []}
             defaultValue={defaultValueCopy || undefined}
             renderInput={(params: RenderInputParams) => (
-                <TextField {...params} label={label} variant="outlined" fullWidth={fullWidth} />
+                <TextField {...params} label={label} variant="outlined" size={size} fullWidth={fullWidth} />
             )}
             getOptionLabel={(option) => option.label}
             renderOption={(option) => <span>{option.label}</span>}
             getOptionSelected={(option, value) => option.value === value.value}
             onChange={onChangeInput}
-            {...props}
+            {...otherProps}
         />
     );
 });
