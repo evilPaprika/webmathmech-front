@@ -13,7 +13,7 @@ export const ROUTES = {
     NEWS: '/news',
     PUBLISHED_PERFORMANCES: '/performances',
     ALL_PERFORMANCES: '/all-performances',
-    ADMIN: '/admin',
+    USERS: '/users',
     PERSONAL_PAGE: '/my',
     PERSONAL_PERFORMANCES: '/my-performances',
     AUTH: '/auth',
@@ -34,11 +34,11 @@ export const HEADER_TABS: Options = [
 
 export const ADMIN_TABS: Options = [
     {
-        label: 'Админка',
-        value: ROUTES.ADMIN
+        label: 'Список пользователей',
+        value: ROUTES.USERS
     },
     {
-        label: 'Все Выступления',
+        label: 'Все выступления',
         value: ROUTES.ALL_PERFORMANCES
     },
 ];

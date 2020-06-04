@@ -1,4 +1,4 @@
-import AdminPage from '_components/pages/admin-page';
+import UsersPage from '_components/pages/admin-page';
 import AuthPage from '_components/pages/auth-page';
 import Error404 from '_components/pages/error-page';
 import NewsPage from '_components/pages/news-page';
@@ -8,11 +8,11 @@ import PublishedPerformancesPage from '_components/pages/published-performances-
 
 
 export {
-    AdminPage,
     AuthPage,
     Error404,
     NewsPage,
     PublishedPerformancesPage,
     PersonalPage,
-    PersonalPerformancesPage
+    PersonalPerformancesPage,
+    UsersPage
 };

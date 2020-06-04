@@ -17,7 +17,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { GET_IS_LOGGED_IN } from '_apollo/queries';
-import { EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from '_client/consts';
+import { ADMIN_TABS, EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from '_client/consts';
 import { IsLoggedInData } from '_client/types';
 import { findMenuItemByPath } from '_client/utils';
 
@@ -38,7 +38,11 @@ const LayoutHeader = () => {
     const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
 
     const lastTab = useMemo(
-        () => findMenuItemByPath(availableHeaderTabs, pathname)?.value || DEFAULT_TAB,
+        () => {
+            window.scrollTo({ top: 0 });
+
+            return findMenuItemByPath(availableHeaderTabs, pathname)?.value || DEFAULT_TAB;
+        },
         [pathname]
     );
     const [tab, setTab] = useState<string>(lastTab);
@@ -78,6 +82,10 @@ const LayoutHeader = () => {
                     ))}
                     <Tab component={Divider} disabled />
                     {HEADER_TABS.map(({ label, value }) => (
+                        <Tab key={label} label={label} value={value} to={value} component={Link} />
+                    ))}
+                    <Tab component={Divider} disabled />
+                    {ADMIN_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Tab component={Divider} disabled />
@@ -126,7 +134,7 @@ const LayoutHeader = () => {
     );
 };
 
-function HideOnScroll({ children }: {children: React.ReactNode}) {
+const HideOnScroll = ({ children }: {children: React.ReactNode}) => {
     const trigger = useScrollTrigger();
 
     return (
@@ -136,6 +144,6 @@ function HideOnScroll({ children }: {children: React.ReactNode}) {
             </div>
         </Slide>
     );
-}
+};
 
 export default memo(LayoutHeader);

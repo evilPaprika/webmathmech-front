@@ -59,3 +59,8 @@ export interface Option<TValue = string> {
 }
 
 export type Options<TValue = string> = Array<Option<TValue>>;
+
+export enum Order {
+    Asc = 'asc',
+    Desc = 'desc'
+}

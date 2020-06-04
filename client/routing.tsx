@@ -7,13 +7,13 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from '_client/consts';
 import Layout from '_components/layout-blocks/layout';
 import {
-    AdminPage,
     AuthPage,
     Error404,
     NewsPage,
     PersonalPage,
     PersonalPerformancesPage,
-    PublishedPerformancesPage
+    PublishedPerformancesPage,
+    UsersPage
 } from '_components/pages';
 import AllPerformancesPage from '_components/pages/all-performances-page';
 
@@ -43,7 +43,7 @@ export default (
                             component={PageTransitionHOC(PublishedPerformancesPage)}
                         />
                         <Route path={ROUTES.ALL_PERFORMANCES} component={PageTransitionHOC(AllPerformancesPage)} />
-                        <Route path={ROUTES.ADMIN} component={PageTransitionHOC(AdminPage)} />
+                        <Route path={ROUTES.USERS} component={PageTransitionHOC(UsersPage)} />
                         <Route path={ROUTES.PERSONAL_PAGE} component={PageTransitionHOC(PersonalPage)} />
                         <Route
                             path={ROUTES.PERSONAL_PERFORMANCES}
