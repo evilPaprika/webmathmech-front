@@ -31,7 +31,7 @@ export class CreatePerformancePostInput implements Partial<PerformancePost> {
     public state?: PerformancePostState;
 
     @Field()
-    @MinLength(10, {
+    @MinLength(1, {
         message: 'Обязательное поле "Спикер" не заполнено!'
     })
     public speakerId!: string;
@@ -42,11 +42,11 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
     @Field()
     public id!: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Length(3, 30, {
         message: 'Заголовок должен быть длиной от 3 до 30 символов!'
     })
-    public title!: string;
+    public title?: string;
 
     @Field({ nullable: true })
     @Length(10, 2500, {
@@ -65,11 +65,11 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
     @Field(() => PerformancePostState, { nullable: true })
     public state?: PerformancePostState;
 
-    @Field()
-    @MinLength(10, {
+    @Field({ nullable: true })
+    @MinLength(1, {
         message: 'Обязательное поле "Спикер" не заполнено!'
     })
-    public speakerId!: string;
+    public speakerId?: string;
 }
 
 @InputType()

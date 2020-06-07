@@ -119,12 +119,12 @@ export const CREATE_PERFORMANCE_POST = gql`
 export const PATCH_PERFORMANCE_POST = gql`
     mutation (
         $id: String!,
-        $title: String!,
+        $title: String,
         $description: String,
         $pictureURL: String,
         $videoURL: String,
         $state: PerformancePostState,
-        $speakerId: String!
+        $speakerId: String
     ) {
         patchPerformancePost(
             id: $id,
