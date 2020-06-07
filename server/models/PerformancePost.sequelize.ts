@@ -78,9 +78,8 @@ export default class PerformancePost extends Model<PerformancePost> {
     public averageRating!: Rating;
 
     @ForeignKey(() => User)
-    @AllowNull(true)
     @Column(DataType.UUID)
-    speakerId?: string;
+    speakerId!: string;
 
     @Field(() => User, { nullable: true })
     @BelongsTo(() => User)

@@ -7,7 +7,9 @@ import NewsPost from '../../models/NewsPost.sequelize';
 @ArgsType()
 export class CreateNewsPostInput implements Partial<NewsPost> {
     @Field()
-    @Length(10, 2500)
+    @Length(10, 2500, {
+        message: 'Описание должно быть длиной от 10 до 2500 символов!'
+    })
     public description!: string;
 
     @Field({ nullable: true })
@@ -22,7 +24,9 @@ export class PatchNewsPostInputs implements Partial<NewsPost> {
     public id!: string;
 
     @Field({ nullable: true })
-    @Length(10, 2500)
+    @Length(10, 2500, {
+        message: 'Описание должно быть длиной от 10 до 2500 символов!'
+    })
     public description!: string;
 
     @Field({ nullable: true })

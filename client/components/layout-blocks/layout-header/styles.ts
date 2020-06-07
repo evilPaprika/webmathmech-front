@@ -16,10 +16,6 @@ export const useStyles = makeStyles((theme) => createStyles({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         position: 'fixed',
-        top: 0,
-        right: 0,
-        left: 'auto',
-        width: '100%'
     },
     menuButton: {
         [theme.breakpoints.up('md')]: {

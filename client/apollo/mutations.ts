@@ -77,7 +77,7 @@ export const CREATE_PERFORMANCE_POST = gql`
         $pictureURL: String,
         $videoURL: String,
         $state: PerformancePostState,
-        $speakerId: String
+        $speakerId: String!
     ) {
         createPerformancePost(
             title: $title,

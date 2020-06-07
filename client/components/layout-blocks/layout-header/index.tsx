@@ -1,17 +1,14 @@
 import { useQuery } from '@apollo/react-hooks';
 import {
     AppBar,
-    Box,
     Container,
     Divider as MUIDivider,
     Drawer,
     Hidden,
-    Slide,
     SwipeableDrawer,
     Tab,
     Tabs,
-    Toolbar,
-    useScrollTrigger
+    Toolbar
 } from '@material-ui/core';
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -97,16 +94,12 @@ const LayoutHeader = () => {
 
     return (
         <>
-            <Box className={styles.appBar}>
-                <HideOnScroll>
-                    <AppBar position="relative">
-                        <Toolbar>
-                            {Icons}
-                            <AuthButtons />
-                        </Toolbar>
-                    </AppBar>
-                </HideOnScroll>
-            </Box>
+            <AppBar className={styles.appBar}>
+                <Toolbar>
+                    {Icons}
+                    <AuthButtons />
+                </Toolbar>
+            </AppBar>
             <nav className={styles.drawer}>
                 <Hidden smUp implementation="css">
                     <SwipeableDrawer
@@ -131,18 +124,6 @@ const LayoutHeader = () => {
                 </Hidden>
             </nav>
         </>
-    );
-};
-
-const HideOnScroll = ({ children }: {children: React.ReactNode}) => {
-    const trigger = useScrollTrigger();
-
-    return (
-        <Slide direction="down" in={!trigger}>
-            <div>
-                {children}
-            </div>
-        </Slide>
     );
 };
 
