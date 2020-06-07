@@ -62,7 +62,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-error": "^1.1.12",
     "apollo-link-http": "^1.5.16",
-    "apollo-server-koa": "^2.11.0",
+    "apollo-server-koa": "^2.14.2",
     "apollo-upload-client": "^13.0.0",
     "babel-loader": "^8.0.6",
     "bcrypt": "^3.0.7",
