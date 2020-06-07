@@ -11,7 +11,7 @@ jobs:
 
       - name: Set env
         run: |
-          echo ::set-env name=BRANCH::${{ github.event.pull_request.head.ref }}
+          echo "::set-env name=BRANCH::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
           echo ::set-env name=DEPLOY_PORT::$((40000 + ${{ github.event.pull_request.number }}))
 
       - name: Publish to Docker Hub registry
