@@ -35,7 +35,7 @@ interface Props {
 
 interface ModalState extends Partial<PerformancePost> {
     media: MediaTypes;
-    speakerId?: string;
+    speakerId: string;
 }
 
 const DEFAULT_STATE: ModalState = {
@@ -44,8 +44,9 @@ const DEFAULT_STATE: ModalState = {
     pictureURL: '',
     videoURL: '',
     state: PerformancePostState.Draft,
+    speakerId: '',
 
-    media: MediaTypes.Picture,
+    media: MediaTypes.Video,
 };
 
 const applyDefaultState = (item?: PerformancePost): ModalState => (
@@ -168,7 +169,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
             pictureURL: (media === MediaTypes.Picture && pictureURL?.trim()) || null,
             videoURL: (media === MediaTypes.Video && videoURL?.trim()) || null,
             state,
-            speakerId: speakerId || null,
+            speakerId,
             id: !isCreate ? id : null
         };
         mutatePerformancePost({ variables });
@@ -248,7 +249,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                     />
                 </ContainerBox>
                 <ContainerBox>
-                    <RadioGroup value={media} onChange={changeMediaType}>
+                    <RadioGroup value={media} row onChange={changeMediaType}>
                         {MEDIA_TABS.map(({ label, value }) => (
                             <FormControlLabel key={label} label={label} value={value} control={<Radio />} />
                         ))}
@@ -270,6 +271,7 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
                             value={videoURL}
                             label="Ссылка на видео"
                             size="small"
+                            helperText="Примечание: добавьте обложку, если видео не существует."
                             onChange={changeVideoURL}
                             onKeyPress={onEnterPress}
                         />

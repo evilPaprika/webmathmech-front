@@ -16,7 +16,7 @@ export const SnackbarErrorText = memo(({ title, error }: Props) => {
     return (
         <Box>
             <Box fontWeight="bold">{title}</Box>
-            {errors?.map((err, index) => <Box key={index}>{err}</Box>)}
+            {errors?.map((err, index) => <Box key={index}>{`${index + 1}. ${err}`}</Box>)}
         </Box>
     );
 });

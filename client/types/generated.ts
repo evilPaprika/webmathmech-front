@@ -98,18 +98,18 @@ export type MutationCreatePerformancePostArgs = {
     pictureURL?: Maybe<Scalars['String']>;
     videoURL?: Maybe<Scalars['String']>;
     state?: Maybe<PerformancePostState>;
-    speakerId?: Maybe<Scalars['String']>;
+    speakerId: Scalars['String'];
 };
 
 
 export type MutationPatchPerformancePostArgs = {
     id: Scalars['String'];
-    title?: Maybe<Scalars['String']>;
+    title: Scalars['String'];
     description?: Maybe<Scalars['String']>;
     pictureURL?: Maybe<Scalars['String']>;
     videoURL?: Maybe<Scalars['String']>;
     state?: Maybe<PerformancePostState>;
-    speakerId?: Maybe<Scalars['String']>;
+    speakerId: Scalars['String'];
 };
 
 

@@ -4,7 +4,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 const connectDB = async () => {
     const sequelize = new Sequelize(config.databaseURL, {
-        database: 'test',
+        database: 'test', // TODO: select from configs
         dialect: 'postgres',
         dialectOptions: {
             ssl: true,
