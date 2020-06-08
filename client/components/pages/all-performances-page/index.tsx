@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
 
-import PerformancesList from '_components/common/performances-list';
+import { PageContainer, PerformancesList } from '_components/common';
 
 
 export const AllPerformancesPage = memo(() => {
     return (
-        <PerformancesList />
+        <PageContainer>
+            <PerformancesList />
+        </PageContainer>
     );
 });
 

@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import { Fade } from '@material-ui/core';
+import { Box, Fade } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -23,9 +23,9 @@ import apolloClient from './apollo';
 const PageTransitionHOC = (Component: React.ElementType) => (
     () => (
         <Fade mountOnEnter in>
-            <div>
+            <Box width="100%">
                 <Component />
-            </div>
+            </Box>
         </Fade>
     )
 );

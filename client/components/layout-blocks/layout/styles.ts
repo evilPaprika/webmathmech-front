@@ -23,7 +23,6 @@ sans-serif`
         alignItems: 'center',
 
         width: '100%',
-        maxWidth: 700,
     },
 
     icons: {

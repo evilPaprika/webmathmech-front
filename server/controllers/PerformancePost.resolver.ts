@@ -2,6 +2,7 @@ import { Op, WhereOptions } from 'sequelize';
 import {
     Arg,
     Args,
+    Authorized,
     FieldResolver,
     Mutation,
     Query,
@@ -9,7 +10,7 @@ import {
     Root,
 } from 'type-graphql';
 
-import { PerformancePostState } from '../models/EnumModels';
+import { PerformancePostState, Role } from '../models/EnumModels';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
@@ -23,6 +24,7 @@ import {
 
 @Resolver(PerformancePost)
 export default class PerformancePostResolver {
+    @Authorized([Role.ADMIN])
     @Mutation(() => PerformancePost)
     public async createPerformancePost(@Args() {
         state,
@@ -90,6 +92,7 @@ export default class PerformancePostResolver {
         });
     }
 
+    @Authorized([Role.ADMIN])
     @Mutation(() => PerformancePost)
     public async patchPerformancePost(@Args() { id, ...newValues }: PatchPerformancePostInputs) {
         const performancePost = await PerformancePost.findOne({
@@ -105,6 +108,7 @@ export default class PerformancePostResolver {
         return performancePost;
     }
 
+    @Authorized([Role.ADMIN])
     @Mutation(() => Boolean)
     public async removePerformancePost(@Arg('id') id : string) {
         return Boolean(await PerformancePost.destroy({ where: { id } }));

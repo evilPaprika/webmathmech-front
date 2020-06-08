@@ -1,5 +1,6 @@
-import { Args, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
+import { Args, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
+import { Role } from '../models/EnumModels';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
@@ -9,11 +10,13 @@ import { FindVoteCurrentUser, VoteCurrentUserInput, VoteInput } from './inputs/P
 
 @Resolver(PollVote)
 export default class PollVoteResolver {
+    @Authorized([Role.STUDENT, Role.ADMIN])
     @Mutation(() => PollVote)
     public async vote(@Args() args: VoteInput) {
         return PollVote.create(args);
     }
 
+    @Authorized([Role.STUDENT, Role.ADMIN])
     @Mutation(() => PollVote)
     public async voteCurrentUser(@Args() args: VoteCurrentUserInput,
         @Ctx() context: ApolloServerContext) {

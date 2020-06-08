@@ -12,7 +12,11 @@ import {
     Role,
     UserData
 } from '_client/types';
-import { AddEntityIcon, InfiniteScroll, PerformanceCard, PerformancePostModal, Teleporter } from '_components/common';
+import AddEntityIcon from '_components/common/add-entity-icon';
+import InfiniteScroll from '_components/common/infinite-scroll';
+import PerformanceCard from '_components/common/perfomance-card';
+import PerformancePostModal from '_components/common/performance-post-modal';
+import Teleporter from '_components/common/teleporter';
 import { PerformanceListContextProvider } from '_contexts/PerformanceList.context';
 
 

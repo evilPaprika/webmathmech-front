@@ -1,12 +1,13 @@
-import { Container } from '@material-ui/core';
 import React, { memo } from 'react';
+
+import { PageContainer } from '_components/common';
 
 
 const Error404 = () => {
     return (
-        <Container>
+        <PageContainer>
             Запрашиваемая вами страница не найдена!
-        </Container>
+        </PageContainer>
     );
 };
 

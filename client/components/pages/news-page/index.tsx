@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/react-hooks';
-import { Container } from '@material-ui/core';
 import React, { memo, useState } from 'react';
 
 import { GET_CURRENT_USER, GET_NEWS_POSTS_CURSOR } from '_apollo/queries';
 import { NEWS_POSTS_LIMIT } from '_client/consts';
 import { useModal } from '_client/hooks';
 import { NewsPostsCursorData, Role, UserData } from '_client/types';
-import { AddEntityIcon, InfiniteScroll, NewsPostModal, Teleporter } from '_components/common';
+import { AddEntityIcon, InfiniteScroll, NewsPostModal, PageContainer, Teleporter } from '_components/common';
 
 import NewsCard from './news-card';
 
@@ -51,7 +50,7 @@ const NewsPage = () => {
     };
 
     return (
-        <Container disableGutters>
+        <PageContainer>
             <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                 {newsPosts?.map((item) => <NewsCard item={item} key={item.id} />)}
             </InfiniteScroll>
@@ -68,7 +67,7 @@ const NewsPage = () => {
                     {isOpenModal && <NewsPostModal isOpen={isOpenModal} close={closeModal} />}
                 </>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 

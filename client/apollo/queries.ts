@@ -1,15 +1,20 @@
 import gql from 'graphql-tag';
 
 /* User queries */
-export const GET_USERS = gql`
-    query ($limit: Int, $offset: Int, $order: [String!]) {
-        getUsers(params: { limit: $limit, offset: $offset, order: $order }) {
+export const GET_USERS_CURSOR = gql`
+    query ($limit: Int, $dateTimeCursor: DateTime) {
+        getUsersCursor(params: {
+            limit: $limit,
+            dateTimeCursor: $dateTimeCursor
+        })
+        @connection(key: "getUsersCursor") {
             name
             surname
             id
             login
             universityGroup
             role
+            createdAt
         }
     }
 `;
@@ -19,7 +24,11 @@ export const FIND_USER = gql`
         findUser(login: $login) {
             name
             surname
+            id
             login
+            universityGroup
+            role
+            createdAt
         }
     }
 `;

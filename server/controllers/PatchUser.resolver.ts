@@ -39,7 +39,7 @@ export default class PatchUserResolver {
         return user;
     }
 
-    @Authorized([Role.USER]) // TODO Role.ADMIN
+    @Authorized([Role.ADMIN])
     @Mutation(() => User)
     public async patchUser(@Args() { id, ...newValues }: PatchUserInput) {
         const user = await User.findOne({

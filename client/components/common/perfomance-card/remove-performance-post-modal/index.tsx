@@ -24,22 +24,24 @@ interface Props {
 export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, close }: Props) => {
     const { filters } = useContext(PerformanceListContext);
     const { enqueueSnackbar } = useSnackbar();
-    const [removePerformancePost, { loading, client }] = useMutation(
+    const [removePerformancePost, { loading }] = useMutation(
         REMOVE_PERFORMANCE_POST,
         {
-            onCompleted() {
-                const data = client?.readQuery<PerformancePostsCursorData>({
+            update(dataProxy) {
+                const data = dataProxy?.readQuery<PerformancePostsCursorData>({
                     query: GET_PERFORMANCE_POSTS_CURSOR,
                     variables: { filters }
                 });
                 if (data) {
                     const updatedData = data.getPerformancePostsCursor.filter((post) => post.id !== performancePostId);
-                    client?.writeQuery({
+                    dataProxy?.writeQuery({
                         query: GET_PERFORMANCE_POSTS_CURSOR,
                         variables: { filters },
                         data: { getPerformancePostsCursor: updatedData }
                     });
                 }
+            },
+            onCompleted() {
                 enqueueSnackbar('Пост с выступлением успешно удален!', { variant: 'success' });
             },
             onError(error: ApolloError) {

@@ -41,8 +41,8 @@ export interface FindVoteCurrentUserData {
     findVoteCurrentUser: Query['findVoteCurrentUser'];
 }
 
-export interface UsersData {
-    getUsers: Query['getUsers'];
+export interface UsersDataCursor {
+    getUsersCursor: Query['getUsers'];
 }
 
 export interface UserData {

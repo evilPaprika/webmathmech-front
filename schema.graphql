@@ -23,7 +23,7 @@ type Mutation {
   patchCurrentUser(name: String, surname: String, password: String, universityGroup: String): User!
   patchUser(id: String!, name: String, surname: String, role: Role, universityGroup: String): User!
   createPerformancePost(title: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, speakerId: String!): PerformancePost!
-  patchPerformancePost(id: String!, title: String!, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, speakerId: String!): PerformancePost!
+  patchPerformancePost(id: String!, title: String, description: String, pictureURL: String, videoURL: String, state: PerformancePostState, speakerId: String): PerformancePost!
   removePerformancePost(id: String!): Boolean!
   vote(userId: String!, performanceId: String!, rating: RatingInput!): PollVote!
   voteCurrentUser(performanceId: String!, rating: RatingInput!): PollVote!
@@ -89,6 +89,7 @@ type Query {
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: OffsetPaginationInputs!): [User!]!
+  getUsersCursor(params: CursorPaginationInputs!): [User!]!
 }
 
 type Rating {

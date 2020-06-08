@@ -2,11 +2,13 @@ import { Op } from 'sequelize';
 import {
     Arg,
     Args,
+    Authorized,
     Mutation,
     Query,
     Resolver,
 } from 'type-graphql';
 
+import { Role } from '../models/EnumModels';
 import NewsPost from '../models/NewsPost.sequelize';
 import { CreateNewsPostInput, PatchNewsPostInputs } from './inputs/NewsPostInputs';
 import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
@@ -14,6 +16,7 @@ import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/Paginat
 
 @Resolver(NewsPost)
 export default class NewsPostResolver {
+    @Authorized([Role.ADMIN])
     @Mutation(() => NewsPost)
     public async createNewsPost(@Args() { description, pictureURL }: CreateNewsPostInput) {
         return NewsPost.create({
@@ -53,6 +56,7 @@ export default class NewsPostResolver {
         });
     }
 
+    @Authorized([Role.ADMIN])
     @Mutation(() => NewsPost)
     public async patchNewsPost(@Args() { id, ...newValues }: PatchNewsPostInputs) {
         const newsPost = await NewsPost.findOne({
@@ -68,6 +72,7 @@ export default class NewsPostResolver {
         return newsPost;
     }
 
+    @Authorized([Role.ADMIN])
     @Mutation(() => Boolean)
     public async removeNewsPost(@Arg('id') id : string) {
         return Boolean(await NewsPost.destroy({ where: { id } }));

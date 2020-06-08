@@ -64,7 +64,27 @@ export const FILE_UPLOAD = gql`
 export const PATCH_CURRENT_USER = gql`
     mutation ($name: String, $surname: String, $password: String, $universityGroup: String) {
         patchCurrentUser(name: $name, surname: $surname, password: $password, universityGroup: $universityGroup){
+            name
+            surname
             id
+            login
+            universityGroup
+            role
+            createdAt
+        }
+    }
+`;
+
+export const PATCH_USER = gql`
+    mutation ($id: String!, $name: String, $surname: String, $universityGroup: String, $role: Role) {
+        patchUser(id: $id, name: $name, surname: $surname, universityGroup: $universityGroup, role: $role){
+            name
+            surname
+            id
+            login
+            universityGroup
+            role
+            createdAt
         }
     }
 `;
@@ -185,5 +205,11 @@ export const VOTE_CURRENT_USER = gql`
             }
             createdAt
         }
+    }
+`;
+
+export const REMOVE_USER = gql`
+    mutation ($id: String!) {
+        removeUser(id: $id) 
     }
 `;
