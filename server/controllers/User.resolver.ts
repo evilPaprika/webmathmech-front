@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import {
     Arg,
     Authorized,
@@ -7,11 +8,12 @@ import {
     Resolver,
 } from 'type-graphql';
 
+import { Role } from '../models/EnumModels';
 import PerformancePost from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { OffsetPaginationInputs } from './inputs/PaginationInputs';
+import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 
 @Resolver(User)
 export default class UserResolver {
@@ -56,6 +58,21 @@ export default class UserResolver {
         });
     }
 
+    @Query(() => [User])
+    public async getUsersCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+        return User.findAll({
+            limit,
+            where: {
+                createdAt: {
+                    [Op.lt]: dateTimeCursor
+                }
+            },
+            order: [['createdAt', 'DESC']],
+            include: [PerformancePost, { model: PollVote, include: [PerformancePost] }]
+        });
+    }
+
+    @Authorized([Role.ADMIN])
     @Mutation(() => Boolean)
     public async removeUser(@Arg('id') id : string) {
         return Boolean(await User.destroy({ where: { id } }));

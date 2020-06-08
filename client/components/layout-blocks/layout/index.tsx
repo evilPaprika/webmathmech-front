@@ -36,9 +36,7 @@ const Layout = ({ children }: Props) => {
             <Box className={classes.root}>
                 <LayoutHeader />
                 <Box className={classes.content}>
-                    <Box width="100%">
-                        {children}
-                    </Box>
+                    {children}
                 </Box>
                 <Box className={classes.icons}>
                     <ScrollTopIcon />

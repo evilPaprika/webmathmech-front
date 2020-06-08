@@ -20,21 +20,23 @@ interface Props {
 export const RemoveNewsPostModal = memo(({ newsPostId, isOpen, close }: Props) => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const [removeNewsPost, { loading, client }] = useMutation(
+    const [removeNewsPost, { loading }] = useMutation(
         REMOVE_NEWS_POST,
         {
-            onCompleted() {
-                const data = client?.readQuery<NewsPostsCursorData>({
+            update: (dataProxy) => {
+                const data = dataProxy?.readQuery<NewsPostsCursorData>({
                     query: GET_NEWS_POSTS_CURSOR,
                     variables: { limit: NEWS_POSTS_LIMIT }
                 });
                 if (data) {
-                    client?.writeQuery({
+                    dataProxy?.writeQuery({
                         query: GET_NEWS_POSTS_CURSOR,
                         variables: { limit: NEWS_POSTS_LIMIT },
                         data: { getNewsPostsCursor: data.getNewsPostsCursor.filter((post) => post.id !== newsPostId) }
                     });
                 }
+            },
+            onCompleted() {
                 enqueueSnackbar('Новость успешно удалена!', { variant: 'success' });
                 close();
             },

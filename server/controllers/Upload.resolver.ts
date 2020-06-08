@@ -3,9 +3,10 @@ import { GraphQLUpload } from 'apollo-server-koa';
 import { ReadStream } from 'fs';
 import path from 'path';
 import sharp from 'sharp';
-import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Arg, Authorized, Mutation, Resolver } from 'type-graphql';
 
 import { minioClient } from '../minio';
+import { Role } from '../models/EnumModels';
 
 
 const FILE_EXTENSIONS_TO_MINIFY = ['.png', '.jpg', '.jpeg'];
@@ -19,6 +20,7 @@ export interface Upload {
 
 @Resolver()
 export class UploadResolver {
+    @Authorized([Role.ADMIN])
     @Mutation(() => String)
     public async fileUpload(@Arg('file', () => GraphQLUpload!) { createReadStream, filename }: Upload) {
         const { name, ext } = path.parse(filename);

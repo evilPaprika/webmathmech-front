@@ -298,3 +298,5 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
         </Modal>
     );
 });
+
+export default PerformancePostModal;

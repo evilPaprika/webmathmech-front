@@ -10,8 +10,10 @@ import LabeledInput from './labeled-input';
 import LoadingWrapper from './loading-wrapper';
 import Modal from './modal';
 import { NewsPostModal } from './news-post-modal';
+import PageContainer from './page-container';
 import PerformanceCard from './perfomance-card';
 import { PerformancePostModal } from './performance-post-modal';
+import PerformancesList from './performances-list';
 import ScrollTopIcon from './scroll-top-icon';
 import SnackbarErrorText from './snackbar-error-text';
 import { Table } from './table';
@@ -36,5 +38,7 @@ export {
     Teleporter,
     PerformanceCard,
     NewsPostModal,
-    PerformancePostModal
+    PerformancePostModal,
+    PerformancesList,
+    PageContainer
 };

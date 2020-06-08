@@ -104,12 +104,12 @@ export type MutationCreatePerformancePostArgs = {
 
 export type MutationPatchPerformancePostArgs = {
     id: Scalars['String'];
-    title: Scalars['String'];
+    title?: Maybe<Scalars['String']>;
     description?: Maybe<Scalars['String']>;
     pictureURL?: Maybe<Scalars['String']>;
     videoURL?: Maybe<Scalars['String']>;
     state?: Maybe<PerformancePostState>;
-    speakerId: Scalars['String'];
+    speakerId?: Maybe<Scalars['String']>;
 };
 
 
@@ -202,6 +202,7 @@ export type Query = {
     getCurrentUser: User;
     findUser: User;
     getUsers: Array<User>;
+    getUsersCursor: Array<User>;
 };
 
 
@@ -249,6 +250,11 @@ export type QueryFindUserArgs = {
 
 export type QueryGetUsersArgs = {
     params: OffsetPaginationInputs;
+};
+
+
+export type QueryGetUsersCursorArgs = {
+    params: CursorPaginationInputs;
 };
 
 export type Rating = {
