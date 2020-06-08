@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/react-hooks';
-import { Button, Typography } from '@material-ui/core';
+import { Button, IconButton, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { ApolloError } from 'apollo-client';
 import { useSnackbar } from 'notistack';
@@ -51,7 +51,9 @@ export const RemoveUserButton = memo(({ id }: Props) => {
     return (
         <>
             <LoadingWrapper loading={loading}>
-                <DeleteIcon onClick={openRemoveModal} />
+                <IconButton onClick={openRemoveModal} aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
             </LoadingWrapper>
             <Modal title="Предупреждение" isOpen={isOpenRemoveModal} close={closeRemoveModal}>
                 <ContainerBox gap="large">
