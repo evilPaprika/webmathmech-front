@@ -8,8 +8,8 @@ import { GET_USERS_CURSOR } from '_apollo/queries';
 import { ColumnProps } from '_client/components/common/table';
 import { SortDirection, User, UsersDataCursor } from '_client/types';
 import { ContainerBox, PageContainer, Table } from '_components/common';
-import RemoveUserButton from '_components/pages/users-list-page/removeUserButton';
-import UserRoleSelect from '_components/pages/users-list-page/userRoleSelect';
+import RemoveUserButton from '_components/pages/users-list-page/RemoveUserButton';
+import UserRoleSelect from '_components/pages/users-list-page/UserRoleSelect';
 
 
 type UserKey = keyof User;
