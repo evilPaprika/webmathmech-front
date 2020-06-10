@@ -53,6 +53,10 @@ export interface IsLoggedInData {
     isLoggedIn: boolean;
 }
 
+export interface GetActivePerformancePostsCountData {
+    getActivePerformancePostsCount: Query['getActivePerformancePostsCount'];
+}
+
 export interface Option<TValue = string> {
     label: string;
     value: TValue;
