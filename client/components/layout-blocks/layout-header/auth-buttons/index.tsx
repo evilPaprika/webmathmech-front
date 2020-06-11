@@ -51,6 +51,11 @@ export const AuthButtons = () => {
         refetchActivePolls();
     };
 
+    const onCloseActivePollsModal = () => {
+        refetchActivePolls();
+        closeActivePollsModal();
+    };
+
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
         client.writeData({ data: { isLoggedIn: false } });
@@ -82,8 +87,7 @@ export const AuthButtons = () => {
                     </IconButton>
                     <ActivePollsModal
                         isOpen={isOpenActivePollsModal}
-                        close={closeActivePollsModal}
-                        refetch={refetchActivePolls}
+                        close={onCloseActivePollsModal}
                     />
                     <Menu
                         id="user-menu"
