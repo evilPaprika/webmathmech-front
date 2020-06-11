@@ -38,11 +38,18 @@ export const AuthButtons = () => {
     const [isOpenActivePollsModal, openActivePollsModal, closeActivePollsModal] = useModal();
 
     const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
-    const { data, refetch, error } = useQuery<UserData>(GET_CURRENT_USER);
+    const { data, refetch: refetchCurrentUser, error } = useQuery<UserData>(GET_CURRENT_USER);
     const user = data?.getCurrentUser || {} as User;
 
-    const { data: activePollsData } = useQuery<GetActivePerformancePostsCountData>(GET_ACTIVE_POLLS);
+    const { data: activePollsData, refetch: refetchActivePolls } = useQuery<GetActivePerformancePostsCountData>(
+        GET_ACTIVE_POLLS
+    );
     const noVotePostsCount = activePollsData?.getActivePerformancePostsCount || 0;
+
+    const onRefetch = () => {
+        refetchCurrentUser();
+        refetchActivePolls();
+    };
 
     const signOut = useCallback(() => {
         localStorage.removeItem('token');
@@ -59,7 +66,7 @@ export const AuthButtons = () => {
 
     return (
         <Container className={styles.wrapper} maxWidth={false} disableGutters>
-            <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={refetch} />
+            <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={onRefetch} />
             {isLoggedIn ? (
                 <>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
