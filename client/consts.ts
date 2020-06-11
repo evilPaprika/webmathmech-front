@@ -20,7 +20,7 @@ export const ROUTES = {
     AUTH_VK: '/auth/vk',
 };
 
-export const HEADER_TABS: Options = [
+export const COMMON_TABS: Options = [
     {
         label: 'Новости',
         value: ROUTES.NEWS
@@ -43,7 +43,7 @@ export const ADMIN_TABS: Options = [
     },
 ];
 
-export const MENU_OPTIONS: Options = [
+export const PERSONAL_TABS: Options = [
     {
         label: 'Моя страница',
         value: ROUTES.PERSONAL_PAGE
@@ -53,8 +53,6 @@ export const MENU_OPTIONS: Options = [
         value: ROUTES.PERSONAL_PERFORMANCES
     }
 ];
-
-export const EXTENDED_HEADER_TABS: Options = [...MENU_OPTIONS, ...HEADER_TABS, ...ADMIN_TABS];
 
 export const MEDIA_TABS: Options<MediaTypes> = [
     {
