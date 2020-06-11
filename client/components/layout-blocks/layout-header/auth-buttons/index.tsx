@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
-import { MENU_OPTIONS, ROUTES } from '_client/consts';
+import { PERSONAL_TABS, ROUTES } from '_client/consts';
 import { useMenu, useModal } from '_client/hooks';
 import { IsLoggedInData, User, UserData } from '_client/types';
 import { getFullName } from '_client/utils';
@@ -71,7 +71,7 @@ export const AuthButtons = () => {
                         onClose={closeMenu}
                         onClick={closeMenu}
                     >
-                        {MENU_OPTIONS.map(({ label, value }) => (
+                        {PERSONAL_TABS.map(({ label, value }) => (
                             <MenuItem key={label} component={Link} to={value}>{label}</MenuItem>
                         ))}
                         <MenuItem component={Link} to={ROUTES.NEWS} onClick={signOut}>

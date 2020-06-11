@@ -13,9 +13,9 @@ import {
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { GET_IS_LOGGED_IN } from '_apollo/queries';
-import { ADMIN_TABS, EXTENDED_HEADER_TABS, HEADER_TABS, MENU_OPTIONS, ROUTES } from '_client/consts';
-import { IsLoggedInData } from '_client/types';
+import { GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
+import { ADMIN_TABS, COMMON_TABS, PERSONAL_TABS, ROUTES } from '_client/consts';
+import { IsLoggedInData, Role, UserData } from '_client/types';
 import { findMenuItemByPath } from '_client/utils';
 
 import LayoutFooter from '../layout-footer';
@@ -26,13 +26,27 @@ import { useStyles } from './styles';
 
 const DEFAULT_TAB = ROUTES.NEWS;
 
+const getHeaderTabs = (isLoggedIn: boolean = false, isAdmin: boolean = false) => {
+    switch (true) {
+        case isAdmin:
+            return [...PERSONAL_TABS, ...COMMON_TABS, ...ADMIN_TABS];
+        case isLoggedIn:
+            return [...PERSONAL_TABS, ...COMMON_TABS];
+        default:
+            return COMMON_TABS;
+    }
+};
+
 const LayoutHeader = () => {
     const styles = useStyles();
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const { isLoggedIn } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN)?.data || {};
     const { pathname } = useLocation();
 
-    const availableHeaderTabs = isLoggedIn ? EXTENDED_HEADER_TABS : HEADER_TABS;
+    const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
+    const isAdmin = userData?.getCurrentUser?.role === Role.Admin;
+
+    const availableHeaderTabs = getHeaderTabs(isLoggedIn, isAdmin);
 
     const lastTab = useMemo(
         () => {
@@ -74,15 +88,15 @@ const LayoutHeader = () => {
                     {Icons}
                 </Container>
                 <Tabs value={tab} onChange={onChangeTab} orientation="vertical">
-                    {isLoggedIn && MENU_OPTIONS.map(({ label, value }) => (
+                    {isLoggedIn && PERSONAL_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Tab component={Divider} disabled />
-                    {HEADER_TABS.map(({ label, value }) => (
+                    {COMMON_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Tab component={Divider} disabled />
-                    {ADMIN_TABS.map(({ label, value }) => (
+                    {isAdmin && ADMIN_TABS.map(({ label, value }) => (
                         <Tab key={label} label={label} value={value} to={value} component={Link} />
                     ))}
                     <Tab component={Divider} disabled />
