@@ -80,7 +80,11 @@ export const AuthButtons = () => {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    <ActivePollsModal isOpen={isOpenActivePollsModal} close={closeActivePollsModal} />
+                    <ActivePollsModal
+                        isOpen={isOpenActivePollsModal}
+                        close={closeActivePollsModal}
+                        refetch={refetchActivePolls}
+                    />
                     <Menu
                         id="user-menu"
                         className={styles.menu}

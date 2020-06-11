@@ -7,10 +7,18 @@ import { Modal, PerformancesList } from '_components/common';
 interface Props {
     isOpen: boolean;
     close(): void;
+    refetch(): void;
 }
 
-export const ActivePollsModal = memo(({ isOpen, close }: Props) => (
-    <Modal title="Активные голосования" isOpen={isOpen} close={close}>
-        <PerformancesList filters={{ states: [PerformancePostState.Poll] }} />
-    </Modal>
-));
+export const ActivePollsModal = memo(({ isOpen, close, refetch }: Props) => {
+    const onClose = () => {
+        refetch();
+        close();
+    };
+
+    return (
+        <Modal title="Активные голосования" isOpen={isOpen} close={onClose}>
+            <PerformancesList filters={{ states: [PerformancePostState.Poll] }} />
+        </Modal>
+    );
+});
