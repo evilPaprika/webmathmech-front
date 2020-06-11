@@ -221,3 +221,9 @@ export const FIND_VOTE_CURRENT_USER = gql`
         }
     }
 `;
+
+export const GET_ACTIVE_POLLS = gql`
+    query {
+        getActivePerformancePostsCount
+    }
+`;

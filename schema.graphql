@@ -85,6 +85,7 @@ type Query {
   findPerformancePost(id: String!): PerformancePost!
   getPerformancePosts(filters: PerformancePaginationFiltersInput, params: OffsetPaginationInputs!): [PerformancePost!]!
   getPerformancePostsCursor(filters: PerformancePaginationFiltersInput, params: CursorPaginationInputs!): [PerformancePost!]!
+  getActivePerformancePostsCount: Float!
   findVoteCurrentUser(performanceId: String!): PollVote!
   getCurrentUser: User!
   findUser(login: String!): User!

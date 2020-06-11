@@ -3,6 +3,7 @@ import {
     Arg,
     Args,
     Authorized,
+    Ctx,
     FieldResolver,
     Mutation,
     Query,
@@ -14,6 +15,7 @@ import { PerformancePostState, Role } from '../models/EnumModels';
 import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
+import { ApolloServerContext } from '../types';
 import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
 import {
     CreatePerformancePostInput,
@@ -45,7 +47,7 @@ export default class PerformancePostResolver {
         });
 
         if (!performancePost) {
-            throw new Error('Performance post  not found');
+            throw new Error('Performance post not found');
         }
 
         return performancePost;
@@ -57,10 +59,8 @@ export default class PerformancePostResolver {
         const where: WhereOptions = { };
 
         if (states) {
-            where.states = {
-                state: {
-                    [Op.in]: states
-                }
+            where.state = {
+                [Op.in]: states
             };
         }
 
@@ -90,6 +90,30 @@ export default class PerformancePostResolver {
             order: [['createdAt', 'DESC']],
             include: [User, { model: PollVote, include: [User] }]
         });
+    }
+
+    @Query(() => Number)
+    public async getActivePerformancePostsCount(@Ctx() context: ApolloServerContext) {
+        const jwt = context.koaCtx?.state?.user;
+
+        const posts = await PerformancePost.findAll({
+            where: {
+                state: PerformancePostState.POLL
+            },
+            order: [['updatedAt', 'DESC']],
+            include: [User, { model: PollVote, include: [User] }]
+        });
+
+        const userId = jwt.id;
+
+        let count = 0;
+        posts?.forEach(({ pollVotes }) => {
+            if (!pollVotes || pollVotes.every((pollVote) => pollVote.userId !== userId)) {
+                count += 1;
+            }
+        });
+
+        return count;
     }
 
     @Authorized([Role.ADMIN])

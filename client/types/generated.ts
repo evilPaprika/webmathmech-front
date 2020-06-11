@@ -198,6 +198,7 @@ export type Query = {
     findPerformancePost: PerformancePost;
     getPerformancePosts: Array<PerformancePost>;
     getPerformancePostsCursor: Array<PerformancePost>;
+    getActivePerformancePostsCount: Scalars['Float'];
     findVoteCurrentUser: PollVote;
     getCurrentUser: User;
     findUser: User;
