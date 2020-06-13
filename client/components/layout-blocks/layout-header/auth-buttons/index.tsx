@@ -6,6 +6,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { GET_ACTIVE_POLLS, GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
+import { LoadingWrapper } from '_client/components/common';
 import { PERSONAL_TABS, ROUTES } from '_client/consts';
 import { useMenu, useModal } from '_client/hooks';
 import { GetActivePerformancePostsCountData, IsLoggedInData, Role, User, UserData } from '_client/types';
@@ -38,9 +39,9 @@ export const AuthButtons = () => {
     const [isOpenActivePollsModal, openActivePollsModal, closeActivePollsModal] = useModal();
 
     const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
-    const { data, refetch: refetchCurrentUser, error } = useQuery<UserData>(GET_CURRENT_USER);
+    const { data, refetch: refetchCurrentUser, error, loading } = useQuery<UserData>(GET_CURRENT_USER);
     const user = data?.getCurrentUser || {} as User;
-    const isRoleUser = user.role === Role.User;
+    const isNotificationsIconHidden = !user.role || user.role === Role.User;
 
     const { data: activePollsData, refetch: refetchActivePolls } = useQuery<GetActivePerformancePostsCountData>(
         GET_ACTIVE_POLLS
@@ -74,14 +75,14 @@ export const AuthButtons = () => {
         <Container className={styles.wrapper} maxWidth={false} disableGutters>
             <AuthModal isOpen={isOpenAuthModal} close={closeAuthModal} refetch={onRefetch} />
             {isLoggedIn ? (
-                <>
+                <LoadingWrapper loading={loading}>
                     <Button aria-controls="user-menu" color="inherit" onClick={openMenu}>
                         <Typography className={styles.username}>
                             {getUsername(user)}
                         </Typography>
                         <AccountCircle />
                     </Button>
-                    {!isRoleUser && (
+                    {!isNotificationsIconHidden && (
                         <>
                             <IconButton color="inherit" onClick={openActivePollsModal}>
                                 <Badge badgeContent={noVotePostsCount} color="secondary">
@@ -110,7 +111,7 @@ export const AuthButtons = () => {
                             Выйти
                         </MenuItem>
                     </Menu>
-                </>
+                </LoadingWrapper>
             ) : <Button color="inherit" onClick={openAuthModal}>Войти</Button>}
         </Container>
     );
