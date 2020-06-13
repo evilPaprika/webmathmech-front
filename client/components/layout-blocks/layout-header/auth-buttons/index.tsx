@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { GET_ACTIVE_POLLS, GET_CURRENT_USER, GET_IS_LOGGED_IN } from '_apollo/queries';
 import { PERSONAL_TABS, ROUTES } from '_client/consts';
 import { useMenu, useModal } from '_client/hooks';
-import { GetActivePerformancePostsCountData, IsLoggedInData, User, UserData } from '_client/types';
+import { GetActivePerformancePostsCountData, IsLoggedInData, Role, User, UserData } from '_client/types';
 import { getFullName } from '_client/utils';
 
 import { ActivePollsModal } from './active-polls-modal';
@@ -40,6 +40,7 @@ export const AuthButtons = () => {
     const { data: { isLoggedIn } = {}, client } = useQuery<IsLoggedInData>(GET_IS_LOGGED_IN);
     const { data, refetch: refetchCurrentUser, error } = useQuery<UserData>(GET_CURRENT_USER);
     const user = data?.getCurrentUser || {} as User;
+    const isRoleUser = user.role === Role.User;
 
     const { data: activePollsData, refetch: refetchActivePolls } = useQuery<GetActivePerformancePostsCountData>(
         GET_ACTIVE_POLLS
@@ -80,15 +81,19 @@ export const AuthButtons = () => {
                         </Typography>
                         <AccountCircle />
                     </Button>
-                    <IconButton color="inherit" onClick={openActivePollsModal}>
-                        <Badge badgeContent={noVotePostsCount} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
-                    <ActivePollsModal
-                        isOpen={isOpenActivePollsModal}
-                        close={onCloseActivePollsModal}
-                    />
+                    {!isRoleUser && (
+                        <>
+                            <IconButton color="inherit" onClick={openActivePollsModal}>
+                                <Badge badgeContent={noVotePostsCount} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <ActivePollsModal
+                                isOpen={isOpenActivePollsModal}
+                                close={onCloseActivePollsModal}
+                            />
+                        </>
+                    )}
                     <Menu
                         id="user-menu"
                         className={styles.menu}
