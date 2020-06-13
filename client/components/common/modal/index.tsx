@@ -17,7 +17,14 @@ export const Modal = memo(({ isOpen, close, title, children, maxWidth }: Props) 
     const styles = useStyles();
 
     return (
-        <Dialog open={isOpen} maxWidth={maxWidth} fullWidth scroll="body" onClose={close}>
+        <Dialog
+            open={isOpen}
+            maxWidth={maxWidth}
+            PaperProps={{ className: styles.modalPaper }}
+            fullWidth
+            scroll="body"
+            onClose={close}
+        >
             <DialogTitle className={styles.header}>
                 <Box py={2}>
                     <Typography variant="h5">
@@ -30,7 +37,7 @@ export const Modal = memo(({ isOpen, close, title, children, maxWidth }: Props) 
                     </IconButton>
                 </Box>
             </DialogTitle>
-            <DialogContent>
+            <DialogContent className={styles.content}>
                 <Box mt={5}>
                     {children}
                 </Box>
