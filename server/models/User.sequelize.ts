@@ -14,10 +14,7 @@ import {
 import { Field, ID, ObjectType } from 'type-graphql';
 
 import { Role } from './EnumModels';
-// https://github.com/RobinBuschmann/sequelize-typescript/issues/454#issuecomment-420903400
-// eslint-disable-next-line import/no-cycle
 import PerformancePost from './PerformancePost.sequelize';
-// eslint-disable-next-line import/no-cycle
 import PollVote from './PollVote.sequelize';
 
 
