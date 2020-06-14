@@ -12,13 +12,13 @@ npm run dev
 ```
 
 ## Контакты
-Ильиных Иван
-  Telegram: @evil_paprika
-  Vk: vk.com/evilpaprika
-  mail: ivil.paprika@gmail.com
+Ильиных Иван  
+  Telegram: @evil_paprika  
+  Vk: vk.com/evilpaprika  
+  mail: ivil.paprika@gmail.com  
   
-Зелинский Дмитрий
-  Telegram: @DmitryZeli
-  Vk: vk.com/id87823079
+Зелинский Дмитрий  
+  Telegram: @DmitryZeli  
+  Vk: vk.com/id87823079  
 
 Если возникнут вопросы, пишите
