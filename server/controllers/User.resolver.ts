@@ -60,13 +60,14 @@ export default class UserResolver {
     }
 
     @Query(() => [User])
-    public async getUsersCursor(@Args() { limit, dateTimeCursor }: CursorPaginationInputs) {
+    public async getUsersCursor(@Args() { limit, dateTimeCursor, sequelizeWhere }: CursorPaginationInputs) {
         return User.findAll({
             limit,
             where: {
                 createdAt: {
                     [Op.lt]: dateTimeCursor
-                }
+                },
+                ...sequelizeWhere
             },
             order: [['createdAt', 'DESC']],
             include: [PerformancePost, { model: PollVote, include: [PerformancePost] }]

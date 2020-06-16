@@ -2,10 +2,11 @@ import gql from 'graphql-tag';
 
 /* User queries */
 export const GET_USERS_CURSOR = gql`
-    query ($limit: Int, $dateTimeCursor: DateTime) {
+    query ($limit: Int, $dateTimeCursor: DateTime, $sequelizeWhere: JSONObject) {
         getUsersCursor(
             limit: $limit,
-            dateTimeCursor: $dateTimeCursor
+            dateTimeCursor: $dateTimeCursor,
+            sequelizeWhere: $sequelizeWhere
         )
         @connection(key: "getUsersCursor") {
             name
