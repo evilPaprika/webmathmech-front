@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import {
     Arg,
+    Args,
     Authorized,
     Ctx,
     Mutation,
@@ -59,7 +60,7 @@ export default class UserResolver {
     }
 
     @Query(() => [User])
-    public async getUsersCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+    public async getUsersCursor(@Args() { limit, dateTimeCursor }: CursorPaginationInputs) {
         return User.findAll({
             limit,
             where: {

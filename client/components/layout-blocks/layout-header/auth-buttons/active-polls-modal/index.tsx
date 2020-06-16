@@ -11,6 +11,6 @@ interface Props {
 
 export const ActivePollsModal = memo(({ isOpen, close }: Props) => (
     <Modal title="Активные голосования" isOpen={isOpen} maxWidth="md" close={close}>
-        <PerformancesList filters={{ states: [PerformancePostState.Poll] }} />
+        <PerformancesList sequelizeWhere={{ state: [PerformancePostState.Poll] }} />
     </Modal>
 ));

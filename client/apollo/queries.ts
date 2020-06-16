@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 /* User queries */
 export const GET_USERS_CURSOR = gql`
     query ($limit: Int, $dateTimeCursor: DateTime) {
-        getUsersCursor(params: {
+        getUsersCursor(
             limit: $limit,
             dateTimeCursor: $dateTimeCursor
-        })
+        )
         @connection(key: "getUsersCursor") {
             name
             surname
@@ -100,10 +100,10 @@ export const GET_NEWS_POSTS = gql`
 
 export const GET_NEWS_POSTS_CURSOR = gql`
     query ($limit: Int, $dateTimeCursor: DateTime) {
-        getNewsPostsCursor(params: { 
+        getNewsPostsCursor(
             limit: $limit, 
             dateTimeCursor: $dateTimeCursor
-        }) 
+        ) 
         @connection(key: "getNewsPostsCursor") {
             id
             description
@@ -125,15 +125,12 @@ export const FIND_NEWS_POST = gql`
 
 /* Performances posts queries */
 export const GET_PERFORMANCE_POSTS_CURSOR = gql`
-    query ($limit: Int, $dateTimeCursor: DateTime, $filters: PerformancePaginationFiltersInput) {
+    query ($limit: Int, $dateTimeCursor: DateTime, $sequelizeWhere: JSONObject) {
         getPerformancePostsCursor(
-            params: 
-            { 
-                limit: $limit, 
-                dateTimeCursor: $dateTimeCursor,
-            },
-            filters: $filters
-        ) @connection(key: "getPerformancePostsCursor", filter: ["filters"]) {
+            limit: $limit, 
+            dateTimeCursor: $dateTimeCursor,
+            sequelizeWhere: $sequelizeWhere
+        ) @connection(key: "getPerformancePostsCursor", filter: ["sequelizeWhere"]) {
             id
             title
             description

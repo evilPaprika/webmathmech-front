@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 export type Maybe<T> = T | null;
+
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
     ID: string;
@@ -8,13 +10,10 @@ export type Scalars = {
     Float: number;
     /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
     DateTime: any;
+    /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+    JSONObject: any;
     /** The `Upload` scalar type represents a file upload. */
     Upload: any;
-};
-
-export type CursorPaginationInputs = {
-    limit?: Maybe<Scalars['Int']>;
-    dateTimeCursor?: Maybe<Scalars['DateTime']>;
 };
 
 
@@ -155,10 +154,6 @@ export type OffsetPaginationInputs = {
     order?: Maybe<Array<Scalars['String']>>;
 };
 
-export type PerformancePaginationFiltersInput = {
-    states?: Maybe<Array<PerformancePostState>>;
-};
-
 export type PerformancePost = {
     __typename?: 'PerformancePost';
     id: Scalars['ID'];
@@ -196,7 +191,6 @@ export type Query = {
     getNewsPosts: Array<NewsPost>;
     getNewsPostsCursor: Array<NewsPost>;
     findPerformancePost: PerformancePost;
-    getPerformancePosts: Array<PerformancePost>;
     getPerformancePostsCursor: Array<PerformancePost>;
     getActivePerformancePostsCount: Scalars['Float'];
     findVoteCurrentUser: PollVote;
@@ -218,7 +212,9 @@ export type QueryGetNewsPostsArgs = {
 
 
 export type QueryGetNewsPostsCursorArgs = {
-    params: CursorPaginationInputs;
+    limit?: Maybe<Scalars['Int']>;
+    dateTimeCursor?: Maybe<Scalars['DateTime']>;
+    sequelizeWhere?: Maybe<Scalars['JSONObject']>;
 };
 
 
@@ -227,15 +223,10 @@ export type QueryFindPerformancePostArgs = {
 };
 
 
-export type QueryGetPerformancePostsArgs = {
-    filters?: Maybe<PerformancePaginationFiltersInput>;
-    params: OffsetPaginationInputs;
-};
-
-
 export type QueryGetPerformancePostsCursorArgs = {
-    filters?: Maybe<PerformancePaginationFiltersInput>;
-    params: CursorPaginationInputs;
+    limit?: Maybe<Scalars['Int']>;
+    dateTimeCursor?: Maybe<Scalars['DateTime']>;
+    sequelizeWhere?: Maybe<Scalars['JSONObject']>;
 };
 
 
@@ -255,7 +246,9 @@ export type QueryGetUsersArgs = {
 
 
 export type QueryGetUsersCursorArgs = {
-    params: CursorPaginationInputs;
+    limit?: Maybe<Scalars['Int']>;
+    dateTimeCursor?: Maybe<Scalars['DateTime']>;
+    sequelizeWhere?: Maybe<Scalars['JSONObject']>;
 };
 
 export type Rating = {
