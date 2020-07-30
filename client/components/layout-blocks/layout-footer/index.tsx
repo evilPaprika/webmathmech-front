@@ -12,7 +12,7 @@ import { useStyles } from './styles';
 const FOOTER_LOGOS = [
     {
         SvgSocialIcon: LogoVK,
-        href: 'https://vk.com/webmathmech'
+        href: 'https://vk.com/webmatmex'
     },
     {
         SvgSocialIcon: LogoMail,
