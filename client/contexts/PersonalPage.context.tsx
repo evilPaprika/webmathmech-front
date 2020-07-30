@@ -24,7 +24,9 @@ interface IPersonalPageContext {
     loading: boolean;
 }
 
-export const PersonalPageContext = createContext<IPersonalPageContext>({} as IPersonalPageContext);
+const CONTEXT_VALUE_DEFAULT = {} as IPersonalPageContext;
+
+export const PersonalPageContext = createContext<IPersonalPageContext>(CONTEXT_VALUE_DEFAULT);
 
 export const PersonalPageContextProvider = ({ children }: {children: ReactElement}) => {
     const { enqueueSnackbar } = useSnackbar();

@@ -12,7 +12,9 @@ interface Props {
     filters?: PerformancePaginationFiltersInput;
 }
 
-export const PerformanceListContext = createContext<IPerformanceListContext>({} as IPerformanceListContext);
+const CONTEXT_VALUE_DEFAULT = {};
+
+export const PerformanceListContext = createContext<IPerformanceListContext>(CONTEXT_VALUE_DEFAULT);
 
 export const PerformanceListContextProvider = ({ children, filters }: Props) => {
     return (
