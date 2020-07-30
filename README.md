@@ -20,5 +20,6 @@ npm run dev
 Зелинский Дмитрий  
   Telegram: @DmitryZeli  
   Vk: vk.com/id87823079  
+  mail: dima3.98@mail.ru
 
 Если возникнут вопросы, пишите
