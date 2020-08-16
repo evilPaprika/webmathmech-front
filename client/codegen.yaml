@@ -5,4 +5,5 @@ generates:
   ./client/types/generated.ts:
     schema: ./schema.graphql
     plugins:
+      - add: '/* eslint-disable max-len */'
       - typescript

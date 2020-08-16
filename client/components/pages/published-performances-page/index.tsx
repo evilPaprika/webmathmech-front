@@ -7,7 +7,7 @@ import { PageContainer, PerformancesList } from '_components/common';
 export const PublishedPerformancesPage = memo(() => {
     return (
         <PageContainer>
-            <PerformancesList filters={{ states: [PerformancePostState.Published] }} />
+            <PerformancesList sequelizeWhere={{ state: [PerformancePostState.Published] }} />
         </PageContainer>
     );
 });

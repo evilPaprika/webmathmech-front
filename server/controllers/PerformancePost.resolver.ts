@@ -1,4 +1,4 @@
-import { Op, WhereOptions } from 'sequelize';
+import { Op } from 'sequelize';
 import {
     Arg,
     Args,
@@ -16,11 +16,10 @@ import PerformancePost, { Rating } from '../models/PerformancePost.sequelize';
 import PollVote from '../models/PollVote.sequelize';
 import User from '../models/User.sequelize';
 import { ApolloServerContext } from '../types';
-import { CursorPaginationInputs, OffsetPaginationInputs } from './inputs/PaginationInputs';
+import { CursorPaginationInputs } from './inputs/PaginationInputs';
 import {
     CreatePerformancePostInput,
     PatchPerformancePostInputs,
-    PerformancePaginationFiltersInput
 } from './inputs/PerformancePostInputs';
 
 
@@ -54,39 +53,14 @@ export default class PerformancePostResolver {
     }
 
     @Query(() => [PerformancePost])
-    public async getPerformancePosts(@Arg('params') { limit, offset, order }: OffsetPaginationInputs,
-        @Arg('filters', { nullable: true }) { states }: PerformancePaginationFiltersInput) {
-        const where: WhereOptions = { };
-
-        if (states) {
-            where.state = {
-                [Op.in]: states
-            };
-        }
-
-        return PerformancePost.findAll({
-            offset,
-            limit,
-            where,
-            order: [order],
-            include: [User, { model: PollVote, include: [User] }]
-        });
-    }
-
-    @Query(() => [PerformancePost])
-    public async getPerformancePostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs,
-        @Arg('filters', { nullable: true }) { states }: PerformancePaginationFiltersInput = {}) {
-        const where: WhereOptions = { createdAt: { [Op.lt]: dateTimeCursor } };
-
-        if (states) {
-            where.state = {
-                [Op.in]: states
-            };
-        }
-
+    public async getPerformancePostsCursor(@Args() {
+        limit,
+        dateTimeCursor,
+        sequelizeWhere
+    }: CursorPaginationInputs,) {
         return PerformancePost.findAll({
             limit,
-            where,
+            where: { createdAt: { [Op.lt]: dateTimeCursor }, ...sequelizeWhere },
             order: [['createdAt', 'DESC']],
             include: [User, { model: PollVote, include: [User] }]
         });

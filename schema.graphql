@@ -3,15 +3,15 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input CursorPaginationInputs {
-  limit: Int = 10
-  dateTimeCursor: DateTime = "+275760-09-13T00:00:00.000Z"
-}
-
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
 
 type Mutation {
   userSignIn(login: String!, password: String!): Token!
@@ -43,10 +43,6 @@ input OffsetPaginationInputs {
   limit: Int = 10
   offset: Int = 0
   order: [String!] = ["createdAt", "DESC"]
-}
-
-input PerformancePaginationFiltersInput {
-  states: [PerformancePostState!]
 }
 
 type PerformancePost {
@@ -81,16 +77,15 @@ type PollVote {
 type Query {
   findNewsPost(id: String!): NewsPost!
   getNewsPosts(params: OffsetPaginationInputs!): [NewsPost!]!
-  getNewsPostsCursor(params: CursorPaginationInputs!): [NewsPost!]!
+  getNewsPostsCursor(limit: Int = 10, dateTimeCursor: DateTime = "+275760-09-13T00:00:00.000Z", sequelizeWhere: JSONObject): [NewsPost!]!
   findPerformancePost(id: String!): PerformancePost!
-  getPerformancePosts(filters: PerformancePaginationFiltersInput, params: OffsetPaginationInputs!): [PerformancePost!]!
-  getPerformancePostsCursor(filters: PerformancePaginationFiltersInput, params: CursorPaginationInputs!): [PerformancePost!]!
+  getPerformancePostsCursor(limit: Int = 10, dateTimeCursor: DateTime = "+275760-09-13T00:00:00.000Z", sequelizeWhere: JSONObject): [PerformancePost!]!
   getActivePerformancePostsCount: Float!
   findVoteCurrentUser(performanceId: String!): PollVote!
   getCurrentUser: User!
   findUser(login: String!): User!
   getUsers(params: OffsetPaginationInputs!): [User!]!
-  getUsersCursor(params: CursorPaginationInputs!): [User!]!
+  getUsersCursor(limit: Int = 10, dateTimeCursor: DateTime = "+275760-09-13T00:00:00.000Z", sequelizeWhere: JSONObject): [User!]!
 }
 
 type Rating {

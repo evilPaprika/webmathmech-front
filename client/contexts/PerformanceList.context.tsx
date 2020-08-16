@@ -1,24 +1,24 @@
 import React, { createContext, ReactElement } from 'react';
 
-import { PerformancePaginationFiltersInput } from '_client/types';
+import { QueryGetNewsPostsCursorArgs } from '_client/types';
 
 
 interface IPerformanceListContext {
-    filters?: PerformancePaginationFiltersInput;
+    sequelizeWhere?: QueryGetNewsPostsCursorArgs['sequelizeWhere'];
 }
 
 interface Props {
     children: ReactElement;
-    filters?: PerformancePaginationFiltersInput;
+    sequelizeWhere?: QueryGetNewsPostsCursorArgs['sequelizeWhere'];
 }
 
 const CONTEXT_VALUE_DEFAULT = {};
 
 export const PerformanceListContext = createContext<IPerformanceListContext>(CONTEXT_VALUE_DEFAULT);
 
-export const PerformanceListContextProvider = ({ children, filters }: Props) => {
+export const PerformanceListContextProvider = ({ children, sequelizeWhere }: Props) => {
     return (
-        <PerformanceListContext.Provider value={{ filters }}>
+        <PerformanceListContext.Provider value={{ sequelizeWhere }}>
             {children}
         </PerformanceListContext.Provider>
     );

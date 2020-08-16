@@ -63,7 +63,7 @@ const applyDefaultState = (item?: PerformancePost): ModalState => (
 );
 
 export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id }: Props) => {
-    const { filters } = useContext(PerformanceListContext);
+    const { sequelizeWhere } = useContext(PerformanceListContext);
     const { enqueueSnackbar } = useSnackbar();
     const { data, loading: findLoading } = useQuery<PerformancePostData>(
         FIND_PERFORMANCE_POST,
@@ -97,12 +97,12 @@ export const PerformancePostModal = memo(({ isOpen, close, performancePostId: id
             update: (dataProxy, mutationResult) => {
                 if (isCreate) {
                     const performancePostData = dataProxy.readQuery<PerformancePostsCursorData>(
-                        { query: GET_PERFORMANCE_POSTS_CURSOR, variables: { filters } }
+                        { query: GET_PERFORMANCE_POSTS_CURSOR, variables: { sequelizeWhere } }
                     );
                     if (performancePostData) {
                         dataProxy.writeQuery({
                             query: GET_PERFORMANCE_POSTS_CURSOR,
-                            variables: { filters },
+                            variables: { sequelizeWhere },
                             data: {
                                 getPerformancePostsCursor: [
                                     mutationResult.data.createPerformancePost,

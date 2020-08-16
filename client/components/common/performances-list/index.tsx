@@ -6,7 +6,6 @@ import { GET_CURRENT_USER, GET_PERFORMANCE_POSTS_CURSOR } from '_apollo/queries'
 import { PERFORMANCE_POSTS_LIMIT } from '_client/consts';
 import { useModal } from '_client/hooks';
 import {
-    PerformancePaginationFiltersInput,
     PerformancePost,
     PerformancePostsCursorData,
     Role,
@@ -21,12 +20,12 @@ import { PerformanceListContextProvider } from '_contexts/PerformanceList.contex
 
 
 interface Props {
-    filters?: PerformancePaginationFiltersInput;
+    sequelizeWhere?: PerformancePaginationFiltersInput;
 }
 
 const DEFAULT_PERFORMANCES_LIST: Array<PerformancePost> = [];
 
-export const PerformancesList = memo(({ filters }: Props) => {
+export const PerformancesList = memo(({ sequelizeWhere }: Props) => {
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [isOpenModal, openModal, closeModal] = useModal();
     const { data: userData } = useQuery<UserData>(GET_CURRENT_USER);
@@ -34,7 +33,7 @@ export const PerformancesList = memo(({ filters }: Props) => {
 
     const { data, fetchMore, error, loading, client } = useQuery<PerformancePostsCursorData>(
         GET_PERFORMANCE_POSTS_CURSOR, {
-            variables: { filters, limit: PERFORMANCE_POSTS_LIMIT },
+            variables: { sequelizeWhere, limit: PERFORMANCE_POSTS_LIMIT },
             fetchPolicy: 'cache-and-network'
         },
     );
@@ -50,13 +49,13 @@ export const PerformancesList = memo(({ filters }: Props) => {
         const posts = client
             .readQuery<PerformancePostsCursorData>({
                 query: GET_PERFORMANCE_POSTS_CURSOR,
-                variables: { filters }
+                variables: { sequelizeWhere }
             })
             ?.getPerformancePostsCursor || [];
         const lastPost = posts[posts.length - 1];
 
         fetchMore({
-            variables: { dateTimeCursor: lastPost.createdAt, limit: PERFORMANCE_POSTS_LIMIT, filters },
+            variables: { dateTimeCursor: lastPost.createdAt, limit: PERFORMANCE_POSTS_LIMIT, sequelizeWhere },
             updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult?.getPerformancePostsCursor?.length) {
                     return prev;
@@ -75,7 +74,7 @@ export const PerformancesList = memo(({ filters }: Props) => {
     };
 
     return (
-        <PerformanceListContextProvider filters={filters}>
+        <PerformanceListContextProvider sequelizeWhere={sequelizeWhere}>
             <Container disableGutters>
                 <InfiniteScroll loading={loading} loadMore={fetchMoreData} hasMore={hasMore}>
                     {items.map((item) => <PerformanceCard item={item} key={item.id} />)}

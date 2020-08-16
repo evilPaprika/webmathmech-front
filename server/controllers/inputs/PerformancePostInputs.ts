@@ -1,5 +1,5 @@
 import { Length, MinLength } from 'class-validator';
-import { ArgsType, Field, InputType } from 'type-graphql';
+import { ArgsType, Field } from 'type-graphql';
 
 import { PerformancePostState } from '../../models/EnumModels';
 import PerformancePost from '../../models/PerformancePost.sequelize';
@@ -70,10 +70,4 @@ export class PatchPerformancePostInputs implements Partial<PerformancePost> {
         message: 'Обязательное поле "Спикер" не заполнено!'
     })
     public speakerId?: string;
-}
-
-@InputType()
-export class PerformancePaginationFiltersInput {
-    @Field(() => [PerformancePostState], { nullable: true })
-    public states?: PerformancePostState[];
 }

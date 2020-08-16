@@ -44,7 +44,7 @@ export default class NewsPostResolver {
     }
 
     @Query(() => [NewsPost])
-    public async getNewsPostsCursor(@Arg('params') { limit, dateTimeCursor }: CursorPaginationInputs) {
+    public async getNewsPostsCursor(@Args() { limit, dateTimeCursor }: CursorPaginationInputs) {
         return NewsPost.findAll({
             limit,
             where: {

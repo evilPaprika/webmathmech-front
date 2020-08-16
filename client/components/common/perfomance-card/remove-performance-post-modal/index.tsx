@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, close }: Props) => {
-    const { filters } = useContext(PerformanceListContext);
+    const { sequelizeWhere } = useContext(PerformanceListContext);
     const { enqueueSnackbar } = useSnackbar();
     const [removePerformancePost, { loading }] = useMutation(
         REMOVE_PERFORMANCE_POST,
@@ -30,13 +30,13 @@ export const RemovePerformancePostModal = memo(({ performancePostId, isOpen, clo
             update(dataProxy) {
                 const data = dataProxy?.readQuery<PerformancePostsCursorData>({
                     query: GET_PERFORMANCE_POSTS_CURSOR,
-                    variables: { filters }
+                    variables: { sequelizeWhere }
                 });
                 if (data) {
                     const updatedData = data.getPerformancePostsCursor.filter((post) => post.id !== performancePostId);
                     dataProxy?.writeQuery({
                         query: GET_PERFORMANCE_POSTS_CURSOR,
-                        variables: { filters },
+                        variables: { sequelizeWhere },
                         data: { getPerformancePostsCursor: updatedData }
                     });
                 }
