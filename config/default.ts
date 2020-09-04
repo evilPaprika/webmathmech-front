@@ -13,7 +13,7 @@ const port = parseInt(process.env.PORT || '3000', 10);
 const config: Config = {
     environment: 'development',
     port,
-    databaseURL: process.env.DB_URL || throwError('process.env.DB_URL is not specified 😢'),
+    databaseURL: process.env.DB_URL_TESTING || throwError('process.env.DB_URL is not specified 😢'),
     JWTSecret: process.env.JWT_SECRET || throwError('process.env.JWT_SECRET is not specified 😢'),
     vkOAuth: {
         redirectURI: `http://localhost:${port}/auth/vk`,
