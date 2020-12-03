@@ -1,6 +1,6 @@
 # webmathmech-front
 
-Вебсайт: https://webmathmech.site/
+Вебсайт: https://webmathmech.site/ (домен истек, но зайти еще можно по прямому адресу 85.115.173.224)
 
 Трекер задач: https://app.zenhub.com/workspaces/webmathmech-5de0d89f2c126d26cc7c708a
 
